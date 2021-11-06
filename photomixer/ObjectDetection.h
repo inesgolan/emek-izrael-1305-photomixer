@@ -11,9 +11,12 @@
 #define WHITE 255
 #define BLACK 0
 
+#define DARKER 50
+#define RANGE 20
+#define BRIGHT 200
+
 using namespace cv;
 
-//check about &
 class ObjectDetection
 {
 private:

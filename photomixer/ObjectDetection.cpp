@@ -1,83 +1,38 @@
-#include "objectDetection.h"
+#include "ObjectDetection.h"
 
-
-void ObjectDetection::makeColorDarker(Mat& color)
-{
-	for (int i = 0; i < color.rows; i++)
-	{
-		for (int j = 0; j < color.cols; j++)
-		{
-			makeDarker(color.at<Vec3b>(i, j));
-		}
-	}
-}
-
-
-//get the avg of the darkest pixels in the image
-int ObjectDetection::getDarkestAvg()
-{
-	int avg = 255;
-	int pixelAvg = 0;
-	Vec3b rgbVector;
-
-	for (int i = 0; i < _image.rows; i++)
-	{
-		for (int j = 0; j < _image.cols; j++)
-		{
-			rgbVector = _image.at<Vec3b>(i, j);
-			//get pixel avg
-			pixelAvg = (int)rgbVector[RED] + (int)rgbVector[GREEN] + (int)rgbVector[BLUE];
-			pixelAvg = pixelAvg / 3;
-
-			if (pixelAvg < avg)
-			{
-				avg = pixelAvg;
-			}
-
-			pixelAvg = 0;
-		}
-	}
-
-	std::cout << "dark avg " << avg << std::endl;
-	if (avg == BLACK) 
-	{
-		avg = 5;
-	}
-	else //to put a range for the pixels
-	{
-		avg *= 3; //change for each pic
-	}
-	std::cout << "chaged dark avg " << avg << std::endl;
-
-	return avg;
-}
-
-
-//c'tor
-ObjectDetection::ObjectDetection(Mat image) 
+/*
+This function is the constructor
+Input: the object image mat
+Output: none
+*/
+ObjectDetection::ObjectDetection(Mat image)
 {
 	this->_image = image;
 
 	//create mat for each RGB color channel im the size of the image
-	_redChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("red.png", _redChannel);
-	_redChannel = imread("red.png");
+	_blueChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
+	cv::imwrite("blue.png", _blueChannel);
+	_blueChannel = imread("blue.png");
 
 	_greenChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
 	cv::imwrite("green.png", _greenChannel);
 	_greenChannel = imread("green.png");
 
-	_blueChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("blue.png", _blueChannel);
-	_blueChannel = imread("blue.png");
+	_redChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
+	cv::imwrite("red.png", _redChannel);
+	_redChannel = imread("red.png");
 
-	//empty matte
+	//create empty matte 
 	_matte = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
 	cv::imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
 }
 
-//dtor
+/*
+This function is the distructor - clears the mat
+Input: none
+Output: none
+*/
 ObjectDetection::~ObjectDetection()
 {
 	this->_image.release();
@@ -87,8 +42,7 @@ ObjectDetection::~ObjectDetection()
 	this->_matte.release();
 }
 
-
-//seters
+//setters
 void ObjectDetection::setImage(Mat image)
 {
 	_image = image;
@@ -119,7 +73,7 @@ void ObjectDetection::setMatteColorChoice(std::string color)
 	_matteColorChoice = color;
 }
 
-//geters
+//getters
 Mat ObjectDetection::getImage()
 {
 	return _image;
@@ -145,77 +99,151 @@ Mat ObjectDetection::getMatte()
 	return _matte;
 }
 
+/*
+This function make the color mat darker
+Input: color mat
+Output: none
+*/
+void ObjectDetection::makeColorDarker(Mat& color)
+{
+	for (int i = 0; i < color.rows; i++)
+	{
+		for (int j = 0; j < color.cols; j++)
+		{
+			makeDarker(color.at<Vec3b>(i, j));
+		}
+	}
+}
 
-//get color grayscale channels
+/*
+This function get the avg of the darkest pixels in the object image
+Input: none
+Output: the avg
+*/
+int ObjectDetection::getDarkestAvg()
+{
+	int avg = WHITE;
+	int pixelAvg = 0;
+	Vec3b rgbVector;
+
+	for (int i = 0; i < _image.rows; i++)
+	{
+		for (int j = 0; j < _image.cols; j++)
+		{
+			//get the image color channels
+			rgbVector = _image.at<Vec3b>(i, j); 
+			//get pixel avg
+			pixelAvg = (int)rgbVector[RED] + (int)rgbVector[GREEN] + (int)rgbVector[BLUE];
+			pixelAvg = pixelAvg / 3;
+
+			if (pixelAvg < avg) 
+			{
+				avg = pixelAvg;
+			}
+			pixelAvg = 0;
+		}
+	}
+
+	std::cout << "dark avg " << avg << std::endl;
+	//put a range for the dark pixels - need to change for eash picture
+	if (avg == BLACK) 
+	{
+		avg = 5;
+	}
+	else 
+	{
+		avg *= 3; 
+	}
+	std::cout << "chaged dark avg " << avg << std::endl;
+
+	return avg;
+}
+
+/*
+This function get the colors channels grayscale mat from the image
+Input: none
+Output: none
+*/
 void ObjectDetection::getImageChannels()
 {
 	for (int i = 0; i < _image.rows; i++)
 	{
 		for (int j = 0; j < _image.cols; j++)
 		{
-			// Red
-			_redChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[2];
-			_redChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[2];
-			_redChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[2];
+			// Blue
+			_blueChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[BLUE];
+			_blueChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[BLUE];
+			_blueChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[BLUE];
 
 			// Green
-			_greenChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[1];
-			_greenChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[1];
-			_greenChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[1];
+			_greenChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[GREEN];
+			_greenChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[GREEN];
+			_greenChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[GREEN];
 
-			// Blue
-			_blueChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[0];
-			_blueChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[0];
-			_blueChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[0];
+			// Red
+			_redChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[RED];
+			_redChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[RED];
+			_redChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[RED];
 		}
 	}
 
 	//save the changes in the pictures
-	cv::imwrite("red.png", _redChannel);
-	cv::imwrite("green.png", _greenChannel);
 	cv::imwrite("blue.png", _blueChannel);
+	cv::imwrite("green.png", _greenChannel);
+	cv::imwrite("red.png", _redChannel);
 }
 
-
+/*
+This function make the colors channels mat darker 
+Input: the colors channels vector
+Output: none
+*/
 void ObjectDetection::makeDarker(Vec3b& rgbVector)
 {
-	if (rgbVector[RED] >= 50)
+	if (rgbVector[BLUE] >= DARKER)
 	{
-		rgbVector[RED] -= 50;
+		rgbVector[BLUE] -= DARKER;
 	}
-	if (rgbVector[BLUE] >= 50)
+	if (rgbVector[GREEN] >= DARKER)
 	{
-		rgbVector[BLUE] -= 50;
+		rgbVector[GREEN] -= DARKER;
 	}
-	if (rgbVector[GREEN] >= 50)
+	if (rgbVector[RED] >= DARKER)
 	{
-		rgbVector[GREEN] -= 50;
+		rgbVector[RED] -= DARKER;
 	}
+
 	// if smaller than 50 , change to 0 
-	if (rgbVector[RED] < 50)
+	if (rgbVector[BLUE] < DARKER)
 	{
-		rgbVector[RED] = 0;
+		rgbVector[BLUE] = BLACK;
 	}
-	if (rgbVector[BLUE] < 50)
+	if (rgbVector[GREEN] < DARKER)
 	{
-		rgbVector[BLUE] = 0;
+		rgbVector[GREEN] = BLACK;
 	}
-	if (rgbVector[GREEN] < 50)
+	if (rgbVector[RED] < DARKER)
 	{
-		rgbVector[GREEN] = 0;
+		rgbVector[RED] = BLACK;
 	}
 }
 
-
-// make the back and white picture (called matte)
+/*
+This function make a matte for the given color channel mat
+Input: avg - the pixels average in the mat
+		color - the color channel mat
+		name - the name of the color channel picture
+Output: none
+*/
 void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 {
-	Mat new_img(color.rows, color.cols, CV_64FC1);
-	cv::imwrite(name, new_img);
+	//create the matte
+	Mat tempMatte(color.rows, color.cols, CV_64FC1);
+	cv::imwrite(name, tempMatte);
 	Mat matte = imread(name);
 
 	int pixelAvgGrayScale = 0;
-	Vec3b rgbVector;
+	Vec3b rgbVectorGrayScale;
 
 	int pixelAvgImage = 0;
 	Vec3b rgbVectorImage;
@@ -226,10 +254,10 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 	{
 		for (int j = 0; j < color.cols; j++)
 		{
-			rgbVector = color.at<Vec3b>(i, j);
+			rgbVectorGrayScale = color.at<Vec3b>(i, j);
 
 			//get pixel avg
-			pixelAvgGrayScale = (int)rgbVector[RED] + (int)rgbVector[GREEN] + (int)rgbVector[BLUE];
+			pixelAvgGrayScale = (int)rgbVectorGrayScale[RED] + (int)rgbVectorGrayScale[GREEN] + (int)rgbVectorGrayScale[BLUE];
 			pixelAvgGrayScale = pixelAvgGrayScale / 3;
 
 			rgbVectorImage = _image.at<Vec3b>(i, j);
@@ -240,31 +268,37 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 			
 			if (pixelAvgGrayScale >= avg) // lighter pixels - the object
 			{
-				matte.at<Vec3b>(i, j)[0] = WHITE;
-				matte.at<Vec3b>(i, j)[1] = WHITE;
-				matte.at<Vec3b>(i, j)[2] = WHITE;
+				matte.at<Vec3b>(i, j)[BLUE] = WHITE;
+				matte.at<Vec3b>(i, j)[GREEN] = WHITE;
+				matte.at<Vec3b>(i, j)[RED] = WHITE;
 			}
 			else // darker pixels
 			{
-				if (pixelAvgImage < _darkestAvg + 20) //range of darker parts of the object
+				if (pixelAvgImage < _darkestAvg + RANGE) //need to check when we don't need to color the object
 				{
-					matte.at<Vec3b>(i, j)[0] = WHITE;
-					matte.at<Vec3b>(i, j)[1] = WHITE;
-					matte.at<Vec3b>(i, j)[2] = WHITE;
+					matte.at<Vec3b>(i, j)[BLUE] = WHITE;
+					matte.at<Vec3b>(i, j)[GREEN] = WHITE;
+					matte.at<Vec3b>(i, j)[RED] = WHITE;
 				}
 				else
 				{
-					matte.at<Vec3b>(i, j)[0] = BLACK;
-					matte.at<Vec3b>(i, j)[1] = BLACK;
-					matte.at<Vec3b>(i, j)[2] = BLACK;
+					matte.at<Vec3b>(i, j)[BLUE] = BLACK;
+					matte.at<Vec3b>(i, j)[GREEN] = BLACK;
+					matte.at<Vec3b>(i, j)[RED] = BLACK;
 				}
 			}
 		}
 	}
-	cv::imwrite(name, matte); // save the chanes in the picture
+
+	// save the chanes in the picture
+	cv::imwrite(name, matte); 
 }
 
-
+/*
+This function gets the pixels average in given mat
+Input:  color - the color channel mat
+Output: the aveage
+*/
 int ObjectDetection::getPixelsAvg(Mat color)
 {
 	int pixelAvg = 0, avg = 0, count = 0;
@@ -290,7 +324,11 @@ int ObjectDetection::getPixelsAvg(Mat color)
 	return avg;
 }
 
-
+/*
+This function find the object in the image and show the matte
+Input: none
+Output: none
+*/
 void ObjectDetection::findObject()
 {
 	int avg = 0;
@@ -299,9 +337,10 @@ void ObjectDetection::findObject()
 	_darkestAvg = getDarkestAvg();
 
 	std::cout << "image avg " << avg << std::endl;
-	if (avg < 200) //the image is darker
+	if (avg < BRIGHT) //the image is darker
 	{
-		//make image darker to find object
+		//make image darker in each color channel to find object
+
 		makeColorDarker(_redChannel);
 		avg = getPixelsAvg(_redChannel);
 		makeDarkestMatte(avg,_redChannel, "red.png");
@@ -313,66 +352,63 @@ void ObjectDetection::findObject()
 		makeColorDarker(_blueChannel);
 		avg = getPixelsAvg(_blueChannel);
 		makeDarkestMatte(avg, _blueChannel, "blue.png");
-
 	}
 
 	choseMatte();
-
 	//set new matte
 	if (_matteColorChoice == "red")
 	{
-		setMatte(_redChannel);
-		std::cout << "im redddd\n";
+		_matte = _redChannel;
 	}
 	else if (_matteColorChoice == "blue")
 	{
-		setMatte(_blueChannel);
-		std::cout << "im blueee\n";
+		_matte = _blueChannel;
 	}
 	else
 	{
-		setMatte(_greenChannel);
-		std::cout << "im greennnnn\n";
+		_matte = _greenChannel;
 	}
 
-
+	//save changes to matte picture and show it
 	cv::imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
 	cv::imshow("matte.png", _matte);
 	cv::waitKey(0);
 }
 
-
+/*
+This function chose the matte that identify the object the best
+Input: none
+Output: none
+*/
 void ObjectDetection::choseMatte()
 {
 	int redAvg = 0, greenAvg = 0, blueAvg = 0;
 
+	//check which color is more in the image
 	redAvg = getPixelsAvg(_redChannel);
 	greenAvg = getPixelsAvg(_greenChannel);
 	blueAvg = getPixelsAvg(_blueChannel);
-
 	std::cout << "\n\nredAvg: " << redAvg << "\n";
 	std::cout << "greenAvg: " << greenAvg << "\n";
 	std::cout << "blueAvg: " << blueAvg << "\n";
 
-	if (redAvg > greenAvg && redAvg > blueAvg)
+	if (redAvg > greenAvg && redAvg > blueAvg) //chose the highet avg
 	{
-		setMatteColorChoice("red");
-		std::cout << "im redddd\n";
+		_matteColorChoice = "red";
 	}
 	else if (blueAvg > greenAvg && blueAvg > redAvg)
 	{
-		setMatteColorChoice("blue");
-		std::cout << "im blueeee\n";
+		_matteColorChoice = "blue";
 	}
 	else
 	{
-		setMatteColorChoice("green");
-		std::cout << "im greennn\n";
+		_matteColorChoice = "green";
 	}
 
+	std::cout << "chosen matte: " << _matteColorChoice << std::endl;
 
-	setRed(imread("red.png"));
-	setGreen(imread("green.png"));
-	setBlue(imread("blue.png"));
+	_redChannel = imread("red.png");
+	_greenChannel = imread("green.png");
+	_blueChannel = imread("blue.png");
 }
