@@ -17,8 +17,8 @@ checkObjectImage::~checkObjectImage()
 /*
 This function will check if the picture is only black and white
 Input: none
-Output: true - the picture is not only black and white
-		false - the picture is only black and white
+Output: true - the picture is only black and white
+		false - the picture is not only black and white
 */
 bool checkObjectImage::checkBlackAndWhite()
 {
