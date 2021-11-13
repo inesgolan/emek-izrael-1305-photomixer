@@ -21,9 +21,15 @@
     <ClCompile Include="ObjectDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="checkObjectImage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ObjectDetection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="checkObjectImage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
