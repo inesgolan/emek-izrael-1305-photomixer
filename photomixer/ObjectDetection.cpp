@@ -152,7 +152,7 @@ int ObjectDetection::getDarkestAvg()
 	}
 	else 
 	{
-		avg *= 3; 
+		avg *= 3;
 	}
 	std::cout << "chaged dark avg " << avg << std::endl;
 
@@ -372,8 +372,8 @@ void ObjectDetection::findObject()
 	//save changes to matte picture and show it
 	cv::imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
-	cv::imshow("matte.png", _matte);
-	cv::waitKey(0);
+	//cv::imshow("matte.png", _matte);
+	//cv::waitKey(0);
 }
 
 /*
@@ -411,4 +411,71 @@ void ObjectDetection::choseMatte()
 	_redChannel = imread("red.png");
 	_greenChannel = imread("green.png");
 	_blueChannel = imread("blue.png");
+}
+
+void ObjectDetection::improvObjectColoring()
+{
+	cv::imshow("matte.png", _matte);
+	cv::waitKey(0);
+
+	Vec3b rgbVector;
+
+	for (int i = 0; i < _matte.rows; i++)
+	{
+		for (int j = 0; j < _matte.cols; j++)
+		{
+			rgbVector = _image.at<Vec3b>(i, j);
+			if ((int)rgbVector[RED] == BLACK && (int)rgbVector[GREEN] == BLACK && (int)rgbVector[BLUE] == BLACK)
+			{
+				if (getPixelFrame(i, j)) //NOT ONLY ONE PIXEL
+				{
+					_matte.at<Vec3b>(i, j)[BLUE] = WHITE;
+					_matte.at<Vec3b>(i, j)[GREEN] = WHITE;
+					_matte.at<Vec3b>(i, j)[RED] = WHITE;
+				}
+			}
+		}
+	}
+}
+
+//corners
+bool ObjectDetection::getPixelFrame(int x, int y)
+{
+	bool isAllWhite = false;
+	Vec3b rgbVector;
+	int num = 0;
+
+
+	for (int i = 0; i < this->_matte.rows; i++)
+	{
+		for (int j = 0; j < this->_matte.cols; j++)
+		{
+			rgbVector = _image.at<Vec3b>(i, j);
+
+			// שורה למעלה
+			for (int k = 0; k < num; k++) // right
+			{
+				if (_image.at<Vec3b>(i + k, j)[0] == BLACK && _image.at<Vec3b>(i + k, j)[1] == BLACK && _image.at<Vec3b>(i + k, j)[2] == BLACK)
+				{
+					return false;
+				}
+			}
+
+			for (int k = 0; k < num; k++) // left
+			{
+				if (_image.at<Vec3b>(i + k, j)[0] == BLACK && _image.at<Vec3b>(i + k, j)[1] == BLACK && _image.at<Vec3b>(i + k, j)[2] == BLACK)
+				{
+					return false;
+				}
+			}
+
+			// שורה למטה
+			// טור ימינה
+			// טור שמאלה
+
+
+			num++;
+		}
+	}
+
 }
