@@ -12,6 +12,7 @@
 #define BLACK 0
 
 #define DARKEST_GRAY 35
+#define BRIGHTEST_GRAY 220
 
 using namespace cv;
 
@@ -19,6 +20,7 @@ class checkObjectImage
 {
 private:
 	Mat _image;
+	int countOfPixels;
 
 public:
 	checkObjectImage(Mat image); 
@@ -26,6 +28,6 @@ public:
 
 	bool checkBlackAndWhite();
 	bool checkTooDark();
-	bool checkTooBright(); // לספןר פיקסלים
+	bool checkTooBright(); 
 };
 

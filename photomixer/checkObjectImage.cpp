@@ -4,6 +4,19 @@
 checkObjectImage::checkObjectImage(Mat image)
 {
 	this->_image = image;
+
+	Vec3b rgbVector;
+	int count = 0;
+
+	for (int i = 0; i < this->_image.rows; i++)
+	{
+		for (int j = 0; j < this->_image.cols; j++)
+		{
+			count++;
+		}
+	}
+
+	this->countOfPixels = count;
 }
 
 
@@ -34,7 +47,8 @@ bool checkObjectImage::checkBlackAndWhite()
 
 			if ((rgbVector[BLUE] == WHITE && rgbVector[RED] == WHITE && rgbVector[GREEN] == WHITE)
 				|| (rgbVector[BLUE] == BLACK && rgbVector[RED] == BLACK && rgbVector[GREEN] == BLACK)
-				|| (rgbVector[BLUE] <= DARKEST_GRAY && rgbVector[RED] <= DARKEST_GRAY && rgbVector[GREEN] <= DARKEST_GRAY))
+				|| (rgbVector[BLUE] <= DARKEST_GRAY && rgbVector[RED] <= DARKEST_GRAY && rgbVector[GREEN] <= DARKEST_GRAY)
+				|| (rgbVector[BLUE] >= BRIGHTEST_GRAY && rgbVector[RED] >= BRIGHTEST_GRAY && rgbVector[GREEN] >= BRIGHTEST_GRAY))
 			{
 				temp = 0;
 			}
@@ -54,12 +68,34 @@ bool checkObjectImage::checkBlackAndWhite()
 
 
 /*
-This function will
-Input:
-Output:
+This function will check if some of the pixels in the picture are too dark 
+Input: none
+Output: true - the picture is too dark to recognize the object
+		false - the picture is not too dark to recognize the object
 */
 bool checkObjectImage::checkTooDark()
 {
+	bool check = false;
+	Vec3b rgbVector;
+	int count = 0;
+
+	for (int i = 0; i < this->_image.rows; i++)
+	{
+		for (int j = 0; j < this->_image.cols; j++)
+		{
+			rgbVector = _image.at<Vec3b>(i, j);
+
+			if (rgbVector[BLUE] <= DARKEST_GRAY && rgbVector[RED] <= DARKEST_GRAY && rgbVector[GREEN] <= DARKEST_GRAY)
+			{
+				count++;
+			}
+		}
+	}
+
+	if (this->countOfPixels*0.8 <= count)
+	{
+		return true;
+	}
 	return false;
 }
 
@@ -73,3 +109,4 @@ bool checkObjectImage::checkTooBright()
 {
 	return false;
 }
+

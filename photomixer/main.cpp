@@ -16,9 +16,9 @@ int main()
 	checkObjectImage checker = checkObjectImage(image);
 	ObjectDetection object = ObjectDetection(image);
 
-	if (checker.checkBlackAndWhite())
+	if (checker.checkBlackAndWhite() || checker.checkTooDark())
 	{
-		std::cout << "BLACK AND WHITE ERROR\n";
+		std::cout << "SOME ERROR\n";
 
 	}
 	else
