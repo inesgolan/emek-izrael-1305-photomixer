@@ -11,12 +11,12 @@ using namespace cv;
 
 int main()
 {
-	Mat image = imread("images/black.jpg");
+	Mat image = imread("images/bunny.jpg");
 
 	checkObjectImage checker = checkObjectImage(image);
 	ObjectDetection object = ObjectDetection(image);
 
-	if (checker.checkBlackAndWhite() || checker.checkTooDark())
+	if (checker.checkBlackAndWhite() || checker.checkTooDark() || checker.checkTooBright())
 	{
 		std::cout << "SOME ERROR\n";
 

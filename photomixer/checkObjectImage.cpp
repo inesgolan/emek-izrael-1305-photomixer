@@ -44,6 +44,7 @@ bool checkObjectImage::checkBlackAndWhite()
 		for (int j = 0; j < this->_image.cols; j++)
 		{
 			rgbVector = _image.at<Vec3b>(i, j);
+			//std::cout << (int)rgbVector[0] << " " << (int)rgbVector[1] << " " << (int)rgbVector[2] << "\n";
 
 			if ((rgbVector[BLUE] == WHITE && rgbVector[RED] == WHITE && rgbVector[GREEN] == WHITE)
 				|| (rgbVector[BLUE] == BLACK && rgbVector[RED] == BLACK && rgbVector[GREEN] == BLACK)
@@ -101,12 +102,34 @@ bool checkObjectImage::checkTooDark()
 
 
 /*
-This function will
-Input:
-Output:
+This function will check if some of the pixels in the picture are too bright
+Input: none
+Output: true - the picture is too bright to recognize the object
+		false - the picture is not too bright to recognize the object
 */
 bool checkObjectImage::checkTooBright()
 {
+	bool check = false;
+	Vec3b rgbVector;
+	int count = 0;
+
+	for (int i = 0; i < this->_image.rows; i++)
+	{
+		for (int j = 0; j < this->_image.cols; j++)
+		{
+			rgbVector = _image.at<Vec3b>(i, j);
+
+			if (rgbVector[BLUE] >= BRIGHTEST_GRAY && rgbVector[RED] >= BRIGHTEST_GRAY && rgbVector[GREEN] >= BRIGHTEST_GRAY)
+			{
+				count++;
+			}
+		}
+	}
+
+	if (this->countOfPixels * 0.8 <= count)
+	{
+		return true;
+	}
 	return false;
 }
 
