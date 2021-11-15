@@ -452,22 +452,25 @@ Output: bool - true - the pixel is in the middle of white area (the object area)
 */
 bool ObjectDetection::getPixelFrame(int x, int y)
 {
-	int num = 0;
+	int num = 0, halfRib = 0;
 
 	// add some if or while , to check if the num is too big to check, and then stop exit from the function
 	// check if the pixels is in the corner / or there is no longer place to check in (try catch?)
 	// need max size for the squre
 
-	//while (true)
-	while (x + k > _matte.rows || y + num > _matte.cols || x - k < _matte.rows || y - num < _matte.cols
-		|| x + num > _matte.rows || y + k > _matte.cols || x - num < _matte.rows || y - k < _matte.cols)
+	while (true)
 	{
-		if (checkPixelColor(x + k, y + num, num) && checkPixelColor(x - k, y + num, num) && checkPixelColor(x + k, y - num, num) && checkPixelColor(x - k, y - num, num)
-			&& checkPixelColor(x + num, y + k, num) && checkPixelColor(x - num, y + k, num) && checkPixelColor(x + num, y - k, num) && checkPixelColor(x - num, y - k, num))
+		while (x + num < _matte.rows || y + halfRib < _matte.cols || x - num > _matte.rows || y - halfRib > _matte.cols
+			|| x + halfRib < _matte.rows || y + num < _matte.cols || x - halfRib > _matte.rows || y - num > _matte.cols)
 		{
-			return true;
+			if (checkPixelColor(x + num, y + halfRib, halfRib) && checkPixelColor(x - num, y + halfRib, halfRib) && checkPixelColor(x + num, y - halfRib, halfRib) && checkPixelColor(x - num, y - halfRib, halfRib)
+				&& checkPixelColor(x + halfRib, y + num, halfRib) && checkPixelColor(x - halfRib, y + num, halfRib) && checkPixelColor(x + halfRib, y - num, halfRib) && checkPixelColor(x - halfRib, y - num, halfRib))
+			{
+				return true;
+			}
+			num++;
+			halfRib++;
 		}
-		num++;
 	}
 	return false;
 }
