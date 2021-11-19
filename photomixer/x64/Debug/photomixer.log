@@ -1,4 +1,4 @@
 ﻿  ObjectDetection.cpp
-C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\ObjectDetection.cpp(463,69): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\ObjectDetection.cpp(463,27): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
-  photomixer.vcxproj -> C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\x64\Debug\photomixer.exe
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\ObjectDetection.cpp(458,69): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\ObjectDetection.cpp(458,27): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+  photomixer.vcxproj -> C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\x64\Debug\photomixer.exe

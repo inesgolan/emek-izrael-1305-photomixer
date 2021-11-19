@@ -436,12 +436,7 @@ void ObjectDetection::improvObjectColoring()
 
 			if (rgbVector[RED] == BLACK || rgbVector[GREEN] == BLACK || rgbVector[BLUE] == BLACK)
 			{
-				if (getPixelFrame(i, j)) //color all pixels or just one?
-				{
-					_matte.at<Vec3b>(i, j)[BLUE] = WHITE;
-					_matte.at<Vec3b>(i, j)[GREEN] = WHITE;
-					_matte.at<Vec3b>(i, j)[RED] = WHITE;
-				}
+				getPixelFrame(i, j);
 			}
 		}
 	}
@@ -456,17 +451,16 @@ Input: int x, int y
 Output: bool - true - the pixel is in the middle of white area (the object area)
 			   false - the pixel is not in the middle of white area (the object area)
 */
-bool ObjectDetection::getPixelFrame(int x, int y)
+void ObjectDetection::getPixelFrame(int x, int y)
 {
-	int halfRib = 1, temp = 0;
+	int halfRib = 1, flag = 0;
 	bool isAllWhite = true;
-	int const max_squre_size = (this->_matte.rows * this->_matte.cols) * 0.3; // 0.15 because it can't be all of the picture
+	int const max_squre_size = (this->_matte.rows * this->_matte.cols) * 0.3; // 0.3 because it can't be all of the picture
 	
 	// check if the squere is still in the picture
-	// (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > _matte.rows && y - halfRib > _matte.cols )) 
-	//std::cout << x - halfRib << " ? " << _matte.rows << "\n";
 	while ((halfRib * halfRib * 4 < max_squre_size) 
-		&& (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > 0 && y - halfRib > 0 )) // need to check if the square is too big
+		&& (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > 0 && y - halfRib > 0 )
+		&& flag == 0) 
 	{
 		while (isAllWhite)
 		{
@@ -539,35 +533,45 @@ bool ObjectDetection::getPixelFrame(int x, int y)
 				}
 			}
 
-			if (isAllWhite)
+			if (isAllWhite) //finish the loop
 			{
-				temp = 1;
+				flag = 1;
 			}
 
 			isAllWhite = false;
 		}
 
-		if (temp == 1)
+		if (flag == 1)
 		{
-			return true;
+			colorAllSquare(x, y, halfRib);
 		}
-
-		isAllWhite = true;
-		temp = 0;
-		halfRib++;
+		else
+		{
+			isAllWhite = true;
+			flag = 0;
+			halfRib++;
+		}
 	}
-
-	return false;
 }
-
 
 /*
-This function will color all the black pixels inside the square
+This function will color all the black pixels inside the square area
 input: int x, int y, int halfRib
-output:
+output: none
 */
-void ObjectDetection::colorAllAquare(int x, int y, int halfRib)
+void ObjectDetection::colorAllSquare(int x, int y, int halfRib)
 {
-	
-}
+	int startX = x - halfRib;
+	int startY = y + halfRib;
 
+	for (int i = 0; i < 2 * halfRib; i++)
+	{		
+		for (int j = 0; j < 2 * halfRib; j++)
+		{
+			_matte.at<Vec3b>(startX, startY-j)[BLUE] = WHITE;
+			_matte.at<Vec3b>(startX, startY-j)[GREEN] = WHITE;
+			_matte.at<Vec3b>(startX, startY-j)[RED] = WHITE;
+		}
+		startX++;
+	}
+}
