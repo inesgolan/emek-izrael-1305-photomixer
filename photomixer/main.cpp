@@ -18,7 +18,7 @@ int main()
 
 	if (checker.checkBlackAndWhite() || checker.checkTooDark() || checker.checkTooBright())
 	{
-		std::cout << "SOME ERROR\n";
+		std::cout << "SOME ERROR - WE ARE NOT ABLE TO RECOGNIZE THE OBJECT IN THIS PICTURE" << std::endl;
 
 	}
 	else

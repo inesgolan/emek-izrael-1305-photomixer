@@ -13,6 +13,7 @@
 
 #define DARKEST_GRAY 35
 #define BRIGHTEST_GRAY 220
+#define MOST_OF_THE_PIXELS 0.8
 
 using namespace cv;
 
