@@ -372,8 +372,6 @@ void ObjectDetection::findObject()
 	//save changes to matte picture and show it
 	cv::imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
-	//cv::imshow("matte.png", _matte);
-	//cv::waitKey(0);
 
 	improvObjectColoring();
 }
