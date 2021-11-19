@@ -64,6 +64,6 @@ public:
 
 	void improvObjectColoring();
 	bool getPixelFrame(int x, int y);
-	bool checkPixelColor(int x, int y, int num);
+	void colorAllAquare(int x, int y, int halfRib);
 
 };

@@ -15,8 +15,6 @@ int main()
 
 	object.getImageChannels();
 	object.findObject();
-
-	//object.improvObjectColoring();
 		
 	return 0;
 }
