@@ -464,74 +464,15 @@ void ObjectDetection::getPixelFrame(int x, int y)
 	{
 		while (isAllWhite)
 		{
-			//  top line
-			for (int k = 0; k < halfRib; k++) // right
+			for (int k = 0; k < halfRib; k++)
 			{
-				if (_matte.at<Vec3b>(x + k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[RED] == BLACK)
+				if (!checkIfWhite(x + k, y + halfRib) || !checkIfWhite(x - k, y + halfRib) || !checkIfWhite(x + k, y - halfRib) || !checkIfWhite(x - k, y - halfRib) ||
+					!checkIfWhite(x + halfRib, y + k) || !checkIfWhite(x + halfRib, y - k) || !checkIfWhite(x - halfRib, y + k) || !checkIfWhite(x - halfRib, y - k))
 				{
 					isAllWhite = false;
 				}
 			}
 
-			for (int k = 0; k < halfRib; k++) // left 
-			{
-				if (_matte.at<Vec3b>(x - k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-
-			// bottom line
-			for (int k = 0; k < halfRib; k++) // right
-			{
-				if (_matte.at<Vec3b>(x + k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			for (int k = 0; k < halfRib; k++) // left 
-			{
-				if (_matte.at<Vec3b>(x - k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			// right col
-			for (int k = 0; k < halfRib; k++) // up
-			{
-				if (_matte.at<Vec3b>(x + halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			for (int k = 0; k < halfRib; k++) // down
-			{
-				if (_matte.at<Vec3b>(x + halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			// left col
-			for (int k = 0; k < halfRib; k++) // up
-			{
-				if (_matte.at<Vec3b>(x - halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			for (int k = 0; k < halfRib; k++) // down
-			{
-				if (_matte.at<Vec3b>(x - halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
 
 			if (isAllWhite) //finish the loop
 			{
@@ -552,6 +493,21 @@ void ObjectDetection::getPixelFrame(int x, int y)
 			halfRib++;
 		}
 	}
+}
+
+/*
+This function will check if some pixel is black or white
+input: int x, int y
+output: bool - true - white
+				false - black
+*/
+bool ObjectDetection::checkIfWhite(int x, int y)
+{
+	if (_matte.at<Vec3b>(x, y)[BLUE] == BLACK)
+	{
+		return false;
+	}
+	return true;
 }
 
 /*

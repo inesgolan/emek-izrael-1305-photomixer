@@ -64,5 +64,6 @@ public:
 
 	void improvObjectColoring();
 	void getPixelFrame(int x, int y);
+	bool checkIfWhite(int x, int y);
 	void colorAllSquare(int x, int y, int halfRib);
 };
