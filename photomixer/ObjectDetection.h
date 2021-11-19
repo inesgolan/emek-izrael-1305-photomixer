@@ -63,7 +63,7 @@ public:
 	void choseMatte();
 
 	void improvObjectColoring();
-	void getPixelFrame(int x, int y);
-	bool checkIfWhite(int x, int y);
-	void colorAllSquare(int x, int y, int halfRib);
+	void getPixelFrame(int x, int y, int type);
+	bool checkIfWhite(int x, int y, int type);
+	void colorAllSquare(int x, int y, int halfRib, int type);
 };

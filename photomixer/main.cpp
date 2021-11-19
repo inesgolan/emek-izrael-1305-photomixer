@@ -14,12 +14,11 @@ bool checkPath(std::string path);
 
 int main()
 {
-	std::string path = "images/trols.jpg";
+	std::string path = "images/dino.jpg";
 	while (!checkPath(path)) //path is invalid
 	{
-		std::cout << "please enter a valid path (image file): " << std::endl;
+		std::cout << "Please enter a valid path (image file): " << std::endl;
 		std::cin >> path;	
-		std::cout << "check " << path << std::endl;
 		//clean buffer
 		getchar();
 	}
