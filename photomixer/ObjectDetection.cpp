@@ -458,83 +458,119 @@ Output: bool - true - the pixel is in the middle of white area (the object area)
 */
 bool ObjectDetection::getPixelFrame(int x, int y)
 {
-	int halfRib = 0;
-	int const max_squre_size = (this->_matte.size().width * this->_matte.size().height) * 0.15; // 0.15?
+	int halfRib = 0, count = 0;
+	bool isAllWhite = true;
+	int const max_squre_size = (this->_matte.size().width * this->_matte.size().height) * 0.15; // 0.15 because it can't be all of the picture
 
-	// לבדוק כשהריבוע הוא על ההיקף עצמו
+	// check if the squere is still in the picture
+	// 4 because its 0.5*0.5
 	while ((halfRib * halfRib * 4 < max_squre_size) 
 		&& (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > _matte.rows && y - halfRib > _matte.cols)) // need to check if the square is too big
 	{
-
-		 //  top line
-		for (int k = 0; k < halfRib; k++) // right
+		while (isAllWhite)
 		{
-			if (_matte.at<Vec3b>(x + k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[RED] == BLACK)
+			//  top line
+			for (int k = 0; k < halfRib; k++) // right
 			{
-				return false;
+				if (_matte.at<Vec3b>(x + k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
-		for (int k = 0; k < halfRib; k++) // left 
-		{
-			if (_matte.at<Vec3b>(x - k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // left 
 			{
-				return false;
+				if (_matte.at<Vec3b>(x - k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
 
-		// bottom line
+			// bottom line
 
-		for (int k = 0; k < halfRib; k++) // right
-		{
-			if (_matte.at<Vec3b>(x + k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // right
 			{
-				return false;
+				if (_matte.at<Vec3b>(x + k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
-		for (int k = 0; k < halfRib; k++) // left 
-		{
-			if (_matte.at<Vec3b>(x - k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // left 
 			{
-				return false;
+				if (_matte.at<Vec3b>(x - k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
-		// right col
+			// right col
 
-		for (int k = 0; k < halfRib; k++) // up
-		{
-			if (_matte.at<Vec3b>(x + halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // up
 			{
-				return false;
+				if (_matte.at<Vec3b>(x + halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
-		for (int k = 0; k < halfRib; k++) // down
-		{
-			if (_matte.at<Vec3b>(x + halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // down
 			{
-				return false;
+				if (_matte.at<Vec3b>(x + halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
-		// left col
+			// left col
 
-		for (int k = 0; k < halfRib; k++) // up
-		{
-			if (_matte.at<Vec3b>(x - halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // up
 			{
-				return false;
+				if (_matte.at<Vec3b>(x - halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
-		}
 
-		for (int k = 0; k < halfRib; k++) // down
-		{
-			if (_matte.at<Vec3b>(x - halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[RED] == BLACK)
+			for (int k = 0; k < halfRib; k++) // down
 			{
-				return false;
+				if (_matte.at<Vec3b>(x - halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[RED] == BLACK)
+				{
+					isAllWhite = false;
+				}
+				else
+				{
+					isAllWhite = true;
+				}
 			}
 		}
 
@@ -543,7 +579,7 @@ bool ObjectDetection::getPixelFrame(int x, int y)
 	}
 
 
-	return true;
+	return isAllWhite;
 }
 
 //bool ObjectDetection::checkPixelColor(int x, int y, int num)
