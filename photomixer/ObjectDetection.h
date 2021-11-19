@@ -14,6 +14,7 @@
 #define DARKER 50
 #define RANGE 20
 #define BRIGHT 200
+#define FRAME 8
 
 using namespace cv;
 
@@ -36,7 +37,7 @@ public:
 	ObjectDetection(Mat);
 	//d'tor
 	~ObjectDetection();
-	
+
 	//set
 	void setImage(Mat);
 	void setRed(Mat);
@@ -55,10 +56,14 @@ public:
 	void getImageChannels();
 
 	void  makeDarker(Vec3b&);
-	void  makeDarkestMatte(int avg, Mat& color, std::string name); 
+	void  makeDarkestMatte(int avg, Mat& color, std::string name);
 	int getPixelsAvg(Mat);
 	void findObject();
 
 	void choseMatte();
-};
 
+	void improvObjectColoring();
+	void getPixelFrame(int x, int y, int type);
+	bool checkIfWhite(int x, int y, int type);
+	void colorAllSquare(int x, int y, int halfRib, int type);
+};

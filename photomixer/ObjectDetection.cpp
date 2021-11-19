@@ -152,7 +152,7 @@ int ObjectDetection::getDarkestAvg()
 	}
 	else 
 	{
-		avg *= 3; 
+		avg *= 3;
 	}
 	std::cout << "chaged dark avg " << avg << std::endl;
 
@@ -372,8 +372,8 @@ void ObjectDetection::findObject()
 	//save changes to matte picture and show it
 	cv::imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
-	cv::imshow("matte.png", _matte);
-	cv::waitKey(0);
+
+	improvObjectColoring();
 }
 
 /*
@@ -411,4 +411,161 @@ void ObjectDetection::choseMatte()
 	_redChannel = imread("red.png");
 	_greenChannel = imread("green.png");
 	_blueChannel = imread("blue.png");
+}
+
+
+/*
+This function will go throgh all the black pixels in a picture and will check if they are in the middle of white area
+Input: none
+Output: none
+*/
+void ObjectDetection::improvObjectColoring()
+{
+	Vec3b rgbVector;
+
+	// check for black pixels
+	for (int i = 0; i < _matte.rows; i++)
+	{
+		for (int j = 0; j < _matte.cols; j++)
+		{
+			rgbVector = _matte.at<Vec3b>(i, j);
+
+			if (rgbVector[RED] == BLACK)
+			{
+				getPixelFrame(i, j, BLACK);
+			}
+		}
+	}
+
+	// check for white pixels
+	for (int i = 0; i < _matte.rows; i++)
+	{
+		for (int j = 0; j < _matte.cols; j++)
+		{
+			rgbVector = _matte.at<Vec3b>(i, j);
+
+			if (rgbVector[RED] == WHITE)
+			{
+				getPixelFrame(i, j, WHITE);
+			}
+		}
+	}
+
+	cv::imshow("matte.png", _matte);
+	cv::waitKey(0);
+}
+
+/*
+This function will check the square that some pixel is exist in is in the middle of the not type area 
+(in the middle of the object or background - it depends on the type)
+Input: int x, int y
+Output: none
+*/
+void ObjectDetection::getPixelFrame(int x, int y, int type)
+{
+	int halfRib = 1, flag = 0;
+	bool isAllTheSame = true;
+	int const max_squre_size = (this->_matte.rows * this->_matte.cols) * 0.3; // 0.3 because it can't be all of the picture
+	
+
+	// check if the squere is still in the picture
+	while ((halfRib * halfRib * 4 < max_squre_size) 
+		&& (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > 0 && y - halfRib > 0 )
+		&& flag == 0) 
+	{
+		while (isAllTheSame)
+		{
+			for (int k = 0; k < halfRib; k++)
+			{
+				// check what is the color of the pixel that is checking now
+				if (type == BLACK)
+				{
+					if (!checkIfWhite(x + k, y + halfRib, BLACK) || !checkIfWhite(x - k, y + halfRib, BLACK) || !checkIfWhite(x + k, y - halfRib, BLACK) || !checkIfWhite(x - k, y - halfRib, BLACK) ||
+						!checkIfWhite(x + halfRib, y + k, BLACK) || !checkIfWhite(x + halfRib, y - k, BLACK) || !checkIfWhite(x - halfRib, y + k, BLACK) || !checkIfWhite(x - halfRib, y - k, BLACK))
+					{
+						isAllTheSame = false;
+					}
+				}
+				else
+				{
+					if (!checkIfWhite(x + k, y + halfRib, WHITE) || !checkIfWhite(x - k, y + halfRib, WHITE) || !checkIfWhite(x + k, y - halfRib, WHITE) || !checkIfWhite(x - k, y - halfRib, WHITE) ||
+						!checkIfWhite(x + halfRib, y + k, WHITE) || !checkIfWhite(x + halfRib, y - k, WHITE) || !checkIfWhite(x - halfRib, y + k, WHITE) || !checkIfWhite(x - halfRib, y - k, WHITE))
+					{
+						isAllTheSame = false;
+					}
+				}
+			}
+
+			//finish the loop
+			if (isAllTheSame) 
+			{
+				flag = 1;
+			}
+
+			isAllTheSame = false;
+		}
+
+
+		if (flag == 1 && type == BLACK) // white square exist outside of black pixel
+		{
+			colorAllSquare(x, y, halfRib, BLACK);
+		}
+		else if (flag == 1 && type == WHITE) // black square exist outside of white pixel
+		{
+			colorAllSquare(x, y, halfRib, WHITE);
+		}
+		else // no valid square 
+		{
+			isAllTheSame = true;
+			flag = 0;
+			halfRib++;
+		}
+	}
+}
+
+/*
+This function will check if some pixel is black or white
+input: int x, int y
+output: bool - true - white
+				false - black
+*/
+bool ObjectDetection::checkIfWhite(int x, int y, int type)
+{
+	if (_matte.at<Vec3b>(x, y)[RED] == type)
+	{
+		return false;
+	}
+	return true;
+}
+
+/*
+This function will color all the pixels inside the square area according to the type of pixel that is currently checking
+input: int x, int y, int halfRib
+output: none
+*/
+void ObjectDetection::colorAllSquare(int x, int y, int halfRib, int type)
+{
+	int startX = x - halfRib;
+	int startY = y + halfRib;
+
+	for (int i = 0; i < 2 * halfRib; i++)
+	{		
+		for (int j = 0; j < 2 * halfRib; j++)
+		{
+			// check what is the color of the pixel that is checking now
+			if (type == BLACK) 
+			{
+				_matte.at<Vec3b>(startX, startY - j)[BLUE] = WHITE;
+				_matte.at<Vec3b>(startX, startY - j)[GREEN] = WHITE;
+				_matte.at<Vec3b>(startX, startY - j)[RED] = WHITE;
+			}
+			else
+			{
+				_matte.at<Vec3b>(startX, startY - j)[BLUE] = BLACK;
+				_matte.at<Vec3b>(startX, startY - j)[GREEN] = BLACK;
+				_matte.at<Vec3b>(startX, startY - j)[RED] = BLACK;
+			}
+		}
+		startX++;
+	}
 }
