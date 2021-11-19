@@ -374,6 +374,8 @@ void ObjectDetection::findObject()
 	_matte = imread("matte.png");
 	//cv::imshow("matte.png", _matte);
 	//cv::waitKey(0);
+
+	improvObjectColoring();
 }
 
 /*
@@ -421,8 +423,8 @@ Output: none
 */
 void ObjectDetection::improvObjectColoring()
 {
-	cv::imshow("matte.png", _matte);
-	cv::waitKey(0);
+	//cv::imshow("matte.png", _matte);
+	//cv::waitKey(0);
 
 	Vec3b rgbVector;
 
@@ -431,58 +433,127 @@ void ObjectDetection::improvObjectColoring()
 		for (int j = 0; j < _matte.cols; j++)
 		{
 			rgbVector = _image.at<Vec3b>(i, j);
-			if ((int)rgbVector[RED] == BLACK && (int)rgbVector[GREEN] == BLACK && (int)rgbVector[BLUE] == BLACK)
+
+			if (rgbVector[RED] == BLACK || rgbVector[GREEN] == BLACK || rgbVector[BLUE] == BLACK)
 			{
 				if (getPixelFrame(i, j)) //color all pixels or just one?
 				{
 					_matte.at<Vec3b>(i, j)[BLUE] = WHITE;
 					_matte.at<Vec3b>(i, j)[GREEN] = WHITE;
 					_matte.at<Vec3b>(i, j)[RED] = WHITE;
+					std::cout << "WHITE ";
 				}
 			}
 		}
 	}
+	cv::imshow("matte.png", _matte);
+	cv::waitKey(0);
 }
 
 /*
 This function will check the square that some pixel is exist in is in the middle of white area (in the middle of the object)
-Input: int i (x), int j (j)
+Input: int x, int y
 Output: bool - true - the pixel is in the middle of white area (the object area)
 			   false - the pixel is not in the middle of white area (the object area)
 */
 bool ObjectDetection::getPixelFrame(int x, int y)
 {
-	int num = 0, halfRib = 0;
+	int halfRib = 0;
+	int const max_squre_size = (this->_matte.size().width * this->_matte.size().height) * 0.15; // 0.15?
 
-	// add some if or while , to check if the num is too big to check, and then stop exit from the function
-	// check if the pixels is in the corner / or there is no longer place to check in (try catch?)
-	// need max size for the squre
-
-	while (true)
+	// לבדוק כשהריבוע הוא על ההיקף עצמו
+	while ((halfRib * halfRib * 4 < max_squre_size) 
+		&& (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > _matte.rows && y - halfRib > _matte.cols)) // need to check if the square is too big
 	{
-		while (x + num < _matte.rows || y + halfRib < _matte.cols || x - num > _matte.rows || y - halfRib > _matte.cols
-			|| x + halfRib < _matte.rows || y + num < _matte.cols || x - halfRib > _matte.rows || y - num > _matte.cols)
+
+		 //  top line
+		for (int k = 0; k < halfRib; k++) // right
 		{
-			if (checkPixelColor(x + num, y + halfRib, halfRib) && checkPixelColor(x - num, y + halfRib, halfRib) && checkPixelColor(x + num, y - halfRib, halfRib) && checkPixelColor(x - num, y - halfRib, halfRib)
-				&& checkPixelColor(x + halfRib, y + num, halfRib) && checkPixelColor(x - halfRib, y + num, halfRib) && checkPixelColor(x + halfRib, y - num, halfRib) && checkPixelColor(x - halfRib, y - num, halfRib))
+			if (_matte.at<Vec3b>(x + k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[RED] == BLACK)
 			{
-				return true;
+				return false;
 			}
-			num++;
-			halfRib++;
 		}
-	}
-	return false;
-}
 
-bool ObjectDetection::checkPixelColor(int x, int y, int num)
-{
-	for (int k = 0; k < num; k++) // right
-	{
-		if (_image.at<Vec3b>(x,y)[BLUE] == BLACK || _image.at<Vec3b>(x, y)[GREEN] == BLACK || _image.at<Vec3b>(x, y)[RED] == BLACK)
+		for (int k = 0; k < halfRib; k++) // left 
 		{
-			return false;
+			if (_matte.at<Vec3b>(x - k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[RED] == BLACK)
+			{
+				return false;
+			}
 		}
+
+
+		// bottom line
+
+		for (int k = 0; k < halfRib; k++) // right
+		{
+			if (_matte.at<Vec3b>(x + k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[RED] == BLACK)
+			{
+				return false;
+			}
+		}
+
+		for (int k = 0; k < halfRib; k++) // left 
+		{
+			if (_matte.at<Vec3b>(x - k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[RED] == BLACK)
+			{
+				return false;
+			}
+		}
+
+		// right col
+
+		for (int k = 0; k < halfRib; k++) // up
+		{
+			if (_matte.at<Vec3b>(x + halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[RED] == BLACK)
+			{
+				return false;
+			}
+		}
+
+		for (int k = 0; k < halfRib; k++) // down
+		{
+			if (_matte.at<Vec3b>(x + halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[RED] == BLACK)
+			{
+				return false;
+			}
+		}
+
+		// left col
+
+		for (int k = 0; k < halfRib; k++) // up
+		{
+			if (_matte.at<Vec3b>(x - halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[RED] == BLACK)
+			{
+				return false;
+			}
+		}
+
+		for (int k = 0; k < halfRib; k++) // down
+		{
+			if (_matte.at<Vec3b>(x - halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[RED] == BLACK)
+			{
+				return false;
+			}
+		}
+
+
+		halfRib++;
 	}
+
+
 	return true;
 }
+
+//bool ObjectDetection::checkPixelColor(int x, int y, int num)
+//{
+//	for (int k = 0; k < num; k++) 
+//	{
+//		if (_image.at<Vec3b>(x,y)[BLUE] == BLACK || _image.at<Vec3b>(x, y)[GREEN] == BLACK || _image.at<Vec3b>(x, y)[RED] == BLACK)
+//		{
+//			return false;
+//		}
+//	}
+//	return true;
+//}
