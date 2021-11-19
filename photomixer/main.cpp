@@ -1,20 +1,31 @@
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc.hpp>
-#include <iostream>
+//#include <opencv2/core/core.hpp>
+//#include <opencv2/highgui/highgui.hpp>
+//#include <opencv2/imgproc.hpp>
+//#include <iostream>
 #include <vector> 
+
 #include "ObjectDetection.h"
+#include "checkObjectImage.h"
 
 using namespace cv;
 
 int main()
 {
-	Mat image = imread("images/trols.jpg");
+	Mat image = imread("images/bunny.jpg");
 
+	checkObjectImage checker = checkObjectImage(image);
 	ObjectDetection object = ObjectDetection(image);
 
-	object.getImageChannels();
-	object.findObject();
+	if (checker.checkBlackAndWhite() || checker.checkTooDark() || checker.checkTooBright())
+	{
+		std::cout << "SOME ERROR - WE ARE NOT ABLE TO RECOGNIZE THE OBJECT IN THIS PICTURE" << std::endl;
+
+	}
+	else
+	{
+		object.getImageChannels();
+		object.findObject();
+	}
 
 	return 0;
 }
