@@ -30,7 +30,6 @@ private:
 	std::string _matteColorChoice;
 
 	void  makeColorDarker(Mat& color);
-	int getDarkestAvg();
 
 public:
 	//c'tor
@@ -63,7 +62,7 @@ public:
 	void choseMatte();
 
 	void improvObjectColoring();
-	void getPixelFrame(int x, int y, int type);
-	bool checkIfWhite(int x, int y, int type);
-	void colorAllSquare(int x, int y, int halfRib, int type);
+	void getPixelFrame(int x, int y, int color);
+	bool checkColor(int x, int y, int color);
+	void colorAllSquare(int x, int y, int halfRib, int color);
 };
