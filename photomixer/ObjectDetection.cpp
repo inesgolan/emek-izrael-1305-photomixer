@@ -99,6 +99,11 @@ Mat ObjectDetection::getMatte()
 	return _matte;
 }
 
+std::string ObjectDetection::getMatteColorChoice()
+{
+	return _matteColorChoice;
+}
+
 /*
 This function make the color mat darker
 Input: color mat

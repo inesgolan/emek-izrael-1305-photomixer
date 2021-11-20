@@ -98,7 +98,8 @@ Mat checkImage(Mat image)
 
 		//get the new image
 		newImage = imread(path);
-		checker = checkObjectImage(newImage);
+		checker.setImage(newImage);
+		checker.setCount();
 	}
 
 	return newImage;

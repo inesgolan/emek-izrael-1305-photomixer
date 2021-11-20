@@ -15,7 +15,7 @@ checkObjectImage::checkObjectImage(Mat image)
 		}
 	}
 
-	this->countOfPixels = count;
+	this->_countOfPixels = count;
 }
 
 
@@ -23,6 +23,36 @@ checkObjectImage::checkObjectImage(Mat image)
 checkObjectImage::~checkObjectImage()
 {
 	this->_image.release();
+}
+
+void checkObjectImage::setImage(Mat image)
+{
+	_image = image;
+}
+
+void checkObjectImage::setCount()
+{
+	int count = 0;
+
+	for (int i = 0; i < this->_image.rows; i++)
+	{
+		for (int j = 0; j < this->_image.cols; j++)
+		{
+			count++;
+		}
+	}
+
+	this->_countOfPixels = count;
+}
+
+Mat checkObjectImage::getImage()
+{
+	return _image;
+}
+
+int checkObjectImage::getCount()
+{
+	return _countOfPixels;
 }
 
 
@@ -85,7 +115,7 @@ bool checkObjectImage::checkTooDark()
 		}
 	}
 
-	if (this->countOfPixels * MOST_OF_THE_PIXELS <= count) // check if most of the pixels are too dark
+	if (this->_countOfPixels * MOST_OF_THE_PIXELS <= count) // check if most of the pixels are too dark
 	{
 		return true;
 	}
@@ -117,7 +147,7 @@ bool checkObjectImage::checkTooBright()
 		}
 	}
 
-	if (this->countOfPixels * MOST_OF_THE_PIXELS <= count)
+	if (this->_countOfPixels * MOST_OF_THE_PIXELS <= count)
 	{
 		return true;
 	}

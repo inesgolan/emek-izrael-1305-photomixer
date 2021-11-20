@@ -26,16 +26,13 @@ private:
 	Mat _blueChannel;
 	Mat _greenChannel;
 	Mat _matte;
-	int _darkestAvg;
 	std::string _matteColorChoice;
 
 	void  makeColorDarker(Mat& color);
 
 public:
-	//c'tor
-	ObjectDetection(Mat);
-	//d'tor
-	~ObjectDetection();
+	ObjectDetection(Mat); //c'tor
+	~ObjectDetection(); //d'tor
 
 	//set
 	void setImage(Mat);
@@ -51,6 +48,7 @@ public:
 	Mat getBlue();
 	Mat getGreen();
 	Mat getMatte();
+	std::string getMatteColorChoice();
 
 	void getImageChannels();
 
