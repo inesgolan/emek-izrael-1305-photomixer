@@ -1,4 +1,4 @@
-#include "checkObjectImage.h"
+#include "CheckObjectImage.h"
 
 // Ctor
 checkObjectImage::checkObjectImage(Mat image)
@@ -15,7 +15,7 @@ checkObjectImage::checkObjectImage(Mat image)
 		}
 	}
 
-	this->countOfPixels = count;
+	this->_countOfPixels = count;
 }
 
 
@@ -23,6 +23,36 @@ checkObjectImage::checkObjectImage(Mat image)
 checkObjectImage::~checkObjectImage()
 {
 	this->_image.release();
+}
+
+void checkObjectImage::setImage(Mat image)
+{
+	_image = image;
+}
+
+void checkObjectImage::setCount()
+{
+	int count = 0;
+
+	for (int i = 0; i < this->_image.rows; i++)
+	{
+		for (int j = 0; j < this->_image.cols; j++)
+		{
+			count++;
+		}
+	}
+
+	this->_countOfPixels = count;
+}
+
+Mat checkObjectImage::getImage()
+{
+	return _image;
+}
+
+int checkObjectImage::getCount()
+{
+	return _countOfPixels;
 }
 
 
@@ -36,7 +66,6 @@ bool checkObjectImage::checkBlackAndWhite()
 {
 	bool check = false;
 	Vec3b rgbVector;
-	int temp = 0;
 
 	for (int i = 0; i < this->_image.rows; i++)
 	{
@@ -49,20 +78,16 @@ bool checkObjectImage::checkBlackAndWhite()
 				|| (rgbVector[BLUE] <= DARKEST_GRAY && rgbVector[RED] <= DARKEST_GRAY && rgbVector[GREEN] <= DARKEST_GRAY)
 				|| (rgbVector[BLUE] >= BRIGHTEST_GRAY && rgbVector[RED] >= BRIGHTEST_GRAY && rgbVector[GREEN] >= BRIGHTEST_GRAY))
 			{
-				temp = 0;
+				check = true;
 			}
 			else
 			{
-				temp = 1;
+				check = false;
 			}
 		}
 	}
 
-	if (temp == 0)
-	{
-		return true;
-	}
-	return false;
+	return check;
 }
 
 
@@ -74,7 +99,6 @@ Output: true - the picture is too dark to recognize the object
 */
 bool checkObjectImage::checkTooDark()
 {
-	bool check = false;
 	Vec3b rgbVector;
 	int count = 0;
 
@@ -91,7 +115,7 @@ bool checkObjectImage::checkTooDark()
 		}
 	}
 
-	if (this->countOfPixels * MOST_OF_THE_PIXELS <= count) // check if most of the pixels are too dark
+	if (this->_countOfPixels * MOST_OF_THE_PIXELS <= count) // check if most of the pixels are too dark
 	{
 		return true;
 	}
@@ -107,7 +131,6 @@ Output: true - the picture is too bright to recognize the object
 */
 bool checkObjectImage::checkTooBright()
 {
-	bool check = false;
 	Vec3b rgbVector;
 	int count = 0;
 
@@ -124,7 +147,7 @@ bool checkObjectImage::checkTooBright()
 		}
 	}
 
-	if (this->countOfPixels * 0.8 <= count)
+	if (this->_countOfPixels * MOST_OF_THE_PIXELS <= count)
 	{
 		return true;
 	}

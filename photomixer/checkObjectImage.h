@@ -21,11 +21,19 @@ class checkObjectImage
 {
 private:
 	Mat _image;
-	int countOfPixels;
+	int _countOfPixels;
 
 public:
-	checkObjectImage(Mat image); 
-	~checkObjectImage();
+	checkObjectImage(Mat); //c'tor
+	~checkObjectImage(); //d'tor
+
+	//set
+	void setImage(Mat);
+	void setCount();
+
+	//get
+	Mat getImage();
+	int getCount();
 
 	bool checkBlackAndWhite();
 	bool checkTooDark();

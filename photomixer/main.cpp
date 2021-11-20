@@ -8,35 +8,42 @@
 
 using namespace cv;
 
-bool checkPath(std::string path);
+std::string checkPath(std::string path);
+bool isPathValid(std::string path);
+Mat checkImage(Mat image);
 
 int main()
 {
 	std::string path = "images/dino.jpg";
-	while (!checkPath(path)) //path is invalid
+	path = checkPath(path);
+
+	Mat image = imread(path);
+	image = checkImage(image);
+
+	ObjectDetection object = ObjectDetection(image);
+	object.getImageChannels();
+	object.findObject();
+
+	return 0;
+}
+
+/*
+This function gets a path from the user until it's valid
+Input: image path
+Output: the valid path
+*/
+std::string checkPath(std::string path)
+{
+	std::string newPath = path;
+
+	while (!isPathValid(newPath)) 
 	{
-		std::cout << "Please enter a valid path (image file): " << std::endl;
-		std::cin >> path;	
+		std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
+		std::cin >> newPath;
 		getchar();
 	}
 
-	Mat image = imread(path);
-
-	checkObjectImage checker = checkObjectImage(image);
-	ObjectDetection object = ObjectDetection(image);
-		
-	if (checker.checkBlackAndWhite() || checker.checkTooDark() || checker.checkTooBright())
-	{
-		std::cout << "SOME ERROR - WE ARE NOT ABLE TO RECOGNIZE THE OBJECT IN THIS PICTURE" << std::endl;
-
-	}
-	else
-	{
-		object.getImageChannels();
-		object.findObject();
-	}
-
-	return 0;
+	return newPath;
 }
 
 /*
@@ -45,7 +52,7 @@ Input: image path
 Output: true - the path exist and is an image
 		false - the file dosen't exist of isn't an image
 */
-bool checkPath(std::string path)
+bool isPathValid(std::string path)
 {
 	std::string ending = "";
 
@@ -58,13 +65,42 @@ bool checkPath(std::string path)
 		return false;
 	}
 
-	//open file
 	std::ifstream ifile;
 	ifile.open(path);
 
-	if (ifile && ("jpg" == ending || "png" == ending)) 
+	if (ifile && ("jpg" == ending || "png" == ending)) //can open the file and it's a picture
 	{
 		return true;
 	}
 	return false;
+}
+
+/*
+This function gets an image from the user until it's valid
+Input: image 
+Output: the new image
+*/
+Mat checkImage(Mat image)
+{
+	std::string path = "";
+	Mat newImage = image;
+	checkObjectImage checker = checkObjectImage(image);
+
+	while (checker.checkBlackAndWhite() || checker.checkTooDark() || checker.checkTooBright()) 
+	{
+		std::cout << "SOME ERROR - WE ARE NOT ABLE TO RECOGNIZE THE OBJECT IN THIS PICTURE" << std::endl;
+
+		//get new path
+		std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
+		std::cin >> path;
+		getchar();
+		path = checkPath(path);
+
+		//get the new image
+		newImage = imread(path);
+		checker.setImage(newImage);
+		checker.setCount();
+	}
+
+	return newImage;
 }
