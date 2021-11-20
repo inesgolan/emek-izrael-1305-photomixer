@@ -2,7 +2,8 @@
 #include <fstream>
 
 #include "ObjectDetection.h"
-#include "checkObjectImage.h"
+#include "CheckObjectImage.h"
+#include "ClearBackground.h"
 
 #define ENDING 3
 
@@ -22,7 +23,10 @@ int main()
 
 	ObjectDetection object = ObjectDetection(image);
 	object.getImageChannels();
-	object.findObject();
+	Mat matte = object.findObject();
+
+	ClearBackground clearBackground;
+	clearBackground.getObjectImage(image, matte);
 
 	return 0;
 }

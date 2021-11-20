@@ -6,11 +6,23 @@
 #include <opencv2/imgproc.hpp>
 #include <iostream>
 
+// BGR
+#define BLUE 0
+#define GREEN 1
+#define RED 2
+#define ALPHA 3
+
+#define WHITE 255
+#define BLACK 0
+
+#define CLEAR 0
+
 using namespace cv;
 
 class ClearBackground
 {
 public:
-	Mat getObjectImage(Mat, Mat);
+	void getObjectImage(Mat, Mat);
 };
+
 

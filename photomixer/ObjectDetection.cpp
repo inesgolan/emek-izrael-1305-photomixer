@@ -10,21 +10,21 @@ ObjectDetection::ObjectDetection(Mat image)
 	this->_image = image;
 
 	//create mat for each RGB color channel im the size of the image
-	_blueChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("blue.png", _blueChannel);
+	_blueChannel = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("blue.png", _blueChannel);
 	_blueChannel = imread("blue.png");
 
-	_greenChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("green.png", _greenChannel);
+	_greenChannel = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("green.png", _greenChannel);
 	_greenChannel = imread("green.png");
 
-	_redChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("red.png", _redChannel);
+	_redChannel = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("red.png", _redChannel);
 	_redChannel = imread("red.png");
 
 	//create empty matte 
-	_matte = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("matte.png", _matte);
+	_matte = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
 }
 
@@ -149,9 +149,9 @@ void ObjectDetection::getImageChannels()
 	}
 
 	//save the changes in the pictures
-	cv::imwrite("blue.png", _blueChannel);
-	cv::imwrite("green.png", _greenChannel);
-	cv::imwrite("red.png", _redChannel);
+    imwrite("blue.png", _blueChannel);
+	imwrite("green.png", _greenChannel);
+	imwrite("red.png", _redChannel);
 }
 
 /*
@@ -159,33 +159,33 @@ This function make the colors channels mat darker
 Input: the colors channels vector
 Output: none
 */
-void ObjectDetection::makeDarker(Vec3b& rgbVector)
+void ObjectDetection::makeDarker(Vec3b& bgrVector)
 {
-	if (rgbVector[BLUE] >= DARKER)
+	if (bgrVector[BLUE] >= DARKER)
 	{
-		rgbVector[BLUE] -= DARKER;
+		bgrVector[BLUE] -= DARKER;
 	}
-	if (rgbVector[GREEN] >= DARKER)
+	if (bgrVector[GREEN] >= DARKER)
 	{
-		rgbVector[GREEN] -= DARKER;
+		bgrVector[GREEN] -= DARKER;
 	}
-	if (rgbVector[RED] >= DARKER)
+	if (bgrVector[RED] >= DARKER)
 	{
-		rgbVector[RED] -= DARKER;
+		bgrVector[RED] -= DARKER;
 	}
 
 	// if smaller than 50 , change to 0 
-	if (rgbVector[BLUE] < DARKER)
+	if (bgrVector[BLUE] < DARKER)
 	{
-		rgbVector[BLUE] = BLACK;
+		bgrVector[BLUE] = BLACK;
 	}
-	if (rgbVector[GREEN] < DARKER)
+	if (bgrVector[GREEN] < DARKER)
 	{
-		rgbVector[GREEN] = BLACK;
+		bgrVector[GREEN] = BLACK;
 	}
-	if (rgbVector[RED] < DARKER)
+	if (bgrVector[RED] < DARKER)
 	{
-		rgbVector[RED] = BLACK;
+		bgrVector[RED] = BLACK;
 	}
 }
 
@@ -200,14 +200,14 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 {
 	//create the matte
 	Mat tempMatte(color.rows, color.cols, CV_64FC1);
-	cv::imwrite(name, tempMatte);
+	imwrite(name, tempMatte);
 	Mat matte = imread(name);
 
 	int pixelAvgGrayScale = 0;
-	Vec3b rgbVectorGrayScale;
+	Vec3b bgrVectorGrayScale;
 
 	int pixelAvgImage = 0;
-	Vec3b rgbVectorImage;
+	Vec3b bgrVectorImage;
 
 	std::cout << name << " avg:" << avg << "\n\n";
 
@@ -215,16 +215,16 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 	{
 		for (int j = 0; j < color.cols; j++)
 		{
-			rgbVectorGrayScale = color.at<Vec3b>(i, j);
+			bgrVectorGrayScale = color.at<Vec3b>(i, j);
 
 			//get pixel avg
-			pixelAvgGrayScale = (int)rgbVectorGrayScale[RED] + (int)rgbVectorGrayScale[GREEN] + (int)rgbVectorGrayScale[BLUE];
+			pixelAvgGrayScale = (int)bgrVectorGrayScale[RED] + (int)bgrVectorGrayScale[GREEN] + (int)bgrVectorGrayScale[BLUE];
 			pixelAvgGrayScale = pixelAvgGrayScale / 3;
 
-			rgbVectorImage = _image.at<Vec3b>(i, j);
+			bgrVectorImage = _image.at<Vec3b>(i, j);
 
 			//get pixel avg
-			pixelAvgImage = (int)rgbVectorImage[RED] + (int)rgbVectorImage[GREEN] + (int)rgbVectorImage[BLUE];
+			pixelAvgImage = (int)bgrVectorImage[RED] + (int)bgrVectorImage[GREEN] + (int)bgrVectorImage[BLUE];
 			pixelAvgImage = pixelAvgImage / 3;
 			
 			if (pixelAvgGrayScale >= avg) // lighter pixels - the object
@@ -243,7 +243,7 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 	}
 
 	// save the chanes in the picture
-	cv::imwrite(name, matte); 
+	imwrite(name, matte); 
 }
 
 /*
@@ -254,15 +254,15 @@ Output: the aveage
 int ObjectDetection::getPixelsAvg(Mat color)
 {
 	int pixelAvg = 0, avg = 0, count = 0;
-	Vec3b rgbVector;
+	Vec3b bgrVector;
 
 	for (int i = 0; i < color.rows; i++)
 	{
 		for (int j = 0; j < color.cols; j++)
 		{
-			rgbVector = color.at<Vec3b>(i, j);
+			bgrVector = color.at<Vec3b>(i, j);
 			//get pixel avg
-			pixelAvg = (int)rgbVector[RED] + (int)rgbVector[GREEN] + (int)rgbVector[BLUE];
+			pixelAvg = (int)bgrVector[RED] + (int)bgrVector[GREEN] + (int)bgrVector[BLUE];
 			pixelAvg = pixelAvg / 3;
 			//add pixel avg to avg
 			avg += pixelAvg;
@@ -279,14 +279,13 @@ int ObjectDetection::getPixelsAvg(Mat color)
 /*
 This function find the object in the image and show the matte
 Input: none
-Output: none
+Output: the matte
 */
-void ObjectDetection::findObject()
+Mat ObjectDetection::findObject()
 {
 	int avg = 0;
 
 	avg = getPixelsAvg(_image);
-	//_darkestAvg = getDarkestAvg();
 
 	std::cout << "image avg " << avg << std::endl;
 	if (avg < BRIGHT) //the image is darker
@@ -321,11 +320,9 @@ void ObjectDetection::findObject()
 		_matte = _greenChannel;
 	}
 
-	//save changes to matte picture and show it
-	cv::imwrite("matte.png", _matte);
-	_matte = imread("matte.png");
-
 	improvObjectColoring();
+
+	return _matte;
 }
 
 /*
@@ -373,16 +370,16 @@ Output: none
 */
 void ObjectDetection::improvObjectColoring()
 {
-	Vec3b rgbVector;
+	Vec3b bgrVector;
 
 	// check for black pixels
 	for (int i = 0; i < _matte.rows; i++)
 	{
 		for (int j = 0; j < _matte.cols; j++)
 		{
-			rgbVector = _matte.at<Vec3b>(i, j);
+			bgrVector = _matte.at<Vec3b>(i, j);
 
-			if (rgbVector[RED] == BLACK)
+			if (bgrVector[RED] == BLACK)
 			{
 				getPixelFrame(i, j, BLACK);
 			}
@@ -394,17 +391,18 @@ void ObjectDetection::improvObjectColoring()
 	{
 		for (int j = 0; j < _matte.cols; j++)
 		{
-			rgbVector = _matte.at<Vec3b>(i, j);
+			bgrVector = _matte.at<Vec3b>(i, j);
 
-			if (rgbVector[RED] == WHITE)
+			if (bgrVector[RED] == WHITE)
 			{
 				getPixelFrame(i, j, WHITE);
 			}
 		}
 	}
 
-	cv::imshow("matte.png", _matte);
-	cv::waitKey(0);
+	//save changes to matte picture
+	imwrite("matte.png", _matte);
+	_matte = imread("matte.png");
 }
 
 /*

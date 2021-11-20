@@ -65,18 +65,18 @@ Output: true - the picture is only black and white
 bool checkObjectImage::checkBlackAndWhite()
 {
 	bool check = false;
-	Vec3b rgbVector;
+	Vec3b bgrVector;
 
 	for (int i = 0; i < this->_image.rows; i++)
 	{
 		for (int j = 0; j < this->_image.cols; j++)
 		{
-			rgbVector = _image.at<Vec3b>(i, j);
+			bgrVector = _image.at<Vec3b>(i, j);
 
-			if ((rgbVector[BLUE] == WHITE && rgbVector[RED] == WHITE && rgbVector[GREEN] == WHITE)
-				|| (rgbVector[BLUE] == BLACK && rgbVector[RED] == BLACK && rgbVector[GREEN] == BLACK)
-				|| (rgbVector[BLUE] <= DARKEST_GRAY && rgbVector[RED] <= DARKEST_GRAY && rgbVector[GREEN] <= DARKEST_GRAY)
-				|| (rgbVector[BLUE] >= BRIGHTEST_GRAY && rgbVector[RED] >= BRIGHTEST_GRAY && rgbVector[GREEN] >= BRIGHTEST_GRAY))
+			if ((bgrVector[BLUE] == WHITE && bgrVector[RED] == WHITE && bgrVector[GREEN] == WHITE)
+				|| (bgrVector[BLUE] == BLACK && bgrVector[RED] == BLACK && bgrVector[GREEN] == BLACK)
+				|| (bgrVector[BLUE] <= DARKEST_GRAY && bgrVector[RED] <= DARKEST_GRAY && bgrVector[GREEN] <= DARKEST_GRAY)
+				|| (bgrVector[BLUE] >= BRIGHTEST_GRAY && bgrVector[RED] >= BRIGHTEST_GRAY && bgrVector[GREEN] >= BRIGHTEST_GRAY))
 			{
 				check = true;
 			}
@@ -99,16 +99,16 @@ Output: true - the picture is too dark to recognize the object
 */
 bool checkObjectImage::checkTooDark()
 {
-	Vec3b rgbVector;
+	Vec3b bgrVector;
 	int count = 0;
 
 	for (int i = 0; i < this->_image.rows; i++)
 	{
 		for (int j = 0; j < this->_image.cols; j++)
 		{
-			rgbVector = _image.at<Vec3b>(i, j);
+			bgrVector = _image.at<Vec3b>(i, j);
 
-			if (rgbVector[BLUE] <= DARKEST_GRAY && rgbVector[RED] <= DARKEST_GRAY && rgbVector[GREEN] <= DARKEST_GRAY)
+			if (bgrVector[BLUE] <= DARKEST_GRAY && bgrVector[RED] <= DARKEST_GRAY && bgrVector[GREEN] <= DARKEST_GRAY)
 			{
 				count++;
 			}
@@ -131,16 +131,16 @@ Output: true - the picture is too bright to recognize the object
 */
 bool checkObjectImage::checkTooBright()
 {
-	Vec3b rgbVector;
+	Vec3b bgrVector;
 	int count = 0;
 
 	for (int i = 0; i < this->_image.rows; i++)
 	{
 		for (int j = 0; j < this->_image.cols; j++)
 		{
-			rgbVector = _image.at<Vec3b>(i, j);
+			bgrVector = _image.at<Vec3b>(i, j);
 
-			if (rgbVector[BLUE] >= BRIGHTEST_GRAY && rgbVector[RED] >= BRIGHTEST_GRAY && rgbVector[GREEN] >= BRIGHTEST_GRAY)
+			if (bgrVector[BLUE] >= BRIGHTEST_GRAY && bgrVector[RED] >= BRIGHTEST_GRAY && bgrVector[GREEN] >= BRIGHTEST_GRAY)
 			{
 				count++;
 			}
