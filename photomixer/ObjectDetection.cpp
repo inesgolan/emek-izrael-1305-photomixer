@@ -10,21 +10,21 @@ ObjectDetection::ObjectDetection(Mat image)
 	this->_image = image;
 
 	//create mat for each RGB color channel im the size of the image
-	_blueChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("blue.png", _blueChannel);
+	_blueChannel = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("blue.png", _blueChannel);
 	_blueChannel = imread("blue.png");
 
-	_greenChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("green.png", _greenChannel);
+	_greenChannel = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("green.png", _greenChannel);
 	_greenChannel = imread("green.png");
 
-	_redChannel = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("red.png", _redChannel);
+	_redChannel = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("red.png", _redChannel);
 	_redChannel = imread("red.png");
 
 	//create empty matte 
-	_matte = cv::Mat::zeros(image.rows, image.cols, CV_64FC1);
-	cv::imwrite("matte.png", _matte);
+	_matte = Mat::zeros(image.rows, image.cols, CV_64FC1);
+	imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
 }
 
@@ -99,6 +99,11 @@ Mat ObjectDetection::getMatte()
 	return _matte;
 }
 
+std::string ObjectDetection::getMatteColorChoice()
+{
+	return _matteColorChoice;
+}
+
 /*
 This function make the color mat darker
 Input: color mat
@@ -116,50 +121,6 @@ void ObjectDetection::makeColorDarker(Mat& color)
 }
 
 /*
-This function get the avg of the darkest pixels in the object image
-Input: none
-Output: the avg
-*/
-int ObjectDetection::getDarkestAvg()
-{
-	int avg = WHITE;
-	int pixelAvg = 0;
-	Vec3b rgbVector;
-
-	for (int i = 0; i < _image.rows; i++)
-	{
-		for (int j = 0; j < _image.cols; j++)
-		{
-			//get the image color channels
-			rgbVector = _image.at<Vec3b>(i, j); 
-			//get pixel avg
-			pixelAvg = (int)rgbVector[RED] + (int)rgbVector[GREEN] + (int)rgbVector[BLUE];
-			pixelAvg = pixelAvg / 3;
-
-			if (pixelAvg < avg) 
-			{
-				avg = pixelAvg;
-			}
-			pixelAvg = 0;
-		}
-	}
-
-	std::cout << "dark avg " << avg << std::endl;
-	//put a range for the dark pixels - need to change for eash picture
-	if (avg == BLACK) 
-	{
-		avg = 5;
-	}
-	else 
-	{
-		avg *= 3;
-	}
-	std::cout << "chaged dark avg " << avg << std::endl;
-
-	return avg;
-}
-
-/*
 This function get the colors channels grayscale mat from the image
 Input: none
 Output: none
@@ -171,26 +132,26 @@ void ObjectDetection::getImageChannels()
 		for (int j = 0; j < _image.cols; j++)
 		{
 			// Blue
-			_blueChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[BLUE];
-			_blueChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[BLUE];
-			_blueChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[BLUE];
+			_blueChannel.at<Vec3b>(i, j)[BLUE] = _image.at<Vec3b>(i, j)[BLUE];
+			_blueChannel.at<Vec3b>(i, j)[GREEN] = _image.at<Vec3b>(i, j)[BLUE];
+			_blueChannel.at<Vec3b>(i, j)[RED] = _image.at<Vec3b>(i, j)[BLUE];
 
 			// Green
-			_greenChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[GREEN];
-			_greenChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[GREEN];
-			_greenChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[GREEN];
+			_greenChannel.at<Vec3b>(i, j)[BLUE] = _image.at<Vec3b>(i, j)[GREEN];
+			_greenChannel.at<Vec3b>(i, j)[GREEN] = _image.at<Vec3b>(i, j)[GREEN];
+			_greenChannel.at<Vec3b>(i, j)[RED] = _image.at<Vec3b>(i, j)[GREEN];
 
 			// Red
-			_redChannel.at<Vec3b>(i, j)[0] = _image.at<Vec3b>(i, j)[RED];
-			_redChannel.at<Vec3b>(i, j)[1] = _image.at<Vec3b>(i, j)[RED];
-			_redChannel.at<Vec3b>(i, j)[2] = _image.at<Vec3b>(i, j)[RED];
+			_redChannel.at<Vec3b>(i, j)[BLUE] = _image.at<Vec3b>(i, j)[RED];
+			_redChannel.at<Vec3b>(i, j)[GREEN] = _image.at<Vec3b>(i, j)[RED];
+			_redChannel.at<Vec3b>(i, j)[RED] = _image.at<Vec3b>(i, j)[RED];
 		}
 	}
 
 	//save the changes in the pictures
-	cv::imwrite("blue.png", _blueChannel);
-	cv::imwrite("green.png", _greenChannel);
-	cv::imwrite("red.png", _redChannel);
+    imwrite("blue.png", _blueChannel);
+	imwrite("green.png", _greenChannel);
+	imwrite("red.png", _redChannel);
 }
 
 /*
@@ -198,33 +159,33 @@ This function make the colors channels mat darker
 Input: the colors channels vector
 Output: none
 */
-void ObjectDetection::makeDarker(Vec3b& rgbVector)
+void ObjectDetection::makeDarker(Vec3b& bgrVector)
 {
-	if (rgbVector[BLUE] >= DARKER)
+	if (bgrVector[BLUE] >= DARKER)
 	{
-		rgbVector[BLUE] -= DARKER;
+		bgrVector[BLUE] -= DARKER;
 	}
-	if (rgbVector[GREEN] >= DARKER)
+	if (bgrVector[GREEN] >= DARKER)
 	{
-		rgbVector[GREEN] -= DARKER;
+		bgrVector[GREEN] -= DARKER;
 	}
-	if (rgbVector[RED] >= DARKER)
+	if (bgrVector[RED] >= DARKER)
 	{
-		rgbVector[RED] -= DARKER;
+		bgrVector[RED] -= DARKER;
 	}
 
 	// if smaller than 50 , change to 0 
-	if (rgbVector[BLUE] < DARKER)
+	if (bgrVector[BLUE] < DARKER)
 	{
-		rgbVector[BLUE] = BLACK;
+		bgrVector[BLUE] = BLACK;
 	}
-	if (rgbVector[GREEN] < DARKER)
+	if (bgrVector[GREEN] < DARKER)
 	{
-		rgbVector[GREEN] = BLACK;
+		bgrVector[GREEN] = BLACK;
 	}
-	if (rgbVector[RED] < DARKER)
+	if (bgrVector[RED] < DARKER)
 	{
-		rgbVector[RED] = BLACK;
+		bgrVector[RED] = BLACK;
 	}
 }
 
@@ -239,14 +200,14 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 {
 	//create the matte
 	Mat tempMatte(color.rows, color.cols, CV_64FC1);
-	cv::imwrite(name, tempMatte);
+	imwrite(name, tempMatte);
 	Mat matte = imread(name);
 
 	int pixelAvgGrayScale = 0;
-	Vec3b rgbVectorGrayScale;
+	Vec3b bgrVectorGrayScale;
 
 	int pixelAvgImage = 0;
-	Vec3b rgbVectorImage;
+	Vec3b bgrVectorImage;
 
 	std::cout << name << " avg:" << avg << "\n\n";
 
@@ -254,16 +215,16 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 	{
 		for (int j = 0; j < color.cols; j++)
 		{
-			rgbVectorGrayScale = color.at<Vec3b>(i, j);
+			bgrVectorGrayScale = color.at<Vec3b>(i, j);
 
 			//get pixel avg
-			pixelAvgGrayScale = (int)rgbVectorGrayScale[RED] + (int)rgbVectorGrayScale[GREEN] + (int)rgbVectorGrayScale[BLUE];
+			pixelAvgGrayScale = (int)bgrVectorGrayScale[RED] + (int)bgrVectorGrayScale[GREEN] + (int)bgrVectorGrayScale[BLUE];
 			pixelAvgGrayScale = pixelAvgGrayScale / 3;
 
-			rgbVectorImage = _image.at<Vec3b>(i, j);
+			bgrVectorImage = _image.at<Vec3b>(i, j);
 
 			//get pixel avg
-			pixelAvgImage = (int)rgbVectorImage[RED] + (int)rgbVectorImage[GREEN] + (int)rgbVectorImage[BLUE];
+			pixelAvgImage = (int)bgrVectorImage[RED] + (int)bgrVectorImage[GREEN] + (int)bgrVectorImage[BLUE];
 			pixelAvgImage = pixelAvgImage / 3;
 			
 			if (pixelAvgGrayScale >= avg) // lighter pixels - the object
@@ -274,24 +235,15 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 			}
 			else // darker pixels
 			{
-				if (pixelAvgImage < _darkestAvg + RANGE) //need to check when we don't need to color the object
-				{
-					matte.at<Vec3b>(i, j)[BLUE] = WHITE;
-					matte.at<Vec3b>(i, j)[GREEN] = WHITE;
-					matte.at<Vec3b>(i, j)[RED] = WHITE;
-				}
-				else
-				{
-					matte.at<Vec3b>(i, j)[BLUE] = BLACK;
-					matte.at<Vec3b>(i, j)[GREEN] = BLACK;
-					matte.at<Vec3b>(i, j)[RED] = BLACK;
-				}
+				matte.at<Vec3b>(i, j)[BLUE] = BLACK;
+				matte.at<Vec3b>(i, j)[GREEN] = BLACK;
+				matte.at<Vec3b>(i, j)[RED] = BLACK;
 			}
 		}
 	}
 
 	// save the chanes in the picture
-	cv::imwrite(name, matte); 
+	imwrite(name, matte); 
 }
 
 /*
@@ -302,15 +254,15 @@ Output: the aveage
 int ObjectDetection::getPixelsAvg(Mat color)
 {
 	int pixelAvg = 0, avg = 0, count = 0;
-	Vec3b rgbVector;
+	Vec3b bgrVector;
 
 	for (int i = 0; i < color.rows; i++)
 	{
 		for (int j = 0; j < color.cols; j++)
 		{
-			rgbVector = color.at<Vec3b>(i, j);
+			bgrVector = color.at<Vec3b>(i, j);
 			//get pixel avg
-			pixelAvg = (int)rgbVector[RED] + (int)rgbVector[GREEN] + (int)rgbVector[BLUE];
+			pixelAvg = (int)bgrVector[RED] + (int)bgrVector[GREEN] + (int)bgrVector[BLUE];
 			pixelAvg = pixelAvg / 3;
 			//add pixel avg to avg
 			avg += pixelAvg;
@@ -327,14 +279,13 @@ int ObjectDetection::getPixelsAvg(Mat color)
 /*
 This function find the object in the image and show the matte
 Input: none
-Output: none
+Output: the matte
 */
-void ObjectDetection::findObject()
+Mat ObjectDetection::findObject()
 {
 	int avg = 0;
 
 	avg = getPixelsAvg(_image);
-	_darkestAvg = getDarkestAvg();
 
 	std::cout << "image avg " << avg << std::endl;
 	if (avg < BRIGHT) //the image is darker
@@ -369,13 +320,9 @@ void ObjectDetection::findObject()
 		_matte = _greenChannel;
 	}
 
-	//save changes to matte picture and show it
-	cv::imwrite("matte.png", _matte);
-	_matte = imread("matte.png");
-	//cv::imshow("matte.png", _matte);
-	//cv::waitKey(0);
-
 	improvObjectColoring();
+
+	return _matte;
 }
 
 /*
@@ -423,131 +370,103 @@ Output: none
 */
 void ObjectDetection::improvObjectColoring()
 {
-	//cv::imshow("matte.png", _matte);
-	//cv::waitKey(0);
+	Vec3b bgrVector;
 
-	Vec3b rgbVector;
-
+	// check for black pixels
 	for (int i = 0; i < _matte.rows; i++)
 	{
 		for (int j = 0; j < _matte.cols; j++)
 		{
-			rgbVector = _matte.at<Vec3b>(i, j);
+			bgrVector = _matte.at<Vec3b>(i, j);
 
-			if (rgbVector[RED] == BLACK || rgbVector[GREEN] == BLACK || rgbVector[BLUE] == BLACK)
+			if (bgrVector[RED] == BLACK)
 			{
-				getPixelFrame(i, j);
+				getPixelFrame(i, j, BLACK);
 			}
 		}
 	}
 
-	cv::imshow("matte.png", _matte);
-	cv::waitKey(0);
+	// check for white pixels
+	for (int i = 0; i < _matte.rows; i++)
+	{
+		for (int j = 0; j < _matte.cols; j++)
+		{
+			bgrVector = _matte.at<Vec3b>(i, j);
+
+			if (bgrVector[RED] == WHITE)
+			{
+				getPixelFrame(i, j, WHITE);
+			}
+		}
+	}
+
+	//save changes to matte picture
+	imwrite("matte.png", _matte);
+	_matte = imread("matte.png");
 }
 
 /*
-This function will check the square that some pixel is exist in is in the middle of white area (in the middle of the object)
+This function will check the square that some pixel is exist in is in the middle of the not type area 
+(in the middle of the object or background - it depends on the type)
 Input: int x, int y
-Output: bool - true - the pixel is in the middle of white area (the object area)
-			   false - the pixel is not in the middle of white area (the object area)
+Output: none
 */
-void ObjectDetection::getPixelFrame(int x, int y)
+void ObjectDetection::getPixelFrame(int x, int y, int color)
 {
 	int halfRib = 1, flag = 0;
-	bool isAllWhite = true;
+	bool isAllTheSame = true;
 	int const max_squre_size = (this->_matte.rows * this->_matte.cols) * 0.3; // 0.3 because it can't be all of the picture
 	
+
 	// check if the squere is still in the picture
 	while ((halfRib * halfRib * 4 < max_squre_size) 
 		&& (x + halfRib < _matte.rows && y + halfRib < _matte.cols && x - halfRib > 0 && y - halfRib > 0 )
 		&& flag == 0) 
 	{
-		while (isAllWhite)
+		while (isAllTheSame)
 		{
-			//  top line
-			for (int k = 0; k < halfRib; k++) // right
+			for (int k = 0; k < halfRib; k++)
 			{
-				if (_matte.at<Vec3b>(x + k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y + halfRib)[RED] == BLACK)
+				// check what is the color of the pixel that is checking now
+				if (color == BLACK)
 				{
-					isAllWhite = false;
+					if (!checkColor(x + k, y + halfRib, BLACK) || !checkColor(x - k, y + halfRib, BLACK) || !checkColor(x + k, y - halfRib, BLACK) || !checkColor(x - k, y - halfRib, BLACK) ||
+						!checkColor(x + halfRib, y + k, BLACK) || !checkColor(x + halfRib, y - k, BLACK) || !checkColor(x - halfRib, y + k, BLACK) || !checkColor(x - halfRib, y - k, BLACK))
+					{
+						isAllTheSame = false;
+					}
+				}
+				else
+				{
+					if (!checkColor(x + k, y + halfRib, WHITE) || !checkColor(x - k, y + halfRib, WHITE) || !checkColor(x + k, y - halfRib, WHITE) || !checkColor(x - k, y - halfRib, WHITE) ||
+						!checkColor(x + halfRib, y + k, WHITE) || !checkColor(x + halfRib, y - k, WHITE) || !checkColor(x - halfRib, y + k, WHITE) || !checkColor(x - halfRib, y - k, WHITE))
+					{
+						isAllTheSame = false;
+					}
 				}
 			}
 
-			for (int k = 0; k < halfRib; k++) // left 
-			{
-				if (_matte.at<Vec3b>(x - k, y + halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y + halfRib)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-
-			// bottom line
-			for (int k = 0; k < halfRib; k++) // right
-			{
-				if (_matte.at<Vec3b>(x + k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x + k, y - halfRib)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			for (int k = 0; k < halfRib; k++) // left 
-			{
-				if (_matte.at<Vec3b>(x - k, y - halfRib)[BLUE] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[GREEN] == BLACK || _matte.at<Vec3b>(x - k, y - halfRib)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			// right col
-			for (int k = 0; k < halfRib; k++) // up
-			{
-				if (_matte.at<Vec3b>(x + halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y + k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			for (int k = 0; k < halfRib; k++) // down
-			{
-				if (_matte.at<Vec3b>(x + halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x + halfRib, y - k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			// left col
-			for (int k = 0; k < halfRib; k++) // up
-			{
-				if (_matte.at<Vec3b>(x - halfRib, y + k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y + k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			for (int k = 0; k < halfRib; k++) // down
-			{
-				if (_matte.at<Vec3b>(x - halfRib, y - k)[BLUE] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[GREEN] == BLACK || _matte.at<Vec3b>(x - halfRib, y - k)[RED] == BLACK)
-				{
-					isAllWhite = false;
-				}
-			}
-
-			if (isAllWhite) //finish the loop
+			//finish the loop
+			if (isAllTheSame) 
 			{
 				flag = 1;
 			}
 
-			isAllWhite = false;
+			isAllTheSame = false;
 		}
 
-		if (flag == 1)
+
+		if (flag == 1 && color == BLACK) // white square exist outside of black pixel
 		{
-			colorAllSquare(x, y, halfRib);
+			colorAllSquare(x, y, halfRib, BLACK);
 		}
-		else
+		else if (flag == 1 && color == WHITE) // black square exist outside of white pixel
 		{
-			isAllWhite = true;
+			colorAllSquare(x, y, halfRib, WHITE);
+		}
+		else // no valid square 
+		{
+			isAllTheSame = true;
 			flag = 0;
 			halfRib++;
 		}
@@ -555,11 +474,26 @@ void ObjectDetection::getPixelFrame(int x, int y)
 }
 
 /*
-This function will color all the black pixels inside the square area
+This function will check if some pixel is black or white
+input: int x, int y
+output: bool - true - white
+				false - black
+*/
+bool ObjectDetection::checkColor(int x, int y, int color)
+{
+	if (_matte.at<Vec3b>(x, y)[RED] == color)
+	{
+		return false;
+	}
+	return true;
+}
+
+/*
+This function will color all the pixels inside the square area according to the type of pixel that is currently checking
 input: int x, int y, int halfRib
 output: none
 */
-void ObjectDetection::colorAllSquare(int x, int y, int halfRib)
+void ObjectDetection::colorAllSquare(int x, int y, int halfRib, int color)
 {
 	int startX = x - halfRib;
 	int startY = y + halfRib;
@@ -568,9 +502,19 @@ void ObjectDetection::colorAllSquare(int x, int y, int halfRib)
 	{		
 		for (int j = 0; j < 2 * halfRib; j++)
 		{
-			_matte.at<Vec3b>(startX, startY-j)[BLUE] = WHITE;
-			_matte.at<Vec3b>(startX, startY-j)[GREEN] = WHITE;
-			_matte.at<Vec3b>(startX, startY-j)[RED] = WHITE;
+			// check what is the color of the pixel that is checking now
+			if (color == BLACK) 
+			{
+				_matte.at<Vec3b>(startX, startY - j)[BLUE] = WHITE;
+				_matte.at<Vec3b>(startX, startY - j)[GREEN] = WHITE;
+				_matte.at<Vec3b>(startX, startY - j)[RED] = WHITE;
+			}
+			else
+			{
+				_matte.at<Vec3b>(startX, startY - j)[BLUE] = BLACK;
+				_matte.at<Vec3b>(startX, startY - j)[GREEN] = BLACK;
+				_matte.at<Vec3b>(startX, startY - j)[RED] = BLACK;
+			}
 		}
 		startX++;
 	}

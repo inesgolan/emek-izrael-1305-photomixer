@@ -19,10 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CheckObjectImage.cpp" />
+    <ClCompile Include="ClearBackground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectDetection.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CheckObjectImage.h" />
+    <ClInclude Include="ClearBackground.h" />
     <ClInclude Include="ObjectDetection.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
