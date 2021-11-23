@@ -27,6 +27,10 @@ void ClearBackground::getObjectImage(Mat image, Mat matte)
 			{
 				objectImage.at<Vec4b>(i, j)[ALPHA] = CLEAR;
 			}
+			else 
+			{
+				objectImage.at<Vec4b>(i, j)[ALPHA] = OPAQUE;
+			}
 		}
 	}
 

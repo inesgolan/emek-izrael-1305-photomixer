@@ -15,6 +15,7 @@
 #define WHITE 255
 #define BLACK 0
 
+#define OPAQUE 255
 #define CLEAR 0
 
 using namespace cv;
