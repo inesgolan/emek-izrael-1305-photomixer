@@ -1,14 +1,14 @@
 #include "ClearBackground.h"
 
 /*
-This function will save the object image with transparent background
+This function will return the object image with transparent background
 Input: image, black and white matte
-Output: none
+Output: object image 
 */
-void ClearBackground::getObjectImage(Mat image, Mat matte)
+Mat ClearBackground::getObjectImage(Mat image, Mat matte)
 {
 	//create new image
-	Mat_<Vec4b> objectImage = Mat::zeros(image.size(), image.type());
+	Mat objectImage = Mat::zeros(image.size(), image.type());
 	imwrite("objectImage.png", objectImage);
 
 	//create alpha channel
@@ -36,4 +36,6 @@ void ClearBackground::getObjectImage(Mat image, Mat matte)
 
 	//write changes to image
 	imwrite("objectImage.png", objectImage);
+
+	return objectImage;
 }

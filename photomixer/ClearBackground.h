@@ -23,7 +23,7 @@ using namespace cv;
 class ClearBackground
 {
 public:
-	void getObjectImage(Mat, Mat);
+	Mat getObjectImage(Mat, Mat);
 };
 
 

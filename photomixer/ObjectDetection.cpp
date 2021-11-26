@@ -29,7 +29,7 @@ ObjectDetection::ObjectDetection(Mat image)
 }
 
 /*
-This function is the distructor - clears the mat
+This function is the distructor - clears the mats
 Input: none
 Output: none
 */

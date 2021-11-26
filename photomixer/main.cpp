@@ -4,6 +4,7 @@
 #include "ObjectDetection.h"
 #include "CheckObjectImage.h"
 #include "ClearBackground.h"
+#include "ObjectOnBackground.h"
 
 #define ENDING 3
 
@@ -26,7 +27,20 @@ int main()
 	Mat matte = object.findObject();
 
 	ClearBackground clearBackground;
-	clearBackground.getObjectImage(image, matte);
+	Mat objectImage = clearBackground.getObjectImage(image, matte);
+
+	std::string backgroundPath = "images/background.jpg";
+	backgroundPath = checkPath(backgroundPath);
+
+	Mat backgroundImage = imread(backgroundPath);
+
+	int x = 5;
+	int y = 5;
+	//x and y not in range
+	ObjectOnBackground objectOnBackground(backgroundImage);
+	Mat allImage = objectOnBackground.getEditedImage(x, y, objectImage, backgroundImage);
+	imshow("image.png", allImage);
+	waitKey(0);
 
 	return 0;
 }
