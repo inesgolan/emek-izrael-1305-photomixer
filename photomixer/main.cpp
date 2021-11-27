@@ -14,6 +14,8 @@ std::string checkPath(std::string path);
 bool isPathValid(std::string path);
 Mat checkImage(Mat image);
 
+std::string getNewBackground(std::string backgroundPath);
+
 int main()
 {
 	std::string path = "images/dino.jpg";
@@ -30,12 +32,11 @@ int main()
 	Mat objectImage = clearBackground.getObjectImage(image, matte);
 
 	std::string backgroundPath = "images/background.jpg";
-	backgroundPath = checkPath(backgroundPath);
-
+	backgroundPath = getNewBackground(backgroundPath);
 	Mat backgroundImage = imread(backgroundPath);
 
 	ObjectOnBackground objectOnBackground(backgroundImage);
-	Mat allImage = objectOnBackground.getEditedImage(300, 300, objectImage, backgroundImage);
+	Mat allImage = objectOnBackground.getEditedImage(100, 100, objectImage, backgroundImage);
 
 	imshow("image.png", allImage);
 	waitKey(0);
@@ -119,4 +120,30 @@ Mat checkImage(Mat image)
 	}
 
 	return newImage;
+}
+
+/*
+This function gets a new background image from the user
+Input: current background path
+Output: the new background path
+*/
+std::string getNewBackground(std::string backgroundPath)
+{
+	std::string choice = "";
+	std::string newPath = backgroundPath;
+
+	std::cout << "want to change the background image? (yes/no)" << std::endl;
+	std::cin >> choice;
+	getchar();
+
+	if (choice == "yes") //user wants to change the background
+	{
+		std::cout << "enter new path: " << std::endl;
+		std::cin >> newPath;
+		getchar();
+	}
+
+	newPath = checkPath(newPath);
+
+	return newPath;
 }
