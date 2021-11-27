@@ -2,9 +2,7 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
-#include <vector>
 
-// BGR
 #define BLUE 0
 #define GREEN 1
 #define RED 2
@@ -26,6 +24,7 @@ public:
 	ObjectOnBackground(Mat); //c'tor
 	~ObjectOnBackground(); //d'tor
 
+	//set and get
 	void setBackground(Mat); 
 	Mat getBackground();
 

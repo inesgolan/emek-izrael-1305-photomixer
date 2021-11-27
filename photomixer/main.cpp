@@ -34,11 +34,9 @@ int main()
 
 	Mat backgroundImage = imread(backgroundPath);
 
-	int x = 5;
-	int y = 5;
-	//x and y not in range
 	ObjectOnBackground objectOnBackground(backgroundImage);
-	Mat allImage = objectOnBackground.getEditedImage(x, y, objectImage, backgroundImage);
+	Mat allImage = objectOnBackground.getEditedImage(300, 300, objectImage, backgroundImage);
+
 	imshow("image.png", allImage);
 	waitKey(0);
 

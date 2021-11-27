@@ -59,13 +59,13 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 
 	//create alpha channel
 	std::vector<Mat> matChannels;
-	split(background, matChannels); //error
+	split(background, matChannels); 
 	Mat alpha = matChannels.at(BLUE) + matChannels.at(GREEN) + matChannels.at(RED);
 	matChannels.push_back(alpha);
 	merge(matChannels, image);
 
-	//check if the object image exits the background: - need to check
-	while (x > background.rows || y > background.cols || x < 0 || y < 0)
+	//check if the object image exits the background
+	while (x + length > background.rows || y + width > background.cols || x < 0 || y < 0)
 	{
 		std::cout << "ERROR! OBJECT IS OUT OF THE BACKGROUD FRAME" << std::endl;
 		std::cout << "PLEASE ENTER NEW X: " << std::endl;
@@ -76,18 +76,18 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 		getchar();
 	}
 
-	//need to check coloring, the locations of the pixels of the object
-	for (int i = x; i < length; i++)
+	//put the object pixels on the background image
+	for (int i = 0; i < length; i++)
 	{
-		for (int j = y; j < width; j++)
+		for (int j = 0; j < width; j++)
 		{
 			// if the alpha value is 1 its the object 
 			if (object.at<Vec4b>(i, j)[ALPHA] == OPAQUE)
 			{
-				image.at<Vec4b>(i, j)[BLUE] = object.at<Vec4b>(i, j)[BLUE];
-				image.at<Vec4b>(i, j)[GREEN] = object.at<Vec4b>(i, j)[GREEN];
-				image.at<Vec4b>(i, j)[RED] = object.at<Vec4b>(i, j)[RED];
-				image.at<Vec4b>(i, j)[ALPHA] = object.at<Vec4b>(i, j)[ALPHA];
+				image.at<Vec4b>(i+x, j+y)[BLUE] = object.at<Vec4b>(i, j)[BLUE];
+				image.at<Vec4b>(i+x, j+y)[GREEN] = object.at<Vec4b>(i, j)[GREEN];
+				image.at<Vec4b>(i+x, j+y)[RED] = object.at<Vec4b>(i, j)[RED];
+				image.at<Vec4b>(i+x, j+y)[ALPHA] = object.at<Vec4b>(i, j)[ALPHA];
 			}
 		}
 	}
