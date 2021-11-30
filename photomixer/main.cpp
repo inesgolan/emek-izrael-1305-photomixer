@@ -1,9 +1,7 @@
-#include <vector> 
-#include <fstream>
-
 #include "ObjectDetection.h"
 #include "CheckObjectImage.h"
 #include "ClearBackground.h"
+<<<<<<< HEAD
 #include "ObjectOnBackground.h"
 
 #define ENDING 3
@@ -20,14 +18,28 @@ int main()
 {
 	std::string path = "images/flower.jpg";
 	path = checkPath(path);
+=======
+#include "Helper.h"
 
+using namespace cv;
+
+int main()
+{
+	//get image path
+	std::string path = "images/dino.jpg";
+	path = Helper::checkPath(path);
+>>>>>>> 4cc66c4f299cdf9eaac2c6572d547e7af5b9ac80
+
+	//get image
 	Mat image = imread(path);
-	image = checkImage(image);
+	image = Helper::checkImage(image);
 
+	//get object
 	ObjectDetection object = ObjectDetection(image);
 	object.getImageChannels();
 	Mat matte = object.findObject();
 
+	//get object image
 	ClearBackground clearBackground;
 	Mat objectImage = clearBackground.getObjectImage(image, matte);
 
@@ -43,6 +55,7 @@ int main()
 
 	return 0;
 }
+<<<<<<< HEAD
 
 /*
 This function gets a path from the user until it's valid
@@ -147,3 +160,5 @@ std::string getNewBackground(std::string backgroundPath)
 
 	return newPath;
 }
+=======
+>>>>>>> 4cc66c4f299cdf9eaac2c6572d547e7af5b9ac80

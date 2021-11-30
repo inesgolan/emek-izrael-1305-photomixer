@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="CheckObjectImage.cpp" />
     <ClCompile Include="ClearBackground.cpp" />
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectDetection.cpp" />
     <ClCompile Include="ObjectOnBackground.cpp" />
@@ -28,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="CheckObjectImage.h" />
     <ClInclude Include="ClearBackground.h" />
+    <ClInclude Include="Helper.h" />
     <ClInclude Include="ObjectDetection.h" />
     <ClInclude Include="ObjectOnBackground.h" />
   </ItemGroup>
