@@ -1,6 +1,3 @@
-//it's a class becuse there is a possibility that we will do ourselves the opencv functions
-//this class is in charge of the alpha channel and the image transparency
-
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc.hpp>
@@ -19,10 +16,18 @@
 
 using namespace cv;
 
-class ClearBackground
+class ObjectOnBackground
 {
+private: 
+	Mat _background;
 public:
-	Mat getObjectImage(Mat, Mat);
-};
+	ObjectOnBackground(Mat); //c'tor
+	~ObjectOnBackground(); //d'tor
 
+	//set and get
+	void setBackground(Mat); 
+	Mat getBackground();
+
+	Mat getEditedImage(int, int, Mat, Mat);
+};
 

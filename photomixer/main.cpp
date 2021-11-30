@@ -1,9 +1,4 @@
-#include "ObjectDetection.h"
-#include "CheckObjectImage.h"
-#include "ClearBackground.h"
 #include "Helper.h"
-
-using namespace cv;
 
 int main()
 {
@@ -22,7 +17,20 @@ int main()
 
 	//get object image
 	ClearBackground clearBackground;
-	clearBackground.getObjectImage(image, matte);
+	Mat objectImage = clearBackground.getObjectImage(image, matte);
+
+	//set background
+	std::string backgroundPath = "images/background.jpg";
+	backgroundPath = Helper::getNewBackground(backgroundPath);
+	Mat backgroundImage = imread(backgroundPath);
+
+	//put object on background
+	ObjectOnBackground objectOnBackground(backgroundImage);
+	Mat allImage = objectOnBackground.getEditedImage(100, 100, objectImage, backgroundImage);
+
+	//show image
+	imshow("image.png", allImage);
+	waitKey(0);
 
 	return 0;
 }
