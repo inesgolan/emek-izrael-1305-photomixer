@@ -76,6 +76,15 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 		getchar();
 	}
 
+	//add alpha channel
+	for (int i = 0; i < image.rows; i++)
+	{
+		for (int j = 0; j < image.cols; j++)
+		{
+			image.at<Vec4b>(i, j)[ALPHA] = OPAQUE;
+		}
+	}
+
 	//put the object pixels on the background image
 	for (int i = 0; i < length; i++)
 	{
@@ -87,7 +96,6 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 				image.at<Vec4b>(i+x, j+y)[BLUE] = object.at<Vec4b>(i, j)[BLUE];
 				image.at<Vec4b>(i+x, j+y)[GREEN] = object.at<Vec4b>(i, j)[GREEN];
 				image.at<Vec4b>(i+x, j+y)[RED] = object.at<Vec4b>(i, j)[RED];
-				image.at<Vec4b>(i+x, j+y)[ALPHA] = object.at<Vec4b>(i, j)[ALPHA];
 			}
 		}
 	}

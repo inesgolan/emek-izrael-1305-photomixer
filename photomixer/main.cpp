@@ -18,7 +18,7 @@ std::string getNewBackground(std::string backgroundPath);
 
 int main()
 {
-	std::string path = "images/dino.jpg";
+	std::string path = "images/flower.jpg";
 	path = checkPath(path);
 
 	Mat image = imread(path);
