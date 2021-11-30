@@ -78,3 +78,28 @@ Mat Helper::checkImage(Mat image)
 	return newImage;
 }
 
+/*
+This function gets a new background image from the user
+Input: current background path
+Output: the new background path
+*/
+std::string Helper::getNewBackground(std::string backgroundPath)
+{
+	std::string choice = "";
+	std::string newPath = backgroundPath;
+
+	std::cout << "want to change the background image? (yes/no)" << std::endl;
+	std::cin >> choice;
+	getchar();
+
+	if (choice == "yes") //user wants to change the background
+	{
+		std::cout << "enter new path: " << std::endl;
+		std::cin >> newPath;
+		getchar();
+	}
+
+	newPath = checkPath(newPath);
+
+	return newPath;
+}

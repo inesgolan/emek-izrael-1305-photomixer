@@ -4,7 +4,10 @@
 #include <iostream>
 #include <fstream>
 
+#include "ObjectDetection.h"
 #include "CheckObjectImage.h"
+#include "ClearBackground.h"
+#include "ObjectOnBackground.h"
 
 #define ENDING 3
 
@@ -16,4 +19,6 @@ public:
 	static std::string checkPath(std::string path);
 	static bool isPathValid(std::string path);
 	static Mat checkImage(Mat image);
+
+	static std::string getNewBackground(std::string backgroundPath);
 };
