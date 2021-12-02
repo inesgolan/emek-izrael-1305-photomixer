@@ -28,6 +28,10 @@ private:
 	std::string _matteColorChoice;
 
 	void  makeColorDarker(Mat& color);
+	void getChannel(Mat mat, int i, int j, int color);
+	void changePixelColor(Mat mat, int color, int i, int j);
+	void makeDarkImageMat(Mat mat, String name);
+	void checkColorToImprove(Vec3b bgrVector, int color);
 
 public:
 	ObjectDetection(Mat); //c'tor
