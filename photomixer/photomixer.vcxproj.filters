@@ -27,11 +27,10 @@
     <ClCompile Include="ClearBackground.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
     <ClCompile Include="ObjectOnBackground.cpp">
-=======
+          <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Helper.cpp">
->>>>>>> 4cc66c4f299cdf9eaac2c6572d547e7af5b9ac80
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,11 +44,10 @@
     <ClInclude Include="ClearBackground.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="ObjectOnBackground.h">
-=======
+          <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Helper.h">
->>>>>>> 4cc66c4f299cdf9eaac2c6572d547e7af5b9ac80
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
