@@ -21,6 +21,9 @@ using namespace cv;
 
 class ClearBackground
 {
+private:
+	static std::vector<Mat> SplitMat(Mat image);
+	static Mat mergeMat(std::vector<Mat> matChannels, Mat objectImage);
 public:
 	Mat getObjectImage(Mat, Mat);
 };
