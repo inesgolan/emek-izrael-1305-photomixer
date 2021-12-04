@@ -12,6 +12,7 @@
 #define GREEN 1
 #define RED 2
 #define ALPHA 3
+#define RGB_CHANNELS_LEN 3
 
 #define OPAQUE 255
 #define CLEAR 0
@@ -23,7 +24,7 @@ class ClearBackground
 public:
 	Mat getObjectImage(Mat, Mat);
 
-	static std::vector<Mat> SplitMat(Mat image);
+	static std::vector<Mat> splitMat(Mat image);
 	static Mat mergeMat(std::vector<Mat> matChannels, Mat objectImage);
 };
 

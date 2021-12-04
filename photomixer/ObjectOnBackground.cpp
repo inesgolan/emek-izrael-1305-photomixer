@@ -59,7 +59,7 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 
 	//create alpha channel
 	std::vector<Mat> matChannels;
-	matChannels = ClearBackground::SplitMat(background);
+	matChannels = ClearBackground::splitMat(background);
 	image = ClearBackground::mergeMat(matChannels, background);
 
 	//check if the object image exits the background

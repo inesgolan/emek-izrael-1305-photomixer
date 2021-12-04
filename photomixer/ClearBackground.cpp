@@ -13,7 +13,7 @@ Mat ClearBackground::getObjectImage(Mat image, Mat matte)
 
 	//create alpha channel
 	std::vector<Mat> matChannels;
-	matChannels = SplitMat(image);
+	matChannels = splitMat(image);
 	objectImage = mergeMat(matChannels, image);
 
 	//change the backgroung alpha value to 0
@@ -44,11 +44,11 @@ This function will split the 3 existed channels from picture's mat
 input: Mat image
 output: std::vector<Mat>
 */
-std::vector<Mat> ClearBackground::SplitMat(Mat image)
+std::vector<Mat> ClearBackground::splitMat(Mat image)
 {
 	std::vector<Mat> matChannels;
 
-	for (int k = 0; k < 3; k++) // go throgh all RGB channels
+	for (int k = 0; k < RGB_CHANNELS_LEN; k++) // go throgh all RGB channels
 	{
 		cv::Mat temp = Mat::zeros(image.size(), image.type()); // create temp mat to push into the vector
 		for (int i = 0; i < image.rows; i++) // go throgh the picture and put all the data from each RGB channel every time
