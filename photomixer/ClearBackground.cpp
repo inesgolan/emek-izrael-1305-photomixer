@@ -13,8 +13,7 @@ Mat ClearBackground::getObjectImage(Mat image, Mat matte)
 
 	//create alpha channel
 	std::vector<Mat> matChannels;
-	matChannels = ClearBackground::SplitMat(image);
-
+	matChannels = SplitMat(image);
 	objectImage = mergeMat(matChannels, image);
 
 	//change the backgroung alpha value to 0
@@ -75,7 +74,7 @@ Mat ClearBackground::mergeMat(std::vector<Mat> matChannels, Mat image)
 {
 	cv::Mat_ <Vec4b> matt(image.size());
 
- 	for (int i = 1; i < image.rows; i++)
+	for (int i = 1; i < image.rows; i++)
 	{
 		for (int j = 0; j < image.cols; j++)
 		{

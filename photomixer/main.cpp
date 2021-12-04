@@ -1,4 +1,5 @@
-#include "Helper.h"
+#include "ObjectOnBackground.h"
+#include "ObjectDetection.h"
 
 int main()
 {
