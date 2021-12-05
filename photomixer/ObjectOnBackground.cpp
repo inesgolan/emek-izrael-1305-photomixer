@@ -48,6 +48,7 @@ Output: the combined image mat
 */
 Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat background)
 {
+	std::string path = "";
 	int x = startX;
 	int y = startY;
 	int length = object.rows;
@@ -55,7 +56,6 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 
 	//create new image
 	Mat image = Mat::zeros(background.size(), background.type());
-	imwrite("image.png", image);
 
 	//create alpha channel
 	std::vector<Mat> matChannels;
@@ -98,8 +98,14 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 		}
 	}
 
+	std::cout << "PLEASE ENTER THE PATH WHERE YOU WOULD LIKE TO SAVE THE IMAGE (include the image name with extension):" << std::endl;
+	getline(std::cin, path);
+	getchar();
+
+	//check path
+	
 	//write changes to image
-	imwrite("image.png", image);
+	imwrite(path, image);
 
 	return image;
 }

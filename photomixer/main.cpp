@@ -4,7 +4,7 @@
 int main()
 {
 	//get image path
-	std::string path = "images/flower.jpg";
+	std::string path = "images/dino.jpg";
 	path = Helper::checkPath(path);
 
 	//get image
@@ -28,10 +28,6 @@ int main()
 	//put object on background
 	ObjectOnBackground objectOnBackground(backgroundImage);
 	Mat allImage = objectOnBackground.getEditedImage(100, 100, objectImage, backgroundImage);
-
-	//show image
-	imshow("image.png", allImage);
-	waitKey(0);
 
 	return 0;
 }
