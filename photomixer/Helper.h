@@ -1,6 +1,8 @@
 #include "CheckObjectImage.h"
 
 #define ENDING 3
+#define ALPHA 3
+#define OPAQUE 255
 
 using namespace cv;
 
@@ -12,4 +14,7 @@ public:
 	static Mat checkImage(Mat image);
 
 	static std::string getNewBackground(std::string backgroundPath);
+
+	static std::vector<Mat> splitMat(Mat image);
+	static Mat mergeMat(std::vector<Mat> matChannels, Mat objectImage);
 };
