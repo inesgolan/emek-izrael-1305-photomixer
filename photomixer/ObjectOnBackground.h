@@ -2,7 +2,6 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 #include <iostream>
-#include "Helper.h"
 #include "ClearBackground.h"
 
 #define BLUE 0
@@ -18,7 +17,7 @@
 
 using namespace cv;
 
-class ObjectOnBackground : public ClearBackground
+class ObjectOnBackground 
 {
 private: 
 	Mat _background;

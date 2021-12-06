@@ -4,6 +4,7 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include "Helper.h"
 
 #define WHITE 255
 #define BLACK 0
@@ -23,9 +24,6 @@ class ClearBackground
 {
 public:
 	Mat getObjectImage(Mat, Mat);
-
-	static std::vector<Mat> splitMat(Mat image);
-	static Mat mergeMat(std::vector<Mat> matChannels, Mat objectImage);
 };
 
 
