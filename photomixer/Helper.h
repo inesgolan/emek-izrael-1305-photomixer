@@ -11,7 +11,7 @@ class Helper
 public:
 	static std::string checkPath(std::string path);
 	static bool isPathValid(std::string path);
-	static Mat checkImage(Mat image);
+	static Mat checkImage(Mat image, std::string imagPath);
 
 	static std::string getNewBackground(std::string backgroundPath);
 
