@@ -53,9 +53,8 @@ This function gets an image from the user until it's valid
 Input: image
 Output: the new image
 */
-Mat Helper::checkImage(Mat image)
+Mat Helper::checkImage(Mat image, std::string imagPath)
 {
-	std::string path = "";
 	Mat newImage = image;
 	checkObjectImage checker = checkObjectImage(image);
 
@@ -65,15 +64,16 @@ Mat Helper::checkImage(Mat image)
 
 		//get new path
 		std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
-		std::cin >> path;
+		std::cin >> imagPath;
 		getchar();
-		path = checkPath(path);
+		imagPath = checkPath(imagPath);
 
 		//get the new image
-		newImage = imread(path);
+		newImage = imread(imagPath);
 		checker.setImage(newImage);
 		checker.setCount();
 	}
+	newImage = checker.checkImageSize(newImage, imagPath);
 
 	return newImage;
 }
