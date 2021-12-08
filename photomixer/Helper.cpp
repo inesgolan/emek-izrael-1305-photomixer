@@ -54,9 +54,8 @@ This function gets an image from the user until it's valid
 Input: image
 Output: the new image
 */
-Mat Helper::checkImage(Mat image)
+Mat Helper::checkImage(Mat image, std::string imagPath)
 {
-	std::string path = "";
 	Mat newImage = image;
 	checkObjectImage checker = checkObjectImage(image);
 
@@ -66,15 +65,16 @@ Mat Helper::checkImage(Mat image)
 
 		//get new path
 		std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
-		std::cin >> path;
+		std::cin >> imagPath;
 		getchar();
-		path = checkPath(path);
+		imagPath = checkPath(imagPath);
 
 		//get the new image
-		newImage = imread(path);
+		newImage = imread(imagPath);
 		checker.setImage(newImage);
 		checker.setCount();
 	}
+	newImage = checker.checkImageSize(newImage, imagPath);
 
 	return newImage;
 }
@@ -103,4 +103,56 @@ std::string Helper::getNewBackground(std::string backgroundPath)
 	newPath = checkPath(newPath);
 
 	return newPath;
+}
+
+
+
+/*
+This function will split the 3 existed channels from picture's mat
+input: Mat image
+output: std::vector<Mat>
+*/
+std::vector<Mat> Helper::splitMat(Mat image)
+{
+	std::vector<Mat> matChannels;
+
+	for (int k = 0; k < ENDING; k++) // go throgh all RGB channels
+	{
+		cv::Mat temp = Mat::zeros(image.size(), image.type()); // create temp mat to push into the vector
+		for (int i = 0; i < image.rows; i++) // go throgh the picture and put all the data from each RGB channel every time
+		{
+			for (int j = 0; j < image.cols; j++)
+			{
+				temp.at<Vec3b>(i, j)[k] = image.at<Vec3b>(i, j)[k]; //k = BLUE -> GREEN -> RED
+			}
+		}
+		matChannels.push_back(temp);
+	}
+
+	return matChannels;
+}
+
+
+/*
+This function will merge the 3 channels of some RGB picture + will add alpha channel
+input: std::vector<Mat> matChannels, Mat image
+output: Mat
+*/
+Mat Helper::mergeMat(std::vector<Mat> matChannels, Mat image)
+{
+	cv::Mat_ <Vec4b> matt(image.size());
+
+	for (int i = 1; i < image.rows; i++)
+	{
+		for (int j = 0; j < image.cols; j++)
+		{
+			// put the channels back to the mat + add the alpha channel to the mat
+			matt.at<Vec4b>(i, j)[BLUE] = matChannels[BLUE].at<Vec3b>(i, j)[BLUE];
+			matt.at<Vec4b>(i, j)[GREEN] = matChannels[GREEN].at<Vec3b>(i, j)[GREEN];
+			matt.at<Vec4b>(i, j)[RED] = matChannels[RED].at<Vec3b>(i, j)[RED];
+			matt.at<Vec4b>(i, j)[ALPHA] = OPAQUE;
+		}
+	}
+
+	return matt;
 }

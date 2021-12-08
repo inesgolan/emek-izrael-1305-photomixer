@@ -9,7 +9,7 @@ int main()
 
 	//get image
 	Mat image = imread(path);
-	image = Helper::checkImage(image);
+	image = Helper::checkImage(image, path);
 
 	//get object
 	ObjectDetection object = ObjectDetection(image);
