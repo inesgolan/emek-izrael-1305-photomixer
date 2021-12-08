@@ -49,6 +49,7 @@ Output: the combined image mat
 Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat background)
 {
 	std::string path = "";
+	std::string imageName = "";
 	int x = startX;
 	int y = startY;
 	int length = object.rows;
@@ -88,7 +89,7 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 	{
 		for (int j = 0; j < width; j++)
 		{
-			// if the alpha value is 1 its the object 
+			// if the alpha value is 255 its the object 
 			if (object.at<Vec4b>(i, j)[ALPHA] == OPAQUE)
 			{
 				image.at<Vec4b>(i+x, j+y)[BLUE] = object.at<Vec4b>(i, j)[BLUE];
@@ -98,11 +99,16 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 		}
 	}
 
-	std::cout << "PLEASE ENTER THE PATH WHERE YOU WOULD LIKE TO SAVE THE IMAGE (include the image name with extension):" << std::endl;
+	std::cout << "PLEASE ENTER THE PATH WHERE YOU WOULD LIKE TO SAVE THE IMAGE:" << std::endl;
 	getline(std::cin, path);
 	getchar();
+	//need check if folder exists
 
-	//check path
+	std::cout << "ENTER IMAGE NAME WITH EXTENSION: " << std::endl;
+	getline(std::cin, imageName);
+	getchar();
+	//need to check image name
+	path = path + "\\" + imageName;
 	
 	//write changes to image
 	imwrite(path, image);

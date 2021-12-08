@@ -41,12 +41,13 @@ bool Helper::isPathValid(std::string path)
 	std::ifstream ifile;
 	ifile.open(path);
 
-	if (ifile && ("jpg" == ending || "png" == ending)) //can open the file and it's a picture
+	if (ifile && (".jpg" == ending || ".png" == ending)) //can open the file and it's a picture
 	{
 		return true;
 	}
 	return false;
 }
+
 
 /*
 This function gets an image from the user until it's valid

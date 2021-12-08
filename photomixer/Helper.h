@@ -1,6 +1,6 @@
 #include "CheckObjectImage.h"
 
-#define ENDING 3
+#define ENDING 4
 
 using namespace cv;
 
