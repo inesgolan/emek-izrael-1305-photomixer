@@ -32,8 +32,8 @@ Mat ClearBackground::getObjectImage(Mat image, Mat matte)
 		}
 	}
 
-	//write changes to image
-	imwrite("objectImage.png", objectImage);
+	//change image size
+	objectImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, objectImage, "objectImage.png");
 
 	return objectImage;
 }

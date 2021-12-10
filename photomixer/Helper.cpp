@@ -54,7 +54,7 @@ This function gets an image from the user until it's valid
 Input: image
 Output: the new image
 */
-Mat Helper::checkImage(Mat image, std::string imagPath)
+Mat Helper::checkImage(Mat image, std::string imagePath)
 {
 	Mat newImage = image;
 	checkObjectImage checker = checkObjectImage(image);
@@ -65,16 +65,20 @@ Mat Helper::checkImage(Mat image, std::string imagPath)
 
 		//get new path
 		std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
-		std::cin >> imagPath;
+		std::cin >> imagePath;
 		getchar();
-		imagPath = checkPath(imagPath);
+		imagePath = checkPath(imagePath);
 
 		//get the new image
-		newImage = imread(imagPath);
+		newImage = imread(imagePath);
 		checker.setImage(newImage);
 		checker.setCount();
 	}
-	newImage = checker.checkImageSize(newImage, imagPath);
+
+	if (image.cols > MIN_COLS_IMAGE || image.rows > MIN_ROWS_IMAGE) //change image size if its too big
+	{
+		newImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, newImage, imagePath);
+	}
 
 	return newImage;
 }
@@ -102,10 +106,29 @@ std::string Helper::getNewBackground(std::string backgroundPath)
 
 	newPath = checkPath(newPath);
 
+	Mat image = imread(newPath);
+	std::cout << "background size: " << image.cols << " " << image.rows << std::endl;
+	if (image.cols > MIN_COLS_BACKGROUND || image.rows > MIN_ROWS_BACKGROUND) //change image size if its too big
+	{
+		image = Helper::changeImageSize(MIN_ROWS_BACKGROUND, MIN_COLS_BACKGROUND, image, newPath);
+	}
+
+
 	return newPath;
 }
 
-
+/*
+This function will change the size of an image
+input: rows, cols, image, std::string path
+output: Mat
+*/
+Mat Helper::changeImageSize(int rows, int cols, Mat image, std::string path)
+{
+	Mat newMat;
+	resize(image, newMat, Size(rows, cols), INTER_LINEAR);
+	imwrite(path, newMat);
+	return newMat;
+}
 
 /*
 This function will split the 3 existed channels from picture's mat
@@ -116,7 +139,7 @@ std::vector<Mat> Helper::splitMat(Mat image)
 {
 	std::vector<Mat> matChannels;
 
-	for (int k = 0; k < ENDING; k++) // go throgh all RGB channels
+	for (int k = 0; k < 3; k++) // go throgh all RGB channels
 	{
 		cv::Mat temp = Mat::zeros(image.size(), image.type()); // create temp mat to push into the vector
 		for (int i = 0; i < image.rows; i++) // go throgh the picture and put all the data from each RGB channel every time
@@ -156,3 +179,5 @@ Mat Helper::mergeMat(std::vector<Mat> matChannels, Mat image)
 
 	return matt;
 }
+
+
