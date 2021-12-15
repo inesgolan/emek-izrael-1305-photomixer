@@ -153,22 +153,3 @@ bool checkObjectImage::checkTooBright()
 	}
 	return false;
 }
-
-
-/*
-This function will check if the picture size is too big, and then change the size to the currect size
-input: Mat image, std::string path
-output: Mat
-*/
-Mat checkObjectImage::checkImageSize(Mat image, std::string path)
-{
-	if (image.cols > MAX_COLS_LEN || image.rows > MAX_ROWS_LEN)
-	{
-		Mat newMat;
-		resize(image, newMat, Size(MAX_ROWS_LEN, MAX_COLS_LEN), INTER_LINEAR);
-		imwrite(path, newMat);
-		return newMat;
-	}
-	return image;
-}
-

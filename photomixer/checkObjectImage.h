@@ -15,10 +15,6 @@
 #define BRIGHTEST_GRAY 220
 #define MOST_OF_THE_PIXELS 0.8
 
-#define MAX_ROWS_LEN 160
-#define MAX_COLS_LEN 160
-
-
 using namespace cv;
 
 class checkObjectImage
@@ -42,6 +38,5 @@ public:
 	bool checkBlackAndWhite();
 	bool checkTooDark();
 	bool checkTooBright(); 
-	Mat checkImageSize(Mat image, std::string path);
 };
 

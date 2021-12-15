@@ -29,9 +29,5 @@ int main()
 	ObjectOnBackground objectOnBackground(backgroundImage);
 	Mat allImage = objectOnBackground.getEditedImage(100, 100, objectImage, backgroundImage);
 
-	//show image
-	imshow("image.png", allImage);
-	waitKey(0);
-
 	return 0;
 }
