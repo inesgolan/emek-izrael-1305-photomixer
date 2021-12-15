@@ -277,12 +277,14 @@ int ObjectDetection::getPixelsAvg(Mat color)
 }
 
 /*
-This function find the object in the image and show the matte
+This function find the object in the image and get the matte
 Input: none
 Output: the matte
 */
 Mat ObjectDetection::findObject()
 {
+	std::string needToChangeMatte = "";
+
 	std::cout << "image avg " << getPixelsAvg(_image) << std::endl;
 	if (getPixelsAvg(_image) < BRIGHT) //the image is darker
 	{
@@ -309,6 +311,21 @@ Mat ObjectDetection::findObject()
 
 	improvObjectColoring();
 
+	//check if the matte is good
+	imshow("the image", _image);
+	imshow("matte.png", _matte);
+	int k = waitKey(0); // Wait for a keystroke in the window
+	if (k == 's')
+	{
+		std::cout << "Are the white pixels in this image where the object is? (yes/no)" << std::endl;
+		std::cin >> needToChangeMatte;
+		getchar();
+
+		if (needToChangeMatte == "no")
+		{
+			checkMatte();
+		}
+	}
 	return _matte;
 }
 
@@ -360,6 +377,43 @@ void ObjectDetection::choseMatte()
 	_redChannel = imread("red.png");
 	_greenChannel = imread("green.png");
 	_blueChannel = imread("blue.png");
+}
+
+/*
+This function check if the matte image turned out good
+input: none
+output: none
+*/
+void ObjectDetection::checkMatte()
+{
+	std::string choice = "";
+
+	std::cout << "Are the black pixels in this image where the object is? (yes/no)" << std::endl;
+	std::cin >> choice;
+	getchar();
+
+	if (choice == "yes") //turn the matte colors
+	{
+		for (int i = 0; i < _matte.rows; i++)
+		{
+			for (int j = 0; j < _matte.cols; j++)
+			{
+				if (checkColor(i, j, BLACK))  
+				{
+					changePixelColor(_matte, BLACK, i, j);
+				}
+				else 
+				{
+					changePixelColor(_matte, WHITE, i, j);
+				}
+			}
+		}
+		imwrite("matte.png", _matte);
+	}
+	//else if (choice == "no") //let the user mark where the object is
+	//{
+	//	
+	//}
 }
 
 
