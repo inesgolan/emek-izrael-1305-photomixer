@@ -4,7 +4,7 @@
 int main()
 {
 	//get image path
-	std::string path = "images/dino.jpg";
+	std::string path = "images/bear2.jpg";
 	path = Helper::checkPath(path);
 
 	//get image
