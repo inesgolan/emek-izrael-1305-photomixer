@@ -30,5 +30,7 @@ public:
 	Mat getBackground();
 
 	Mat getEditedImage(int, int, Mat, Mat);
+
+	void deleteImages();
 };
 
