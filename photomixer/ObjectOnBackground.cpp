@@ -113,5 +113,20 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 	//write changes to image
 	imwrite(path, image);
 
+	deleteImages();
+
 	return image;
+}
+
+/*
+This function delete the color channels and matte images
+Input: none
+Output: none
+*/
+void ObjectOnBackground::deleteImages()
+{
+	std::remove("red.png"); 
+	std::remove("blue.png");
+	std::remove("green.png");
+	std::remove("matte.png");
 }
