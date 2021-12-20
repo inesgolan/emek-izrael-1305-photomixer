@@ -211,8 +211,6 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 	int pixelAvgGrayScale = 0;
 	Vec3b bgrVectorGrayScale;
 
-	std::cout << name << " avg:" << avg << "\n\n";
-
 	for (int i = 0; i < color.rows; i++)
 	{
 		for (int j = 0; j < color.cols; j++)
@@ -285,7 +283,6 @@ Mat ObjectDetection::findObject()
 {
 	std::string needToChangeMatte = "";
 
-	std::cout << "image avg " << getPixelsAvg(_image) << std::endl;
 	if (getPixelsAvg(_image) < BRIGHT) //the image is darker
 	{
 		//make image darker in each color channel to find object
@@ -355,10 +352,6 @@ void ObjectDetection::choseMatte()
 	greenAvg = getPixelsAvg(_greenChannel);
 	blueAvg = getPixelsAvg(_blueChannel);
 
-	std::cout << "\n\nredAvg: " << redAvg << "\n";
-	std::cout << "greenAvg: " << greenAvg << "\n";
-	std::cout << "blueAvg: " << blueAvg << "\n";
-
 	if (redAvg > greenAvg && redAvg > blueAvg) //chose the highet avg
 	{
 		_matteColorChoice = "red";
@@ -371,8 +364,6 @@ void ObjectDetection::choseMatte()
 	{
 		_matteColorChoice = "green";
 	}
-
-	std::cout << "chosen matte: " << _matteColorChoice << std::endl;
 
 	_redChannel = imread("red.png");
 	_greenChannel = imread("green.png");

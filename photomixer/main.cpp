@@ -1,33 +1,44 @@
 #include "ObjectOnBackground.h"
 #include "ObjectDetection.h"
 
-int main()
+#define IMAGE_PATH 1
+#define BACKGROUND_PATH 2
+#define OBJECT_X_LOCATION 3
+#define OBJECT_Y_LOCATION 4
+
+/* NOTE:
+You pass all the command line arguments separated by a space, but if argument itself has a space
+then you can pass such arguments by putting them inside double quotes “” or single quotes ”
+client message: image path, background path, object x location, object y location
+*/
+int main(int argc, char** argv)
 {
+	std::string path = "", backgroundPath = "";
+	Mat image, matte, objectImage, backgroundImage, allImage;
+
 	//get image path
-	std::string path = "images/flower.jpg";
+	path = argv[IMAGE_PATH];
 	path = Helper::checkPath(path);
 
 	//get image
-	Mat image = imread(path);
+	image = imread(path);
 	image = Helper::checkImage(image, path);
 
 	//get object
 	ObjectDetection object = ObjectDetection(image);
 	object.getImageChannels();
-	Mat matte = object.findObject();
+	matte = object.findObject();
 
 	//get object image
 	ClearBackground clearBackground;
-	Mat objectImage = clearBackground.getObjectImage(image, matte);
+	objectImage = clearBackground.getObjectImage(image, matte);
 
-	//set background
-	std::string backgroundPath = "images/background.jpg";
+	backgroundPath = argv[BACKGROUND_PATH];
 	backgroundPath = Helper::getNewBackground(backgroundPath);
-	Mat backgroundImage = imread(backgroundPath);
+	backgroundImage = imread(backgroundPath);
 
-	//put object on background
-	ObjectOnBackground objectOnBackground(backgroundImage);
-	Mat allImage = objectOnBackground.getEditedImage(100, 100, objectImage, backgroundImage);
+	ObjectOnBackground objectOnBackground =ObjectOnBackground(backgroundImage);
+	allImage = objectOnBackground.getEditedImage(std::stoi(argv[OBJECT_X_LOCATION]), std::stoi(argv[OBJECT_Y_LOCATION]), objectImage, backgroundImage);
 
 	return 0;
 }
