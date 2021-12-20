@@ -33,7 +33,7 @@ Mat ClearBackground::getObjectImage(Mat image, Mat matte)
 	}
 
 	//change image size
-	objectImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, objectImage, "objectImage.png");
+	objectImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, objectImage, "objectImage.png", FLAG_BACKGROUND);
 
 	return objectImage;
 }
