@@ -34,7 +34,7 @@ private:
 	void checkColorToImprove(Vec3b bgrVector, int color);
 
 public:
-	ObjectDetection(Mat); //c'tor
+	ObjectDetection(); //c'tor
 	~ObjectDetection(); //d'tor
 
 	//set

@@ -1,44 +1,73 @@
 #include "ObjectOnBackground.h"
 #include "ObjectDetection.h"
 
-#define IMAGE_PATH 1
-#define BACKGROUND_PATH 2
-#define OBJECT_X_LOCATION 3
-#define OBJECT_Y_LOCATION 4
+#define OBJECT_DETECTION 100
+#define EDIT_IMAGE 200
 
-/* NOTE:
-You pass all the command line arguments separated by a space, but if argument itself has a space
-then you can pass such arguments by putting them inside double quotes “” or single quotes ”
-client message: image path, background path, object x location, object y location
+#define CODE 1
+#define OBJECT_PATH 2
+#define SAVE_OBJECT_PATH 3
+#define BACKGROUND_PATH 3
+#define SAVE_IMAGE_PATH 4
+#define X_LOCATION 5
+#define Y_LOCATION 6
+
+/*
+client messages:
+100 - object path - save path
+200 - object path - background path - save path - x location - y location
 */
 int main(int argc, char** argv)
 {
-	std::string path = "", backgroundPath = "";
-	Mat image, matte, objectImage, backgroundImage, allImage;
-
-	//get image path
-	path = argv[IMAGE_PATH];
-	path = Helper::checkPath(path);
-
-	//get image
-	image = imread(path);
-	image = Helper::checkImage(image, path);
-
-	//get object
-	ObjectDetection object = ObjectDetection(image);
-	object.getImageChannels();
-	matte = object.findObject();
-
-	//get object image
+	std::string imagePath = "", backgroundPath = "", savePath = "";
+	Mat objectImage, backgroundImage, matte;
+	ObjectDetection object;
 	ClearBackground clearBackground;
-	objectImage = clearBackground.getObjectImage(image, matte);
+	ObjectOnBackground objectOnBackground;
 
-	backgroundPath = argv[BACKGROUND_PATH];
-	backgroundPath = Helper::getNewBackground(backgroundPath);
-	backgroundImage = imread(backgroundPath);
+	if (argc >= SAVE_OBJECT_PATH)
+	{
+		switch (std::stoi(argv[CODE]))
+		{
+		case OBJECT_DETECTION:
+			//get image path
+			imagePath = argv[OBJECT_PATH];
+			imagePath = Helper::checkPath(imagePath);
 
-	ObjectOnBackground objectOnBackground =ObjectOnBackground(backgroundImage);
-	allImage = objectOnBackground.getEditedImage(std::stoi(argv[OBJECT_X_LOCATION]), std::stoi(argv[OBJECT_Y_LOCATION]), objectImage, backgroundImage);
+			//get image
+			objectImage = imread(imagePath);
+			objectImage = Helper::checkImage(objectImage, imagePath);
+
+			//get matte
+			object.setImage(objectImage);
+			object.getImageChannels();
+			matte = object.findObject();
+
+			//get object image	
+			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+			break;
+
+		case EDIT_IMAGE:
+			//get image
+			imagePath = argv[OBJECT_PATH];
+			imagePath = Helper::checkPath(imagePath);
+			objectImage = imread(imagePath, -1);
+
+			//get background
+			backgroundPath = argv[BACKGROUND_PATH];
+			backgroundPath = Helper::getNewBackground(backgroundPath);
+			backgroundImage = imread(backgroundPath);
+
+			//edit the image
+			objectOnBackground.setBackground(backgroundImage);
+			objectOnBackground.getEditedImage(std::stoi(argv[X_LOCATION]), std::stoi(argv[Y_LOCATION]), objectImage, backgroundImage, argv[SAVE_IMAGE_PATH]);
+			break;
+
+		default:
+			std::cout << "ERROR" << std::endl;
+			break;
+		}
+	}
 
 	return 0;
 }

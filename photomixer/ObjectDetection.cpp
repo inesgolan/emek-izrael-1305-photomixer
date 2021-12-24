@@ -2,10 +2,31 @@
 
 /*
 This function is the constructor
-Input: the object image mat
+Input: none
 Output: none
 */
-ObjectDetection::ObjectDetection(Mat image)
+ObjectDetection::ObjectDetection()
+{
+}
+
+
+/*
+This function is the distructor - clears the mats
+Input: none
+Output: none
+*/
+ObjectDetection::~ObjectDetection()
+{
+	this->_image.release();
+	this->_redChannel.release();
+	this->_blueChannel.release();
+	this->_greenChannel.release();
+	this->_matte.release();
+}
+
+//setters
+//this setter also create the channel mattes
+void ObjectDetection::setImage(Mat image)
 {
 	this->_image = image;
 
@@ -26,27 +47,6 @@ ObjectDetection::ObjectDetection(Mat image)
 	_matte = Mat::zeros(image.rows, image.cols, CV_64FC1);
 	imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
-}
-
-
-/*
-This function is the distructor - clears the mats
-Input: none
-Output: none
-*/
-ObjectDetection::~ObjectDetection()
-{
-	this->_image.release();
-	this->_redChannel.release();
-	this->_blueChannel.release();
-	this->_greenChannel.release();
-	this->_matte.release();
-}
-
-//setters
-void ObjectDetection::setImage(Mat image)
-{
-	_image = image;
 }
 
 void ObjectDetection::setRed(Mat red)
