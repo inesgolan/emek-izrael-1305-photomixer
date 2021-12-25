@@ -16,6 +16,9 @@
 client messages:
 100 - object path - save path
 200 - object path - background path - save path - x location - y location
+for example:
+photomixer.exe 100 images/flower.jpg images/nene.png
+photomixer.exe 200 images/nene.png images/background.jpg images/image.png 100 100
 */
 int main(int argc, char** argv)
 {
@@ -45,13 +48,15 @@ int main(int argc, char** argv)
 
 			//get object image	
 			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+
+			std::cout << "100 ok" << std::endl;
 			break;
 
 		case EDIT_IMAGE:
 			//get image
 			imagePath = argv[OBJECT_PATH];
 			imagePath = Helper::checkPath(imagePath);
-			objectImage = imread(imagePath, -1);
+			objectImage = imread(imagePath, -1); //read alpha channel
 
 			//get background
 			backgroundPath = argv[BACKGROUND_PATH];
@@ -61,10 +66,12 @@ int main(int argc, char** argv)
 			//edit the image
 			objectOnBackground.setBackground(backgroundImage);
 			objectOnBackground.getEditedImage(std::stoi(argv[X_LOCATION]), std::stoi(argv[Y_LOCATION]), objectImage, backgroundImage, argv[SAVE_IMAGE_PATH]);
+
+			std::cout << "200 ok" << std::endl;
 			break;
 
 		default:
-			std::cout << "ERROR" << std::endl;
+			std::cout << "300 error" << std::endl;
 			break;
 		}
 	}
