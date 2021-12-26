@@ -108,8 +108,8 @@ Output: none
 */
 void ObjectOnBackground::deleteImages()
 {
-	std::remove("red.png"); 
-	std::remove("blue.png");
-	std::remove("green.png");
-	std::remove("matte.png");
+	remove("red.png"); 
+	remove("blue.png");
+	remove("green.png");
+	remove("matte.png");
 }

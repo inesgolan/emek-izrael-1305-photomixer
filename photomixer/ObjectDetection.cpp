@@ -279,7 +279,7 @@ This function find the object in the image and get the matte
 Input: none
 Output: the matte
 */
-Mat ObjectDetection::findObject()
+Mat ObjectDetection::getObjectMatte()
 {
 	std::string needToChangeMatte = "";
 

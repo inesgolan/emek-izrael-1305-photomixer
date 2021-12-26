@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 			//get matte
 			object.setImage(objectImage);
 			object.getImageChannels();
-			matte = object.findObject();
+			matte = object.getObjectMatte();
 
 			//get object image	
 			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);

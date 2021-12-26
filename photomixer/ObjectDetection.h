@@ -58,7 +58,7 @@ public:
 	void  makeDarker(Vec3b&);
 	void  makeDarkestMatte(int avg, Mat& color, std::string name);
 	int getPixelsAvg(Mat);
-	Mat findObject();
+	Mat getObjectMatte();
 
 	void choseMatte();
 	void checkMatte();
