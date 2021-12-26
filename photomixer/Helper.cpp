@@ -77,7 +77,7 @@ Mat Helper::checkImage(Mat image, std::string imagePath)
 
 	if (image.cols > MIN_COLS_IMAGE || image.rows > MIN_ROWS_IMAGE) //change image size if its too big
 	{
-		newImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, newImage, imagePath);
+		newImage = Helper::changeImageSize(image.rows, image.cols, newImage, imagePath, FALG_OBJECT);
 	}
 
 	return newImage;
@@ -109,7 +109,7 @@ std::string Helper::getNewBackground(std::string backgroundPath)
 	Mat image = imread(newPath);
 	if (image.cols > MIN_COLS_BACKGROUND || image.rows > MIN_ROWS_BACKGROUND) //change image size if its too big
 	{
-		image = Helper::changeImageSize(MIN_ROWS_BACKGROUND, MIN_COLS_BACKGROUND, image, newPath);
+		image = Helper::changeImageSize(MIN_ROWS_BACKGROUND, MIN_COLS_BACKGROUND, image, newPath, FLAG_BACKGROUND);
 	}
 
 
@@ -121,10 +121,32 @@ This function will change the size of an image
 input: rows, cols, image, std::string path
 output: Mat
 */
-Mat Helper::changeImageSize(int rows, int cols, Mat image, std::string path)
+Mat Helper::changeImageSize(int rows, int cols, Mat image, std::string path, int flag)
 {
 	Mat newMat;
-	resize(image, newMat, Size(rows, cols), INTER_LINEAR);
+
+	if (flag == FALG_OBJECT)
+	{
+		if (rows > 500 && cols > 500)
+		{
+			resize(image, newMat, Size(rows * TOO_BIG_PICTURE, cols * TOO_BIG_PICTURE), INTER_LINEAR);
+		}
+
+		else if (rows > 300 && cols > 300)
+		{
+			resize(image, newMat, Size(rows * MEDIOM_PICTURE, cols * MEDIOM_PICTURE), INTER_LINEAR);
+		}
+
+		else if (rows > 200 && cols > 200)
+		{
+			resize(image, newMat, Size(rows * SMALL_PICTURE, cols * SMALL_PICTURE), INTER_LINEAR);
+		}
+	}
+	else
+	{
+		resize(image, newMat, Size(rows, cols), INTER_LINEAR);
+	}
+	
 	imwrite(path, newMat);
 	return newMat;
 }
