@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "photomixerGUI", "photomixerGUI.csproj", "{55EC5FE5-776F-4568-9DEB-8FBBC635D4C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "photomixerGUI", "photomixerGUI.csproj", "{F684CAF2-8BAD-4F5C-BC1D-43B3F53437EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{55EC5FE5-776F-4568-9DEB-8FBBC635D4C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55EC5FE5-776F-4568-9DEB-8FBBC635D4C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55EC5FE5-776F-4568-9DEB-8FBBC635D4C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55EC5FE5-776F-4568-9DEB-8FBBC635D4C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F684CAF2-8BAD-4F5C-BC1D-43B3F53437EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F684CAF2-8BAD-4F5C-BC1D-43B3F53437EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F684CAF2-8BAD-4F5C-BC1D-43B3F53437EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F684CAF2-8BAD-4F5C-BC1D-43B3F53437EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {393F3228-0F2A-4101-A132-AF48CA62EE8A}
+		SolutionGuid = {D5543B79-25F3-47A7-9A96-60D9FE2B7156}
 	EndGlobalSection
 EndGlobal
