@@ -2,10 +2,31 @@
 
 /*
 This function is the constructor
-Input: the object image mat
+Input: none
 Output: none
 */
-ObjectDetection::ObjectDetection(Mat image)
+ObjectDetection::ObjectDetection()
+{
+}
+
+
+/*
+This function is the distructor - clears the mats
+Input: none
+Output: none
+*/
+ObjectDetection::~ObjectDetection()
+{
+	this->_image.release();
+	this->_redChannel.release();
+	this->_blueChannel.release();
+	this->_greenChannel.release();
+	this->_matte.release();
+}
+
+//setters
+//this setter also create the channel mattes
+void ObjectDetection::setImage(Mat image)
 {
 	this->_image = image;
 
@@ -26,27 +47,6 @@ ObjectDetection::ObjectDetection(Mat image)
 	_matte = Mat::zeros(image.rows, image.cols, CV_64FC1);
 	imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
-}
-
-
-/*
-This function is the distructor - clears the mats
-Input: none
-Output: none
-*/
-ObjectDetection::~ObjectDetection()
-{
-	this->_image.release();
-	this->_redChannel.release();
-	this->_blueChannel.release();
-	this->_greenChannel.release();
-	this->_matte.release();
-}
-
-//setters
-void ObjectDetection::setImage(Mat image)
-{
-	_image = image;
 }
 
 void ObjectDetection::setRed(Mat red)
@@ -211,8 +211,6 @@ void ObjectDetection::makeDarkestMatte(int avg, Mat& color, std::string name)
 	int pixelAvgGrayScale = 0;
 	Vec3b bgrVectorGrayScale;
 
-	std::cout << name << " avg:" << avg << "\n\n";
-
 	for (int i = 0; i < color.rows; i++)
 	{
 		for (int j = 0; j < color.cols; j++)
@@ -281,11 +279,10 @@ This function find the object in the image and get the matte
 Input: none
 Output: the matte
 */
-Mat ObjectDetection::findObject()
+Mat ObjectDetection::getObjectMatte()
 {
 	std::string needToChangeMatte = "";
 
-	std::cout << "image avg " << getPixelsAvg(_image) << std::endl;
 	if (getPixelsAvg(_image) < BRIGHT) //the image is darker
 	{
 		//make image darker in each color channel to find object
@@ -355,10 +352,6 @@ void ObjectDetection::choseMatte()
 	greenAvg = getPixelsAvg(_greenChannel);
 	blueAvg = getPixelsAvg(_blueChannel);
 
-	std::cout << "\n\nredAvg: " << redAvg << "\n";
-	std::cout << "greenAvg: " << greenAvg << "\n";
-	std::cout << "blueAvg: " << blueAvg << "\n";
-
 	if (redAvg > greenAvg && redAvg > blueAvg) //chose the highet avg
 	{
 		_matteColorChoice = "red";
@@ -371,8 +364,6 @@ void ObjectDetection::choseMatte()
 	{
 		_matteColorChoice = "green";
 	}
-
-	std::cout << "chosen matte: " << _matteColorChoice << std::endl;
 
 	_redChannel = imread("red.png");
 	_greenChannel = imread("green.png");

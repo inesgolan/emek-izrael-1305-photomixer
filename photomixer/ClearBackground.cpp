@@ -2,14 +2,14 @@
 
 /*
 This function will return the object image with transparent background
-Input: image, black and white matte
-Output: object image 
+Input: image, black and white matte, path to save the result
+Output: none 
 */
-Mat ClearBackground::getObjectImage(Mat image, Mat matte)
+void ClearBackground::getObjectImage(Mat image, Mat matte, std::string path)
 {
 	//create new image
 	Mat objectImage = Mat::zeros(image.size(), image.type());
-	imwrite("objectImage.png", objectImage);
+	imwrite(path, objectImage);
 
 	//create alpha channel
 	std::vector<Mat> matChannels;
@@ -33,8 +33,5 @@ Mat ClearBackground::getObjectImage(Mat image, Mat matte)
 	}
 
 	//change image size
-	objectImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, objectImage, "objectImage.png", FLAG_BACKGROUND);
-
-	return objectImage;
+	objectImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, objectImage, path, FLAG_BACKGROUND);
 }
-

@@ -22,14 +22,14 @@ class ObjectOnBackground
 private: 
 	Mat _background;
 public:
-	ObjectOnBackground(Mat); //c'tor
+	ObjectOnBackground(); //c'tor
 	~ObjectOnBackground(); //d'tor
 
 	//set and get
 	void setBackground(Mat); 
 	Mat getBackground();
 
-	Mat getEditedImage(int, int, Mat, Mat);
+	void getEditedImage(int, int, Mat, Mat, std::string);
 
 	void deleteImages();
 };
