@@ -34,7 +34,7 @@ private:
 	void checkColorToImprove(Vec3b bgrVector, int color);
 
 public:
-	ObjectDetection(Mat); //c'tor
+	ObjectDetection(); //c'tor
 	~ObjectDetection(); //d'tor
 
 	//set
@@ -58,7 +58,7 @@ public:
 	void  makeDarker(Vec3b&);
 	void  makeDarkestMatte(int avg, Mat& color, std::string name);
 	int getPixelsAvg(Mat);
-	Mat findObject();
+	Mat getObjectMatte();
 
 	void choseMatte();
 	void checkMatte();

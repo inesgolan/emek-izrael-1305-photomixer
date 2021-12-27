@@ -2,12 +2,11 @@
 
 /*
 This function is the constructor
-Input: the background image mat
+Input: none
 Output: none
 */
-ObjectOnBackground::ObjectOnBackground(Mat background)
+ObjectOnBackground::ObjectOnBackground()
 {
-	_background = background;
 }
 
 /*
@@ -40,16 +39,13 @@ Mat ObjectOnBackground::getBackground()
 	return _background;
 }
 
-//where check than the size of the object is smller than the background?
 /*
 This function puts the object on the background where the user choose
-Input: the object mat, the background mat
-Output: the combined image mat
+Input: the object mat, the background mat, path to save the result
+Output: none
 */
-Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat background)
+void ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat background, std::string path)
 {
-	std::string path = "";
-	std::string imageName = "";
 	int x = startX;
 	int y = startY;
 	int length = object.rows;
@@ -99,23 +95,10 @@ Mat ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat b
 		}
 	}
 
-	std::cout << "PLEASE ENTER THE PATH WHERE YOU WOULD LIKE TO SAVE THE IMAGE:" << std::endl;
-	getline(std::cin, path);
-	getchar();
-	//need check if folder exists
-
-	std::cout << "ENTER IMAGE NAME WITH EXTENSION: " << std::endl;
-	getline(std::cin, imageName);
-	getchar();
-	//need to check image name
-	path = path + "\\" + imageName;
-	
 	//write changes to image
 	imwrite(path, image);
 
 	deleteImages();
-
-	return image;
 }
 
 /*
@@ -125,8 +108,8 @@ Output: none
 */
 void ObjectOnBackground::deleteImages()
 {
-	std::remove("red.png"); 
-	std::remove("blue.png");
-	std::remove("green.png");
-	std::remove("matte.png");
+	remove("red.png"); 
+	remove("blue.png");
+	remove("green.png");
+	remove("matte.png");
 }

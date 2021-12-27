@@ -107,7 +107,6 @@ std::string Helper::getNewBackground(std::string backgroundPath)
 	newPath = checkPath(newPath);
 
 	Mat image = imread(newPath);
-	std::cout << "background size: " << image.cols << " " << image.rows << std::endl;
 	if (image.cols > MIN_COLS_BACKGROUND || image.rows > MIN_ROWS_BACKGROUND) //change image size if its too big
 	{
 		image = Helper::changeImageSize(MIN_ROWS_BACKGROUND, MIN_COLS_BACKGROUND, image, newPath, FLAG_BACKGROUND);

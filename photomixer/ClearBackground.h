@@ -23,7 +23,7 @@ using namespace cv;
 class ClearBackground
 {
 public:
-	Mat getObjectImage(Mat, Mat);
+	void getObjectImage(Mat, Mat, std::string);
 };
 
 
