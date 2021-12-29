@@ -1,8 +1,12 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "LsxZ0HcHuIC+IqqzSd9koc1TsqF1ZMDUDajmMY/WSy27KRQURsD213aGyw48e/E7jEe2iXoj81r+i4W2TBHIjQ==",
+=======
+  "dgSpecHash": "GHFygbmnt0C9WBVYHPetprY6p5bgAlxbg7FRYppd1uRxuIRbjjoMCdMhIZOJ4IVYVTarsGpRjasUt22BsHuXnQ==",
+>>>>>>> c21d6c6b74a8c6cc4edfbf03fb07c1f768ebe1fd
   "success": true,
-  "projectFilePath": "C:\\Users\\Ines Noa Golan\\source\\repos\\emek-izrael-1305-photomixer\\photomixerGUI\\photomixerGUI.csproj",
+  "projectFilePath": "C:\\Users\\משתמש\\emek-izrael-1305-photomixer\\photomixerGUI\\photomixerGUI.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

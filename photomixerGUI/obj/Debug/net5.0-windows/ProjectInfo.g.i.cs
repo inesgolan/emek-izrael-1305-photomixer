@@ -53,7 +53,7 @@ namespace photomixerGUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/photomixerGUI;component/projectinfo.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/photomixerGUI;V1.0.0.0;component/projectinfo.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\ProjectInfo.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
