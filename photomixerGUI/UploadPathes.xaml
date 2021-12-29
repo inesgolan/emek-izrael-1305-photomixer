@@ -24,11 +24,8 @@
         <TextBox Grid.Column="1" Grid.Row="1" Text="Enter path of background image:" Margin="25,50,25,50"/>
        
         <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Edit image" 
-<<<<<<< HEAD
                 Foreground="Black" FontWeight="Bold"/>
-=======
-                Foreground="Black" FontWeight="Bold" />
->>>>>>> c21d6c6b74a8c6cc4edfbf03fb07c1f768ebe1fd
+
 
     </Grid>
 </Window>
