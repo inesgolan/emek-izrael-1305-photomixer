@@ -19,7 +19,8 @@ namespace photomixerGUI
         public void sendObjectRecognizeMsg(string objectPath, string savePath)
         {
             string exe_params = "100 " + objectPath + " " + savePath;
-            string exe_full_path = Path.Combine("C:\\Users\\משתמש\\emek-izrael-1305-photomixer\\photomixer\\x64\\Debug", "photomixer.exe");
+            Console.WriteLine(exe_params);
+            string exe_full_path = Path.Combine("C:\\Users\\Ines Noa Golan\\source\\repos\\emek-izrael-1305-photomixer\\photomixer", "photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(exe_full_path, exe_params);
         }
 

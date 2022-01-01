@@ -4,7 +4,6 @@ namespace photomixerGUI
 {
     public partial class MainWindow : Window
     {
-        private Communicator communicator;
         public MainWindow()
         {
             InitializeComponent();
