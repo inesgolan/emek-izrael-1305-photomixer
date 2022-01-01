@@ -308,21 +308,6 @@ Mat ObjectDetection::getObjectMatte()
 
 	improvObjectColoring();
 
-	////check if the matte is good
-	//imshow("the image", _image);
-	//imshow("matte.png", _matte);
-	//int k = waitKey(0); // Wait for a keystroke in the window
-	//if (k == 's')
-	//{
-		std::cout << "Are the white pixels in this image where the object is? (yes/no)" << std::endl;
-		std::cin >> needToChangeMatte;
-		getchar();
-
-		if (needToChangeMatte == "no")
-		{
-			checkMatte();
-		}
-	//}
 	return _matte;
 }
 
@@ -335,8 +320,6 @@ void ObjectDetection::makeDarkImageMat(Mat mat, String name)
 	avg = getPixelsAvg(mat);
 	makeDarkestMatte(avg, mat, name);
 }
-
-
 
 /*
 This function chose the matte that identify the object the best
@@ -371,40 +354,29 @@ void ObjectDetection::choseMatte()
 }
 
 /*
-This function check if the matte image turned out good
+This function reverse the colors of the matte
 input: none
-output: none
+output: the matte
 */
-void ObjectDetection::checkMatte()
+Mat ObjectDetection::reverseMatte()
 {
-	std::string choice = "";
-
-	std::cout << "Are the black pixels in this image where the object is? (yes/no)" << std::endl;
-	std::cin >> choice;
-	getchar();
-
-	if (choice == "yes") //turn the matte colors
+	for (int i = 0; i < _matte.rows; i++)
 	{
-		for (int i = 0; i < _matte.rows; i++)
+		for (int j = 0; j < _matte.cols; j++)
 		{
-			for (int j = 0; j < _matte.cols; j++)
+			if (checkColor(i, j, BLACK))  
 			{
-				if (checkColor(i, j, BLACK))  
-				{
-					changePixelColor(_matte, BLACK, i, j);
-				}
-				else 
-				{
-					changePixelColor(_matte, WHITE, i, j);
-				}
+				changePixelColor(_matte, BLACK, i, j);
+			}
+			else 
+			{
+				changePixelColor(_matte, WHITE, i, j);
 			}
 		}
-		imwrite("matte.png", _matte);
 	}
-	//else if (choice == "no") //let the user mark where the object is
-	//{
-	//	
-	//}
+
+	imwrite("matte.png", _matte);
+	return _matte;
 }
 
 
