@@ -9,5 +9,13 @@ namespace photomixerGUI
         {
             InitializeComponent();
         }
+
+        private void objectDetection(object sender, RoutedEventArgs e)
+        {
+            Close();
+            //send pathes to the server
+            checkMatte check = new checkMatte();
+            check.Show();
+        }
     }
 }

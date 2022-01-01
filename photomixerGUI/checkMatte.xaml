@@ -1,0 +1,34 @@
+﻿<Window x:Class="photomixerGUI.checkMatte"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:photomixerGUI"
+        mc:Ignorable="d"
+        Title="checkMatte" Height="450" Width="800">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label FontWeight="Bold" FontSize="15" Foreground="DarkBlue" Content="the image:"
+               HorizontalAlignment="Left" VerticalAlignment="Center" Width="236"/>
+        <Image Source="C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\images\flower.jpg" />
+        <Label FontWeight="Bold" FontSize="15" Foreground="DarkBlue" Content="matte:"
+               HorizontalAlignment="Left" VerticalAlignment="Center" Width="236" Grid.Column="1" />
+        <Image Grid.Column="1" Source="C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\matte.png" />
+
+        <Button Grid.Row="1" FontSize="15" Margin="250,50,250,50" Content="Click here if we didn't find the object" Foreground="DarkBlue" FontWeight="Bold" Grid.ColumnSpan="2" Click="reverseMatte"/>
+
+        <Button Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Edit image" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" Click="edit"/>
+
+    </Grid>
+    
+</Window>
