@@ -12,6 +12,9 @@
 #define X_LOCATION 5
 #define Y_LOCATION 6
 
+#define MIN_ARGUMENTS 4
+#define MAX_ARGUMENTS 22
+
 /*
 client messages:
 100 - object path - save path
@@ -28,26 +31,29 @@ int main(int argc, char** argv)
 	ClearBackground clearBackground;
 	ObjectOnBackground objectOnBackground;
 
-	if (argc >= SAVE_OBJECT_PATH)
+	if (argc >= MIN_ARGUMENTS && argc <= MAX_ARGUMENTS)
 	{
 		switch (std::stoi(argv[CODE]))
 		{
 		case OBJECT_DETECTION:
-			//get image path
-			imagePath = argv[OBJECT_PATH];
-			imagePath = Helper::checkPath(imagePath);
+			for (int i = 0; i < (argc - 1); i+=2) //can enter more than one image
+			{
+				//get image path
+				imagePath = argv[OBJECT_PATH+i];
+				imagePath = Helper::checkPath(imagePath);
 
-			//get image
-			objectImage = imread(imagePath);
-			objectImage = Helper::checkImage(objectImage, imagePath);
+				//get image
+				objectImage = imread(imagePath);
+				objectImage = Helper::checkImage(objectImage, imagePath);
 
-			//get matte
-			object.setImage(objectImage);
-			object.getImageChannels();
-			matte = object.getObjectMatte();
+				//get matte
+				object.setImage(objectImage);
+				object.getImageChannels();
+				matte = object.getObjectMatte();
 
-			//get object image	
-			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+				//get object image	
+				clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH+i]);
+			}
 
 			std::cout << "100 ok" << std::endl;
 			break;
