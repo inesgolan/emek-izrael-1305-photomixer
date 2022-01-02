@@ -22,23 +22,9 @@
         <TextBox Grid.Column="1" Text="Enter path of object image:" Margin="25,50,25,50"/>
 
         <TextBox Grid.Column="1" Grid.Row="1" Text="Enter path of background image:" Margin="25,50,25,50"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-        <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Find object" 
-                Foreground="Black" FontWeight="Bold" Click="objectDetection"/>
-=======
-       
-        <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Edit image" 
-                Foreground="Black" FontWeight="Bold"/>
-
->>>>>>> ffcdb376e999ddf76fa800150c84871fbf12b801
-
-=======
 
         <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Edit image" 
                 Foreground="Black" FontWeight="Bold"/>
 
->>>>>>> d4bce813fb792a408a334655d7ea932ee04a1191
     </Grid>
 </Window>
