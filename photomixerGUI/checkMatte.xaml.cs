@@ -13,7 +13,8 @@ namespace photomixerGUI
         //this function reverse the matte colors
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
-
+            string msg = "101";
+            //send to server to reverse colors of the matte
         }
 
         //opens edit window
