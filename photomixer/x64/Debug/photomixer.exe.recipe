@@ -2,7 +2,11 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< HEAD
       <FullPath>C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\x64\Debug\photomixer.exe</FullPath>
+=======
+      <FullPath>C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\x64\Debug\photomixer.exe</FullPath>
+>>>>>>> d4bce813fb792a408a334655d7ea932ee04a1191
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

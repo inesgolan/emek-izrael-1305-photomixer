@@ -308,6 +308,24 @@ Mat ObjectDetection::getObjectMatte()
 
 	improvObjectColoring();
 
+<<<<<<< HEAD
+=======
+	////check if the matte is good
+	//imshow("the image", _image);
+	//imshow("matte.png", _matte);
+	//int k = waitKey(0); // Wait for a keystroke in the window
+	//if (k == 's')
+	//{
+		std::cout << "Are the white pixels in this image where the object is? (yes/no)" << std::endl;
+		std::cin >> needToChangeMatte;
+		getchar();
+
+		if (needToChangeMatte == "no")
+		{
+			checkMatte();
+		}
+	//}
+>>>>>>> d4bce813fb792a408a334655d7ea932ee04a1191
 	return _matte;
 }
 
