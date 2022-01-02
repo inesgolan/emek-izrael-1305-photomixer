@@ -9,8 +9,8 @@ namespace photomixerGUI
         public UploadPathes()
         {
             InitializeComponent();
-            string imagePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/flower.jpg\"";
-            string savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/new.png\"";
+            string imagePath = "\"C:/Users/משתמש/emek-izrael-1305-photomixer/photomixer/images/flower.jpg\"";
+            string savePath = "\"C:/Users/משתמש/emek-izrael-1305-photomixer/photomixer/images/neew.png\"";
             communicator.sendObjectRecognizeMsg(imagePath, savePath);
         }
     }

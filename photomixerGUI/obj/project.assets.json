@@ -8,23 +8,23 @@
     "net5.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Ines Noa Golan\\.nuget\\packages\\": {},
+    "C:\\Users\\משתמש\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ines Noa Golan\\source\\repos\\emek-izrael-1305-photomixer\\photomixerGUI\\photomixerGUI.csproj",
+      "projectUniqueName": "C:\\Users\\משתמש\\emek-izrael-1305-photomixer\\photomixerGUI\\photomixerGUI.csproj",
       "projectName": "photomixerGUI",
-      "projectPath": "C:\\Users\\Ines Noa Golan\\source\\repos\\emek-izrael-1305-photomixer\\photomixerGUI\\photomixerGUI.csproj",
-      "packagesPath": "C:\\Users\\Ines Noa Golan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ines Noa Golan\\source\\repos\\emek-izrael-1305-photomixer\\photomixerGUI\\obj\\",
+      "projectPath": "C:\\Users\\משתמש\\emek-izrael-1305-photomixer\\photomixerGUI\\photomixerGUI.csproj",
+      "packagesPath": "C:\\Users\\משתמש\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\משתמש\\emek-izrael-1305-photomixer\\photomixerGUI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ines Noa Golan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\משתמש\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
