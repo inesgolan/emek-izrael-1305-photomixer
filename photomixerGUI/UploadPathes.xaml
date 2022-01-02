@@ -22,10 +22,9 @@
         <TextBox Grid.Column="1" Text="Enter path of object image:" Margin="25,50,25,50"/>
 
         <TextBox Grid.Column="1" Grid.Row="1" Text="Enter path of background image:" Margin="25,50,25,50"/>
-       
+
         <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Edit image" 
                 Foreground="Black" FontWeight="Bold"/>
-
 
     </Grid>
 </Window>
