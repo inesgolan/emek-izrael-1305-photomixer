@@ -20,10 +20,10 @@
 
         <Label FontWeight="Bold" FontSize="15" Foreground="DarkBlue" Content="the image:"
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236"/>
-        <Image Source="C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\images\flower.jpg" />
+        <Image x:Name="objectImage" Source="{Binding objectImage}"/>
         <Label FontWeight="Bold" FontSize="15" Foreground="DarkBlue" Content="matte:"
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236" Grid.Column="1" />
-        <Image Grid.Column="1" Source="C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\matte.png" />
+        <Image Grid.Column="1" x:Name ="matteImage" Source="{Binding objectImage}"/>
 
         <Button Grid.Row="1" FontSize="15" Margin="250,50,250,50" Content="Click here if we didn't find the object" Foreground="DarkBlue" FontWeight="Bold" Grid.ColumnSpan="2" Click="reverseMatte"/>
 

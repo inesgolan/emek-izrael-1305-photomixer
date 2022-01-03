@@ -7,6 +7,8 @@ Output: none
 */
 void ClearBackground::getObjectImage(Mat image, Mat matte, std::string path)
 {
+	imshow("matte.png", matte);
+	waitKey(0);
 	//create new image
 	Mat objectImage = Mat::zeros(image.size(), image.type());
 	imwrite(path, objectImage);

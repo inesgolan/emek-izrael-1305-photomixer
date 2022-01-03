@@ -67,7 +67,7 @@ int main(int argc, char** argv)
 			object.setImage(objectImage);
 			object.getImageChannels();
 			matte = object.getObjectMatte();
-			matte = object.reverseMatte();
+			matte = object.reverseMatte();//not working
 
 			//get object image	
 			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);

@@ -281,8 +281,6 @@ Output: the matte
 */
 Mat ObjectDetection::getObjectMatte()
 {
-	std::string needToChangeMatte = "";
-
 	if (getPixelsAvg(_image) < BRIGHT) //the image is darker
 	{
 		//make image darker in each color channel to find object
@@ -376,6 +374,8 @@ Mat ObjectDetection::reverseMatte()
 	}
 
 	imwrite("matte.png", _matte);
+	imshow("matte.png", _matte);
+	waitKey(0);
 	return _matte;
 }
 
