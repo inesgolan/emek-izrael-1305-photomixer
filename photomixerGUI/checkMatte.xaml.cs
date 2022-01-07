@@ -22,8 +22,8 @@ namespace photomixerGUI
             string imagePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg\"";
             string savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/here2.png\"";
             communicator.sendObjectRecognizeReverseMatteMsg(imagePath, savePath);
-            //objectImage.Source = new BitmapImage(new Uri("C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg"));
-            matteImage.Source = new BitmapImage(new Uri("C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixerGUI/bin/Debug/net5.0-windows/matte.png"));
+            System.Threading.Thread.Sleep(50); //it takes time to reverse the matte
+            matteImage.Source = new BitmapImage(new Uri("C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixerGUI/bin/Debug/net5.0-windows/matte2.png"));
         }
 
         //opens edit window
