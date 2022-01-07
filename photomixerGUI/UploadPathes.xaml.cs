@@ -6,6 +6,7 @@ namespace photomixerGUI
     public partial class UploadPathes : Window
     {
         private Communicator communicator = new Communicator();
+
         public UploadPathes()
         {
             InitializeComponent();
