@@ -20,9 +20,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button Name="questionMark" Width="80" Height="50" Click="getProjectInfo" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Image Source="Images/questionMark.jpg"></Image>
-        </Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Height="50" Width="80" Content="?" 
+                Foreground="DarkRed" FontWeight="Bold" Click="questionMark"/>
 
         <Label FontWeight="ExtraBold" FontSize="30" Foreground="DarkBlue" Content="Hello"
                HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="userName" Width="236" Grid.Column="1" />

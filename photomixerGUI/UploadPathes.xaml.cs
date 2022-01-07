@@ -6,14 +6,12 @@ namespace photomixerGUI
     public partial class UploadPathes : Window
     {
         private Communicator communicator = new Communicator();
-        public string imagePath { get; set; }
-        public string savePath { get; set; }
 
         public UploadPathes()
         {
             InitializeComponent();
-            imagePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg\"";
-            savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/here.png\"";
+            string imagePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg\"";
+            string savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/here.png\"";
             communicator.sendObjectRecognizeMsg(imagePath, savePath);
         }
 
