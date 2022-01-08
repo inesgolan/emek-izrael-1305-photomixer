@@ -8,7 +8,7 @@ namespace photomixerGUI
         {
         }
 
-        //this function open the window with the info about the project
+        //This function open the window with the info about the project
         private void questionMark(object sender, RoutedEventArgs e)
         {
             ProjectInfo info = new ProjectInfo();
@@ -16,7 +16,7 @@ namespace photomixerGUI
             Close();
         }
 
-        //this function open the window where the user uploads the images pathes
+        //This function open the window where the user uploads the images pathes
         private void getPathes(object sender, RoutedEventArgs e)
         {
             UploadPathes pathes = new UploadPathes();
