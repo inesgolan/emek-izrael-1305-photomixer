@@ -15,7 +15,11 @@ namespace photomixerGUI
         {
         }
 
-
+        /*
+        This function will send recognize image msg to the server
+        input:string objectPath, string savePath
+        output: none
+        */
         public void sendObjectRecognizeMsg(string objectPath, string savePath)
         {
             string exe_params = "100 " + objectPath + " " + savePath;
@@ -24,6 +28,11 @@ namespace photomixerGUI
         }
 
 
+        /*
+        This function will send paste object on image msg to the server
+        input:string objectPath, string backgroundPath, string savePath, int x, int y
+        output: none
+        */
         public void sendPasteObjectMsg(string objectPath, string backgroundPath, string savePath, int x, int y)
         {
             string exe_params = "200 " + objectPath + " " + backgroundPath + " " + savePath + " " + Convert.ToChar(x) + " " + Convert.ToChar(y);
