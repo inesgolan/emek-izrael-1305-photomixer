@@ -2,6 +2,7 @@
 #include "ObjectDetection.h"
 
 #define OBJECT_DETECTION 100
+#define REVERSE_MATTE 101
 #define EDIT_IMAGE 200
 
 #define CODE 1
@@ -15,6 +16,7 @@
 /*
 client messages:
 100 - object path - save path
+101 - object path - save path
 200 - object path - background path - save path - x location - y location
 for example:
 photomixer.exe 100 images/flower.jpg images/nene.png
@@ -28,7 +30,7 @@ int main(int argc, char** argv)
 	ClearBackground clearBackground;
 	ObjectOnBackground objectOnBackground;
 
-	if (argc >= SAVE_OBJECT_PATH)
+	if (argc > 1)
 	{
 		switch (std::stoi(argv[CODE]))
 		{
@@ -50,6 +52,27 @@ int main(int argc, char** argv)
 			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
 
 			std::cout << "100 ok" << std::endl;
+			break;
+
+		case REVERSE_MATTE:
+			//get image path
+			imagePath = argv[OBJECT_PATH];
+			imagePath = Helper::checkPath(imagePath);
+
+			//get image
+			objectImage = imread(imagePath);
+			objectImage = Helper::checkImage(objectImage, imagePath);
+
+			//get matte
+			object.setImage(objectImage);
+			object.getImageChannels();
+			matte = object.getObjectMatte();
+			matte = object.reverseMatte();
+
+			//get object image	
+			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+
+			std::cout << "101 ok" << std::endl;
 			break;
 
 		case EDIT_IMAGE:

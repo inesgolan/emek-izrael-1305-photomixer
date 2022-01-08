@@ -61,7 +61,7 @@ public:
 	Mat getObjectMatte();
 
 	void choseMatte();
-	void checkMatte();
+	Mat reverseMatte();
 
 	void improvObjectColoring();
 	void getPixelFrame(int x, int y, int color);

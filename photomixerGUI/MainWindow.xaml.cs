@@ -6,11 +6,10 @@ namespace photomixerGUI
     {
         public MainWindow()
         {
-            InitializeComponent();
         }
 
         //This function open the window with the info about the project
-        private void getProjectInfo(object sender, RoutedEventArgs e)
+        private void questionMark(object sender, RoutedEventArgs e)
         {
             ProjectInfo info = new ProjectInfo();
             info.Show();

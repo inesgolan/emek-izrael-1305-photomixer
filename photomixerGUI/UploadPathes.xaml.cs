@@ -10,9 +10,16 @@ namespace photomixerGUI
         public UploadPathes()
         {
             InitializeComponent();
-            string imagePath = "\"C:/Users/משתמש/emek-izrael-1305-photomixer/photomixer/images/flower.jpg\"";
-            string savePath = "\"C:/Users/משתמש/emek-izrael-1305-photomixer/photomixer/images/neew.png\"";
+            string imagePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg\"";
+            string savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/here.png\"";
             communicator.sendObjectRecognizeMsg(imagePath, savePath);
+        }
+
+        private void objectDetection(object sender, RoutedEventArgs e)
+        {
+            checkMatte check = new checkMatte("C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg");
+            check.Show();
+            Close();
         }
     }
 }
