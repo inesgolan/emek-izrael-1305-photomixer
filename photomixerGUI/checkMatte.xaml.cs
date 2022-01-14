@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace photomixerGUI
 {
@@ -8,22 +9,28 @@ namespace photomixerGUI
     public partial class checkMatte : Window
     {
         private Communicator communicator = new Communicator();
+        private string _objectPath;
+        public static int counter;
+
         public checkMatte(string imagePath)
         {
             InitializeComponent();
 
+            this._objectPath = imagePath;
+            imagePath = Path.GetFullPath(imagePath);
             objectImage.Source = new BitmapImage(new Uri(imagePath));
-            matteImage.Source = new BitmapImage(new Uri("C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixerGUI/bin/Debug/net5.0-windows/matte.png"));
+            System.Threading.Thread.Sleep(50 * 2);
+            string path = Path.GetFullPath("matte.png");
+            matteImage.Source = new BitmapImage(new Uri(path));
         }
 
         //this function reverse the matte colors
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
-            string imagePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/bear2.jpg\"";
-            string savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/here2.png\"";
-            communicator.sendObjectRecognizeReverseMatteMsg(imagePath, savePath);
-            System.Threading.Thread.Sleep(50); //it takes time to reverse the matte
-            matteImage.Source = new BitmapImage(new Uri("C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixerGUI/bin/Debug/net5.0-windows/matte2.png"));
+            communicator.sendObjectRecognizeReverseMatteMsg(this._objectPath, "objectImage1.png");
+            System.Threading.Thread.Sleep(50*2); //it takes time to reverse the matte
+            string path = Path.GetFullPath("matte2.png");
+            matteImage.Source = new BitmapImage(new Uri(path));
         }
 
         //opens edit window
