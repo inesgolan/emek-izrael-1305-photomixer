@@ -27,8 +27,8 @@ namespace photomixerGUI
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
             counter++;
-            string saveגPictureName = "objectImage" + counter; //name the new pcture without its background
-            communicator.sendObjectRecognizeReverseMatteMsg(this._objectPath, saveגPictureName);
+            string savePictureName = "objectImage" + counter; //name the new pcture without its background
+            communicator.sendObjectRecognizeReverseMatteMsg(this._objectPath, savePictureName);
             System.Threading.Thread.Sleep(50); //it takes time to reverse the matte
             string path = Path.GetFullPath("matte.png");
             matteImage.Source = new BitmapImage(new Uri(path));
