@@ -19,7 +19,7 @@ namespace photomixerGUI
             this._objectPath = imagePath;
             imagePath = Path.GetFullPath(imagePath);
             objectImage.Source = new BitmapImage(new Uri(imagePath));
-
+            System.Threading.Thread.Sleep(50 * 2);
             string path = Path.GetFullPath("matte.png");
             matteImage.Source = new BitmapImage(new Uri(path));
         }
@@ -28,7 +28,7 @@ namespace photomixerGUI
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
             communicator.sendObjectRecognizeReverseMatteMsg(this._objectPath, "objectImage1.png");
-            System.Threading.Thread.Sleep(50); //it takes time to reverse the matte
+            System.Threading.Thread.Sleep(50*2); //it takes time to reverse the matte
             string path = Path.GetFullPath("matte2.png");
             matteImage.Source = new BitmapImage(new Uri(path));
         }

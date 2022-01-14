@@ -107,7 +107,7 @@ namespace photomixerGUI {
             case 4:
             
             #line 31 "..\..\..\UploadPathes.xaml"
-            ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.checkPathes);
+            ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.objectDetection);
             
             #line default
             #line hidden

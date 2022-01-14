@@ -40,8 +40,7 @@ namespace photomixerGUI
         */
         private bool isPathValid(string path)
         {
-            //C:\Usersמשתמש\emek-izrael-1305-photomixer\photomixer\images/bear2.jpg
-            //C:\Usersמשתמש\emek-izrael-1305-photomixer\photomixer\images/background.jpg
+            //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images\rabit.jpg
 
             string ending = "";
             string localPath = path;
