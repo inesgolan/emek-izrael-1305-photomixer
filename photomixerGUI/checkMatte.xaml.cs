@@ -16,21 +16,20 @@ namespace photomixerGUI
         {
             InitializeComponent();
 
+            this._objectPath = imagePath;
+            imagePath = Path.GetFullPath(imagePath);
             objectImage.Source = new BitmapImage(new Uri(imagePath));
+
             string path = Path.GetFullPath("matte.png");
             matteImage.Source = new BitmapImage(new Uri(path));
-
-            this._objectPath = imagePath;
         }
 
         //this function reverse the matte colors
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
-            counter++;
-            string savePictureName = "objectImage" + counter; //name the new pcture without its background
-            communicator.sendObjectRecognizeReverseMatteMsg(this._objectPath, savePictureName);
+            communicator.sendObjectRecognizeReverseMatteMsg(this._objectPath, "objectImage1.png");
             System.Threading.Thread.Sleep(50); //it takes time to reverse the matte
-            string path = Path.GetFullPath("matte.png");
+            string path = Path.GetFullPath("matte2.png");
             matteImage.Source = new BitmapImage(new Uri(path));
         }
 

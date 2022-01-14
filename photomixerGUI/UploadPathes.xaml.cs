@@ -13,7 +13,6 @@ namespace photomixerGUI
         public UploadPathes()
         {
             InitializeComponent();
-            this.communicator = communicator;
         }
 
 
@@ -30,7 +29,7 @@ namespace photomixerGUI
             }
             else
             {
-                communicator.sendObjectRecognizeMsg(objectPath.Text, backgroundPath.Text);
+                communicator.sendObjectRecognizeMsg(objectPath.Text, "objectImage1.png");
 
                 checkMatte check = new checkMatte(objectPath.Text);
                 check.Show();
@@ -45,13 +44,14 @@ namespace photomixerGUI
         */
         private bool isPathValid(string path)
         {
+            //C:\Usersמשתמש\emek-izrael-1305-photomixer\photomixer\images/bear2.jpg
+            //C:\Usersמשתמש\emek-izrael-1305-photomixer\photomixer\images/background.jpg
+
             string ending = "";
             string localPath = path;
 
             if (path.Length > ENDING) 
             {
-                //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images/bear2.jpg
-                //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images/background.jpg
 
                 int startIndex = path.Length - ENDING;
                 int finishIndex = path.Length - 1;
