@@ -19,13 +19,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Label Content="Enter path of object image:" Foreground="Black"/>
+        <Label Content="Enter path of object image:" Foreground="Black" Margin="4,50,10,50"/>
         <TextBox x:Name="objectPath" Grid.Column="1" Margin="25,50,25,50"/>
 
-        <Label Content="Enter path of background image:" Foreground="Black" Margin="25,50,25,50"/> 
+        <Label Grid.Row="1" Content="Enter path of background image:" Foreground="Black" Margin="4,50,10,50"/> 
         <TextBox x:Name="backgroundPath" Grid.Column="1" Grid.Row="1" Margin="25,50,25,50"/>
 
-        <TextBlock Name="ErrorMsg"></TextBlock>
+        <TextBlock Name="ErrorMsg" Margin="4,50,10,50" Grid.Row="2"/>
 
         <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Detect object" 
                 Foreground="Black" FontWeight="Bold" Click="objectDetection"/>

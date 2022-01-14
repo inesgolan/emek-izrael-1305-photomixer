@@ -21,11 +21,7 @@ namespace photomixerGUI
             if (!isPathValid(objectPath.Text) || !isPathValid(backgroundPath.Text))
             {
                 ErrorMsg.Text = "Error - wrong path - try again.";
-                ErrorMsg.Width = 60;
-                ErrorMsg.Height = 60;
                 ErrorMsg.Foreground = Brushes.DarkRed;
-                ErrorMsg.HorizontalAlignment = HorizontalAlignment.Left;
-                ErrorMsg.TextWrapping = TextWrapping.Wrap;
             }
             else
             {
