@@ -19,7 +19,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Content="Enter the count of object pathes: (1-10) " Foreground="Black" Margin="86,7,86,100" Grid.Column="1" />
-        <TextBox x:Name="countOfPathes" Grid.Column="1" Margin="125,45,125,56"/>
+        <TextBox x:Name="countOfPathes" Grid.Column="1" Margin="125,45,125,57"/>
 
         <Label Content="Enter path of object image:" Foreground="Black" Margin="4,53,10,47" Grid.Row="1"/>
         <TextBox x:Name="objectPath" Grid.Column="1" Margin="25,50,25,50" Grid.Row="1"/>
@@ -29,8 +29,8 @@
 
         <TextBlock Name="ErrorMsg" Margin="4,50,10,50" Foreground="DarkRed"/>
 
-        <Button Grid.Column="1" FontSize="15" Height="40" Width="100" Content="Submit" Name="countTextBox"
-                Foreground="Black" FontWeight="Bold" Click="checkCount" Margin="150,95,150,144" Grid.RowSpan="2"/>
+        <Button Grid.Column="1" FontSize="15" Height="40" Width="60" Content="Submit" Name="countTextBox"
+                Foreground="Black" FontWeight="Bold" Click="checkCount" Margin="150,89,150,6"/>
 
         <Button Grid.Column="2" Grid.Row="1" FontSize="15" Height="50" Width="100" Content="Detect object" 
                 Foreground="Black" FontWeight="Bold" Click="objectDetection"/>
