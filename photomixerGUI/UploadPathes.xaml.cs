@@ -1,35 +1,50 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Media;
+using System;
 
 namespace photomixerGUI
 {
     // user enters images pathes and this class checks the paths
     public partial class UploadPathes : Window
     {
+        private const int SIZE = 10;
         private const int ENDING = 4;
+
+        private static int imagesCounter;
         private Communicator communicator = new Communicator();
+        private static string[] pathesArr;
 
         public UploadPathes()
         {
             InitializeComponent();
+            imagesCounter = 0;
+            pathesArr = new string[SIZE];
         }
 
 
         private void objectDetection(object sender, RoutedEventArgs e)
         {
-            if (!isPathValid(objectPath.Text) || !isPathValid(backgroundPath.Text))
+            if (!isPathValid(objectPath.Text, "object") || !isPathValid(backgroundPath.Text, "background"))
             {
                 ErrorMsg.Text = "Error - wrong path - try again.";
                 ErrorMsg.Foreground = Brushes.DarkRed;
             }
             else
             {
-                communicator.sendObjectRecognizeMsg(objectPath.Text, "objectImage1.png");
+                string path = "objectImage" + imagesCounter.ToString() + ".png";
+                communicator.sendObjectRecognizeMsg(objectPath.Text, path);
+                
+                if (Int32.Parse(countOfPathes.Text) == imagesCounter)
+                {
+                    //checkMatte check = new checkMatte(objectPath.Text);
+                    //check.Show();
 
-                checkMatte check = new checkMatte(objectPath.Text);
-                check.Show();
-                Close();
+
+                    //editImage edit = new editImage();
+                    //edit.Show();
+                    Close();
+                }
             }
         }
 
@@ -38,7 +53,7 @@ namespace photomixerGUI
         input:string path
         output: bool
         */
-        private bool isPathValid(string path)
+        private bool isPathValid(string path, string trypeOfPicture)
         {
             //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images\rabit.jpg
 
@@ -64,6 +79,11 @@ namespace photomixerGUI
             bool fileExist = File.Exists(path);
             if (fileExist && (".jpg" == ending || ".png" == ending)) //can open the file and it's a picture
             {
+                if (trypeOfPicture == "object")
+                {
+                    pathesArr[imagesCounter] = localPath;
+                    imagesCounter++;
+                }
                 return true;
             }
 

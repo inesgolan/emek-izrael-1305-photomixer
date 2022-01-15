@@ -18,6 +18,8 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Label Content="Enter the count of object pathes: " Grid.Column="2" Foreground="Black" />
+        <TextBox x:Name="countOfPathes" Grid.Column="2" Margin="25,50,25,50"/>
 
         <Label Content="Enter path of object image:" Foreground="Black" Margin="4,50,10,50"/>
         <TextBox x:Name="objectPath" Grid.Column="1" Margin="25,50,25,50"/>
