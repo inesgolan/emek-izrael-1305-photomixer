@@ -27,7 +27,7 @@ namespace photomixerGUI
         //This function closes the window
         private void exit(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

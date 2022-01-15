@@ -11,40 +11,84 @@ namespace photomixerGUI
         private const int SIZE = 10;
         private const int ENDING = 4;
 
-        private static int imagesCounter;
         private Communicator communicator = new Communicator();
-        private static string[] pathesArr;
+        private static int imagesCounter;
+        private static string[] imagesPathes;
 
         public UploadPathes()
         {
             InitializeComponent();
+
             imagesCounter = 0;
-            pathesArr = new string[SIZE];
+            imagesPathes = new string[SIZE];
         }
 
-
-        private void objectDetection(object sender, RoutedEventArgs e)
+        //this function check is the count of the pathes that the user enters is 1-10
+        private void checkCount(object sender, RoutedEventArgs e)
         {
-            if (!isPathValid(objectPath.Text, "object") || !isPathValid(backgroundPath.Text, "background"))
+            int count = Int32.Parse(countOfPathes.Text);
+
+            if (count < 1 || count > 10)
             {
-                ErrorMsg.Text = "Error - wrong path - try again.";
-                ErrorMsg.Foreground = Brushes.DarkRed;
+                ErrorMsg.Text = "Error - wrong pathes count - try again.";
+                countOfPathes.Clear();
             }
             else
             {
-                string path = "objectImage" + imagesCounter.ToString() + ".png";
-                communicator.sendObjectRecognizeMsg(objectPath.Text, path);
-                
-                if (Int32.Parse(countOfPathes.Text) == imagesCounter)
+                ErrorMsg.Text = "ok";
+            }
+
+        }
+
+        //this function detect the object in the given pathes from the user and get the background path 
+        private void objectDetection(object sender, RoutedEventArgs e)
+        {
+            string imagePath = "";
+            int count = Int32.Parse(countOfPathes.Text);
+
+            if (imagesCounter < count)
+            {
+                //get the object path
+                imagePath = objectPath.Text;
+                objectPath.Clear();
+
+                //if the path is valid detect the object in the image
+                if (!isPathValid(imagePath))
                 {
+                    ErrorMsg.Text = "Error - wrong object image path - try again.";
+                }
+                else
+                {
+                    ErrorMsg.Text = "ok";
+
                     //checkMatte check = new checkMatte(objectPath.Text);
                     //check.Show();
 
+                    imagesPathes[imagesCounter] = imagePath;
+                    imagesCounter++;
 
-                    //editImage edit = new editImage();
-                    //edit.Show();
-                    Close();
+                    string savePath = "objectImage" + imagesCounter.ToString() + ".png";
+                    communicator.sendObjectRecognizeMsg(imagePath, savePath);
                 }
+            }
+        }
+
+        //this function check the background path and open the edit screen
+        private void edit(object sender, RoutedEventArgs e)
+        {
+            string pathBackground = backgroundPath.Text;
+
+            if (!isPathValid(pathBackground))
+            {
+                ErrorMsg.Text = "Error - wrong background path - try again.";
+            }
+            else
+            {
+                ErrorMsg.Text = "ok";
+
+                //editImage edit = new editImage();
+                //edit.Show();
+                Close();
             }
         }
 
@@ -53,19 +97,17 @@ namespace photomixerGUI
         input:string path
         output: bool
         */
-        private bool isPathValid(string path, string trypeOfPicture)
+        private bool isPathValid(string path)
         {
             //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images\rabit.jpg
 
             string ending = "";
-            string localPath = path;
 
             if (path.Length > ENDING) 
             {
 
                 int startIndex = path.Length - ENDING;
                 int finishIndex = path.Length - 1;
-                int localPathlen = localPath.Length;
 
                 ending = path.Substring(startIndex, finishIndex - startIndex + 1);
 
@@ -79,11 +121,6 @@ namespace photomixerGUI
             bool fileExist = File.Exists(path);
             if (fileExist && (".jpg" == ending || ".png" == ending)) //can open the file and it's a picture
             {
-                if (trypeOfPicture == "object")
-                {
-                    pathesArr[imagesCounter] = localPath;
-                    imagesCounter++;
-                }
                 return true;
             }
 
