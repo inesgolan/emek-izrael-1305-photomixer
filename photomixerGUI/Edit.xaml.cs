@@ -36,11 +36,12 @@ namespace photomixerGUI
 
             string path = "";
 
-            //display object images
+            //display object images and number them
             for (int i = 0; i < imagesCounter; i++)
             {
                 path = Path.GetFullPath(imagesPathes[i]);
                 Images.Items.Add(new BitmapImage(new Uri(path)));
+                Numbers.Items.Add((i+1).ToString());
             }
         }
 

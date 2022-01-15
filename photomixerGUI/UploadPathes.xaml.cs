@@ -59,7 +59,7 @@ namespace photomixerGUI
                 }
                 else
                 {
-                    ErrorMsg.Text = "ok";
+                    ErrorMsg.Text = "got the path";
 
                     //checkMatte check = new checkMatte(objectPath.Text);
                     //check.Show();
@@ -86,7 +86,7 @@ namespace photomixerGUI
             }
             else
             {
-                ErrorMsg.Text = "ok";
+                ErrorMsg.Text = "got the path";
 
                 //put the background path in the last cell in the array
                 imagesPathes[imagesCounter] = pathBackground;

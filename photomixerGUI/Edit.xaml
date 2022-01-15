@@ -10,6 +10,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.3*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" />
@@ -18,17 +19,25 @@
 
         <Image x:Name="BackgroundImage" Source="{Binding BackgroundImage}"/>
 
-        <ListView x:Name="Images" Grid.Column="1" Grid.RowSpan="1">
+        <ListView Name="Images" Grid.Column="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Image Name="objectImages" Source="{Binding objectImages}"/>
+                        <Image Source="{Binding}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
-            </ListView>
+        </ListView>
 
-            <Button Grid.Row="1" FontSize="15" Height="50" Width="100" Content="Save image" 
+        <ListBox Name="Numbers" Grid.Column="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate >
+                    <TextBlock Text="{Binding}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Grid.Row="1" FontSize="15" Height="50" Width="100" Content="Save image" 
                 Foreground="Black" FontWeight="Bold" Click="save"/>
 
         <Button Grid.Column="1" Grid.Row="1" FontSize="15" Height="50" Width="100" Content="resize" 
