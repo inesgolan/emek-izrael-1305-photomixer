@@ -1,34 +1,93 @@
 ﻿using System.Windows;
 using System.IO;
 using System.Windows.Media;
+using System;
 
 namespace photomixerGUI
 {
     // user enters images pathes and this class checks the paths
     public partial class UploadPathes : Window
     {
+        private const int SIZE = 10;
         private const int ENDING = 4;
+
         private Communicator communicator = new Communicator();
+        private static int imagesCounter;
+        private static string[] imagesPathes;
 
         public UploadPathes()
         {
             InitializeComponent();
+
+            imagesCounter = 0;
+            imagesPathes = new string[SIZE];
         }
 
-
-        private void objectDetection(object sender, RoutedEventArgs e)
+        //this function check is the count of the pathes that the user enters is 1-10
+        private void checkCount(object sender, RoutedEventArgs e)
         {
-            if (!isPathValid(objectPath.Text) || !isPathValid(backgroundPath.Text))
+            int count = Int32.Parse(countOfPathes.Text);
+
+            if (count < 1 || count > 10)
             {
-                ErrorMsg.Text = "Error - wrong path - try again.";
-                ErrorMsg.Foreground = Brushes.DarkRed;
+                ErrorMsg.Text = "Error - wrong pathes count - try again.";
+                countOfPathes.Clear();
             }
             else
             {
-                communicator.sendObjectRecognizeMsg(objectPath.Text, "objectImage1.png");
+                ErrorMsg.Text = "ok";
+            }
 
-                checkMatte check = new checkMatte(objectPath.Text);
-                check.Show();
+        }
+
+        //this function detect the object in the given pathes from the user and get the background path 
+        private void objectDetection(object sender, RoutedEventArgs e)
+        {
+            string imagePath = "";
+            int count = Int32.Parse(countOfPathes.Text);
+
+            if (imagesCounter < count)
+            {
+                //get the object path
+                imagePath = objectPath.Text;
+                objectPath.Clear();
+
+                //if the path is valid detect the object in the image
+                if (!isPathValid(imagePath))
+                {
+                    ErrorMsg.Text = "Error - wrong object image path - try again.";
+                }
+                else
+                {
+                    ErrorMsg.Text = "ok";
+
+                    //checkMatte check = new checkMatte(objectPath.Text);
+                    //check.Show();
+
+                    imagesPathes[imagesCounter] = imagePath;
+                    imagesCounter++;
+
+                    string savePath = "objectImage" + imagesCounter.ToString() + ".png";
+                    communicator.sendObjectRecognizeMsg(imagePath, savePath);
+                }
+            }
+        }
+
+        //this function check the background path and open the edit screen
+        private void edit(object sender, RoutedEventArgs e)
+        {
+            string pathBackground = backgroundPath.Text;
+
+            if (!isPathValid(pathBackground))
+            {
+                ErrorMsg.Text = "Error - wrong background path - try again.";
+            }
+            else
+            {
+                ErrorMsg.Text = "ok";
+
+                //editImage edit = new editImage();
+                //edit.Show();
                 Close();
             }
         }
@@ -43,14 +102,12 @@ namespace photomixerGUI
             //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images\rabit.jpg
 
             string ending = "";
-            string localPath = path;
 
             if (path.Length > ENDING) 
             {
 
                 int startIndex = path.Length - ENDING;
                 int finishIndex = path.Length - 1;
-                int localPathlen = localPath.Length;
 
                 ending = path.Substring(startIndex, finishIndex - startIndex + 1);
 
