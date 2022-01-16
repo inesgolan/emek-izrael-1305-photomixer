@@ -8,7 +8,7 @@ namespace photomixerGUI
     // user enters images pathes and this class checks the paths
     public partial class UploadPathes : Window
     {
-        private const int SIZE = 10;
+        private const int SIZE = 11;
         private const int ENDING = 4;
 
         private Communicator communicator = new Communicator();
@@ -59,16 +59,18 @@ namespace photomixerGUI
                 }
                 else
                 {
-                    ErrorMsg.Text = "ok";
+                    ErrorMsg.Text = "got the path";
 
                     //checkMatte check = new checkMatte(objectPath.Text);
                     //check.Show();
 
-                    imagesPathes[imagesCounter] = imagePath;
                     imagesCounter++;
-
                     string savePath = "objectImage" + imagesCounter.ToString() + ".png";
                     communicator.sendObjectRecognizeMsg(imagePath, savePath);
+
+                    //add the save path to the array
+                    imagesPathes[imagesCounter-1] = savePath;
+
                 }
             }
         }
@@ -84,10 +86,13 @@ namespace photomixerGUI
             }
             else
             {
-                ErrorMsg.Text = "ok";
+                ErrorMsg.Text = "got the path";
 
-                //editImage edit = new editImage();
-                //edit.Show();
+                //put the background path in the last cell in the array
+                imagesPathes[imagesCounter] = pathBackground;
+
+                Edit edit = new Edit(imagesPathes, imagesCounter);
+                edit.Show();
                 Close();
             }
         }
