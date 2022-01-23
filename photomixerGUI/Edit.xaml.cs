@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Input;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace photomixerGUI
 {
@@ -13,6 +16,7 @@ namespace photomixerGUI
         private Communicator communicator = new Communicator();
         private static string[] imagesPathes;
         private static int imagesCounter;
+        private static string background;
 
         public Edit(string[] pathes, int count)
         {
@@ -31,8 +35,8 @@ namespace photomixerGUI
         private void displayImages()
         {
             //display background image
-            string backgroundPath = Path.GetFullPath(imagesPathes[imagesCounter]);
-            BackgroundImage.Source = new BitmapImage(new Uri(backgroundPath));
+            background = Path.GetFullPath(imagesPathes[imagesCounter]);
+            BackgroundImage.Source = new BitmapImage(new Uri(background));
 
             string path = "";
 
@@ -41,8 +45,41 @@ namespace photomixerGUI
             {
                 path = Path.GetFullPath(imagesPathes[i]);
                 Images.Items.Add(new BitmapImage(new Uri(path)));
-                Numbers.Items.Add((i+1).ToString());
+                Numbers.Items.Add((i + 1).ToString());
             }
+        }
+
+        //drag the object image to the background
+        private void dragObject(object sender, MouseButtonEventArgs e)
+        {
+            Image image = e.Source as Image;
+            DataObject data = new DataObject(typeof(ImageSource), image.Source);
+            DragDrop.DoDragDrop(image, data, DragDropEffects.All);
+
+            
+            Point location = e.GetPosition(this);
+
+            int index = 0;
+            //get the image index in the list
+            for (int i = 0; i < imagesCounter; i++)
+            {
+                BitmapImage item = (BitmapImage)Images.Items[i];
+                if (image.Source == item)
+                {
+                    index = i;
+                    i = imagesCounter;
+                }
+            }
+
+            //problem with location
+            communicator.sendPasteObjectMsg(imagesPathes[index], imagesPathes[imagesCounter], "edit.png", (int)location.X, (int)location.Y);
+            BackgroundImage.Source = new BitmapImage(new Uri(background)); // how to know that the image is ready?
+        }
+
+        //put the object image on the background
+        private void backgroundDrop(object sender, DragEventArgs e)
+        {
+
         }
 
         private void save(object sender, RoutedEventArgs e)

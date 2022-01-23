@@ -17,13 +17,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Image x:Name="BackgroundImage" Source="{Binding BackgroundImage}"/>
-
+        <Image Name="BackgroundImage" AllowDrop="True" Source="{Binding BackgroundImage}"/>
+        
         <ListView Name="Images" Grid.Column="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Image Source="{Binding}"/>
+                        <Image MouseLeftButtonDown="dragObject" Source="{Binding}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
