@@ -38,48 +38,55 @@ namespace photomixerGUI
             background = Path.GetFullPath(imagesPathes[imagesCounter]);
             BackgroundImage.Source = new BitmapImage(new Uri(background));
 
-            string path = "";
-
             //display object images and number them
             for (int i = 0; i < imagesCounter; i++)
             {
-                path = Path.GetFullPath(imagesPathes[i]);
+                string path = Path.GetFullPath(imagesPathes[i]);
                 Images.Items.Add(new BitmapImage(new Uri(path)));
-                Numbers.Items.Add((i + 1).ToString());
             }
         }
 
         //drag the object image to the background
-        private void dragObject(object sender, MouseButtonEventArgs e)
+        private void dragObject(object sender, MouseEventArgs e)
         {
             Image image = e.Source as Image;
             DataObject data = new DataObject(typeof(ImageSource), image.Source);
             DragDrop.DoDragDrop(image, data, DragDropEffects.All);
 
-            
-            Point location = e.GetPosition(this);
+            //Point location;
 
             int index = 0;
-            //get the image index in the list
+            //get the image index in the list and remove the item from the list
             for (int i = 0; i < imagesCounter; i++)
             {
                 BitmapImage item = (BitmapImage)Images.Items[i];
                 if (image.Source == item)
                 {
+                    Images.Items.Remove(item);
                     index = i;
                     i = imagesCounter;
                 }
             }
 
             //problem with location
-            communicator.sendPasteObjectMsg(imagesPathes[index], imagesPathes[imagesCounter], "edit.png", (int)location.X, (int)location.Y);
-            BackgroundImage.Source = new BitmapImage(new Uri(background)); // how to know that the image is ready?
-        }
+            string save = "edit"+(index+1).ToString()+".png";
+            communicator.sendPasteObjectMsg(imagesPathes[index], imagesPathes[imagesCounter], save, 50, 50);
 
-        //put the object image on the background
-        private void backgroundDrop(object sender, DragEventArgs e)
-        {
-
+            //wait till the image is created to update the background image
+            bool flag = false;
+            while (!flag)
+            {
+                bool fileExist = File.Exists(save);
+                if (fileExist)
+                {
+                    if (File.OpenRead(save).CanRead)
+                    {
+                        flag = true;
+                    }
+                }
+            }
+            background = Path.GetFullPath(save);
+            BackgroundImage.Source = new BitmapImage(new Uri(background));
         }
 
         private void save(object sender, RoutedEventArgs e)
