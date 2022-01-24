@@ -16,7 +16,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Image Name="BackgroundImage" AllowDrop="True" Source="{Binding BackgroundImage}"/>
+        <Image Name="BackgroundImage" AllowDrop="True" Drop="dropObject" Source="{Binding BackgroundImage}"/>
 
         <ListView Name="Images" Grid.Column="1">
             <ListView.ItemTemplate>

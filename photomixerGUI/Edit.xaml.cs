@@ -17,6 +17,7 @@ namespace photomixerGUI
         private static string[] imagesPathes;
         private static int imagesCounter;
         private static string background;
+        private static int index;
 
         public Edit(string[] pathes, int count)
         {
@@ -53,9 +54,6 @@ namespace photomixerGUI
             DataObject data = new DataObject(typeof(ImageSource), image.Source);
             DragDrop.DoDragDrop(image, data, DragDropEffects.All);
 
-            //Point location;
-
-            int index = 0;
             //get the image index in the list and remove the item from the list
             for (int i = 0; i < imagesCounter; i++)
             {
@@ -67,10 +65,14 @@ namespace photomixerGUI
                     i = imagesCounter;
                 }
             }
+        }
 
-            //problem with location
-            string save = "edit"+(index+1).ToString()+".png";
-            communicator.sendPasteObjectMsg(imagesPathes[index], imagesPathes[imagesCounter], save, 50, 50);
+        private void dropObject(object sender, DragEventArgs e)
+        {
+            Point location = e.GetPosition((Image)sender); //location not right
+
+            string save = "edit" + (index + 1).ToString() + ".png";
+            communicator.sendPasteObjectMsg(imagesPathes[index], imagesPathes[imagesCounter], save, (int)location.X, (int)location.Y);
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -79,9 +81,16 @@ namespace photomixerGUI
                 bool fileExist = File.Exists(save);
                 if (fileExist)
                 {
-                    if (File.OpenRead(save).CanRead)
+                    try
                     {
-                        flag = true;
+                        if (File.OpenRead(save).CanRead)
+                        {
+                            flag = true;
+                        }
+                    }
+                    catch (IOException)
+                    {
+             
                     }
                 }
             }
