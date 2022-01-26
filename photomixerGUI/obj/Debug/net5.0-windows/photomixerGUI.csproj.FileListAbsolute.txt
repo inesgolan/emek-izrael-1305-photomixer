@@ -56,3 +56,5 @@ C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-w
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\checkMatte.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Edit.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Edit.baml
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.g.cs
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.baml

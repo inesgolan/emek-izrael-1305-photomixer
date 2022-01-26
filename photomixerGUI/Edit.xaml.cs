@@ -19,8 +19,9 @@ namespace photomixerGUI
         private static string background;
         private static int countOfEdits;
         private static int location;
+        private static string savePath;
 
-        public Edit(string[] pathes, int count)
+        public Edit(string[] pathes, int count, string save)
         {
             InitializeComponent();
 
@@ -29,6 +30,7 @@ namespace photomixerGUI
             pathes.CopyTo(imagesPathes, 0);
 
             imagesCounter = count;
+            savePath = save;
             location = 50;
 
             displayImages();
@@ -52,6 +54,8 @@ namespace photomixerGUI
         //drag the object image to the background
         private void dragObject(object sender, MouseEventArgs e)
         {
+            string save = "";
+
             Image image = e.Source as Image;
             DataObject data = new DataObject(typeof(ImageSource), image.Source);
             DragDrop.DoDragDrop(image, data, DragDropEffects.All);
@@ -70,7 +74,15 @@ namespace photomixerGUI
 
             //Point location = e.GetPosition(image); //location not right
 
-            string save = "edit" + countOfEdits.ToString() + ".png";
+            if (countOfEdits==imagesCounter)
+            {
+                save = savePath;
+            }
+            else
+            {
+                save = "edit" + countOfEdits.ToString() + ".png";
+            }
+
             communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
 
             location = 200;
@@ -98,11 +110,6 @@ namespace photomixerGUI
             imagesPathes[imagesCounter] = save;
             background = Path.GetFullPath(save);
             BackgroundImage.Source = new BitmapImage(new Uri(background));
-
-        }
-
-        private void save(object sender, RoutedEventArgs e)
-        {
 
         }
 

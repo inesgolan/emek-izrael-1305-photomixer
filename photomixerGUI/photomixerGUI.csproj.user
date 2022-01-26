@@ -6,9 +6,15 @@
     <Compile Update="Edit.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Save.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Edit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Save.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

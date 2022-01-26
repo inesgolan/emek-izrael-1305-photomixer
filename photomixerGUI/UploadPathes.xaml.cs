@@ -75,7 +75,7 @@ namespace photomixerGUI
             }
         }
 
-        //this function check the background path and open the edit screen
+        //this function check the background path and open the save screen
         private void edit(object sender, RoutedEventArgs e)
         {
             string pathBackground = backgroundPath.Text;
@@ -91,8 +91,8 @@ namespace photomixerGUI
                 //put the background path in the last cell in the array
                 imagesPathes[imagesCounter] = pathBackground;
 
-                Edit edit = new Edit(imagesPathes, imagesCounter);
-                edit.Show();
+                Save saveImage = new Save(imagesPathes, imagesCounter);
+                saveImage.Show();
                 Close();
             }
         }
@@ -104,8 +104,6 @@ namespace photomixerGUI
         */
         private bool isPathValid(string path)
         {
-            //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images\rabit.jpg
-
             string ending = "";
 
             if (path.Length > ENDING) 
