@@ -11,13 +11,14 @@ namespace photomixerGUI
     //this class is in charge of the editing of the image
     public partial class Edit : Window
     {
-        private const int SIZE = 11;
+        private const int SIZE = 6;
 
         private Communicator communicator = new Communicator();
         private static string[] imagesPathes;
         private static int imagesCounter;
         private static string background;
-        private static int index;
+        private static int countOfEdits;
+        private static int location;
 
         public Edit(string[] pathes, int count)
         {
@@ -28,6 +29,7 @@ namespace photomixerGUI
             pathes.CopyTo(imagesPathes, 0);
 
             imagesCounter = count;
+            location = 50;
 
             displayImages();
         }
@@ -61,18 +63,17 @@ namespace photomixerGUI
                 if (image.Source == item)
                 {
                     Images.Items.Remove(item);
-                    index = i;
                     i = imagesCounter;
                 }
             }
-        }
+            countOfEdits++;
 
-        private void dropObject(object sender, DragEventArgs e)
-        {
-            Point location = e.GetPosition((Image)sender); //location not right
+            //Point location = e.GetPosition(image); //location not right
 
-            string save = "edit" + (index + 1).ToString() + ".png";
-            communicator.sendPasteObjectMsg(imagesPathes[index], imagesPathes[imagesCounter], save, (int)location.X, (int)location.Y);
+            string save = "edit" + countOfEdits.ToString() + ".png";
+            communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
+
+            location = 200;
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -90,12 +91,14 @@ namespace photomixerGUI
                     }
                     catch (IOException)
                     {
-             
+
                     }
                 }
             }
+            imagesPathes[imagesCounter] = save;
             background = Path.GetFullPath(save);
             BackgroundImage.Source = new BitmapImage(new Uri(background));
+
         }
 
         private void save(object sender, RoutedEventArgs e)
