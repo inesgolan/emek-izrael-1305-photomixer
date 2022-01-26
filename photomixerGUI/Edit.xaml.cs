@@ -2,17 +2,23 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Input;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace photomixerGUI
 {
     //this class is in charge of the editing of the image
     public partial class Edit : Window
     {
-        private const int SIZE = 11;
+        private const int SIZE = 6;
 
         private Communicator communicator = new Communicator();
         private static string[] imagesPathes;
         private static int imagesCounter;
+        private static string background;
+        private static int countOfEdits;
+        private static int location;
 
         public Edit(string[] pathes, int count)
         {
@@ -23,6 +29,7 @@ namespace photomixerGUI
             pathes.CopyTo(imagesPathes, 0);
 
             imagesCounter = count;
+            location = 50;
 
             displayImages();
         }
@@ -31,18 +38,67 @@ namespace photomixerGUI
         private void displayImages()
         {
             //display background image
-            string backgroundPath = Path.GetFullPath(imagesPathes[imagesCounter]);
-            BackgroundImage.Source = new BitmapImage(new Uri(backgroundPath));
-
-            string path = "";
+            background = Path.GetFullPath(imagesPathes[imagesCounter]);
+            BackgroundImage.Source = new BitmapImage(new Uri(background));
 
             //display object images and number them
             for (int i = 0; i < imagesCounter; i++)
             {
-                path = Path.GetFullPath(imagesPathes[i]);
+                string path = Path.GetFullPath(imagesPathes[i]);
                 Images.Items.Add(new BitmapImage(new Uri(path)));
-                Numbers.Items.Add((i+1).ToString());
             }
+        }
+
+        //drag the object image to the background
+        private void dragObject(object sender, MouseEventArgs e)
+        {
+            Image image = e.Source as Image;
+            DataObject data = new DataObject(typeof(ImageSource), image.Source);
+            DragDrop.DoDragDrop(image, data, DragDropEffects.All);
+
+            //get the image index in the list and remove the item from the list
+            for (int i = 0; i < imagesCounter; i++)
+            {
+                BitmapImage item = (BitmapImage)Images.Items[i];
+                if (image.Source == item)
+                {
+                    Images.Items.Remove(item);
+                    i = imagesCounter;
+                }
+            }
+            countOfEdits++;
+
+            //Point location = e.GetPosition(image); //location not right
+
+            string save = "edit" + countOfEdits.ToString() + ".png";
+            communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
+
+            location = 200;
+
+            //wait till the image is created to update the background image
+            bool flag = false;
+            while (!flag)
+            {
+                bool fileExist = File.Exists(save);
+                if (fileExist)
+                {
+                    try
+                    {
+                        if (File.OpenRead(save).CanRead)
+                        {
+                            flag = true;
+                        }
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                }
+            }
+            imagesPathes[imagesCounter] = save;
+            background = Path.GetFullPath(save);
+            BackgroundImage.Source = new BitmapImage(new Uri(background));
+
         }
 
         private void save(object sender, RoutedEventArgs e)
