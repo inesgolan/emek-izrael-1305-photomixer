@@ -4,5 +4,6 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+    <LocalDebuggerCommandArguments>100 images/dino.jpg images/nene.png</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

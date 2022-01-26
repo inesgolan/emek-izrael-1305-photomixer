@@ -396,6 +396,7 @@ void ObjectDetection::improvObjectColoring()
 	//save changes to matte picture
 	imwrite("matte.png", _matte);
 	_matte = imread("matte.png");
+
 }
 
 // Private function that will go throgh the black&white mat and check for every color and send it to checking
