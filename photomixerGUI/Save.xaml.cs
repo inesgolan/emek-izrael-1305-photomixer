@@ -8,7 +8,7 @@ namespace photomixerGUI
     //this class is in charge of saving the image
     public partial class Save : Window
     {
-        private const int SIZE = 6;
+        private const int SIZE = 5;
         private const int ENDING = 4;
 
         private static int imagesCounter;
@@ -40,14 +40,14 @@ namespace photomixerGUI
             }
             else
             {
-                ErrorMsg.Text = "Error - path too short - try again.";
+                ErrorMsg.Text = "Error: path too short, try again.";
                 imagePath.Clear();
             }
 
             bool fileExist = File.Exists(path);
             if (fileExist || (".png" != ending)) //can't open the file and it's a picture type png
             {
-                ErrorMsg.Text = "Error - path exist or image type isn't png - try again.";
+                ErrorMsg.Text = "Error: path exist or image type isn't png, try again.";
                 imagePath.Clear();
             }
             else

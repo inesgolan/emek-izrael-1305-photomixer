@@ -85,7 +85,7 @@ namespace photomixerGUI
 
             communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
 
-            location = 200;
+            location += 50;
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -116,6 +116,29 @@ namespace photomixerGUI
         private void resize(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        //delete the images we don't need anymore and go back to main screen
+        private void deleteImages(object sender, RoutedEventArgs e)
+        {
+            if (Images.Items.Count > 0)
+            {
+                // Initializes the variables to pass to the MessageBox.Show method.
+                string message = "Are you sure?";
+                string caption = "Error Detected in Input";
+                MessageBoxButton buttons = MessageBoxButton.YesNo;
+
+                // Displays the MessageBox.
+                MessageBoxResult result = MessageBox.Show(message, caption, buttons);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Close();
+                }
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }
