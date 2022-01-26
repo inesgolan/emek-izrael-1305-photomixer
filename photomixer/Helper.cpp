@@ -75,11 +75,6 @@ Mat Helper::checkImage(Mat image, std::string imagePath)
 		checker.setCount();
 	}
 
-	if (image.cols > MIN_COLS_IMAGE || image.rows > MIN_ROWS_IMAGE) //change image size if its too big
-	{
-		newImage = Helper::changeImageSize(image.rows, image.cols, newImage, imagePath, FALG_OBJECT);
-	}
-
 	return newImage;
 }
 

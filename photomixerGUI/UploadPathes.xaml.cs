@@ -8,7 +8,7 @@ namespace photomixerGUI
     // user enters images pathes and this class checks the paths
     public partial class UploadPathes : Window
     {
-        private const int SIZE = 11;
+        private const int SIZE = 6;
         private const int ENDING = 4;
 
         private Communicator communicator = new Communicator();
@@ -28,7 +28,7 @@ namespace photomixerGUI
         {
             int count = Int32.Parse(countOfPathes.Text);
 
-            if (count < 1 || count > 10)
+            if (count < 1 || count > 5)
             {
                 ErrorMsg.Text = "Error - wrong pathes count - try again.";
                 countOfPathes.Clear();
