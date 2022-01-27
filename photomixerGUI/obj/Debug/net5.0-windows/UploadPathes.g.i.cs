@@ -93,7 +93,7 @@ namespace photomixerGUI {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/photomixerGUI;component/uploadpathes.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/photomixerGUI;V1.0.0.0;component/uploadpathes.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\UploadPathes.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
