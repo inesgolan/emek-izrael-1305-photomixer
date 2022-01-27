@@ -8,7 +8,7 @@ namespace photomixerGUI
     // user enters images pathes and this class checks the paths
     public partial class UploadPathes : Window
     {
-        private const int SIZE = 6;
+        private const int SIZE = 5;
         private const int ENDING = 4;
 
         private Communicator communicator = new Communicator();
@@ -30,12 +30,13 @@ namespace photomixerGUI
 
             if (count < 1 || count > 5)
             {
-                ErrorMsg.Text = "Error - wrong pathes count - try again.";
+                ErrorMsg.Text = "Error: wrong pathes count\n try again";
                 countOfPathes.Clear();
             }
             else
             {
-                ErrorMsg.Text = "ok";
+                ErrorMsg.Text = "Got it!";
+                countOfPathes.IsReadOnly = true;
             }
 
         }
@@ -55,12 +56,10 @@ namespace photomixerGUI
                 //if the path is valid detect the object in the image
                 if (!isPathValid(imagePath))
                 {
-                    ErrorMsg.Text = "Error - wrong object image path - try again.";
+                    ErrorMsg.Text = "Error: wrong image path\n try again.";
                 }
                 else
                 {
-                    ErrorMsg.Text = "got the path";
-
                     //checkMatte check = new checkMatte(objectPath.Text);
                     //check.Show();
 
@@ -68,31 +67,37 @@ namespace photomixerGUI
                     string savePath = "objectImage" + imagesCounter.ToString() + ".png";
                     communicator.sendObjectRecognizeMsg(imagePath, savePath);
 
+                    ErrorMsg.Text = "object detected!";
+
                     //add the save path to the array
                     imagesPathes[imagesCounter-1] = savePath;
 
                 }
             }
+            else
+            {
+                objectPath.IsReadOnly = true;
+                ErrorMsg.Text = "Error: you can't enter more pathes";
+            }
         }
 
-        //this function check the background path and open the edit screen
+        //this function check the background path and open the save screen
         private void edit(object sender, RoutedEventArgs e)
         {
+            int count = Int32.Parse(countOfPathes.Text);
             string pathBackground = backgroundPath.Text;
 
-            if (!isPathValid(pathBackground))
-            {
-                ErrorMsg.Text = "Error - wrong background path - try again.";
+            if (!isPathValid(pathBackground) || (imagesCounter < count))
+            { 
+                ErrorMsg.Text = "Error: wrong image path or you need\n to enter more pathes\n try again.";
             }
             else
             {
-                ErrorMsg.Text = "got the path";
-
                 //put the background path in the last cell in the array
                 imagesPathes[imagesCounter] = pathBackground;
 
-                Edit edit = new Edit(imagesPathes, imagesCounter);
-                edit.Show();
+                Save saveImage = new Save(imagesPathes, imagesCounter);
+                saveImage.Show();
                 Close();
             }
         }
@@ -104,8 +109,6 @@ namespace photomixerGUI
         */
         private bool isPathValid(string path)
         {
-            //C:\Users\משתמש\emek-izrael-1305-photomixer\photomixer\images\rabit.jpg
-
             string ending = "";
 
             if (path.Length > ENDING) 

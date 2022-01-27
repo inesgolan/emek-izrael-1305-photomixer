@@ -29,12 +29,15 @@
         <Image Name="BackgroundImage" AllowDrop="True" Source="{Binding BackgroundImage}"/>
 
         <Button Grid.Row="1" FontSize="15" Height="50" Width="100" Content="Save image" 
-                Foreground="Black" FontWeight="Bold" Click="save"/>
+                Foreground="Black" FontWeight="Bold"/>
 
         <TextBox x:Name="numberOfPicture" Grid.Column="1" Height="20" Width="90" Margin="21,10,22,57" Grid.Row="1" />
 
-        <Button Grid.Column="1" Grid.Row="1" FontSize="15" Height="30" Width="70" Content="resize" 
+            <Button Grid.Column="1" Grid.Row="1" FontSize="15" Height="30" Width="70" Content="resize" 
                 Foreground="Black" FontWeight="Bold" Click="resize_Click" Margin="31,47,32,10" RenderTransformOrigin="0.688,0.727"/>
+
+            <Button Grid.Row="1" FontSize="15" Height="50" Width="100" Content="Done" 
+                Foreground="Black" FontWeight="Bold" Click="deleteImages"/>
 
     </Grid>
 </Window>

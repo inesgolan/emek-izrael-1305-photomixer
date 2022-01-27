@@ -30,7 +30,6 @@ public:
 	static bool isPathValid(std::string path);
 	static Mat checkImage(Mat image, std::string imagPath);
 
-	static std::string getNewBackground(std::string backgroundPath);
 	static Mat changeImageSize(int rows, int cols, Mat image, std::string path, int flag);
 
 	static std::vector<Mat> splitMat(Mat image);

@@ -88,7 +88,6 @@ int main(int argc, char** argv)
 
 			//get background
 			backgroundPath = argv[BACKGROUND_PATH];
-			backgroundPath = Helper::getNewBackground(backgroundPath);
 			backgroundImage = imread(backgroundPath);
 
 			//edit the image
