@@ -106,8 +106,18 @@ namespace photomixerGUI
 
         }
 
-        private void resize(object sender, RoutedEventArgs e)
+        private void resize_Click(object sender, RoutedEventArgs e)
         {
+            int number = Int32.Parse(numberOfPicture.Text);
+            if (number > 0 && number < 5)
+            {
+                Resize resizeScreen = new Resize(imagesPathes[number-1]);
+                resizeScreen.Show();
+            }
+            //else
+            //{
+            //    // some error msg
+            //}
 
         }
     }

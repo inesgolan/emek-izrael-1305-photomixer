@@ -19,6 +19,7 @@ namespace photomixerGUI
             InitializeComponent();
         }
 
+        // do a git pull origin develop in develop and in this brunch!!!!!
         public Resize(string ObjectImagePath)
         {
             InitializeComponent();
@@ -26,8 +27,9 @@ namespace photomixerGUI
             // show the object image
             objectPath = Path.GetFullPath(ObjectImagePath);
             ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+
+            // change here the size of the picture from the xaml according to my object picture ???
         }
-        // to do pull from develop !!!
 
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
