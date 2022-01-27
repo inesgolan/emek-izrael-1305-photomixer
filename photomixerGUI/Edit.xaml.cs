@@ -19,8 +19,9 @@ namespace photomixerGUI
         private static string background;
         private static int countOfEdits;
         private static int location;
+        private static string savePath;
 
-        public Edit(string[] pathes, int count)
+        public Edit(string[] pathes, int count, string save)
         {
             InitializeComponent();
 
@@ -29,6 +30,7 @@ namespace photomixerGUI
             pathes.CopyTo(imagesPathes, 0);
 
             imagesCounter = count;
+            savePath = save;
             location = 50;
 
             displayImages();
@@ -52,6 +54,8 @@ namespace photomixerGUI
         //drag the object image to the background
         private void dragObject(object sender, MouseEventArgs e)
         {
+            string save = "";
+
             Image image = e.Source as Image;
             DataObject data = new DataObject(typeof(ImageSource), image.Source);
             DragDrop.DoDragDrop(image, data, DragDropEffects.All);
@@ -70,10 +74,18 @@ namespace photomixerGUI
 
             //Point location = e.GetPosition(image); //location not right
 
-            string save = "edit" + countOfEdits.ToString() + ".png";
+            if (countOfEdits==imagesCounter)
+            {
+                save = savePath;
+            }
+            else
+            {
+                save = "edit" + countOfEdits.ToString() + ".png";
+            }
+
             communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
 
-            location = 200;
+            location += 50;
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -101,14 +113,32 @@ namespace photomixerGUI
 
         }
 
-        private void save(object sender, RoutedEventArgs e)
+        private void resize(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void resize(object sender, RoutedEventArgs e)
+        //delete the images we don't need anymore and go back to main screen
+        private void deleteImages(object sender, RoutedEventArgs e)
         {
+            if (Images.Items.Count > 0)
+            {
+                // Initializes the variables to pass to the MessageBox.Show method.
+                string message = "Are you sure?";
+                string caption = "Error Detected in Input";
+                MessageBoxButton buttons = MessageBoxButton.YesNo;
 
+                // Displays the MessageBox.
+                MessageBoxResult result = MessageBox.Show(message, caption, buttons);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Close();
+                }
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }
