@@ -16,7 +16,7 @@
 #define Y_LOCATION 6
 
 #define ADD 20
-#define REMOVE 20
+#define REMOVE -20
 
 /*
 client messages:
