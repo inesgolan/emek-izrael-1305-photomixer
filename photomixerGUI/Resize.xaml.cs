@@ -27,7 +27,7 @@ namespace photomixerGUI
             objectPath = Path.GetFullPath(ObjectImagePath);
             ObjectImage.Source = new BitmapImage(new Uri(objectPath));
         }
-
+        // to do pull from develop !!!
 
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
@@ -39,6 +39,13 @@ namespace photomixerGUI
         {
             communicator.resizeObjectSmallMsg(objectPath);
             ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Edit editScreen = new Edit();
+            //editScreen.Show();
+            //Close();
         }
     }
 }
