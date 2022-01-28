@@ -118,8 +118,9 @@ namespace photomixerGUI
             int number = Int32.Parse(numberOfPicture.Text);
             if (number > 0 && number < 5)
             {
-                Resize resizeScreen = new Resize(imagesPathes[number - 1]);
+                Resize resizeScreen = new Resize("objectImage" + numberOfPicture.Text + ".png");
                 resizeScreen.Show();
+                Close();
             }
             //else
             //{
