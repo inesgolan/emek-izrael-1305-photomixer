@@ -34,12 +34,56 @@ namespace photomixerGUI
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
             communicator.resizeObjectBigMsg(objectPath);
+
+            //wait till the image is created to update the background image
+            bool flag = false;
+            while (!flag)
+            {
+                bool fileExist = File.Exists(objectPath);
+                if (fileExist)
+                {
+                    try
+                    {
+                        if (File.OpenRead(objectPath).CanRead)
+                        {
+                            flag = true;
+                        }
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                }
+            }
+
             ObjectImage.Source = new BitmapImage(new Uri(objectPath));
         }
 
         private void smallerButton_Click(object sender, RoutedEventArgs e)
         {
             communicator.resizeObjectSmallMsg(objectPath);
+
+            //wait till the image is created to update the background image
+            bool flag = false;
+            while (!flag)
+            {
+                bool fileExist = File.Exists(objectPath);
+                if (fileExist)
+                {
+                    try
+                    {
+                        if (File.OpenRead(objectPath).CanRead)
+                        {
+                            flag = true;
+                        }
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                }
+            }
+
             ObjectImage.Source = new BitmapImage(new Uri(objectPath));
         }
 

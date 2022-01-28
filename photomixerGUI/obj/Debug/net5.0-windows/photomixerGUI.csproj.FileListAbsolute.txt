@@ -67,3 +67,5 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\o
 >>>>>>> dddd4ec0664fc8f59ac4fba30b2f526223310199
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.baml
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.g.cs
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.baml

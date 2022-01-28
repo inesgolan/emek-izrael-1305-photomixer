@@ -79,39 +79,6 @@ Mat Helper::checkImage(Mat image, std::string imagePath)
 }
 
 /*
-This function gets a new background image from the user
-Input: current background path
-Output: the new background path
-*/
-std::string Helper::getNewBackground(std::string backgroundPath)
-{
-	std::string choice = "";
-	std::string newPath = backgroundPath;
-
-	std::cout << "want to change the background image? (yes/no)" << std::endl;
-	std::cin >> choice;
-	getchar();
-
-	if (choice == "yes") //user wants to change the background
-	{
-		std::cout << "enter new path: " << std::endl;
-		std::cin >> newPath;
-		getchar();
-	}
-
-	newPath = checkPath(newPath);
-
-	Mat image = imread(newPath);
-	if (image.cols > MIN_COLS_BACKGROUND || image.rows > MIN_ROWS_BACKGROUND) //change image size if its too big
-	{
-		image = Helper::changeImageSize(MIN_ROWS_BACKGROUND, MIN_COLS_BACKGROUND, image, newPath, FLAG_BACKGROUND);
-	}
-
-
-	return newPath;
-}
-
-/*
 This function will change the size of an image
 input: rows, cols, image, std::string path
 output: Mat
