@@ -15,7 +15,7 @@
 #define X_LOCATION 5
 #define Y_LOCATION 6
 
-#define ADD 20
+#define ADD 100
 #define REMOVE -20
 
 /*
@@ -98,16 +98,27 @@ int main(int argc, char** argv)
 			break;
 
 		case RESIZE_BIGGER:
-			objectImage = imread(argv[OBJECT_PATH]);
+			imagePath = argv[OBJECT_PATH];
+			objectImage = imread(imagePath, -1);
+			//imwrite(imagePath, objectImage);
+
 			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
-			
+			//objectImage = imread(imagePath, -1);
+			//objectImage = imwrite(imagePath, objectImage);
+
 			std::cout << "300 ok" << std::endl;
+			getchar();
 			break;
 
 		case RESIZE_SMALLER:
-			objectImage = imread(argv[OBJECT_PATH]);
+			imagePath = argv[OBJECT_PATH];
+			objectImage = imread(imagePath, -1);
+			imwrite(imagePath, objectImage);
+
 			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
-			
+			objectImage = imread(imagePath, -1);
+			imwrite(imagePath, objectImage);
+
 			std::cout << "400 ok" << std::endl;
 			break;
 

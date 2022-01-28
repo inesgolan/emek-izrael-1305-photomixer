@@ -26,28 +26,47 @@ namespace photomixerGUI
 
             // show the object image
             objectPath = Path.GetFullPath(ObjectImagePath);
-            ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
 
             // change here the size of the picture from the xaml according to my object picture ???
         }
 
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
+            bool flag = false;
+            while (!flag)
+            {
+                bool fileExist = File.Exists(objectPath);
+                if (fileExist)
+                {
+                    try
+                    {
+                        if (File.OpenRead(objectPath).CanRead)
+                        {
+                            flag = true;
+                        }
+                    }
+                    catch (IOException)
+                    {
+
+                    }
+                }
+            }
             communicator.resizeObjectBigMsg(objectPath);
-            ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
         }
 
         private void smallerButton_Click(object sender, RoutedEventArgs e)
         {
             communicator.resizeObjectSmallMsg(objectPath);
-            ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             //Edit editScreen = new Edit();
             //editScreen.Show();
-            //Close();
+            Close();
         }
     }
 }
