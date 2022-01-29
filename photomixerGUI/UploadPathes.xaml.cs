@@ -40,7 +40,7 @@ namespace photomixerGUI
             }
 
         }
-
+        
         //this function detect the object in the given pathes from the user and get the background path 
         private void objectDetection(object sender, RoutedEventArgs e)
         {
