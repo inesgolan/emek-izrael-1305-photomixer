@@ -24,9 +24,9 @@
 
         <Label FontWeight="ExtraBold" FontSize="19" Foreground="Black" Content="Change your image size:"
                HorizontalAlignment="Center" VerticalAlignment="Center" Width="235" Grid.Column="1" />
-        
 
-        <Image Name="ObjectImage" Margin="3,0,2,0" Grid.Row="1" Grid.Column="1" Source="{Binding ObjectImage}"/>
+
+        <Image Name="ObjectImage" Margin="3,0,2,0" Grid.Row="1" Grid.Column="1" Source="{Binding ObjectImage}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
             <Button Name="biggerButton" Grid.Column="2" Grid.Row="2" FontSize="20" Height="50" Width="100"  Content="bigger"
                 Foreground="Black" FontWeight="Bold" Click="biggerButton_Click" Margin="0,21,182,38" RenderTransformOrigin="0.373,1.137"/>

@@ -16,20 +16,20 @@ namespace photomixerGUI
         private static string objectPath;
         private int flag;
 
+        // c'tors
         public Resize()
         {
             InitializeComponent();
         }
 
-        // do a git pull origin develop in develop and in this brunch!!!!!
         public Resize(string ObjectImagePath)
         {
             InitializeComponent();
 
             objectPath = Path.GetFullPath(ObjectImagePath);
-            //ObjectImage.Source = new BitmapImage();
         }
 
+        // make the picture size larger
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
             if (flag == 0)
@@ -38,6 +38,7 @@ namespace photomixerGUI
             }
         }
 
+        // make the picture size smaller
         private void smallerButton_Click(object sender, RoutedEventArgs e)
         {
             if (flag == 0)
@@ -46,11 +47,13 @@ namespace photomixerGUI
             }
         }
 
+        // back to upload pathes screen
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        // show the result of the size change
         private void resultButton_Click(object sender, RoutedEventArgs e)
         {
             ObjectImage.Source = new BitmapImage(new Uri(objectPath));

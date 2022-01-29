@@ -100,7 +100,6 @@ namespace photomixerGUI
             {
                 //put the background path in the last cell in the array
                 imagesPathes[imagesCounter] = pathBackground;
-                //communicator.resizeObjectBigMsg(imagesPathes[0]);
                 Save saveImage = new Save(imagesPathes, imagesCounter);
                 saveImage.Show();
                 Close();
