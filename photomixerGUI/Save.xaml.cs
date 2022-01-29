@@ -52,8 +52,6 @@ namespace photomixerGUI
             }
             else
             {
-                //communicator.resizeObjectBigMsg(imagesPathes[0]);
-                //Thread.Sleep(3000);
                 Edit edit = new Edit(imagesPathes, imagesCounter, imagePath.Text);
                 edit.Show();
                 Close();
@@ -62,7 +60,6 @@ namespace photomixerGUI
 
         private void edit(object sender, RoutedEventArgs e)
         {
-            //communicator.resizeObjectBigMsg(imagesPathes[0]);
             checkPath(imagePath.Text);
         }
     }

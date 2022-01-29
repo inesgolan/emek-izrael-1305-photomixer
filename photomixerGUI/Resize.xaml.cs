@@ -13,6 +13,7 @@ namespace photomixerGUI
     {
         private Communicator communicator = new Communicator();
         private static string objectPath;
+        private int flag;
 
         public Resize()
         {
@@ -24,30 +25,41 @@ namespace photomixerGUI
         {
             InitializeComponent();
 
-            // show the object image
             objectPath = Path.GetFullPath(ObjectImagePath);
-            //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
-
-            // change here the size of the picture from the xaml according to my object picture ???
+            //ObjectImage.Source = new BitmapImage();
         }
 
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
-           // Thread.Sleep(5000);
-           communicator.resizeObjectBigMsg(objectPath);
-            //Thread.Sleep(5000);
-            //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            if (flag == 0)
+            {
+                communicator.resizeObjectBigMsg(objectPath);
+            }
         }
 
         private void smallerButton_Click(object sender, RoutedEventArgs e)
         {
-            communicator.resizeObjectSmallMsg(objectPath);
-            //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            if (flag == 0)
+            {
+                communicator.resizeObjectSmallMsg(objectPath);
+            }
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void resultButton_Click(object sender, RoutedEventArgs e)
+        {
+            ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            string message = "Press on Back button.";
+            string caption = "U can't resize the picture anymore!";
+            MessageBoxButton buttons = MessageBoxButton.OK;
+
+            // Displays the MessageBox.
+            MessageBoxResult result = MessageBox.Show(message, caption, buttons);
+            flag = 1;
         }
     }
 }

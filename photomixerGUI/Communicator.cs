@@ -53,7 +53,6 @@ namespace photomixerGUI
             string exe_params = "300 " + objectPath;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
-            Thread.Sleep(2000);
         }
 
         public void resizeObjectSmallMsg(string objectPath)

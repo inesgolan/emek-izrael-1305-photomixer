@@ -103,7 +103,6 @@ int main(int argc, char** argv)
 			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
 
 			std::cout << "300 ok" << std::endl;
-			getchar();
 			break;
 
 		case RESIZE_SMALLER:

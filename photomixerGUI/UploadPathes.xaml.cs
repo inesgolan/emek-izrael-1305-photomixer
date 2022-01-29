@@ -72,7 +72,6 @@ namespace photomixerGUI
                     //add the save path to the array
                     imagesPathes[imagesCounter-1] = savePath;
 
-                    // resize object screen
                     string fullSavePath = Path.GetFullPath(savePath);
                     Resize resizeScreen = new Resize(fullSavePath);
                     resizeScreen.Show();
