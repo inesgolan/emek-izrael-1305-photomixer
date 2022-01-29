@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
+using System.Threading;
 
 namespace photomixerGUI
 {
@@ -42,6 +43,21 @@ namespace photomixerGUI
         public void sendPasteObjectMsg(string objectPath, string backgroundPath, string savePath, int x, int y)
         {
             string exe_params = "200 " + objectPath + " " + backgroundPath + " " + savePath + " " + Convert.ToString(x) + " " + Convert.ToString(y);
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+        }
+
+
+        public void resizeObjectBigMsg(string objectPath)
+        {
+            string exe_params = "300 " + objectPath;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+        }
+
+        public void resizeObjectSmallMsg(string objectPath)
+        {
+            string exe_params = "400 " + objectPath;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
         }

@@ -4,6 +4,8 @@
 #define OBJECT_DETECTION 100
 #define REVERSE_MATTE 101
 #define EDIT_IMAGE 200
+#define RESIZE_BIGGER 300
+#define RESIZE_SMALLER 400
 
 #define CODE 1
 #define OBJECT_PATH 2
@@ -12,6 +14,9 @@
 #define SAVE_IMAGE_PATH 4
 #define X_LOCATION 5
 #define Y_LOCATION 6
+
+#define ADD 20
+#define REMOVE -20
 
 /*
 client messages:
@@ -90,6 +95,23 @@ int main(int argc, char** argv)
 			objectOnBackground.getEditedImage(std::stoi(argv[X_LOCATION]), std::stoi(argv[Y_LOCATION]), objectImage, backgroundImage, argv[SAVE_IMAGE_PATH]);
 
 			std::cout << "200 ok" << std::endl;
+			break;
+
+		case RESIZE_BIGGER:
+			imagePath = argv[OBJECT_PATH];
+			objectImage = imread(imagePath, -1);
+			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
+
+			std::cout << "300 ok" << std::endl;
+			break;
+
+		case RESIZE_SMALLER:
+			imagePath = argv[OBJECT_PATH];
+			objectImage = imread(imagePath, -1);
+
+			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
+
+			std::cout << "400 ok" << std::endl;
 			break;
 
 		default:

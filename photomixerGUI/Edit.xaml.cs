@@ -28,7 +28,7 @@ namespace photomixerGUI
             //get the pathes array
             imagesPathes = new string[SIZE];
             pathes.CopyTo(imagesPathes, 0);
-
+            
             imagesCounter = count;
             savePath = save;
             location = 50;
@@ -113,11 +113,6 @@ namespace photomixerGUI
 
         }
 
-        private void resize(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         //delete the images we don't need anymore and go back to main screen
         private void deleteImages(object sender, RoutedEventArgs e)
         {
@@ -139,6 +134,7 @@ namespace photomixerGUI
             {
                 Close();
             }
+
         }
     }
 }

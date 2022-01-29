@@ -10,7 +10,7 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
-
+        private Communicator communicator = new Communicator();
         private static int imagesCounter;
         private static string[] imagesPathes;
 
@@ -20,7 +20,7 @@ namespace photomixerGUI
 
             imagesPathes = new string[SIZE];
             pathes.CopyTo(imagesPathes, 0);
-
+            
             imagesCounter = count;
         }
 

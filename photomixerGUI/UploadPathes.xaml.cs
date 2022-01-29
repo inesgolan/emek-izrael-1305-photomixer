@@ -40,7 +40,7 @@ namespace photomixerGUI
             }
 
         }
-
+        
         //this function detect the object in the given pathes from the user and get the background path 
         private void objectDetection(object sender, RoutedEventArgs e)
         {
@@ -72,6 +72,9 @@ namespace photomixerGUI
                     //add the save path to the array
                     imagesPathes[imagesCounter-1] = savePath;
 
+                    string fullSavePath = Path.GetFullPath(savePath);
+                    Resize resizeScreen = new Resize(fullSavePath);
+                    resizeScreen.Show();
                 }
             }
             else
@@ -87,7 +90,9 @@ namespace photomixerGUI
             int count = Int32.Parse(countOfPathes.Text);
             string pathBackground = backgroundPath.Text;
 
-            if (!isPathValid(pathBackground) || (imagesCounter < count))
+            bool checker = isPathValid(pathBackground);
+
+            if (checker == false || (imagesCounter < count))
             { 
                 ErrorMsg.Text = "Error: wrong image path or you need\n to enter more pathes\n try again.";
             }
@@ -95,7 +100,6 @@ namespace photomixerGUI
             {
                 //put the background path in the last cell in the array
                 imagesPathes[imagesCounter] = pathBackground;
-
                 Save saveImage = new Save(imagesPathes, imagesCounter);
                 saveImage.Show();
                 Close();
