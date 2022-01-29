@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
+using System.Threading;
 
 namespace photomixerGUI
 {
@@ -49,12 +50,10 @@ namespace photomixerGUI
 
         public void resizeObjectBigMsg(string objectPath)
         {
-            //objectPath = "C:\\Users\\משתמש\\emek-izrael-1305-photomixer\\photomixerGUI\\bin\\Debug\\net5.0-windows\\objectImage1.png";
             string exe_params = "300 " + objectPath;
-            //string exe_params = "300 " + "C://Users//משתמש//emek-izrael-1305-photomixer//photomixerGUI//bin//Debug//net5.0-windows//objectImage1.png";
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
-            
+            Thread.Sleep(2000);
         }
 
         public void resizeObjectSmallMsg(string objectPath)

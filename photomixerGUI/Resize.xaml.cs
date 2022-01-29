@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
+using System.Threading;
 namespace photomixerGUI
 {
     public partial class Resize
@@ -33,26 +33,9 @@ namespace photomixerGUI
 
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
-            bool flag = false;
-            while (!flag)
-            {
-                bool fileExist = File.Exists(objectPath);
-                if (fileExist)
-                {
-                    try
-                    {
-                        if (File.OpenRead(objectPath).CanRead)
-                        {
-                            flag = true;
-                        }
-                    }
-                    catch (IOException)
-                    {
-
-                    }
-                }
-            }
-            communicator.resizeObjectBigMsg(objectPath);
+           // Thread.Sleep(5000);
+           communicator.resizeObjectBigMsg(objectPath);
+            //Thread.Sleep(5000);
             //ObjectImage.Source = new BitmapImage(new Uri(objectPath));
         }
 
@@ -64,8 +47,6 @@ namespace photomixerGUI
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            //Edit editScreen = new Edit();
-            //editScreen.Show();
             Close();
         }
     }

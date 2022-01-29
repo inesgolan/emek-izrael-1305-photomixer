@@ -10,7 +10,7 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
-
+        private Communicator communicator = new Communicator();
         private static int imagesCounter;
         private static string[] imagesPathes;
 
@@ -20,7 +20,7 @@ namespace photomixerGUI
 
             imagesPathes = new string[SIZE];
             pathes.CopyTo(imagesPathes, 0);
-
+            
             imagesCounter = count;
         }
 
@@ -52,6 +52,8 @@ namespace photomixerGUI
             }
             else
             {
+                //communicator.resizeObjectBigMsg(imagesPathes[0]);
+                //Thread.Sleep(3000);
                 Edit edit = new Edit(imagesPathes, imagesCounter, imagePath.Text);
                 edit.Show();
                 Close();
@@ -60,6 +62,7 @@ namespace photomixerGUI
 
         private void edit(object sender, RoutedEventArgs e)
         {
+            //communicator.resizeObjectBigMsg(imagesPathes[0]);
             checkPath(imagePath.Text);
         }
     }

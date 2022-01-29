@@ -28,7 +28,7 @@ namespace photomixerGUI
             //get the pathes array
             imagesPathes = new string[SIZE];
             pathes.CopyTo(imagesPathes, 0);
-
+            
             imagesCounter = count;
             savePath = save;
             location = 50;
@@ -111,21 +111,6 @@ namespace photomixerGUI
             background = Path.GetFullPath(save);
             BackgroundImage.Source = new BitmapImage(new Uri(background));
 
-        }
-
-        private void resize_Click(object sender, RoutedEventArgs e)
-        {
-            int number = Int32.Parse(numberOfPicture.Text);
-            if (number > 0 && number < 5)
-            {
-                Resize resizeScreen = new Resize("objectImage" + numberOfPicture.Text + ".png");
-                resizeScreen.Show();
-                Close();
-            }
-            //else
-            //{
-            //    // some error msg
-            //}
         }
 
         //delete the images we don't need anymore and go back to main screen
