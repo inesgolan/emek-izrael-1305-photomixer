@@ -61,5 +61,36 @@ namespace photomixerGUI
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
         }
+
+        /*
+        This function will send login message to the server
+        Input: username, password
+        Output: none
+        */
+        public void loginMsg(string username, string password)
+        {
+            string exe_params = "500 " + username + " " + password;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+        }
+
+        /*
+        This function will send register message to the server
+        Input: username, password
+        Output: none
+        */
+        public void registerMsg(string username, string password)
+        {
+            string exe_params = "600 " + username + " " + password;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+        }
+
+        public void checkIfExistsMsg(string username)
+        {
+            string exe_params = "700 " + username;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+        }
     }
 }
