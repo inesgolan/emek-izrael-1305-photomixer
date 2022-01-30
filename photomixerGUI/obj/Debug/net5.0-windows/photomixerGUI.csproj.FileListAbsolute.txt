@@ -7,7 +7,6 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\b
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\bin\Debug\net5.0-windows\photomixerGUI.pdb
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\checkMatte.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Edit.g.cs
-C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\MainWindow.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ProjectInfo.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.g.cs
@@ -17,7 +16,6 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\o
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI_MarkupCompile.lref
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\checkMatte.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Edit.baml
-C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\MainWindow.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ProjectInfo.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.baml
@@ -31,3 +29,8 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\o
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ref\photomixerGUI.dll
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.pdb
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.genruntimeconfig.cache
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.csproj.AssemblyReference.cache
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Menu.g.cs
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Menu.baml
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\MainWindow.g.cs
+C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\MainWindow.baml

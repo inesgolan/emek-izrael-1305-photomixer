@@ -83,7 +83,7 @@ namespace photomixerGUI
                 save = "edit" + countOfEdits.ToString() + ".png";
             }
 
-            communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
+            Communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
 
             location += 50;
 

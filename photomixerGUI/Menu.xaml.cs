@@ -2,9 +2,9 @@
 
 namespace photomixerGUI
 {
-    public partial class MainWindow : Window
+    public partial class Menu : Window
     {
-        public MainWindow()
+        public Menu()
         {
         }
 

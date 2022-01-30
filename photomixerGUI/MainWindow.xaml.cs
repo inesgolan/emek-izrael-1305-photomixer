@@ -6,11 +6,9 @@ using System;
 namespace photomixerGUI
 {
     //this class is in charge of logining in the system
-    public partial class Login : Window
+    public partial class MainWindow : Window
     {
-        private Communicator communicator = new Communicator();
-
-        public Login()
+        public MainWindow()
         {
             InitializeComponent();
         }
@@ -19,7 +17,7 @@ namespace photomixerGUI
         //this function checks if the username exists
         private void checkUsername(string username)
         {
-            communicator.checkIfExistsMsg(username);
+            Communicator.checkIfExistsMsg(username);
             ErrorMsg.Text = "Error: User exist, try again.";
 
         }
@@ -29,7 +27,7 @@ namespace photomixerGUI
         {
             checkUsername(Username.Text);
 
-            communicator.loginMsg(Username.Text, Password.Password);
+            Communicator.loginMsg(Username.Text, Password.Password);
         }
 
         //this function open the Register window
