@@ -1,5 +1,6 @@
 #include "ObjectOnBackground.h"
 #include "ObjectDetection.h"
+#include "DataBase.h"
 
 #define OBJECT_DETECTION 100
 #define REVERSE_MATTE 101
@@ -34,6 +35,7 @@ int main(int argc, char** argv)
 	ObjectDetection object;
 	ClearBackground clearBackground;
 	ObjectOnBackground objectOnBackground;
+	DataBase db;
 
 	if (argc > 1)
 	{
