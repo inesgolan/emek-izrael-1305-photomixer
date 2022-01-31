@@ -25,7 +25,12 @@
             <TextBlock>  
                  <Hyperlink Click="register" FontSize="14">Register</Hyperlink>  
             </TextBlock>  
-            button  
+            button ,<LineBreak />
+            or enter as a guest
+            <TextBlock>  
+                 <Hyperlink Click="guestButton_click" FontSize="14">guest</Hyperlink>  
+            </TextBlock>
+            .
         </TextBlock>
 
         <Label Grid.Row="1" Content="Enter user name:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>

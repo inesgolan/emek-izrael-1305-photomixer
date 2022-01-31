@@ -30,11 +30,19 @@ namespace photomixerGUI
             Communicator.loginMsg(Username.Text, Password.Password);
         }
 
-        //this function open the Register window
+        // This function open the Register window
         private void register(object sender, RoutedEventArgs e)
         {
             Register goRegister = new Register();
             goRegister.Show();
+            Close();
+        }
+
+        // This function enter to the app as a guest
+        private void guestButton_click(object sender, RoutedEventArgs e)
+        {
+            Menu gotoMenu = new Menu();
+            gotoMenu.Show();
             Close();
         }
     }
