@@ -12,7 +12,6 @@ namespace photomixerGUI
 {
     public partial class Resize
     {
-        private Communicator communicator = new Communicator();
         private static string objectPath;
         private int flag;
 
@@ -34,7 +33,7 @@ namespace photomixerGUI
         {
             if (flag == 0)
             {
-                communicator.resizeObjectBigMsg(objectPath);
+                Communicator.resizeObjectBigMsg(objectPath);
             }
         }
 
@@ -43,7 +42,7 @@ namespace photomixerGUI
         {
             if (flag == 0)
             {
-                communicator.resizeObjectSmallMsg(objectPath);
+                Communicator.resizeObjectSmallMsg(objectPath);
             }
         }
 

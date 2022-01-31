@@ -11,7 +11,6 @@ namespace photomixerGUI
         private const int SIZE = 5;
         private const int ENDING = 4;
 
-        private Communicator communicator = new Communicator();
         private static int imagesCounter;
         private static string[] imagesPathes;
 
@@ -65,7 +64,7 @@ namespace photomixerGUI
 
                     imagesCounter++;
                     string savePath = "objectImage" + imagesCounter.ToString() + ".png";
-                    communicator.sendObjectRecognizeMsg(imagePath, savePath);
+                    Communicator.sendObjectRecognizeMsg(imagePath, savePath);
 
                     ErrorMsg.Text = "object detected!";
 

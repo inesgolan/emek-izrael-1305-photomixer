@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Login" Height="450" Width="800">
 
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.2*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -20,20 +19,24 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Height="50" Width="80" Content="?" 
-                Foreground="DarkRed" FontWeight="Bold" Click="questionMark"/>
+        <TextBlock HorizontalAlignment="Left" Margin="220,0,0,0" VerticalAlignment="Center" FontSize="13" Foreground="White" Grid.ColumnSpan="2">  
+            Hi:) Please login here to view the features of this site.<LineBreak />
+            If you are new on this site then please click on   
+            <TextBlock>  
+                 <Hyperlink Click="register" FontSize="14">Register</Hyperlink>  
+            </TextBlock>  
+            button  
+        </TextBlock>
 
-        <Label FontWeight="ExtraBold" FontSize="30" Foreground="DarkBlue" Content="Hello"
-               HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="userName" Width="236" Grid.Column="1" />
-        <Label Grid.Row="1" FontWeight="ExtraBold" FontSize="30" Foreground="Darkblue" Content="Welcome to our photomixer project!"
-               HorizontalAlignment="Center" VerticalAlignment="Center" Width="553" Grid.ColumnSpan="3"/>
+        <Label Grid.Row="1" Content="Enter user name:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="Username"  Width="250" Height="32" />
 
-        <Button Grid.Column="1" Grid.Row="2" FontSize="20" Height="50" Width="200"  Content="Enter image pathes"
-                Foreground="Black" FontWeight="Bold" Click="getPathes"/>
+        <Label Grid.Row="2" Content="Enter password:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <PasswordBox Grid.Row="2" Grid.Column="1" Name="Password" Width="250" Height="32"/>
 
-        <Button Grid.Column="1" Grid.Row="3" FontSize="15" Height="50" Width="100" Content="Exit" 
-                Foreground="DarkRed" FontWeight="Bold" Click="exit"/>
+        <Button FontSize="15" Content="Login" Foreground="Black" FontWeight="Bold" Click="login" Grid.ColumnSpan="2" Margin="350,23,350,35" Grid.Row="3"/>
 
+        <TextBlock Grid.Row="3" x:Name ="ErrorMsg" OpacityMask="Crimson" Foreground="#FFE5572C" Margin="55,29,55,29" />
     </Grid>
 
 </Window>

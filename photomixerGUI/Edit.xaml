@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
         Title="Edit" Height="450" Width="800">
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*" />
             <ColumnDefinition Width="*" />
@@ -16,7 +16,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ListView Name="Images" Grid.Column="1">
+        <ListView Name="Images" Grid.Column="1" Background="Black">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>

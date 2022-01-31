@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
         Title="Resize" Height="450" Width="800">
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1.2*" />
             <ColumnDefinition Width="*"/>
@@ -22,7 +22,7 @@
         <Button Name="backButton" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="50" Width="80" Content="Back" 
                 Foreground="Black" FontWeight="Bold" Click="backButton_Click" Margin="10,10,0,0"/>
 
-        <Label FontWeight="ExtraBold" FontSize="19" Foreground="Black" Content="Change your image size:"
+        <Label FontWeight="ExtraBold" FontSize="19" Foreground="White" Content="Change your image size:"
                HorizontalAlignment="Center" VerticalAlignment="Center" Width="235" Grid.Column="1" />
 
 

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
         Title="ProjectInfo" Height="450" Width="800">
-    <Grid>
+    <Grid Background="Black">
         
     </Grid>
 </Window>

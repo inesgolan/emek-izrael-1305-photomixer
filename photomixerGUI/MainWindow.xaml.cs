@@ -1,33 +1,41 @@
 ﻿using System.Windows;
+using System.IO;
+using System.Windows.Media;
+using System;
 
 namespace photomixerGUI
 {
+    //this class is in charge of logining in the system
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
+            InitializeComponent();
         }
 
-        //This function open the window with the info about the project
-        private void questionMark(object sender, RoutedEventArgs e)
+        //server returns?
+        //this function checks if the username exists
+        private void checkUsername(string username)
         {
-            ProjectInfo info = new ProjectInfo();
-            info.Show();
-            Close();
+            Communicator.checkIfExistsMsg(username);
+            ErrorMsg.Text = "Error: User exist, try again.";
+
         }
 
-        //This function open the window where the user uploads the images pathes
-        private void getPathes(object sender, RoutedEventArgs e)
+        //how will we know that it works?
+        private void login(object sender, RoutedEventArgs e)
         {
-            UploadPathes pathes = new UploadPathes();
-            pathes.Show();
-            Close();
+            checkUsername(Username.Text);
+
+            Communicator.loginMsg(Username.Text, Password.Password);
         }
 
-        //This function closes the window
-        private void exit(object sender, RoutedEventArgs e)
+        //this function open the Register window
+        private void register(object sender, RoutedEventArgs e)
         {
-            Close();
+            //Register goRegister = new Register(Username.Text, Password.Password);
+            //goRegister.Show();
+            //Close();
         }
     }
 }
