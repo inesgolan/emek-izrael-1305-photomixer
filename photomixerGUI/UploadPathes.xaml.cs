@@ -10,6 +10,7 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
+        private const int UPLOAD_PATH_TYPE = 1;
 
         private static int imagesCounter;
         private static string[] imagesPathes;
@@ -112,30 +113,8 @@ namespace photomixerGUI
         */
         private bool isPathValid(string path)
         {
-            string ending = "";
-
-            if (path.Length > ENDING) 
-            {
-
-                int startIndex = path.Length - ENDING;
-                int finishIndex = path.Length - 1;
-
-                ending = path.Substring(startIndex, finishIndex - startIndex + 1);
-
-            }
-            else
-            {
-                return false;
-            }
-
-
-            bool fileExist = File.Exists(path);
-            if (fileExist && (".jpg" == ending || ".png" == ending)) //can open the file and it's a picture
-            {
-                return true;
-            }
-
-            return false;
+            checkPath checker = new checkPath();
+            return checker.isPathValid(path, UPLOAD_PATH_TYPE);
         }
     }
 }

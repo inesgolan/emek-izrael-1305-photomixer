@@ -10,6 +10,7 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
+        private const int SAVE_TYPE = 2;
         private Communicator communicator = new Communicator();
         private static int imagesCounter;
         private static string[] imagesPathes;
@@ -27,27 +28,10 @@ namespace photomixerGUI
         //checks the path and if its valid open edit window
         private void checkPath(string path)
         {
-            string ending = "";
-
-            if (path.Length > ENDING)
+            checkPath checker = new checkPath();
+            if (!checker.isPathValid(path, SAVE_TYPE))
             {
-
-                int startIndex = path.Length - ENDING;
-                int finishIndex = path.Length - 1;
-
-                ending = path.Substring(startIndex, finishIndex - startIndex + 1);
-
-            }
-            else
-            {
-                ErrorMsg.Text = "Error: path too short, try again.";
-                imagePath.Clear();
-            }
-
-            bool fileExist = File.Exists(path);
-            if (fileExist || (".png" != ending)) //can't open the file and it's a picture type png
-            {
-                ErrorMsg.Text = "Error: path exist or image type isn't png, try again.";
+                ErrorMsg.Text = "Error: invalid path, try again.";
                 imagePath.Clear();
             }
             else
