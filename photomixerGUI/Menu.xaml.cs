@@ -6,6 +6,7 @@ namespace photomixerGUI
     {
         public Menu()
         {
+            InitializeComponent();
         }
 
         //This function open the window with the info about the project
