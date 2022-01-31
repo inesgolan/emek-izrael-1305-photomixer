@@ -7,6 +7,9 @@
 #define EDIT_IMAGE 200
 #define RESIZE_BIGGER 300
 #define RESIZE_SMALLER 400
+#define LOGIN 500
+#define REGISTER 600
+#define CHECKIFEXIST 700
 
 #define CODE 1
 #define OBJECT_PATH 2
@@ -35,7 +38,9 @@ int main(int argc, char** argv)
 	ObjectDetection object;
 	ClearBackground clearBackground;
 	ObjectOnBackground objectOnBackground;
+
 	DataBase db;
+	bool returnVal = false;
 
 	if (argc > 1)
 	{
@@ -116,8 +121,26 @@ int main(int argc, char** argv)
 			std::cout << "400 ok" << std::endl;
 			break;
 
+		case LOGIN:
+			returnVal = db.doesPasswordMatch(argv[2], argv[3]);
+
+			std::cout << "500 ok" << std::endl;
+			break;
+
+		case REGISTER:
+			returnVal = db.addNewUser(argv[2], argv[3], argv[4]);
+
+			std::cout << "600 ok" << std::endl;
+			break;
+
+		case CHECKIFEXIST:
+			returnVal = db.doesUserExist(argv[2]);
+
+			std::cout << "700 ok" << std::endl;
+			break;
+
 		default:
-			std::cout << "300 error" << std::endl;
+			std::cout << "error" << std::endl;
 			break;
 		}
 	}
