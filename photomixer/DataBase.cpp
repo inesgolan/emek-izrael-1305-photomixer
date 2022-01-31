@@ -1,5 +1,5 @@
 #include "DataBase.h"
-#include <mutex>
+
 std::mutex mtx;
 
 int callbackString(void* data, int argc, char** argv, char** azColName);
@@ -69,9 +69,19 @@ bool DataBase::doesPasswordMatch(std::string name, std::string password)
 	{
 		std::cout << errorMsg << std::endl;;
 	}
-	mtx.lock();
-	_outputFile << "True";
-	mtx.unlock();
+
+	if (strcmp(dbPassword.c_str(), password.c_str()) == 0)
+	{
+		mtx.lock();
+		_outputFile << "True";
+		mtx.unlock();
+	}
+	else
+	{
+		mtx.lock();
+		_outputFile << "False";
+		mtx.unlock();
+	}
 	return strcmp(dbPassword.c_str(), password.c_str()) == 0;
 }
 
@@ -94,7 +104,18 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 	query = "INSERT INTO Users (Name, Password, Email) VALUES (\'" + name + "\', \'" + password + "\', \'" + mail + "\');";
 	userResult = sqlite3_exec(this->_db, query.c_str(), nullptr, nullptr, &errorMsg);
 
-	_outputFile << "True";
+	if (userResult == SQLITE_OK)
+	{
+		mtx.lock();
+		_outputFile << "True";
+		mtx.unlock();
+	}
+	else
+	{
+		mtx.lock();
+		_outputFile << "False";
+		mtx.unlock();
+	}
 	return (userResult == SQLITE_OK);
 }
 

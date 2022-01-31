@@ -1,7 +1,7 @@
 #include <iostream>
 #include <io.h>
 #include <fstream>
-
+#include <mutex>
 #include "sqlite3.h"
 
 #define DB_NAME "DB.sqlite"

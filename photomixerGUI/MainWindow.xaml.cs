@@ -19,32 +19,6 @@ namespace photomixerGUI
             Communicator.loginMsg(Username.Text, Password.Password);
 
             string text;
-            bool flag = false;
-            while (!flag)
-            {
-                bool fileExist = File.Exists(OUTPUT_FILE_NAME);
-                if (fileExist)
-                {
-                    try
-                    {
-                        if (File.OpenRead(OUTPUT_FILE_NAME).CanRead)
-                        {
-                            File.OpenRead(OUTPUT_FILE_NAME);
-                            text = File.ReadAllText(OUTPUT_FILE_NAME);
-
-                            if (text != "")
-                            {
-                                flag = true;
-                            } 
-                        }
-                    }
-                    catch (IOException)
-                    {
-
-                    }
-                }
-            }
-
             File.OpenRead(OUTPUT_FILE_NAME);
             text = File.ReadAllText(OUTPUT_FILE_NAME);
 
