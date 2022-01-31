@@ -112,30 +112,8 @@ namespace photomixerGUI
         */
         private bool isPathValid(string path)
         {
-            string ending = "";
-
-            if (path.Length > ENDING) 
-            {
-
-                int startIndex = path.Length - ENDING;
-                int finishIndex = path.Length - 1;
-
-                ending = path.Substring(startIndex, finishIndex - startIndex + 1);
-
-            }
-            else
-            {
-                return false;
-            }
-
-
-            bool fileExist = File.Exists(path);
-            if (fileExist && (".jpg" == ending || ".png" == ending)) //can open the file and it's a picture
-            {
-                return true;
-            }
-
-            return false;
+            checkPath checker = new checkPath();
+            return checker.isPathValid(path, 1);
         }
     }
 }
