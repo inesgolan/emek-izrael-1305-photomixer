@@ -11,6 +11,7 @@ namespace photomixerGUI
 {
     class Communicator
     {
+
         public Communicator()
         {
         }
@@ -72,6 +73,7 @@ namespace photomixerGUI
             string exe_params = "500 " + username + " " + password;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
         }
 
         /*
@@ -84,13 +86,8 @@ namespace photomixerGUI
             string exe_params = "600 " + username + " " + password + " " + mail;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
         }
 
-        public static void checkIfExistsMsg(string username)
-        {
-            string exe_params = "700 " + username;
-            string path = Path.GetFullPath("photomixer.exe");
-            Process proc = System.Diagnostics.Process.Start(path, exe_params);
-        }
     }
 }

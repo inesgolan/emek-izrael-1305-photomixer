@@ -11,14 +11,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace photomixerGUI
 {
-    /// <summary>
-    /// Interaction logic for Register.xaml
-    /// </summary>
     public partial class Register : Window
     {
+        public static string OUTPUT_FILE_NAME = "Output.txt";
         public Register()
         {
             InitializeComponent();
@@ -34,9 +33,24 @@ namespace photomixerGUI
         private void signUp_Button(object sender, RoutedEventArgs e)
         {
             Communicator.registerMsg(Username.Text, Password.Password, Mail.Text);
-            MainWindow goToMainWindow = new MainWindow();
-            goToMainWindow.Show();
-            Close();
+
+            string text;
+            File.OpenRead(OUTPUT_FILE_NAME);
+            text = File.ReadAllText(OUTPUT_FILE_NAME);
+
+            if (text == "False")
+            {
+                ErrorMsg.Text = "Your own problem. go get new friends.";
+                Username.Clear();
+                Password.Clear();
+                Mail.Clear();
+            }
+            else
+            {
+                MainWindow goToMainWindow = new MainWindow();
+                goToMainWindow.Show();
+                Close();
+            }
         }
     }
 }

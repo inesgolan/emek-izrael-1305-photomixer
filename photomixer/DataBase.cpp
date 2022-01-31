@@ -1,17 +1,19 @@
 #include "DataBase.h"
 
+std::mutex mtx;
 
 int callbackString(void* data, int argc, char** argv, char** azColName);
 
 //open the database
 DataBase::DataBase()
 {
-	int result = sqlite3_open(FILE_NAME, &this->_db);
+	int result = sqlite3_open(DB_NAME, &this->_db);
 	if (result != SQLITE_OK)
 	{
 		this->_db = nullptr;
 		std::cout << "error ";
 	}
+	this->_outputFile.open(OUTPUT_FILE_NAME);
 }
 
 //close the database
@@ -19,6 +21,7 @@ DataBase::~DataBase()
 {
 	sqlite3_close(this->_db);
 	this->_db = nullptr;
+	this->_outputFile.close();
 }
 
 
@@ -41,7 +44,7 @@ bool DataBase::doesUserExist(std::string name)
 	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &tempName, &errorMsg);
 	if (result != SQLITE_OK)
 	{
-		std::cout << errorMsg << std::endl;;
+		std::cout << errorMsg << std::endl;
 	}
 	return strcmp(name.c_str(), tempName.c_str()) == 0;
 }
@@ -52,6 +55,9 @@ bool DataBase::doesPasswordMatch(std::string name, std::string password)
 	//check if user exist
 	if (!doesUserExist(name))
 	{
+		mtx.lock();
+		_outputFile << "False";
+		mtx.unlock();
 		return false;
 	}
 
@@ -63,6 +69,19 @@ bool DataBase::doesPasswordMatch(std::string name, std::string password)
 	{
 		std::cout << errorMsg << std::endl;;
 	}
+
+	if (strcmp(dbPassword.c_str(), password.c_str()) == 0)
+	{
+		mtx.lock();
+		_outputFile << "True";
+		mtx.unlock();
+	}
+	else
+	{
+		mtx.lock();
+		_outputFile << "False";
+		mtx.unlock();
+	}
 	return strcmp(dbPassword.c_str(), password.c_str()) == 0;
 }
 
@@ -72,9 +91,11 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 	char* errorMsg = nullptr;
 	std::string query;
 	int userResult;
+
 	//check if user exist
 	if (doesUserExist(name))
 	{
+		_outputFile << "False";
 		return false;
 	}
 
@@ -83,6 +104,18 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 	query = "INSERT INTO Users (Name, Password, Email) VALUES (\'" + name + "\', \'" + password + "\', \'" + mail + "\');";
 	userResult = sqlite3_exec(this->_db, query.c_str(), nullptr, nullptr, &errorMsg);
 
+	if (userResult == SQLITE_OK)
+	{
+		mtx.lock();
+		_outputFile << "True";
+		mtx.unlock();
+	}
+	else
+	{
+		mtx.lock();
+		_outputFile << "False";
+		mtx.unlock();
+	}
 	return (userResult == SQLITE_OK);
 }
 

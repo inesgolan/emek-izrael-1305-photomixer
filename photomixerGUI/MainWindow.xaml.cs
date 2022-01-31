@@ -8,26 +8,32 @@ namespace photomixerGUI
     //this class is in charge of logining in the system
     public partial class MainWindow : Window
     {
+        public static string OUTPUT_FILE_NAME = "Output.txt";
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        //server returns?
-        //this function checks if the username exists
-        private void checkUsername(string username)
-        {
-            Communicator.checkIfExistsMsg(username);
-            ErrorMsg.Text = "Error: User exist, try again.";
-
-        }
-
-        //how will we know that it works?
         private void login(object sender, RoutedEventArgs e)
         {
-            checkUsername(Username.Text);
-
             Communicator.loginMsg(Username.Text, Password.Password);
+
+            string text;
+            File.OpenRead(OUTPUT_FILE_NAME);
+            text = File.ReadAllText(OUTPUT_FILE_NAME);
+
+            if (text == "False")
+            {
+                ErrorMsg.Text = "Your own problem. go get new friends.";
+                Username.Clear();
+                Password.Clear();
+            }
+            else
+            {
+                Menu gotoMenu = new Menu();
+                gotoMenu.Show();
+                Close();
+            }
         }
 
         // This function open the Register window
