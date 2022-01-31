@@ -9,7 +9,6 @@
 #define RESIZE_SMALLER 400
 #define LOGIN 500
 #define REGISTER 600
-#define CHECKIFEXIST 700
 
 #define CODE 1
 #define OBJECT_PATH 2
@@ -137,11 +136,6 @@ int main(int argc, char** argv)
 			std::cout << "600 ok" << std::endl;
 			break;
 
-		case CHECKIFEXIST:
-			returnVal = db.doesUserExist(argv[USERNAME]);
-
-			std::cout << "700 ok" << std::endl;
-			break;
 
 		default:
 			std::cout << "error" << std::endl;

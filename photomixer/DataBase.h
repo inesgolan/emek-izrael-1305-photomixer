@@ -1,14 +1,17 @@
 #include <iostream>
 #include <io.h>
+#include <fstream>
 
 #include "sqlite3.h"
 
-#define FILE_NAME "DB.sqlite"
+#define DB_NAME "DB.sqlite"
+#define OUTPUT_FILE_NAME "Output.txt"
 
 class DataBase
 {
 private:
 	sqlite3* _db;
+	std::ofstream _outputFile;
 
 public:
 	DataBase();
