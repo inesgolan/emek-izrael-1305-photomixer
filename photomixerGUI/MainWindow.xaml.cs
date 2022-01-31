@@ -33,9 +33,9 @@ namespace photomixerGUI
         //this function open the Register window
         private void register(object sender, RoutedEventArgs e)
         {
-            //Register goRegister = new Register(Username.Text, Password.Password);
-            //goRegister.Show();
-            //Close();
+            Register goRegister = new Register();
+            goRegister.Show();
+            Close();
         }
     }
 }
