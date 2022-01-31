@@ -10,6 +10,7 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
+        private const int SAVE_TYPE = 2;
         private Communicator communicator = new Communicator();
         private static int imagesCounter;
         private static string[] imagesPathes;
@@ -28,7 +29,7 @@ namespace photomixerGUI
         private void checkPath(string path)
         {
             checkPath checker = new checkPath();
-            if (!checker.isPathValid(path, 2))
+            if (!checker.isPathValid(path, SAVE_TYPE))
             {
                 ErrorMsg.Text = "Error: invalid path, try again.";
                 imagePath.Clear();

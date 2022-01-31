@@ -13,7 +13,8 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
-
+        private const int UPLOAD_PATH_TYPE = 1;
+        private const int SAVE_TYPE = 2;
 
         // check if the path is valid
         public bool isPathValid(string path, int type)
@@ -37,14 +38,14 @@ namespace photomixerGUI
 
             bool fileExist = File.Exists(path);
 
-            if (type == 1) // upload pathes screen
+            if (type == UPLOAD_PATH_TYPE) // upload pathes screen
             {
                 if (fileExist && (".jpg" == ending || ".png" == ending)) //can open the file and it's a picture
                 {
                     return true;
                 }
             }
-            else if (type == 2) // save screen 
+            else if (type == SAVE_TYPE) // save screen 
             {
                 if (!fileExist && (".png" == ending)) 
                 {

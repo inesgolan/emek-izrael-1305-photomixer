@@ -10,6 +10,7 @@ namespace photomixerGUI
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
+        private const int UPLOAD_PATH_TYPE = 1;
 
         private static int imagesCounter;
         private static string[] imagesPathes;
@@ -113,7 +114,7 @@ namespace photomixerGUI
         private bool isPathValid(string path)
         {
             checkPath checker = new checkPath();
-            return checker.isPathValid(path, 1);
+            return checker.isPathValid(path, UPLOAD_PATH_TYPE);
         }
     }
 }
