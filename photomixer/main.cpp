@@ -19,6 +19,10 @@
 #define X_LOCATION 5
 #define Y_LOCATION 6
 
+#define USERNAME 2
+#define PASSWORD 3
+#define MAIL 4
+
 #define ADD 20
 #define REMOVE -20
 
@@ -122,19 +126,19 @@ int main(int argc, char** argv)
 			break;
 
 		case LOGIN:
-			returnVal = db.doesPasswordMatch(argv[2], argv[3]);
+			returnVal = db.doesPasswordMatch(argv[USERNAME], argv[PASSWORD]);
 
 			std::cout << "500 ok" << std::endl;
 			break;
 
 		case REGISTER:
-			returnVal = db.addNewUser(argv[2], argv[3], argv[4]);
+			returnVal = db.addNewUser(argv[USERNAME], argv[PASSWORD], argv[MAIL]);
 
 			std::cout << "600 ok" << std::endl;
 			break;
 
 		case CHECKIFEXIST:
-			returnVal = db.doesUserExist(argv[2]);
+			returnVal = db.doesUserExist(argv[USERNAME]);
 
 			std::cout << "700 ok" << std::endl;
 			break;
