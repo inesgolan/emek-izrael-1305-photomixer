@@ -18,7 +18,8 @@ namespace photomixerGUI
         private static int imagesCounter;
         private static string background;
         private static int countOfEdits;
-        private static int location;
+        private static int height;
+        private static int width;
 
         public Edit(string[] pathes, int count)
         {
@@ -29,7 +30,6 @@ namespace photomixerGUI
             pathes.CopyTo(imagesPathes, 0);
 
             imagesCounter = count;
-            location = 50;
 
             displayImages();
         }
@@ -66,14 +66,34 @@ namespace photomixerGUI
                     i = imagesCounter;
                 }
             }
+        }
+
+        private void save(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void resize(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void getLocation(object sender, DragEventArgs e)
+        {
+            Image image = e.Source as Image;
+            height = (int)image.Source.Height;
+            width = (int)image.Source.Width;
+
+            //location not right
+            MouseLocation.Text = Mouse.GetPosition(BackgroundImage).ToString();
+            Point location = Mouse.GetPosition(BackgroundImage);
+
+            int x = (int)(location.X);
+            int y = (int)(location.Y);
+
             countOfEdits++;
-
-            //Point location = e.GetPosition(image); //location not right
-
             string save = "edit" + countOfEdits.ToString() + ".png";
-            communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
-
-            location = 200;
+            communicator.sendPasteObjectMsg(imagesPathes[countOfEdits - 1], imagesPathes[imagesCounter], save, x, y);
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -95,20 +115,10 @@ namespace photomixerGUI
                     }
                 }
             }
+
             imagesPathes[imagesCounter] = save;
             background = Path.GetFullPath(save);
             BackgroundImage.Source = new BitmapImage(new Uri(background));
-
-        }
-
-        private void save(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void resize(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
