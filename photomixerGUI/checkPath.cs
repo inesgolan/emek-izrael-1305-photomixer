@@ -21,6 +21,12 @@ namespace photomixerGUI
         {
             string ending = "";
 
+            // check if the user did not choose path yet
+            if (path == null)
+            {
+                return false;
+            }
+
             if (path.Length > ENDING)
             {
 

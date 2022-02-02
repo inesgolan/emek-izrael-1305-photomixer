@@ -15,6 +15,9 @@ namespace photomixerGUI
         private static int imagesCounter;
         private static string[] imagesPathes;
 
+        public static string objectPath;
+        public static string backgroundPath;
+
         public UploadPathes()
         {
             InitializeComponent();
@@ -23,83 +26,46 @@ namespace photomixerGUI
             imagesPathes = new string[SIZE];
         }
 
-        //this function check is the count of the pathes that the user enters is 1-10
-        private void checkCount(object sender, RoutedEventArgs e)
-        {
-            int count = Int32.Parse(countOfPathes.Text);
-
-            if (count < 1 || count > 5)
-            {
-                ErrorMsg.Text = "Error: wrong pathes count\n try again";
-                countOfPathes.Clear();
-            }
-            else
-            {
-                ErrorMsg.Text = "Got it!";
-                countOfPathes.IsReadOnly = true;
-            }
-
-        }
-        
         //this function detect the object in the given pathes from the user and get the background path 
-        private void objectDetection(object sender, RoutedEventArgs e)
+        private void objectDetection()
         {
-            string imagePath = "";
-            int count = Int32.Parse(countOfPathes.Text);
+           //if the path is valid detect the object in the image
+           if (!isPathValid(objectPath))
+           {
+               ErrorMsg.Text = "Error: wrong file type\n try again.";
+           }
+           else
+           {
+                imagesCounter++;
+                string savePath = "objectImage" + imagesCounter.ToString() + ".png";
+                Communicator.sendObjectRecognizeMsg(objectPath, savePath);
 
-            if (imagesCounter < count)
-            {
-                //get the object path
-                imagePath = objectPath.Text;
-                objectPath.Clear();
+                ErrorMsg.Text = "object detected!";
 
-                //if the path is valid detect the object in the image
-                if (!isPathValid(imagePath))
-                {
-                    ErrorMsg.Text = "Error: wrong image path\n try again.";
-                }
-                else
-                {
-                    //checkMatte check = new checkMatte(objectPath.Text);
-                    //check.Show();
+                //add the save path to the array
+                imagesPathes[imagesCounter - 1] = savePath;
 
-                    imagesCounter++;
-                    string savePath = "objectImage" + imagesCounter.ToString() + ".png";
-                    Communicator.sendObjectRecognizeMsg(imagePath, savePath);
-
-                    ErrorMsg.Text = "object detected!";
-
-                    //add the save path to the array
-                    imagesPathes[imagesCounter-1] = savePath;
-
-                    string fullSavePath = Path.GetFullPath(savePath);
-                    Resize resizeScreen = new Resize(fullSavePath);
-                    resizeScreen.Show();
-                }
-            }
-            else
-            {
-                objectPath.IsReadOnly = true;
-                ErrorMsg.Text = "Error: you can't enter more pathes";
-            }
+                string fullSavePath = Path.GetFullPath(savePath);
+                Resize resizeScreen = new Resize(fullSavePath);
+                resizeScreen.Show();
+           }
         }
 
         //this function check the background path and open the save screen
         private void edit(object sender, RoutedEventArgs e)
         {
-            int count = Int32.Parse(countOfPathes.Text);
-            string pathBackground = backgroundPath.Text;
+            string pathBackground = backgroundPath;
 
             bool checker = isPathValid(pathBackground);
 
-            if (checker == false || (imagesCounter < count))
-            { 
+            if (checker == false)
+            {
                 ErrorMsg.Text = "Error: wrong image path or you need\n to enter more pathes\n try again.";
             }
             else
             {
                 //put the background path in the last cell in the array
-                imagesPathes[imagesCounter] = pathBackground;
+                imagesPathes[imagesCounter] = backgroundPath;
                 Save saveImage = new Save(imagesPathes, imagesCounter);
                 saveImage.Show();
                 Close();
@@ -115,6 +81,42 @@ namespace photomixerGUI
         {
             checkPath checker = new checkPath();
             return checker.isPathValid(path, UPLOAD_PATH_TYPE);
+        }
+
+
+        // upload images
+        private void uploadImgae_click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog temp = new Microsoft.Win32.OpenFileDialog();
+            bool? res = temp.ShowDialog();
+            if (res == true)
+            {
+                objectPath = temp.FileName;
+            }
+            objectDetection();
+        }
+
+
+        // upload background image
+        private void uploadBackground_click(object sender, RoutedEventArgs e)
+        {
+            ErrorMsg.Text = " ";
+            Microsoft.Win32.OpenFileDialog temp = new Microsoft.Win32.OpenFileDialog();
+            bool? res = temp.ShowDialog();
+
+            if (res == true)
+            {
+                backgroundPath = temp.FileName;
+            }
+
+            if (isPathValid(backgroundPath) == false)
+            {
+                ErrorMsg.Text = "Error: wrong image path or you need\n to enter more pathes\n try again.";
+            }
+            else
+            {
+                ErrorMsg.Text = "Got the path!";
+            }
         }
     }
 }
