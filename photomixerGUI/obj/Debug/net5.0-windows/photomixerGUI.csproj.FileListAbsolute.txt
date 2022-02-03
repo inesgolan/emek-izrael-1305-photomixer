@@ -72,3 +72,5 @@ C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-w
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.genruntimeconfig.cache
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Register.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Register.baml
+C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\showPicture.g.cs
+C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\showPicture.baml
