@@ -28,8 +28,7 @@ namespace photomixerGUI
         //checks the path and if its valid open edit window
         private void checkPath(string path)
         {
-            checkPath checker = new checkPath();
-            if (!checker.isPathValid(path, SAVE_TYPE))
+            if (!Helper.isPathValid(path, SAVE_TYPE))
             {
                 ErrorMsg.Text = "Error: invalid path, try again.";
                 imagePath.Clear();

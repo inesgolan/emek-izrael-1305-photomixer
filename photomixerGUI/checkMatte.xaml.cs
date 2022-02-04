@@ -17,7 +17,6 @@ namespace photomixerGUI
             InitializeComponent();
 
             this._objectPath = imagePath;
-            imagePath = Path.GetFullPath(imagePath);
             objectImage.Source = new BitmapImage(new Uri(imagePath));
             System.Threading.Thread.Sleep(50 * 2);
             string path = Path.GetFullPath("matte.png");

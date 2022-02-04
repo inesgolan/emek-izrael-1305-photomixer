@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace photomixerGUI
 {
-    class checkPath
+    class Helper
     {
         private const int SIZE = 5;
         private const int ENDING = 4;
@@ -17,7 +17,7 @@ namespace photomixerGUI
         private const int SAVE_TYPE = 2;
 
         // check if the path is valid
-        public bool isPathValid(string path, int type)
+        public static bool isPathValid(string path, int type)
         {
             string ending = "";
 
@@ -61,6 +61,26 @@ namespace photomixerGUI
 
 
             return false;
+        }
+
+        //if the path has space we add ""
+        public static string checkFullPath(string path)
+        {
+            string newPath = "";
+            string temp = "\"";
+
+            bool hasSpace = path.Any(Char.IsWhiteSpace);
+            if (hasSpace)
+            {
+                newPath = temp + path + temp;
+                //string savePath = "\"C:/Users/Ines Noa Golan/source/repos/emek-izrael-1305-photomixer/photomixer/images/new.png\""
+            }
+            else
+            {
+                newPath = path;
+            }
+
+            return newPath;
         }
     }
 }

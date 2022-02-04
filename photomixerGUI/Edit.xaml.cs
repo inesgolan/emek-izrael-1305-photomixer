@@ -18,7 +18,6 @@ namespace photomixerGUI
         private static int imagesCounter;
         private static string background;
         private static int countOfEdits;
-        private static int location;
         private static string savePath;
 
         public Edit(string[] pathes, int count, string save)
@@ -31,7 +30,6 @@ namespace photomixerGUI
             
             imagesCounter = count;
             savePath = save;
-            location = 50;
 
             displayImages();
         }
@@ -40,7 +38,7 @@ namespace photomixerGUI
         private void displayImages()
         {
             //display background image
-            background = Path.GetFullPath(imagesPathes[imagesCounter]);
+            background =imagesPathes[imagesCounter];
             BackgroundImage.Source = new BitmapImage(new Uri(background));
 
             //display object images and number them
@@ -54,8 +52,6 @@ namespace photomixerGUI
         //drag the object image to the background
         private void dragObject(object sender, MouseEventArgs e)
         {
-            string save = "";
-
             Image image = e.Source as Image;
             DataObject data = new DataObject(typeof(ImageSource), image.Source);
             DragDrop.DoDragDrop(image, data, DragDropEffects.All);
@@ -70,11 +66,16 @@ namespace photomixerGUI
                     i = imagesCounter;
                 }
             }
+        }
+
+        private void dropObject(object sender, DragEventArgs e)
+        {
+            string save = "";
             countOfEdits++;
 
-            //Point location = e.GetPosition(image); //location not right
+            Point location = e.GetPosition(BackgroundImage); //location not right
 
-            if (countOfEdits==imagesCounter)
+            if (countOfEdits == imagesCounter)
             {
                 save = savePath;
             }
@@ -83,9 +84,8 @@ namespace photomixerGUI
                 save = "edit" + countOfEdits.ToString() + ".png";
             }
 
-            Communicator.sendPasteObjectMsg(imagesPathes[countOfEdits-1], imagesPathes[imagesCounter], save, location, location);
-
-            location += 50;
+            imagesPathes[imagesCounter] = Helper.checkFullPath(imagesPathes[imagesCounter]);
+            Communicator.sendPasteObjectMsg(imagesPathes[countOfEdits - 1], imagesPathes[imagesCounter], save, (int)location.X, (int)location.Y);
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -110,7 +110,6 @@ namespace photomixerGUI
             imagesPathes[imagesCounter] = save;
             background = Path.GetFullPath(save);
             BackgroundImage.Source = new BitmapImage(new Uri(background));
-
         }
 
         //delete the images we don't need anymore and go back to main screen
