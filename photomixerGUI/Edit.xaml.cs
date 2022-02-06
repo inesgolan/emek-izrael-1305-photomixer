@@ -128,11 +128,13 @@ namespace photomixerGUI
                 if (result == MessageBoxResult.Yes)
                 {
                     Close();
+                    File.Delete("Output.txt");
                 }
             }
             else
             {
                 Close();
+                File.Delete("Output.txt");
             }
 
         }
