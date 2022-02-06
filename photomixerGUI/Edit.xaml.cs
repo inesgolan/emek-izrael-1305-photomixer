@@ -127,14 +127,14 @@ namespace photomixerGUI
                 MessageBoxResult result = MessageBox.Show(message, caption, buttons);
                 if (result == MessageBoxResult.Yes)
                 {
-                    Close();
                     File.Delete("Output.txt");
+                    Close();
                 }
             }
             else
             {
-                Close();
                 File.Delete("Output.txt");
+                Close();
             }
 
         }
