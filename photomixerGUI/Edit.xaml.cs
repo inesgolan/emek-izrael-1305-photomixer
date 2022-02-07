@@ -73,8 +73,7 @@ namespace photomixerGUI
             string save = "";
             countOfEdits++;
 
-            //Point location = e.GetPosition(BackgroundImage); 
-            Point location = Mouse.GetPosition(Application.Current.MainWindow);
+            Point location = e.GetPosition(this); //get image location relative to the screen
 
             if (countOfEdits == imagesCounter)
             {
