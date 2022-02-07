@@ -110,14 +110,24 @@ namespace photomixerGUI
                 MessageBoxResult result = MessageBox.Show(message, caption, buttons);
                 if (result == MessageBoxResult.Yes)
                 {
+<<<<<<< HEAD
                     Close();
                     File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
+=======
+                    File.Delete("Output.txt");
+                    Close();
+>>>>>>> 4822eb9c0a5f911923f4f0a89212dc15c7aea67a
                 }
             }
             else
             {
+<<<<<<< HEAD
                 Close();
                 File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
+=======
+                File.Delete("Output.txt");
+                Close();
+>>>>>>> 4822eb9c0a5f911923f4f0a89212dc15c7aea67a
             }
 
         }
