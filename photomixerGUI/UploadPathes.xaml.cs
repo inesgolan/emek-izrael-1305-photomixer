@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Media;
 using System;
+using System.Linq;
 
 namespace photomixerGUI
 {
@@ -38,6 +39,7 @@ namespace photomixerGUI
            {
                 imagesCounter++;
                 string savePath = "objectImage" + imagesCounter.ToString() + ".png";
+                objectPath = Helper.checkFullPath(objectPath);
                 Communicator.sendObjectRecognizeMsg(objectPath, savePath);
 
                 ErrorMsg.Text = "object detected!";
@@ -54,9 +56,7 @@ namespace photomixerGUI
         //this function check the background path and open the save screen
         private void edit(object sender, RoutedEventArgs e)
         {
-            string pathBackground = backgroundPath;
-
-            bool checker = isPathValid(pathBackground);
+            bool checker = isPathValid(backgroundPath);
 
             if (checker == false)
             {
@@ -78,9 +78,8 @@ namespace photomixerGUI
         output: bool
         */
         private bool isPathValid(string path)
-        {
-            checkPath checker = new checkPath();
-            return checker.isPathValid(path, UPLOAD_PATH_TYPE);
+        {          
+            return Helper.isPathValid(path, UPLOAD_PATH_TYPE);
         }
 
 
@@ -118,5 +117,6 @@ namespace photomixerGUI
                 ErrorMsg.Text = "Got the path!";
             }
         }
+
     }
 }

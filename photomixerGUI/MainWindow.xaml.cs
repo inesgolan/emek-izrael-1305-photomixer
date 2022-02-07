@@ -30,7 +30,7 @@ namespace photomixerGUI
             }
             else
             {
-                Menu gotoMenu = new Menu();
+                Menu gotoMenu = new Menu(Username.Text);
                 gotoMenu.Show();
                 Close();
             }
@@ -47,7 +47,7 @@ namespace photomixerGUI
         // This function enter to the app as a guest
         private void guestButton_click(object sender, RoutedEventArgs e)
         {
-            Menu gotoMenu = new Menu();
+            Menu gotoMenu = new Menu("");
             gotoMenu.Show();
             Close();
         }

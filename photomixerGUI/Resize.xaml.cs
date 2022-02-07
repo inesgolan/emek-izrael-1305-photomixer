@@ -23,8 +23,6 @@ namespace photomixerGUI
         public Resize(string ObjectImagePath)
         {
             InitializeComponent();
-
-            objectPath = Path.GetFullPath(ObjectImagePath);
         }
 
         // make the picture size larger
