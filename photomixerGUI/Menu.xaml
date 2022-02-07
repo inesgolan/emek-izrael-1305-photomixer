@@ -28,8 +28,8 @@
         <Label Grid.Row="1" FontWeight="ExtraBold" FontSize="30" Foreground="DarkCyan" Content="Welcome to our photomixer project!"
                HorizontalAlignment="Center" VerticalAlignment="Center" Width="553" Grid.ColumnSpan="3"/>
 
-        <Button Grid.Column="1" Grid.Row="2" FontSize="20" Height="50" Width="200"  Content="Enter image pathes"
-                Foreground="Black" FontWeight="Bold" Click="getPathes"/>
+        <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50"  Content="Upload images"
+                Foreground="Black" FontWeight="Bold" Click="getPathes" Margin="29,29,29,30"/>
 
         <Button Grid.Column="1" Grid.Row="3" FontSize="15" Height="50" Width="100" Content="Exit" 
                 Foreground="DarkRed" FontWeight="Bold" Click="exit"/>

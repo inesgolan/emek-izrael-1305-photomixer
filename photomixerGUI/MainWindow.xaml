@@ -26,7 +26,7 @@
                  <Hyperlink Click="register" FontSize="14">Register</Hyperlink>  
             </TextBlock>  
             button ,<LineBreak />
-            or enter as a guest
+            or enter as a 
             <TextBlock>  
                  <Hyperlink Click="guestButton_click" FontSize="14">guest</Hyperlink>  
             </TextBlock>
