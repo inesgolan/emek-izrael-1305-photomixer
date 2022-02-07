@@ -29,6 +29,8 @@ namespace photomixerGUI
             else
             {
                 ProjectVariables.username = Username.Text;
+                Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
+
                 Menu gotoMenu = new Menu();
                 gotoMenu.Show();
                 Close();

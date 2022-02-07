@@ -59,13 +59,29 @@ namespace photomixerGUI
 
             Point location = e.GetPosition(this); //get image location relative to the screen
 
-            if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
+            //save the edited images in a folder
+            if (ProjectVariables.username == "guest")
             {
-                save = ProjectVariables.savePath;
+                if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
+                {
+                    save = ProjectVariables.savePath;
+                }
+                else
+                {
+                    save = "edit" + ProjectVariables.countOfEdits.ToString() + ".png";
+                }
             }
             else
             {
-                save = "edit" + ProjectVariables.countOfEdits.ToString() + ".png";
+ 
+                if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
+                {
+                    save = ProjectVariables.username + "/" + ProjectVariables.savePath;
+                }
+                else
+                {
+                    save = ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
+                }
             }
 
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
@@ -110,24 +126,14 @@ namespace photomixerGUI
                 MessageBoxResult result = MessageBox.Show(message, caption, buttons);
                 if (result == MessageBoxResult.Yes)
                 {
-<<<<<<< HEAD
                     Close();
                     File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
-=======
-                    File.Delete("Output.txt");
-                    Close();
->>>>>>> 4822eb9c0a5f911923f4f0a89212dc15c7aea67a
                 }
             }
             else
             {
-<<<<<<< HEAD
                 Close();
                 File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
-=======
-                File.Delete("Output.txt");
-                Close();
->>>>>>> 4822eb9c0a5f911923f4f0a89212dc15c7aea67a
             }
 
         }
