@@ -7,8 +7,7 @@ namespace photomixerGUI
 {
     //this class is in charge of logining in the system
     public partial class MainWindow : Window
-    {
-        public static string OUTPUT_FILE_NAME = "Output.txt";
+    {      
         public MainWindow()
         {
             InitializeComponent();
@@ -18,9 +17,8 @@ namespace photomixerGUI
         {
             Communicator.loginMsg(Username.Text, Password.Password);
 
-            string text;
-            File.OpenRead(OUTPUT_FILE_NAME);
-            text = File.ReadAllText(OUTPUT_FILE_NAME);
+            File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);
+            string text = File.ReadAllText(ProjectVariables.OUTPUT_FILE_NAME);
 
             if (text == "False")
             {
@@ -30,7 +28,10 @@ namespace photomixerGUI
             }
             else
             {
-                Menu gotoMenu = new Menu(Username.Text);
+                ProjectVariables.username = Username.Text;
+                Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
+
+                Menu gotoMenu = new Menu();
                 gotoMenu.Show();
                 Close();
             }
@@ -47,7 +48,8 @@ namespace photomixerGUI
         // This function enter to the app as a guest
         private void guestButton_click(object sender, RoutedEventArgs e)
         {
-            Menu gotoMenu = new Menu("");
+            ProjectVariables.username = "guest";
+            Menu gotoMenu = new Menu();
             gotoMenu.Show();
             Close();
         }

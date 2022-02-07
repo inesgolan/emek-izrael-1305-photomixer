@@ -12,7 +12,7 @@ namespace photomixerGUI
 {
     public partial class Resize
     {
-        private static string objectPath;
+        private static string imagePath;
 
         // c'tors
         public Resize()
@@ -20,21 +20,22 @@ namespace photomixerGUI
             InitializeComponent();
         }
 
-        public Resize(string ObjectImagePath)
+        public Resize(string path)
         {
             InitializeComponent();
+            imagePath = Helper.checkFullPath(path);
         }
 
         // make the picture size larger
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
-            Communicator.resizeObjectBigMsg(objectPath);  
+            Communicator.resizeObjectBigMsg(imagePath);  
         }
 
         // make the picture size smaller
         private void smallerButton_Click(object sender, RoutedEventArgs e)
         {
-            Communicator.resizeObjectSmallMsg(objectPath);
+            Communicator.resizeObjectSmallMsg(imagePath);
         }
 
         // back to upload pathes screen
@@ -46,8 +47,8 @@ namespace photomixerGUI
         // show the result of the size change
         private void resultButton_Click(object sender, RoutedEventArgs e)
         {
-            showPicture g = new showPicture(objectPath);
-            g.Show();
+            showPicture showWindow = new showPicture(imagePath);
+            showWindow.Show();
         }
     }
 }
