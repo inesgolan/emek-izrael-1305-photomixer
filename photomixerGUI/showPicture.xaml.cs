@@ -16,11 +16,11 @@ namespace photomixerGUI
 {
     public partial class showPicture : Window
     {
-        public showPicture(string objectPath)
+        public showPicture(string path)
         {
             InitializeComponent();
 
-            ObjectImage.Source = new BitmapImage(new Uri(objectPath));
+            ObjectImage.Source = new BitmapImage(new Uri(path));
         }
 
 

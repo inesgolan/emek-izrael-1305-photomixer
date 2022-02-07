@@ -11,25 +11,9 @@ namespace photomixerGUI
     //this class is in charge of the editing of the image
     public partial class Edit : Window
     {
-        private const int SIZE = 6;
-
-        private Communicator communicator = new Communicator();
-        private static string[] imagesPathes;
-        private static int imagesCounter;
-        private static string background;
-        private static int countOfEdits;
-        private static string savePath;
-
-        public Edit(string[] pathes, int count, string save)
+        public Edit()
         {
             InitializeComponent();
-
-            //get the pathes array
-            imagesPathes = new string[SIZE];
-            pathes.CopyTo(imagesPathes, 0);
-            
-            imagesCounter = count;
-            savePath = save;
 
             displayImages();
         }
@@ -38,13 +22,13 @@ namespace photomixerGUI
         private void displayImages()
         {
             //display background image
-            background =imagesPathes[imagesCounter];
-            BackgroundImage.Source = new BitmapImage(new Uri(background));
+            ProjectVariables.backgroundPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter];
+            BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.backgroundPath));
 
             //display object images and number them
-            for (int i = 0; i < imagesCounter; i++)
+            for (int i = 0; i < ProjectVariables.imagesCounter; i++)
             {
-                string path = Path.GetFullPath(imagesPathes[i]);
+                string path = Path.GetFullPath(ProjectVariables.imagesPathes[i]);
                 Images.Items.Add(new BitmapImage(new Uri(path)));
             }
         }
@@ -57,35 +41,35 @@ namespace photomixerGUI
             DragDrop.DoDragDrop(image, data, DragDropEffects.All);
 
             //get the image index in the list and remove the item from the list
-            for (int i = 0; i < imagesCounter; i++)
+            for (int i = 0; i < ProjectVariables.imagesCounter; i++)
             {
                 BitmapImage item = (BitmapImage)Images.Items[i];
                 if (image.Source == item)
                 {
                     Images.Items.Remove(item);
-                    i = imagesCounter;
+                    i = ProjectVariables.imagesCounter;
                 }
             }
         }
 
         private void dropObject(object sender, DragEventArgs e)
         {
-            string save = "";
-            countOfEdits++;
+            string save;
+            ProjectVariables.countOfEdits++;
 
             Point location = e.GetPosition(this); //get image location relative to the screen
 
-            if (countOfEdits == imagesCounter)
+            if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
             {
-                save = savePath;
+                save = ProjectVariables.savePath;
             }
             else
             {
-                save = "edit" + countOfEdits.ToString() + ".png";
+                save = "edit" + ProjectVariables.countOfEdits.ToString() + ".png";
             }
 
-            imagesPathes[imagesCounter] = Helper.checkFullPath(imagesPathes[imagesCounter]);
-            Communicator.sendPasteObjectMsg(imagesPathes[countOfEdits - 1], imagesPathes[imagesCounter], save, (int)location.X, (int)location.Y);
+            ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
+            Communicator.sendPasteObjectMsg(ProjectVariables.imagesPathes[ProjectVariables.countOfEdits - 1], ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], save, (int)location.X, (int)location.Y);
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -107,9 +91,9 @@ namespace photomixerGUI
                     }
                 }
             }
-            imagesPathes[imagesCounter] = save;
-            background = Path.GetFullPath(save);
-            BackgroundImage.Source = new BitmapImage(new Uri(background));
+            ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = save;
+            ProjectVariables.backgroundPath = Path.GetFullPath(save);
+            BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.backgroundPath));
         }
 
         //delete the images we don't need anymore and go back to main screen
@@ -127,13 +111,13 @@ namespace photomixerGUI
                 if (result == MessageBoxResult.Yes)
                 {
                     Close();
-                    File.Delete("Output.txt");
+                    File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
                 }
             }
             else
             {
                 Close();
-                File.Delete("Output.txt");
+                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
             }
 
         }

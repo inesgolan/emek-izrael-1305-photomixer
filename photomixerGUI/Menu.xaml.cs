@@ -4,10 +4,11 @@ namespace photomixerGUI
 {
     public partial class Menu : Window
     {
-        public Menu(string username)
+        public Menu()
         {
             InitializeComponent();
-            userName.Content += " " + username;
+
+            userName.Content += " " + ProjectVariables.username;
         }
 
         //This function open the window with the info about the project

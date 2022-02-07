@@ -17,7 +17,6 @@ namespace photomixerGUI
 {
     public partial class Register : Window
     {
-        public static string OUTPUT_FILE_NAME = "Output.txt";
         public Register()
         {
             InitializeComponent();
@@ -35,8 +34,8 @@ namespace photomixerGUI
             Communicator.registerMsg(Username.Text, Password.Password, Mail.Text);
 
             string text;
-            File.OpenRead(OUTPUT_FILE_NAME);
-            text = File.ReadAllText(OUTPUT_FILE_NAME);
+            File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);
+            text = File.ReadAllText(ProjectVariables.OUTPUT_FILE_NAME);
 
             if (text == "False")
             {

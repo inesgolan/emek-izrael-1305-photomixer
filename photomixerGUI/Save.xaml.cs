@@ -8,34 +8,23 @@ namespace photomixerGUI
     //this class is in charge of saving the image
     public partial class Save : Window
     {
-        private const int SIZE = 5;
-        private const int ENDING = 4;
-        private const int SAVE_TYPE = 2;
-        private Communicator communicator = new Communicator();
-        private static int imagesCounter;
-        private static string[] imagesPathes;
-
-        public Save(string[] pathes, int count)
+        public Save()
         {
             InitializeComponent();
-
-            imagesPathes = new string[SIZE];
-            pathes.CopyTo(imagesPathes, 0);
-            
-            imagesCounter = count;
         }
 
         //checks the path and if its valid open edit window
         private void checkPath(string path)
         {
-            if (!Helper.isPathValid(path, SAVE_TYPE))
+            if (!Helper.isPathValid(path, ProjectVariables.SAVE_TYPE))
             {
                 ErrorMsg.Text = "Error: invalid path, try again.";
                 imagePath.Clear();
             }
             else
             {
-                Edit edit = new Edit(imagesPathes, imagesCounter, imagePath.Text);
+                ProjectVariables.savePath = path;
+                Edit edit = new Edit();
                 edit.Show();
                 Close();
             }
