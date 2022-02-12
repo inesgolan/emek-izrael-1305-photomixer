@@ -16,6 +16,8 @@ sbox = [
    0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E,
    0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF,
    0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16]
+   
+table = [[2,1,1,3],[3,2,1,1],[1,3,2,1],[1,1,3,2]]
 
 
 def subBytes(matrix):
@@ -46,13 +48,26 @@ def shiftRows(matrix):
 
     return(returnVal)	
 
+
+'''
+This function mix the colums with the table
+Input: matrix
+Output: encryted matrix
+'''
 def mixColsum(matrix):
-    # code
-    i = 0
+
+    returnVal = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    
+    for x in range(4):
+        for y in range(4):
+            returnVal[y][x] = (matrix[x][0] * table[0][y]) ^ (matrix[x][1] * table[1][y]) ^ (matrix[x][2] * table[2][y]) ^ (matrix[x][3] * table[3][y])
+    
+    return (returnVal)
+
     
 '''
 This function add the key to the matrix
-Input: key array, matrix matrix
+Input: key array, matrix
 Output: encryted matrix
 '''
 def addRoundKey(key, matrix):
@@ -129,7 +144,13 @@ def encrytion(key, pictureHexArr):
 
 
 #pictureHexArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-matrix = "Two One Nine Two"
-key = "Thats my Kung Fu"
-matrix = addRoundKey(key, matrix)
+# matrix = "Two One Nine Two"
+# key = "Thats my Kung Fu"
+# matrix = addRoundKey(key, matrix)
+# print(matrix)
+matrix = [[0x63,0x2F,0xAF,0xA2],[0xEB,0x93,0xC7,0x20],[0x9F,0x92,0xAB,0xCB],[0xA0,0xC0,0x30,0x2B]] 
+matrix = mixColsum(matrix)
+for x in range(4):
+    for y in range(4):
+        matrix[y][x] = hex(matrix[y][x])
 print(matrix)
