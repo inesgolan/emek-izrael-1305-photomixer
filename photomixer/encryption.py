@@ -63,7 +63,7 @@ def addRoundKey(key, matrix):
     #convert the key from string to hex
     for x in range(4):
         for y in range(4):
-            hexKey[y][x] = hex(ord(key[i])
+            hexKey[y][x] = hex(ord(key[i]))
             print(hexKey[y][x])
             i += 1
             
@@ -71,7 +71,7 @@ def addRoundKey(key, matrix):
     #add the key to the matrix
     for x in range(4):
         for y in range(4):
-            returnVal[y][x] = matrix[y][x] ^ hexKey[y][x] #xor
+            returnVal[y][x] = int(matrix[y][x], 16) ^ int(hexKey[y][x], 16) #xor
             
     return (returnVal)
     
