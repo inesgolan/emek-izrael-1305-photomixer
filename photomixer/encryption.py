@@ -73,12 +73,7 @@ def addRoundKey(key, matrix):
     for x in range(4):
         for y in range(4):
             mat[y][x] = hex(ord(matrix[i]))
-            i += 1
-			
-			
-            
-    print("key: ", hexKey)
-    print("mat: ", mat)
+            i += 1			
 	
     #add the key to the matrix
     for x in range(4):
@@ -133,13 +128,8 @@ def encrytion(key, pictureHexArr):
             # need to put the matrix back to the pictureHexArr or create new picture .....
 
 
-
-
-
-#54 77 6F 20 4F 6E 65 20 4E 69 6E 65 20 54 77 6F
-#matrix = [['0x54','0x77','0x6F','0x20'], ['0x4F','0x6E','0x65','0x20'], ['0x4E','0x69','0x6E','0x65'], ['0x20','0x54','0x77','0x6F']]
+#pictureHexArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 matrix = "Two One Nine Two"
-pictureHexArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 key = "Thats my Kung Fu"
 matrix = addRoundKey(key, matrix)
 print(matrix)
