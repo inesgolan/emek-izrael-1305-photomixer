@@ -58,20 +58,32 @@ Output: encryted matrix
 def addRoundKey(key, matrix):
     returnVal = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    mat = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i=0
     
     #convert the key from string to hex
     for x in range(4):
         for y in range(4):
             hexKey[y][x] = hex(ord(key[i]))
-            print(hexKey[y][x])
             i += 1
-            
+			
+    i=0
     
+    #convert the key from string to hex
+    for x in range(4):
+        for y in range(4):
+            mat[y][x] = hex(ord(matrix[i]))
+            i += 1
+			
+			
+            
+    print("key: ", hexKey)
+    print("mat: ", mat)
+	
     #add the key to the matrix
     for x in range(4):
         for y in range(4):
-            returnVal[y][x] = int(matrix[y][x], 16) ^ int(hexKey[y][x], 16) #xor
+            returnVal[y][x] = hex(int(mat[y][x], 16) ^ int(hexKey[y][x], 16)) #xor
             
     return (returnVal)
     
@@ -125,7 +137,8 @@ def encrytion(key, pictureHexArr):
 
 
 #54 77 6F 20 4F 6E 65 20 4E 69 6E 65 20 54 77 6F
-matrix = [['0x54','0x77','0x6F','0x20'], ['0x4F','0x6E','0x65','0x20'], ['0x4E','0x69','0x6E','0x65'], ['0x20','0x54','0x77','0x6F']]
+#matrix = [['0x54','0x77','0x6F','0x20'], ['0x4F','0x6E','0x65','0x20'], ['0x4E','0x69','0x6E','0x65'], ['0x20','0x54','0x77','0x6F']]
+matrix = "Two One Nine Two"
 pictureHexArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
 key = "Thats my Kung Fu"
 matrix = addRoundKey(key, matrix)
