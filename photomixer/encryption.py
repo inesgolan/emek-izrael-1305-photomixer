@@ -49,10 +49,32 @@ def shiftRows(matrix):
 def mixColsum(matrix):
     # code
     i = 0
-	
-def addRoundKey(matrix):
-    # code
-    i = 0
+    
+'''
+This function add the key to the matrix
+Input: key array, matrix matrix
+Output: encryted matrix
+'''
+def addRoundKey(key, matrix):
+    returnVal = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    i=0
+    
+    #convert the key from string to hex
+    for x in range(4):
+        for y in range(4):
+            hexKey[y][x] = hex(ord(key[i])
+            print(hexKey[y][x])
+            i += 1
+            
+    
+    #add the key to the matrix
+    for x in range(4):
+        for y in range(4):
+            returnVal[y][x] = matrix[y][x] ^ hexKey[y][x] #xor
+            
+    return (returnVal)
+    
 	
 def encryptionForEachPart(key, HexArr):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
@@ -63,7 +85,7 @@ def encryptionForEachPart(key, HexArr):
             matrix[y][x] = HexArr[i]
             i = i + 1
 			
-    matrix = addRoundKey(matrix)
+    matrix = addRoundKey(key, matrix)
 	
     for x in range(9):
         matrix = subBytes(matrix)
@@ -73,20 +95,27 @@ def encryptionForEachPart(key, HexArr):
 		
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
-    matrix = addRoundKey(matrix)
+    matrix = addRoundKey(key, matrix)
 	
     return matrix;
 	
 def encrytion(key, pictureHexArr):
+    keyArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i = 0
+    
+    for letter in key:
+        keyArr[i] = letter
+        i += 1
+        
+    i = 0
 
-    for x in len(pictureHexArr);
+    for x in len(pictureHexArr):
         arr[i] = pictureHexArr[x]
 		
         if (x / 16 == 0):
-            matrix = encryptionForEachPart(key, arr)
+            matrix = encryptionForEachPart(keyArr, arr)
             i = 0
 			
             # need to put the matrix back to the pictureHexArr or create new picture .....
@@ -95,7 +124,9 @@ def encrytion(key, pictureHexArr):
 
 
 
-
-matrix = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
+#54 77 6F 20 4F 6E 65 20 4E 69 6E 65 20 54 77 6F
+matrix = [['0x54','0x77','0x6F','0x20'], ['0x4F','0x6E','0x65','0x20'], ['0x4E','0x69','0x6E','0x65'], ['0x20','0x54','0x77','0x6F']]
 pictureHexArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-key = "zxcvbnmlkjhgfdsa"
+key = "Thats my Kung Fu"
+matrix = addRoundKey(key, matrix)
+print(matrix)
