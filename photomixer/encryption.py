@@ -60,7 +60,7 @@ def mixColsum(matrix):
     
     for x in range(4):
         for y in range(4):
-            returnVal[y][x] = (matrix[x][0] * table[0][y]) ^ (matrix[x][1] * table[1][y]) ^ (matrix[x][2] * table[2][y]) ^ (matrix[x][3] * table[3][y])
+            returnVal[y][x] = (matrix[x][0] * table[0][y]) ^ (matrix[x][1] * ((table[1][y])-1))^ matrix[x][1] ^ (matrix[x][2] * table[2][y]) ^ (matrix[x][3] * table[3][y])
     
     return (returnVal)
 
@@ -148,7 +148,7 @@ def encrytion(key, pictureHexArr):
 # key = "Thats my Kung Fu"
 # matrix = addRoundKey(key, matrix)
 # print(matrix)
-matrix = [[0x63,0x2F,0xAF,0xA2],[0xEB,0x93,0xC7,0x20],[0x9F,0x92,0xAB,0xCB],[0xA0,0xC0,0x30,0x2B]] 
+matrix = [[0x63,0x2F,0xAF,0xA2],[0xEB,0x93,0xC7,0x20],[0x9F,0x92,0xAB,0xCB],[0xA0,0xC0,0x30,0x2B]]
 matrix = mixColsum(matrix)
 for x in range(4):
     for y in range(4):
