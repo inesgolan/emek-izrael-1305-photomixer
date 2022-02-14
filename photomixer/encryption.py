@@ -1,3 +1,4 @@
+from copy import copy
 
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -54,15 +55,26 @@ This function mix the colums with the table
 Input: matrix
 Output: encryted matrix
 '''
-def mixColsum(matrix):
-
-    returnVal = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-    
-    for x in range(4):
-        for y in range(4):
-            returnVal[y][x] = (matrix[x][0] * table[0][y]) ^ (matrix[x][1] * ((table[1][y])-1))^ matrix[x][1] ^ (matrix[x][2] * table[2][y]) ^ (matrix[x][3] * table[3][y])
-    
-    return (returnVal)
+def galoisMult(a, b):
+    p = 0
+    hiBitSet = 0
+    for i in range(8):
+        if b & 1 == 1:
+            p ^= a
+        hiBitSet = a & 0x80
+        a <<= 1
+        if hiBitSet == 0x80:
+            a ^= 0x1b
+        b >>= 1
+    return p % 256
+	
+def mixColumn(column):
+    temp = copy(column)
+    column[0] = galoisMult(temp[0],2) ^ galoisMult(temp[3],1) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],3)
+    column[1] = galoisMult(temp[1],2) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],1) ^ galoisMult(temp[2],3)
+    column[2] = galoisMult(temp[2],2) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],3)
+    column[3] = galoisMult(temp[3],2) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],3)
+    return (column)
 
     
 '''
@@ -112,7 +124,7 @@ def encryptionForEachPart(key, HexArr):
     for x in range(9):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
-        matrix = mixColsum(matrix)
+        matrix = mixColumn(matrix)
         matrix = addRoundKey(matrix)
 		
     matrix = subBytes(matrix)
@@ -149,7 +161,7 @@ def encrytion(key, pictureHexArr):
 # matrix = addRoundKey(key, matrix)
 # print(matrix)
 matrix = [[0x63,0x2F,0xAF,0xA2],[0xEB,0x93,0xC7,0x20],[0x9F,0x92,0xAB,0xCB],[0xA0,0xC0,0x30,0x2B]]
-matrix = mixColsum(matrix)
+matrix = mixColumn(g)
 for x in range(4):
     for y in range(4):
         matrix[y][x] = hex(matrix[y][x])
