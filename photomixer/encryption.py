@@ -1,5 +1,9 @@
 from copy import copy
 
+SIZE = 4
+BASE = 16
+ROUNDS = 9
+
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
    0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
@@ -21,43 +25,55 @@ sbox = [
 table = [[2,1,1,3],[3,2,1,1],[1,3,2,1],[1,1,3,2]]
 
 
+'''
+This function replace the matrix with the sbox matrix
+Input: matrix
+Output: encryted matrix
+'''
 def subBytes(matrix):
-    for row in range(4):
-	    for col in range(4):
-		    matrix[row][col] = sbox[matrix[row][col]]
-		    print(matrix[row][col])
+    for row in range(SIZE):
+	    for column in range(SIZE):
+		    matrix[row][column] = sbox[matrix[row][column]]
+		    print(matrix[row][column])
 			
     return matrix
 
+
+'''
+This function shift the rows
+Input: matrix
+Output: encryted matrix
+'''
 def shiftRows(matrix):
-    returnVal = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 	
-    for x in range(4):
-        returnVal[0][x] = matrix[0][x]
+    for row in range(SIZE):
+        newMatrix[0][row] = matrix[0][row]
 	
-    returnVal[1][3] = matrix[1][0]
-    for x in range(3):
-        returnVal[1][x] = matrix[1][x+1]
+    newMatrix[1][3] = matrix[1][0]
+    for row in range(3):
+        newMatrix[1][row] = matrix[1][row+1]
 
-    for x in range(2):
-        returnVal[2][x] = matrix[2][x+2]
-        returnVal[2][x+2] = matrix[2][x]
+    for row in range(2):
+        newMatrix[2][row] = matrix[2][row+2]
+        newMatrix[2][row+2] = matrix[2][row]
 	
-    returnVal[3][0] = matrix[3][3]	
-    for x in range(3):
-        returnVal[3][x+1] = matrix[3][x]
+    newMatrix[3][0] = matrix[3][3]	
+    for row in range(3):
+        newMatrix[3][row+1] = matrix[3][row]
 
-    return(returnVal)	
+    return(newMatrix)	
 
 
 '''
-This function mix the colums with the table
-Input: matrix
+This is a help function for mixColumns
+Input: int number from matrix, int number from table
 Output: encryted matrix
 '''
 def galoisMult(a, b):
     p = 0
     hiBitSet = 0
+    
     for i in range(8):
         if b & 1 == 1:
             p ^= a
@@ -66,15 +82,40 @@ def galoisMult(a, b):
         if hiBitSet == 0x80:
             a ^= 0x1b
         b >>= 1
+        
     return p % 256
-	
-def mixColumn(column):
-    temp = copy(column)
-    column[0] = galoisMult(temp[0],2) ^ galoisMult(temp[3],1) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],3)
-    column[1] = galoisMult(temp[1],2) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],1) ^ galoisMult(temp[2],3)
-    column[2] = galoisMult(temp[2],2) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],3)
-    column[3] = galoisMult(temp[3],2) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],3)
-    return (column)
+    
+'''
+This function mix the columns with the table
+Input: matrix
+Output: encryted matrix
+'''
+def mixColumn(matrix):
+    #put the two dimensions array in a one dimension array
+    newMatrix = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    i = 0
+    for row in range(SIZE):
+        for column in range(SIZE):
+            newMatrix[i] = matrix[column][row]
+            i += 1
+    i = 0
+
+    
+    #mix the matrixs
+    temp = copy(newMatrix)
+    newMatrix[0] = galoisMult(temp[0],2) ^ galoisMult(temp[3],0) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],2) ^ newMatrix[1]
+    #returnVal[y][x] = (matrix[x][0] * table[0][y]) ^ (matrix[x][1] * ((table[1][y])-1))^ matrix[x][1] ^ (matrix[x][2] * table[2][y]) ^ (matrix[x][3] * table[3][y])
+    newMatrix[1] = galoisMult(temp[1],2) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],1) ^ galoisMult(temp[2],3)
+    newMatrix[2] = galoisMult(temp[2],2) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],3)
+    newMatrix[3] = galoisMult(temp[3],2) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],3)
+    
+    #convert from int to hex
+    for row in range(SIZE):
+        for column in range(SIZE):
+            matrix[column][row] = hex(newMatrix[i])
+            i += 1
+    
+    return (matrix)
 
     
 '''
@@ -83,45 +124,50 @@ Input: key array, matrix
 Output: encryted matrix
 '''
 def addRoundKey(key, matrix):
-    returnVal = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
-    mat = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
-    i=0
+    hexMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     
     #convert the key from string to hex
-    for x in range(4):
-        for y in range(4):
-            hexKey[y][x] = hex(ord(key[i]))
+    i=0
+    for row in range(SIZE):
+        for column in range(SIZE):
+            hexKey[column][row] = hex(ord(key[i]))
             i += 1
 			
-    i=0
     
     #convert the key from string to hex
-    for x in range(4):
-        for y in range(4):
-            mat[y][x] = hex(ord(matrix[i]))
+    i=0
+    for row in range(SIZE):
+        for column in range(SIZE):
+            hexMatrix[column][row] = hex(ord(matrix[i]))
             i += 1			
 	
     #add the key to the matrix
-    for x in range(4):
-        for y in range(4):
-            returnVal[y][x] = hex(int(mat[y][x], 16) ^ int(hexKey[y][x], 16)) #xor
+    for row in range(SIZE):
+        for column in range(SIZE):
+            newMatrix[column][row] = hex(int(hexMatrix[column][row], BASE) ^ int(hexKey[column][row], BASE)) #xor
             
-    return (returnVal)
+    return (newMatrix)
     
-	
-def encryptionForEachPart(key, HexArr):
+    
+'''
+This function encryted part of the image pixels each time
+Input: key array, hex data array
+Output: encryted matrix
+'''
+def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    
     i = 0	
-
-    for x in range(4):
-        for y in range(4):
-            matrix[y][x] = HexArr[i]
-            i = i + 1
+    for row in range(SIZE):
+        for column in range(SIZE):
+            matrix[column][row] = HexArray[i]
+            i += 1
 			
     matrix = addRoundKey(key, matrix)
 	
-    for x in range(9):
+    for round in range(ROUNDS):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
         matrix = mixColumn(matrix)
@@ -133,36 +179,34 @@ def encryptionForEachPart(key, HexArr):
 	
     return matrix;
 	
-def encrytion(key, pictureHexArr):
-    keyArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+'''
+This function encryted the picture pixels
+Input: key array, hex array
+Output: encryted matrix
+'''
+def encrytion(key, HexArray):
+    keyArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    part = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i = 0
     
     for letter in key:
-        keyArr[i] = letter
+        keyArray[i] = letter
         i += 1
         
     i = 0
 
-    for x in len(pictureHexArr):
-        arr[i] = pictureHexArr[x]
+    for item in len(HexArr):
+        part[i] = HexArr[item]
 		
-        if (x / 16 == 0):
-            matrix = encryptionForEachPart(keyArr, arr)
+        if (item / 16 == 0):
+            matrix = encryptionForEachPart(keyArray, part)
             i = 0
 			
             # need to put the matrix back to the pictureHexArr or create new picture .....
 
 
-#pictureHexArr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
-# matrix = "Two One Nine Two"
-# key = "Thats my Kung Fu"
-# matrix = addRoundKey(key, matrix)
-# print(matrix)
 matrix = [[0x63,0x2F,0xAF,0xA2],[0xEB,0x93,0xC7,0x20],[0x9F,0x92,0xAB,0xCB],[0xA0,0xC0,0x30,0x2B]]
-matrix = mixColumn(g)
-for x in range(4):
-    for y in range(4):
-        matrix[y][x] = hex(matrix[y][x])
+matrix = mixColumn(matrix)
 print(matrix)
