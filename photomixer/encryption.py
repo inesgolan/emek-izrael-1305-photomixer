@@ -96,23 +96,25 @@ def mixColumn(matrix):
     i = 0
     for row in range(SIZE):
         for column in range(SIZE):
-            newMatrix[i] = matrix[column][row]
+            newMatrix[i] = matrix[row][column]
             i += 1
-    i = 0
+    
 
-    
     #mix the matrixs
+    i = 0
     temp = copy(newMatrix)
-    newMatrix[0] = galoisMult(temp[0],2) ^ galoisMult(temp[3],0) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],2) ^ newMatrix[1]
-    #returnVal[y][x] = (matrix[x][0] * table[0][y]) ^ (matrix[x][1] * ((table[1][y])-1))^ matrix[x][1] ^ (matrix[x][2] * table[2][y]) ^ (matrix[x][3] * table[3][y])
-    newMatrix[1] = galoisMult(temp[1],2) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],1) ^ galoisMult(temp[2],3)
-    newMatrix[2] = galoisMult(temp[2],2) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],1) ^ galoisMult(temp[3],3)
-    newMatrix[3] = galoisMult(temp[3],2) ^ galoisMult(temp[2],1) ^ galoisMult(temp[1],1) ^ galoisMult(temp[0],3)
-    
+    for k in range(SIZE):
+        newMatrix[i] = galoisMult(temp[i],2) ^ galoisMult(temp[i+1],3) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+3],1)
+        newMatrix[i+1] = galoisMult(temp[i+1],2) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],1) ^ galoisMult(temp[i+2],3)
+        newMatrix[i+2] = galoisMult(temp[i+2],2) ^ galoisMult(temp[i+1],1) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],3)
+        newMatrix[i+3] = galoisMult(temp[i+3],2) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+1],1) ^ galoisMult(temp[i],3)
+        i += 4
+           
     #convert from int to hex
+    i = 0
     for row in range(SIZE):
         for column in range(SIZE):
-            matrix[column][row] = hex(newMatrix[i])
+            matrix[row][column] = hex(newMatrix[i])
             i += 1
     
     return (matrix)
