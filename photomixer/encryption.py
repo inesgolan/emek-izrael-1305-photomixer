@@ -1,4 +1,7 @@
+#gets the image name
 from copy import copy
+import itertools
+import binascii
 
 SIZE = 4
 BASE = 16
@@ -99,6 +102,7 @@ def mixColumn(matrix):
             newMatrix[i] = matrix[row][column]
             i += 1
     
+    list(itertools.chain.from_iterable(matrix))
 
     #mix the matrixs
     i = 0
@@ -119,6 +123,13 @@ def mixColumn(matrix):
     
     return (matrix)
 
+def g(arr):
+    newArr = [0,0,0,0]
+    
+    newArr[0] = arr[1]
+    newArr[1] = arr[2]
+    newArr[2] = arr[3]
+    newArr[3] = arr[0]
     
 '''
 This function add the key to the matrix
@@ -134,21 +145,20 @@ def addRoundKey(key, matrix):
     i=0
     for row in range(SIZE):
         for column in range(SIZE):
-            hexKey[column][row] = hex(ord(key[i]))
-            i += 1
-			
+            hexKey[row][column] = hex(ord(key[i]))
+            i += 1     	
     
-    #convert the key from string to hex
+    #convert the matrix from string to hex
     i=0
     for row in range(SIZE):
         for column in range(SIZE):
-            hexMatrix[column][row] = hex(ord(matrix[i]))
-            i += 1			
+            hexMatrix[column][row] = hex(matrix[column][row])
+            i += 1	
 	
     #add the key to the matrix
     for row in range(SIZE):
         for column in range(SIZE):
-            newMatrix[column][row] = hex(int(hexMatrix[column][row], BASE) ^ int(hexKey[column][row], BASE)) #xor
+            newMatrix[row][column] = hex(int(hexMatrix[row][column], BASE) ^ int(hexKey[row][column], BASE)) #xor
             
     return (newMatrix)
     
@@ -164,10 +174,11 @@ def encryptionForEachPart(key, HexArray):
     i = 0	
     for row in range(SIZE):
         for column in range(SIZE):
-            matrix[column][row] = HexArray[i]
+            matrix[row][column] = HexArray[i]
             i += 1
-			
+	
     matrix = addRoundKey(key, matrix)
+    print("after round key 0", matrix)
 	
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
@@ -179,7 +190,9 @@ def encryptionForEachPart(key, HexArray):
     matrix = shiftRows(matrix)
     matrix = addRoundKey(key, matrix)
 	
-    return matrix;
+    list(itertools.chain.from_iterable(matrix))
+	
+    return (matrix)
 	
     
 '''
@@ -187,9 +200,8 @@ This function encryted the picture pixels
 Input: key array, hex array
 Output: encryted matrix
 '''
-def encrytion(key, HexArray):
+def encryption(key, HexArray):
     keyArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    part = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i = 0
     
@@ -197,18 +209,24 @@ def encrytion(key, HexArray):
         keyArray[i] = letter
         i += 1
         
-    i = 0
 
-    for item in len(HexArr):
-        part[i] = HexArr[item]
-		
-        if (item / 16 == 0):
-            matrix = encryptionForEachPart(keyArray, part)
-            i = 0
-			
-            # need to put the matrix back to the pictureHexArr or create new picture .....
+    [HexArray[j:j+16] for j in range(0,len(HexArray),16)]
+    
+    HexArray = encryptionForEachPart(keyArray, HexArray)         
+    print ("after ", HexArray)
+    # for part in HexArray:
+        # print ("before ", part)
+        # part = encryptionForEachPart(keyArray, part)         
+        # print ("after ", part)
+            
+    return HexArray
 
 
-matrix = [[0x63,0x2F,0xAF,0xA2],[0xEB,0x93,0xC7,0x20],[0x9F,0x92,0xAB,0xCB],[0xA0,0xC0,0x30,0x2B]]
-matrix = mixColumn(matrix)
+# filename = 'test.png'
+# with open(filename, 'rb') as f:
+# content = f.read()
+# print(binascii.hexlify(content))
+matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
+key = "Thats my Kung Fu" #needs to be 16 chars
+matrix = encryption(key, matrix)
 print(matrix)
