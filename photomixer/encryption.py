@@ -36,7 +36,7 @@ Output: encryted matrix
 def subBytes(matrix):
     for row in range(SIZE):
 	    for column in range(SIZE):
-		    matrix[row][column] = sbox[matrix[row][column]]
+		    matrix[row][column] = hex(sbox[int(matrix[row][column], 16)])
 		    print(matrix[row][column])
 			
     return matrix
@@ -182,9 +182,10 @@ def encryptionForEachPart(key, HexArray):
 	
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
+        print("after subbytes ",round, " ",  matrix)
         matrix = shiftRows(matrix)
         matrix = mixColumn(matrix)
-        matrix = addRoundKey(matrix)
+        matrix = addRoundKey(key, matrix)
 		
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
