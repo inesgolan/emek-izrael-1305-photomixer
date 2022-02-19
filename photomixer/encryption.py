@@ -7,6 +7,8 @@ SIZE = 4
 BASE = 16
 ROUNDS = 9
 
+#arr[ROW][COL]
+
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
    0xCA, 0x82, 0xC9, 0x7D, 0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4, 0x72, 0xC0,
@@ -37,7 +39,6 @@ def subBytes(matrix):
     for row in range(SIZE):
 	    for column in range(SIZE):
 		    matrix[row][column] = hex(sbox[int(matrix[row][column], 16)])
-		    print(matrix[row][column])
 			
     return matrix
 
@@ -51,19 +52,21 @@ def shiftRows(matrix):
     newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
 	
     for row in range(SIZE):
-        newMatrix[0][row] = matrix[0][row]
+        newMatrix[row][0] = matrix[row][0]
 	
-    newMatrix[1][3] = matrix[1][0]
+    newMatrix[3][1] = matrix[0][1]
+
     for row in range(3):
-        newMatrix[1][row] = matrix[1][row+1]
+        newMatrix[row][1] = matrix[row+1][1]
+
 
     for row in range(2):
-        newMatrix[2][row] = matrix[2][row+2]
-        newMatrix[2][row+2] = matrix[2][row]
+        newMatrix[row][2] = matrix[row+2][2]
+        newMatrix[row+2][2] = matrix[row][2]
 	
-    newMatrix[3][0] = matrix[3][3]	
+    newMatrix[0][3] = matrix[3][3]	
     for row in range(3):
-        newMatrix[3][row+1] = matrix[3][row]
+        newMatrix[row+1][3] = matrix[row][3]
 
     return(newMatrix)	
 
@@ -99,7 +102,7 @@ def mixColumn(matrix):
     i = 0
     for row in range(SIZE):
         for column in range(SIZE):
-            newMatrix[i] = matrix[row][column]
+            newMatrix[i] = int(matrix[row][column], 16)
             i += 1
     
     list(itertools.chain.from_iterable(matrix))
@@ -122,14 +125,7 @@ def mixColumn(matrix):
             i += 1
     
     return (matrix)
-
-def g(arr):
-    newArr = [0,0,0,0]
     
-    newArr[0] = arr[1]
-    newArr[1] = arr[2]
-    newArr[2] = arr[3]
-    newArr[3] = arr[0]
     
 '''
 This function add the key to the matrix
@@ -137,28 +133,12 @@ Input: key array, matrix
 Output: encryted matrix
 '''
 def addRoundKey(key, matrix):
-    newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-    hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
-    hexMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
-    
-    #convert the key from string to hex
-    i=0
-    for row in range(SIZE):
-        for column in range(SIZE):
-            hexKey[row][column] = hex(ord(key[i]))
-            i += 1     	
-    
-    #convert the matrix from string to hex
-    i=0
-    for row in range(SIZE):
-        for column in range(SIZE):
-            hexMatrix[column][row] = hex(matrix[column][row])
-            i += 1	
+    newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]     	
 	
     #add the key to the matrix
     for row in range(SIZE):
         for column in range(SIZE):
-            newMatrix[row][column] = hex(int(hexMatrix[row][column], BASE) ^ int(hexKey[row][column], BASE)) #xor
+            newMatrix[row][column] = hex(int(matrix[row][column], BASE) ^ int(key[row][column], BASE)) #xor
             
     return (newMatrix)
     
@@ -171,27 +151,35 @@ Output: encryted matrix
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     
+    #convert the matrix from string to hex
     i = 0	
     for row in range(SIZE):
         for column in range(SIZE):
-            matrix[row][column] = HexArray[i]
+            matrix[row][column] = hex(HexArray[i])
             i += 1
-	
+     
+    print ("data: ", matrix)
+    print(" ")
     matrix = addRoundKey(key, matrix)
-    print("after round key 0", matrix)
+    print("after round key 0 ", matrix)
 	
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
-        print("after subbytes ",round, " ",  matrix)
+        print("after subBytes ",round+1, ":",  matrix)
         matrix = shiftRows(matrix)
+        print("after shiftRows ",round+1, ":",  matrix)
         matrix = mixColumn(matrix)
+        print("after mixColumn ",round+1, ":",  matrix)
         matrix = addRoundKey(key, matrix)
+        print("after addRoundKey ",round+1, ":",  matrix)
+        print(" ")
 		
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
     matrix = addRoundKey(key, matrix)
+    print ("last round: ", matrix)
 	
-    list(itertools.chain.from_iterable(matrix))
+    list(itertools.chain.from_iterable(matrix)) #not doing anything
 	
     return (matrix)
 	
@@ -202,23 +190,19 @@ Input: key array, hex array
 Output: encryted matrix
 '''
 def encryption(key, HexArray):
-    keyArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i = 0
     
-    for letter in key:
-        keyArray[i] = letter
-        i += 1
-        
+    #convert the key from string to hex
+    for row in range(SIZE):
+        for column in range(SIZE):
+            hexKey[row][column] = hex(ord(key[i]))
+            i += 1
 
     [HexArray[j:j+16] for j in range(0,len(HexArray),16)]
     
-    HexArray = encryptionForEachPart(keyArray, HexArray)         
-    print ("after ", HexArray)
-    # for part in HexArray:
-        # print ("before ", part)
-        # part = encryptionForEachPart(keyArray, part)         
-        # print ("after ", part)
+    print("before: key: ", hexKey)
+    HexArray = encryptionForEachPart(hexKey, HexArray)         
             
     return HexArray
 
@@ -230,4 +214,3 @@ def encryption(key, HexArray):
 matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
 key = "Thats my Kung Fu" #needs to be 16 chars
 matrix = encryption(key, matrix)
-print(matrix)
