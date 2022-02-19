@@ -211,6 +211,7 @@ Output: encryted matrix
 '''
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
     #convert the matrix from string to hex
     i = 0   
@@ -219,31 +220,28 @@ def encryptionForEachPart(key, HexArray):
             matrix[row][column] = hex(HexArray[i])
             i += 1
      
-    #print ("data: ", matrix)
-    #print(" ")
+    print ("before: ", matrix)
     matrix = addRoundKey(key, matrix)
-    #print("round 0 ", matrix)
     
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
         matrix = mixColumn(matrix)
         key = roundKey(key)
-        print("key: ", key)
         matrix = addRoundKey(key, matrix)
-        #print("round ", round+1, matrix)
-        #print(" ")
         
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
     key = roundKey(key)
-    print("key: ", key)
     matrix = addRoundKey(key, matrix)
-    print ("last round: ", matrix)
     
-    list(itertools.chain.from_iterable(matrix)) #not doing anything
+    i = 0   
+    for row in range(SIZE):
+        for column in range(SIZE):
+            arr[i] = matrix[row][column]
+            i += 1
     
-    return (matrix)
+    return (arr)
     
     
 '''
@@ -263,7 +261,6 @@ def encryption(key, HexArray):
 
     [HexArray[j:j+16] for j in range(0,len(HexArray),16)]
     
-    print("before: key: ", hexKey)
     HexArray = encryptionForEachPart(hexKey, HexArray)         
             
     return HexArray
@@ -276,3 +273,4 @@ def encryption(key, HexArray):
 matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
 key = "Thats my Kung Fu" #needs to be 16 chars
 matrix = encryption(key, matrix)
+print("after: ", matrix)
