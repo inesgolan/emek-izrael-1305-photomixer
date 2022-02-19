@@ -29,6 +29,9 @@ sbox = [
    
 table = [[2,1,1,3],[3,2,1,1],[1,3,2,1],[1,1,3,2]]
 
+keySchedule = [0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80,0x1B,0x36]
+
+count = 0
 
 '''
 This function replace the matrix with the sbox matrix
@@ -37,10 +40,23 @@ Output: encryted matrix
 '''
 def subBytes(matrix):
     for row in range(SIZE):
-	    for column in range(SIZE):
-		    matrix[row][column] = hex(sbox[int(matrix[row][column], 16)])
-			
+        for column in range(SIZE):
+            matrix[row][column] = hex(sbox[int(matrix[row][column], BASE)])
+            
     return matrix
+
+
+'''
+This function replace the arr with the sbox matrix
+Input: arr
+Output: encryted arr
+'''
+def subBytesForAddRoundKey(arr):
+    for index in range(SIZE):
+        i = int(arr[index], BASE)
+        arr[index] = hex(sbox[i])
+            
+    return arr
 
 
 '''
@@ -50,10 +66,10 @@ Output: encryted matrix
 '''
 def shiftRows(matrix):
     newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-	
+    
     for row in range(SIZE):
         newMatrix[row][0] = matrix[row][0]
-	
+    
     newMatrix[3][1] = matrix[0][1]
 
     for row in range(3):
@@ -63,18 +79,18 @@ def shiftRows(matrix):
     for row in range(2):
         newMatrix[row][2] = matrix[row+2][2]
         newMatrix[row+2][2] = matrix[row][2]
-	
-    newMatrix[0][3] = matrix[3][3]	
+    
+    newMatrix[0][3] = matrix[3][3]  
     for row in range(3):
         newMatrix[row+1][3] = matrix[row][3]
 
-    return(newMatrix)	
+    return(newMatrix)   
 
 
 '''
 This is a help function for mixColumns
 Input: int number from matrix, int number from table
-Output: encryted matrix
+Output: result
 '''
 def galoisMult(a, b):
     p = 0
@@ -133,15 +149,60 @@ Input: key array, matrix
 Output: encryted matrix
 '''
 def addRoundKey(key, matrix):
-    newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]     	
-	
+    newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    
     #add the key to the matrix
     for row in range(SIZE):
         for column in range(SIZE):
             newMatrix[row][column] = hex(int(matrix[row][column], BASE) ^ int(key[row][column], BASE)) #xor
             
     return (newMatrix)
+ 
+
+'''
+This function change the key
+Input: key matrix
+Output: new key matrix
+'''
+def roundKey(key):   
+    newKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]  
+    temp = copy(key[3])
+    gKey = g(key[3])
     
+    for column in range(SIZE):
+        newKey[0][column] = hex(int(key[0][column], BASE) ^ int(gKey[column], BASE)) #xor
+        
+    for column in range(SIZE):
+        newKey[1][column] = hex(int(newKey[0][column], BASE) ^ int(key[1][column], BASE)) #
+        
+    for column in range(SIZE):
+        newKey[2][column] = hex(int(newKey[1][column], BASE) ^ int(key[2][column], BASE)) #xor
+        
+    for column in range(SIZE):
+        newKey[3][column] = hex(int(newKey[2][column], BASE) ^ int(temp[column], BASE)) #xor
+       
+    return (newKey)
+ 
+'''
+This is a help function for roundKey
+Input: last column of the key matrix
+Output: the column
+'''
+def g(column):
+    temp = column[0]
+    column[0] = column[1]
+    column[1] = column[2]
+    column[2] = column[3]
+    column[3] = temp
+    
+    column = subBytesForAddRoundKey(column)
+    
+    global count
+    column[0] = hex(keySchedule[count] ^ int(column[0], 16))
+    
+    count = count + 1
+    
+    return (column)
     
 '''
 This function encryted part of the image pixels each time
@@ -152,37 +213,38 @@ def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     
     #convert the matrix from string to hex
-    i = 0	
+    i = 0   
     for row in range(SIZE):
         for column in range(SIZE):
             matrix[row][column] = hex(HexArray[i])
             i += 1
      
-    print ("data: ", matrix)
-    print(" ")
+    #print ("data: ", matrix)
+    #print(" ")
     matrix = addRoundKey(key, matrix)
-    print("after round key 0 ", matrix)
-	
+    #print("round 0 ", matrix)
+    
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
-        print("after subBytes ",round+1, ":",  matrix)
         matrix = shiftRows(matrix)
-        print("after shiftRows ",round+1, ":",  matrix)
         matrix = mixColumn(matrix)
-        print("after mixColumn ",round+1, ":",  matrix)
+        key = roundKey(key)
+        print("key: ", key)
         matrix = addRoundKey(key, matrix)
-        print("after addRoundKey ",round+1, ":",  matrix)
-        print(" ")
-		
+        #print("round ", round+1, matrix)
+        #print(" ")
+        
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
+    key = roundKey(key)
+    print("key: ", key)
     matrix = addRoundKey(key, matrix)
     print ("last round: ", matrix)
-	
+    
     list(itertools.chain.from_iterable(matrix)) #not doing anything
-	
+    
     return (matrix)
-	
+    
     
 '''
 This function encryted the picture pixels
