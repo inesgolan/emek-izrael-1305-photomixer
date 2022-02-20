@@ -73,6 +73,11 @@ namespace photomixerGUI
         // upload images
         private void uploadImgae_click(object sender, RoutedEventArgs e)
         {
+            if (ProjectVariables.imagesCounter == 4)
+            {
+                ErrorMsg.Text = "U can't add more than 4 pictures :(";
+                return;
+            }
             Microsoft.Win32.OpenFileDialog temp = new Microsoft.Win32.OpenFileDialog();
             bool? res = temp.ShowDialog();
             if (res == true)
