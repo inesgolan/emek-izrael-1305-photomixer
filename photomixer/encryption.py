@@ -102,7 +102,7 @@ def galoisMult(a, b):
         b >>= 1
         
     return p % 256
-    
+ 
 '''
 This function mix the columns with the table
 Input: matrix
@@ -125,6 +125,39 @@ def mixColumn(matrix):
         newMatrix[i+1] = galoisMult(temp[i+1],2) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],1) ^ galoisMult(temp[i+2],3)
         newMatrix[i+2] = galoisMult(temp[i+2],2) ^ galoisMult(temp[i+1],1) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],3)
         newMatrix[i+3] = galoisMult(temp[i+3],2) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+1],1) ^ galoisMult(temp[i],3)
+        i += SIZE
+           
+    #convert from int to hex
+    i = 0
+    for row in range(SIZE):
+        for column in range(SIZE):
+            matrix[row][column] = hex(newMatrix[i])
+            i += 1
+    
+    return (matrix)
+ 
+'''
+This function mix the columns with the table
+Input: matrix
+Output: decrypted matrix
+'''
+def inverseMixColumn(matrix):
+    #put the two dimensions array in a one dimension array
+    newMatrix = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    i = 0
+    for row in range(SIZE):
+        for column in range(SIZE):
+            newMatrix[i] = int(matrix[row][column], BASE)
+            i += 1
+
+    #mix the matrixs
+    i = 0
+    temp = copy(newMatrix)
+    for times in range(SIZE):
+        newMatrix[i] = galoisMult(temp[i],14) ^ galoisMult(temp[i+1],11) ^ galoisMult(temp[i+2],13) ^ galoisMult(temp[i+3],9)
+        newMatrix[i+1] = galoisMult(temp[i+1],14) ^ galoisMult(temp[i],11) ^ galoisMult(temp[i+3],13) ^ galoisMult(temp[i+2],9)
+        newMatrix[i+2] = galoisMult(temp[i+2],14) ^ galoisMult(temp[i+1],11) ^ galoisMult(temp[i],13) ^ galoisMult(temp[i+3],9)
+        newMatrix[i+3] = galoisMult(temp[i+3],14) ^ galoisMult(temp[i+2],11) ^ galoisMult(temp[i+1],13) ^ galoisMult(temp[i],9)
         i += SIZE
            
     #convert from int to hex
@@ -280,16 +313,16 @@ def decryptionForEachPart(key, HexArray):
     
     print ("before: ", matrix)
     matrix = addRoundKey(key, matrix)
+    matrix = inverseShiftRows(matrix)
+    matrix = inverseSubBytes(matrix)  
     
     for round in range(ROUNDS):
-        matrix = inverseSubBytes(matrix)
-        matrix = inverseShiftRows(matrix)
-        matrix = inverseMixColumn(matrix)
         key = roundKey(key)
         matrix = addRoundKey(key, matrix)
-        
-    matrix = inverseSubBytes(matrix)
-    matrix = inverseShiftRows(matrix)
+        matrix = inverseMixColumn(matrix)
+        matrix = inverseShiftRows(matrix)
+        matrix = inverseSubBytes(matrix)        
+     
     key = roundKey(key)
     matrix = addRoundKey(key, matrix)
     
