@@ -262,11 +262,74 @@ def encryption(key, HexArray):
     return HexArray
 
 
+'''
+This function decryted part of the image pixels each time
+Input: key array, hex data array
+Output: decryted matrix
+'''
+def decryptionForEachPart(key, HexArray):
+    matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    #convert the matrix from string to hex
+    i = 0   
+    for row in range(SIZE):
+        for column in range(SIZE):
+            matrix[row][column] = hex(HexArray[i])
+            i += 1
+    
+    print ("before: ", matrix)
+    matrix = addRoundKey(key, matrix)
+    
+    for round in range(ROUNDS):
+        matrix = inverseSubBytes(matrix)
+        matrix = inverseShiftRows(matrix)
+        matrix = inverseMixColumn(matrix)
+        key = roundKey(key)
+        matrix = addRoundKey(key, matrix)
+        
+    matrix = inverseSubBytes(matrix)
+    matrix = inverseShiftRows(matrix)
+    key = roundKey(key)
+    matrix = addRoundKey(key, matrix)
+    
+    #put the matrix in an array
+    i = 0   
+    for row in range(SIZE):
+        for column in range(SIZE):
+            arr[i] = matrix[row][column]
+            i += 1
+    
+    return (arr)
+
+'''
+This function decryted the picture pixels
+Input: key array, hex array
+Output: decryted matrix
+'''
+def decryption(key, HexArray):
+    hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    i = 0
+    
+    #convert the key from string to hex
+    for row in range(SIZE):
+        for column in range(SIZE):
+            hexKey[row][column] = hex(ord(key[i]))
+            i += 1
+
+    #turn the array to a two dimensions array
+    [HexArray[index:index+16] for index in range(0,len(HexArray),16)]
+    
+    HexArray = decryptionForEachPart(hexKey, HexArray)         
+            
+    return HexArray
+
+
 # filename = 'test.png'
 # with open(filename, 'rb') as f:
 # content = f.read()
 # print(binascii.hexlify(content))
 matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
 key = "Thats my Kung Fu" #needs to be 16 chars
-matrix = encryption(key, matrix)
+matrix = decryption(key, matrix)
 print("after: ", matrix)
