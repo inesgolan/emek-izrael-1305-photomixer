@@ -1,13 +1,12 @@
 #gets the image name
 from copy import copy
-import itertools
 import binascii
 
 SIZE = 4
 BASE = 16
 ROUNDS = 9
 
-#arr[ROW][COL]
+count = 0
 
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -26,12 +25,9 @@ sbox = [
    0x70, 0x3E, 0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9, 0x86, 0xC1, 0x1D, 0x9E,
    0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF,
    0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16]
-   
-table = [[2,1,1,3],[3,2,1,1],[1,3,2,1],[1,1,3,2]]
 
 keySchedule = [0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80,0x1B,0x36]
 
-count = 0
 
 '''
 This function replace the matrix with the sbox matrix
@@ -52,9 +48,9 @@ Input: arr
 Output: encryted arr
 '''
 def subBytesForAddRoundKey(arr):
-    for index in range(SIZE):
-        i = int(arr[index], BASE)
-        arr[index] = hex(sbox[i])
+    for column in range(SIZE):
+        index = int(arr[column], BASE)
+        arr[column] = hex(sbox[index])
             
     return arr
 
@@ -118,20 +114,18 @@ def mixColumn(matrix):
     i = 0
     for row in range(SIZE):
         for column in range(SIZE):
-            newMatrix[i] = int(matrix[row][column], 16)
+            newMatrix[i] = int(matrix[row][column], BASE)
             i += 1
-    
-    list(itertools.chain.from_iterable(matrix))
 
     #mix the matrixs
     i = 0
     temp = copy(newMatrix)
-    for k in range(SIZE):
+    for times in range(SIZE):
         newMatrix[i] = galoisMult(temp[i],2) ^ galoisMult(temp[i+1],3) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+3],1)
         newMatrix[i+1] = galoisMult(temp[i+1],2) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],1) ^ galoisMult(temp[i+2],3)
         newMatrix[i+2] = galoisMult(temp[i+2],2) ^ galoisMult(temp[i+1],1) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],3)
         newMatrix[i+3] = galoisMult(temp[i+3],2) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+1],1) ^ galoisMult(temp[i],3)
-        i += 4
+        i += SIZE
            
     #convert from int to hex
     i = 0
@@ -166,6 +160,7 @@ Output: new key matrix
 '''
 def roundKey(key):   
     newKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]  
+    
     temp = copy(key[3])
     gKey = g(key[3])
     
@@ -198,9 +193,8 @@ def g(column):
     column = subBytesForAddRoundKey(column)
     
     global count
-    column[0] = hex(keySchedule[count] ^ int(column[0], 16))
-    
-    count = count + 1
+    column[0] = hex(keySchedule[count] ^ int(column[0], BASE))   
+    count += 1
     
     return (column)
     
@@ -219,7 +213,7 @@ def encryptionForEachPart(key, HexArray):
         for column in range(SIZE):
             matrix[row][column] = hex(HexArray[i])
             i += 1
-     
+    
     print ("before: ", matrix)
     matrix = addRoundKey(key, matrix)
     
@@ -235,6 +229,7 @@ def encryptionForEachPart(key, HexArray):
     key = roundKey(key)
     matrix = addRoundKey(key, matrix)
     
+    #put the matrix in an array
     i = 0   
     for row in range(SIZE):
         for column in range(SIZE):
@@ -259,7 +254,8 @@ def encryption(key, HexArray):
             hexKey[row][column] = hex(ord(key[i]))
             i += 1
 
-    [HexArray[j:j+16] for j in range(0,len(HexArray),16)]
+    #turn the array to a two dimensions array
+    [HexArray[index:index+16] for index in range(0,len(HexArray),16)]
     
     HexArray = encryptionForEachPart(hexKey, HexArray)         
             
