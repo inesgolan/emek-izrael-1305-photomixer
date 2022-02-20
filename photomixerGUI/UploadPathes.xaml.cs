@@ -29,14 +29,27 @@ namespace photomixerGUI
                 ProjectVariables.objectPath = Helper.checkFullPath(ProjectVariables.objectPath);
                 Communicator.sendObjectRecognizeMsg(ProjectVariables.objectPath, savePath);
 
-                ErrorMsg.Text = "object detected!";
+                string text;
+                File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);
+                text = File.ReadAllText(ProjectVariables.OUTPUT_FILE_NAME);
 
-                //add the save path to the array
-                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter - 1] = savePath;
+                if (text == "False")
+                {
+                    ProjectVariables.imagesCounter--;
 
-                string fullSavePath = Path.GetFullPath(savePath);
-                Resize resizeScreen = new Resize(fullSavePath);
-                resizeScreen.Show();
+                    ErrorMsg.Text = "Try another picture pls :(";
+                }
+                else
+                {
+                    ErrorMsg.Text = "object detected!";
+
+                    //add the save path to the array
+                    ProjectVariables.imagesPathes[ProjectVariables.imagesCounter - 1] = savePath;
+
+                    string fullSavePath = Path.GetFullPath(savePath);
+                    Resize resizeScreen = new Resize(fullSavePath);
+                    resizeScreen.Show();
+                }
            }
         }
 

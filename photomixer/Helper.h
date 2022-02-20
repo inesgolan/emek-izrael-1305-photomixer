@@ -28,7 +28,7 @@ class Helper
 public:
 	static std::string checkPath(std::string path);
 	static bool isPathValid(std::string path);
-	static Mat checkImage(Mat image, std::string imagPath);
+	static bool checkImage(Mat image, std::string imagPath);
 
 	static Mat changeImageSize(int rows, int cols, Mat image, std::string path, int flag);
 

@@ -22,6 +22,7 @@ class checkObjectImage
 private:
 	Mat _image;
 	int _countOfPixels;
+	std::ofstream _outputFile;
 
 public:
 	checkObjectImage(Mat); //c'tor

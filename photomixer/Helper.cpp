@@ -1,5 +1,8 @@
 #include "Helper.h"
 
+#define OUTPUT_FILE_NAME "Output.txt"
+std::mutex mtxCheck;
+
 /*
 This function gets a path from the user until it's valid
 Input: image path
@@ -54,28 +57,44 @@ This function gets an image from the user until it's valid
 Input: image
 Output: the new image
 */
-Mat Helper::checkImage(Mat image, std::string imagePath)
+bool Helper::checkImage(Mat image, std::string imagePath)
 {
 	Mat newImage = image;
-	checkObjectImage checker = checkObjectImage(image);
+	checkObjectImage* checker = new checkObjectImage(image);
+	std::ofstream _outputFile;
+	_outputFile.open(OUTPUT_FILE_NAME);
+	bool var = false;
 
-	while (checker.checkBlackAndWhite() || checker.checkTooDark() || checker.checkTooBright())
+	if (checker->checkBlackAndWhite() || checker->checkTooDark() || checker->checkTooBright())
 	{
+		mtxCheck.lock();
+		_outputFile << "False";
+		mtxCheck.unlock();
+
 		std::cout << "SOME ERROR - WE ARE NOT ABLE TO RECOGNIZE THE OBJECT IN THIS PICTURE" << std::endl;
 
-		//get new path
-		std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
-		std::cin >> imagePath;
-		getchar();
-		imagePath = checkPath(imagePath);
 
-		//get the new image
-		newImage = imread(imagePath);
-		checker.setImage(newImage);
-		checker.setCount();
+		////get new path
+		//std::cout << "PLEASE ENTER A VALID PATH (OF AN IMAGE FILE): " << std::endl;
+		//std::cin >> imagePath;
+		//getchar();
+		//imagePath = checkPath(imagePath);
+
+		////get the new image
+		//newImage = imread(imagePath);
+		//checker.setImage(newImage);
+		//checker.setCount();
+
 	}
-
-	return newImage;
+	else
+	{
+		mtxCheck.lock();
+		_outputFile << "True";
+		mtxCheck.unlock();
+		var = true;
+	}
+	_outputFile.close();
+	return var;
 }
 
 /*
