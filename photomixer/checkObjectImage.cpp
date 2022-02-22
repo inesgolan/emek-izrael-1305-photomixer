@@ -1,5 +1,6 @@
 #include "CheckObjectImage.h"
 
+
 // Ctor
 checkObjectImage::checkObjectImage(Mat image)
 {

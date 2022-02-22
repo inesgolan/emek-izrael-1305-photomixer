@@ -41,6 +41,7 @@ int main(int argc, char** argv)
 	ObjectDetection object;
 	ClearBackground clearBackground;
 	ObjectOnBackground objectOnBackground;
+	bool var = false;
 
 	DataBase db;
 	bool returnVal = false;
@@ -56,15 +57,17 @@ int main(int argc, char** argv)
 
 			//get image
 			objectImage = imread(imagePath);
-			objectImage = Helper::checkImage(objectImage, imagePath);
+			var = Helper::checkImage(objectImage, imagePath); //
+			if (var)
+			{
+				//get matte
+				object.setImage(objectImage);
+				object.getImageChannels();
+				matte = object.getObjectMatte();
 
-			//get matte
-			object.setImage(objectImage);
-			object.getImageChannels();
-			matte = object.getObjectMatte();
-
-			//get object image	
-			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+				//get object image	
+				clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+			}
 
 			std::cout << "100 ok" << std::endl;
 			break;

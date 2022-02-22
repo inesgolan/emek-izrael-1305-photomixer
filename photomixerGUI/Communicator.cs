@@ -26,6 +26,7 @@ namespace photomixerGUI
             string exe_params = "100 " + objectPath + " " + savePath;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
         }
 
 
@@ -46,6 +47,7 @@ namespace photomixerGUI
             string exe_params = "200 " + objectPath + " " + backgroundPath + " " + savePath + " " + Convert.ToString(x) + " " + Convert.ToString(y);
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
         }
 
 
