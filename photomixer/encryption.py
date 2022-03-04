@@ -306,7 +306,9 @@ Output: encryted matrix
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    
+    helper = copy(key[3])
+
+
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -320,7 +322,8 @@ def encryptionForEachPart(key, HexArray):
     changeLastArrKey = copy(key)
     changeLastArrKey[SIZE-1] = copy(keys[0][SIZE-1])
     keys[0] = changeLastArrKey
-    
+
+
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
@@ -339,14 +342,14 @@ def encryptionForEachPart(key, HexArray):
     matrix = shiftRows(matrix)
     key = roundKey(key)
     
+
     #save the last arr of the key because its changing
     keys[ROUNDS+1] = key
     changeLastArrKey = copy(key)
     changeLastArrKey[SIZE-1] = copy(keys[ROUNDS+1][SIZE-1])
     keys[ROUNDS+1] = changeLastArrKey
-    
+    #print(keys[ROUNDS+1])
     matrix = addRoundKey(key, matrix)
-
     #put the matrix in an array
     i = 0   
     for row in range(SIZE):
@@ -354,62 +357,14 @@ def encryptionForEachPart(key, HexArray):
             arr[i] = matrix[row][column]
             i += 1
     
+    # for i in range(10):
+        # keys[i] = 0
+    key[3] = helper
+    #print(key)
+    
     return (arr)
     
     
-'''
-This function encryted the picture pixels
-Input: key array, hex array
-Output: encryted matrix
-'''
-def encryption(key, HexArray):
-    hexLen = len(HexArray)
-    hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
-    textArr = []
-    finalEncryption = []
-    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    k = 0
-    i = 0
-    j = 0
-
-    #convert the key from string to hex
-    for row in range(SIZE):
-        for column in range(SIZE):
-            hexKey[row][column] = hex(ord(key[i]))
-            i += 1
-
-    #turn the array to a two dimensions array
-    #[HexArray[index:index+16] for index in range(0,len(HexArray),16)]
-	
-    arrLen = hexLen // 16
-    leftover = hexLen % 16
-	
-    for i in range(arrLen):
-        if (i % 16 == 0 and i is not 0):
-            textArr.insert(j, tempArr)
-            tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-            k = 0
-            j += 1
-        	
-        tempArr[k] = HexArray[i]
-        k += 1
-        
-    # tempArr = []
-    # for i in range(leftover):
-        # tempArr.insert(i,HexArray[leftover-1-i])
-		
-    # tempArr.reverse()
-    # textArr.insert(j, tempArr)
-    j = 0
-	
-	
-    for i in range(len(textArr)):
-        finalEncryption.insert(j,encryptionForEachPart(hexKey, textArr[i]))
-
-    #HexArray = encryptionForEachPart(hexKey, textArr)         
-    print(finalEncryption)
-    return HexArray
-
 
 '''
 This function decryted part of the image pixels each time
@@ -420,7 +375,7 @@ def decryptionForEachPart(key, HexArray):
     index = ROUNDS
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    
+ 
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -428,8 +383,8 @@ def decryptionForEachPart(key, HexArray):
             matrix[row][column] = hex(HexArray[i])
             i += 1
             
-
-    matrix = addRoundKey(key, matrix)    
+    #print(key)
+    matrix = addRoundKey(key, matrix) 	
     for round in range(ROUNDS):
         matrix = inverseShiftRows(matrix) 
         matrix = inverseSubBytes(matrix)
@@ -454,15 +409,22 @@ def decryptionForEachPart(key, HexArray):
             i += 1
 
     return (arr)
-
+	
+	
 '''
-This function decryted the picture pixels
+This function encryted the picture pixels
 Input: key array, hex array
-Output: decryted matrix
+Output: encryted matrix
 '''
-def decryption(key, HexArray):            
+def encryption(key, HexArray):
+    hexLen = len(HexArray)
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    textArr = []
+    finalEncryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    k = 0
     i = 0
+    j = 0
 
     #convert the key from string to hex
     for row in range(SIZE):
@@ -471,11 +433,66 @@ def decryption(key, HexArray):
             i += 1
 
     #turn the array to a two dimensions array
-    [HexArray[index:index+16] for index in range(0,len(HexArray),16)]
+	
+    arrLen = hexLen // 16
+    leftover = hexLen % 16
+    u = 0
+    for i in range(arrLen):
+        if (i % 16 == 0 and i is not 0):
+            textArr.insert(j, tempArr)
+            tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            k = 0
+            j += 1
+        	
+        tempArr[k] = HexArray[i]
+        k += 1
+        
+    # tempArr = []
+    # for i in range(leftover):
+        # tempArr.insert(i,HexArray[leftover-1-i])
+		
+    # tempArr.reverse()
+    # textArr.insert(j, tempArr)
+	
+    #print("before: ", encryptionForEachPart(hexKey, textArr[2]))
+    
+    for i in range(2):
+        print("ggg", hexKey)
+        temp = encryptionForEachPart(hexKey, textArr[i])
+        finalEncryption.insert(i,temp)
+        print("ggg2", hexKey)
 
-    HexArray = decryptionForEachPart(hexKey, HexArray)         
-            
-    return HexArray
+
+    #HexArray = encryptionForEachPart(hexKey, textArr)         
+    #print(finalEncryption)
+    return finalEncryption
+
+
+
+
+'''
+This function decryted the picture pixels
+Input: key array, hex array
+Output: decryted matrix
+'''
+def decryption(key, HexArray):            
+    textArr = []
+    finalEncryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    i = 0
+    # #convert the key from string to hex
+    # for row in range(SIZE):
+         # for column in range(SIZE):
+             # hexKey[row][column] = hex(ord(key[i]))
+             # i += 1
+
+    #turn the array to a two dimensions array
+
+    for i in range(2):
+        temp = decryptionForEachPart(key, HexArray[i])
+        finalEncryption.insert(i,temp)
+   
+    return finalEncryption
 
 
 
@@ -506,7 +523,38 @@ def main():
     #strBI = BI.decode("utf-8")
     
     matrix = encryption(key, BI)
-    
+    print(" ")
+    print("1: ",matrix)
+    print(" ")
+    toDecryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    i = 0
+    k = 0
+    j = 0
+	
+    for i in range(len(matrix)):
+        for k in range(16):
+            tempArr[k] = int(matrix[i][k], 16)
+        toDecryption.insert(j, tempArr)
+        j += 1
+	
+    # print(toDecryption)
+    # print(" ")
+	
+    # keyDes = ""
+    # print(keys[ROUNDS+1])
+    # for item in keys[ROUNDS+1]: 
+        # for i in item:
+            # # check = ""
+            # # check = i[2:]
+            # # byte_array = bytearray.fromhex(check)
+            # # byte_array.decode()
+            # # print(byte_array) 
+            # # keyDes += byte_array
+            
+    # print("check: ", keyDes)
+    matrix2 = decryption(keys[ROUNDS+1], toDecryption)
+    print("2: ", matrix2)
 
     
 if __name__ == "__main__":
