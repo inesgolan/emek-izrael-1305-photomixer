@@ -7,6 +7,8 @@ BASE = 16
 ROUNDS = 9
 
 count = 0
+keys = [[0], [0], [0], [0],[0], [0], [0] ,[0], [0], [0], [0]]
+my_special_problem_key = [0]
 
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -200,6 +202,7 @@ def inverseMixColumn(matrix):
             newMatrix[i] = int(matrix[row][column], BASE)
             i += 1
 
+
     #mix the matrixs
     i = 0
     temp = copy(newMatrix)
@@ -216,7 +219,7 @@ def inverseMixColumn(matrix):
         for column in range(SIZE):
             matrix[row][column] = hex(newMatrix[i])
             i += 1
-    
+         
     return (matrix)
     
     
@@ -227,11 +230,13 @@ Output: encryted matrix
 '''
 def addRoundKey(key, matrix):
     newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    print("matrix: ", matrix)
+    print("key:" , key)
     #add the key to the matrix
     for row in range(SIZE):
         for column in range(SIZE):
             newMatrix[row][column] = hex(int(matrix[row][column], BASE) ^ int(key[row][column], BASE)) #xor
-            
+            #print("newMatrix: ,", newMatrix[row][column])
     return (newMatrix)
  
 
@@ -265,7 +270,9 @@ This is a help function for roundKey
 Input: last column of the key matrix
 Output: the column
 '''
-def g(column):
+def g(column):    
+    global count
+    
     temp = column[0]
     column[0] = column[1]
     column[1] = column[2]
@@ -274,10 +281,9 @@ def g(column):
     
     column = subBytesForAddRoundKey(column)
     
-    global count
     column[0] = hex(keySchedule[count] ^ int(column[0], BASE))   
     count += 1
-    
+           
     return (column)
     
 '''
@@ -288,6 +294,7 @@ Output: encryted matrix
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    gg = [0,0,0,0]
 
     #convert the matrix from string to hex
     i = 0   
@@ -298,25 +305,47 @@ def encryptionForEachPart(key, HexArray):
 			   
     #print ("before111: ", matrix)
     matrix = addRoundKey(key, matrix)
+    keys[0] = key
+    my_special_problem_key = copy(key)
+    my_special_problem_key[3] = copy(keys[0][3])
+    keys[0] = my_special_problem_key
     
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
         matrix = mixColumn(matrix)
         key = roundKey(key)
-        matrix = addRoundKey(key, matrix)
+        keys[round+1] = key
+        #if (round == 8):
+        my_special_problem_key = copy(key)
+        my_special_problem_key[3] = copy(keys[round+1][3])
+        keys[round+1] = my_special_problem_key
         
+        matrix = addRoundKey(key, matrix)
+       
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
     key = roundKey(key)
-    matrix = addRoundKey(key, matrix)
+    keys[10] = key
+    my_special_problem_key = copy(key)
+    my_special_problem_key[3] = copy(keys[10][3])
+    keys[10] = my_special_problem_key
+    #print("hhfhfhfhfhfhfhhfhfhfhfhfhfhhfhhfhfdhfh: ", keys[10])
     
+    matrix = addRoundKey(key, matrix)
+    #keys[9] = my_special_problem_key
+
     #put the matrix in an array
     i = 0   
     for row in range(SIZE):
         for column in range(SIZE):
             arr[i] = matrix[row][column]
             i += 1
+            
+    # print("all keys1: ")
+    # for i in range(11):
+        # print(keys[i])
+        # print(" ")
     
     return (arr)
     
@@ -360,23 +389,35 @@ def decryptionForEachPart(key, HexArray):
         for column in range(SIZE):
             matrix[row][column] = hex(HexArray[i])
             i += 1
-
-
-    matrix = addRoundKey(key, matrix)  
-    print(matrix)	
+            
+    print("all keys2: ")
+    for i in range(11):
+        print(keys[i])
+        print(" ")
+    counter = 9
+    print("first key: ", keys[10])
+    matrix = addRoundKey(key, matrix)    
+    print("first add round key ", matrix)
     for round in range(ROUNDS):
+        print("round ",round)
         matrix = inverseShiftRows(matrix) 
+        print("shift rows ", matrix)
         matrix = inverseSubBytes(matrix)
-        matrix = inverseMixColumn(matrix)		
-        key = roundKey(key)
+        print("sub bytes ", matrix)
+        
+        key  = keys[counter]
+        counter -= 1
+        print(key)
         matrix = addRoundKey(key, matrix)
-        print(matrix)
-        #print(matrix)		
+        print("add round key ", matrix)
+        
+        matrix = inverseMixColumn(matrix)	
+        print("mix columns ", matrix) 
+
      
     matrix = inverseShiftRows(matrix)
     matrix = inverseSubBytes(matrix)
-    key = roundKey(key)
-    matrix = addRoundKey(key, matrix)
+    matrix = addRoundKey(keys[0], matrix)
     
 	
     #put the matrix in an array
@@ -393,7 +434,10 @@ This function decryted the picture pixels
 Input: key array, hex array
 Output: decryted matrix
 '''
-def decryption(key, HexArray):
+def decryption(key, HexArray):            
+    global flag
+    flag = 1
+    
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i = 0
 
@@ -428,5 +472,5 @@ for i in range(16):
 		
 count = 0
 
-matrix2 = decryption(key, matrix2)
+matrix2 = decryption('(ýÞøm¤$JÌÀ¤þ;1o&', matrix2)
 print("decryption: ", matrix2)
