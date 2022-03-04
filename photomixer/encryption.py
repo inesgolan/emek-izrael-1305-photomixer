@@ -8,7 +8,7 @@ ROUNDS = 9
 
 count = 0
 keys = [[0], [0], [0], [0],[0], [0], [0] ,[0], [0], [0], [0]]
-my_special_problem_key = [0]
+changeLastArrKey = [0]
 
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -28,7 +28,7 @@ sbox = [
    0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9, 0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF,
    0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99, 0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16]
    
-sboxInv = [
+sboxInverse = [
         0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,
         0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb,
         0x54, 0x7b, 0x94, 0x32, 0xa6, 0xc2, 0x23, 0x3d, 0xee, 0x4c, 0x95, 0x0b, 0x42, 0xfa, 0xc3, 0x4e,
@@ -60,11 +60,17 @@ def subBytes(matrix):
             matrix[row][column] = hex(sbox[int(matrix[row][column], BASE)])
             
     return matrix
-	
+
+
+'''
+This function replace the matrix with the sboxInverse matrix
+Input: matrix
+Output: encryted matrix
+'''	
 def inverseSubBytes(matrix):
     for row in range(SIZE):
         for column in range(SIZE):
-            matrix[row][column] = hex(sboxInv[int(matrix[row][column], BASE)])
+            matrix[row][column] = hex(sboxInverse[int(matrix[row][column], BASE)])
             
     return matrix
 
@@ -72,7 +78,7 @@ def inverseSubBytes(matrix):
 '''
 This function replace the arr with the sbox matrix
 Input: arr
-Output: encryted arr
+Output: decryted arr
 '''
 def subBytesForAddRoundKey(arr):
     for column in range(SIZE):
@@ -109,7 +115,11 @@ def shiftRows(matrix):
 
     return(newMatrix)  
 
-
+'''
+This function shift the rows
+Input: matrix
+Output: decryted matrix
+'''
 def inverseShiftRows(matrix):
     newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
     
@@ -118,7 +128,7 @@ def inverseShiftRows(matrix):
 		
     newMatrix[0][1] = matrix[3][1]
 	
-    for row in range(4):
+    for row in range(SIZE):
         newMatrix[row][1] = matrix[row-1][1]
 		
 		
@@ -128,10 +138,9 @@ def inverseShiftRows(matrix):
 		
     
     newMatrix[3][3] = matrix[0][3]  
-    for row in range(4):
+    for row in range(SIZE):
         newMatrix[row-1][3] = matrix[row][3]
-	
-    #print(newMatrix)	
+		
     return(newMatrix) 
 
 
@@ -154,6 +163,7 @@ def galoisMult(a, b):
         b >>= 1
         
     return p % 256
+ 
  
 '''
 This function mix the columns with the table
@@ -230,13 +240,12 @@ Output: encryted matrix
 '''
 def addRoundKey(key, matrix):
     newMatrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
-    print("matrix: ", matrix)
-    print("key:" , key)
+
     #add the key to the matrix
     for row in range(SIZE):
         for column in range(SIZE):
             newMatrix[row][column] = hex(int(matrix[row][column], BASE) ^ int(key[row][column], BASE)) #xor
-            #print("newMatrix: ,", newMatrix[row][column])
+            
     return (newMatrix)
  
 
@@ -248,14 +257,14 @@ Output: new key matrix
 def roundKey(key):   
     newKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]  
     
-    temp = copy(key[3])
-    gKey = g(key[3])
+    temp = copy(key[SIZE-1])
+    gKey = g(key[SIZE-1])
     
     for column in range(SIZE):
         newKey[0][column] = hex(int(key[0][column], BASE) ^ int(gKey[column], BASE)) #xor
         
     for column in range(SIZE):
-        newKey[1][column] = hex(int(newKey[0][column], BASE) ^ int(key[1][column], BASE)) #
+        newKey[1][column] = hex(int(newKey[0][column], BASE) ^ int(key[1][column], BASE)) #xor
         
     for column in range(SIZE):
         newKey[2][column] = hex(int(newKey[1][column], BASE) ^ int(key[2][column], BASE)) #xor
@@ -294,7 +303,6 @@ Output: encryted matrix
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    gg = [0,0,0,0]
 
     #convert the matrix from string to hex
     i = 0   
@@ -303,37 +311,38 @@ def encryptionForEachPart(key, HexArray):
             matrix[row][column] = hex(HexArray[i])
             i += 1
 			   
-    #print ("before111: ", matrix)
     matrix = addRoundKey(key, matrix)
+    #save the last arr of the key because its changing
     keys[0] = key
-    my_special_problem_key = copy(key)
-    my_special_problem_key[3] = copy(keys[0][3])
-    keys[0] = my_special_problem_key
+    changeLastArrKey = copy(key)
+    changeLastArrKey[SIZE-1] = copy(keys[0][SIZE-1])
+    keys[0] = changeLastArrKey
     
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
         matrix = mixColumn(matrix)
         key = roundKey(key)
+        
+        #save the last arr of the key because its changing
         keys[round+1] = key
-        #if (round == 8):
-        my_special_problem_key = copy(key)
-        my_special_problem_key[3] = copy(keys[round+1][3])
-        keys[round+1] = my_special_problem_key
+        changeLastArrKey = copy(key)
+        changeLastArrKey[SIZE-1] = copy(keys[round+1][SIZE-1])
+        keys[round+1] = changeLastArrKey 
         
         matrix = addRoundKey(key, matrix)
        
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
     key = roundKey(key)
-    keys[10] = key
-    my_special_problem_key = copy(key)
-    my_special_problem_key[3] = copy(keys[10][3])
-    keys[10] = my_special_problem_key
-    #print("hhfhfhfhfhfhfhhfhfhfhfhfhfhhfhhfhfdhfh: ", keys[10])
+    
+    #save the last arr of the key because its changing
+    keys[ROUNDS+1] = key
+    changeLastArrKey = copy(key)
+    changeLastArrKey[SIZE-1] = copy(keys[ROUNDS+1][SIZE-1])
+    keys[ROUNDS+1] = changeLastArrKey
     
     matrix = addRoundKey(key, matrix)
-    #keys[9] = my_special_problem_key
 
     #put the matrix in an array
     i = 0   
@@ -341,11 +350,6 @@ def encryptionForEachPart(key, HexArray):
         for column in range(SIZE):
             arr[i] = matrix[row][column]
             i += 1
-            
-    # print("all keys1: ")
-    # for i in range(11):
-        # print(keys[i])
-        # print(" ")
     
     return (arr)
     
@@ -379,10 +383,10 @@ Input: key array, hex data array
 Output: decryted matrix
 '''
 def decryptionForEachPart(key, HexArray):
+    index = ROUNDS
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     
-    #print(HexArray)
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -390,30 +394,18 @@ def decryptionForEachPart(key, HexArray):
             matrix[row][column] = hex(HexArray[i])
             i += 1
             
-    print("all keys2: ")
-    for i in range(11):
-        print(keys[i])
-        print(" ")
-    counter = 9
-    print("first key: ", keys[10])
-    matrix = addRoundKey(key, matrix)    
-    print("first add round key ", matrix)
-    for round in range(ROUNDS):
-        print("round ",round)
-        matrix = inverseShiftRows(matrix) 
-        print("shift rows ", matrix)
-        matrix = inverseSubBytes(matrix)
-        print("sub bytes ", matrix)
-        
-        key  = keys[counter]
-        counter -= 1
-        print(key)
-        matrix = addRoundKey(key, matrix)
-        print("add round key ", matrix)
-        
-        matrix = inverseMixColumn(matrix)	
-        print("mix columns ", matrix) 
 
+    matrix = addRoundKey(key, matrix)    
+    for round in range(ROUNDS):
+        matrix = inverseShiftRows(matrix) 
+        matrix = inverseSubBytes(matrix)
+        
+        #use the key from the keys array
+        key  = keys[index]
+        index -= 1
+
+        matrix = addRoundKey(key, matrix)
+        matrix = inverseMixColumn(matrix)	
      
     matrix = inverseShiftRows(matrix)
     matrix = inverseSubBytes(matrix)
@@ -435,9 +427,6 @@ Input: key array, hex array
 Output: decryted matrix
 '''
 def decryption(key, HexArray):            
-    global flag
-    flag = 1
-    
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     i = 0
 
@@ -474,3 +463,5 @@ count = 0
 
 matrix2 = decryption('(ýÞøm¤$JÌÀ¤þ;1o&', matrix2)
 print("decryption: ", matrix2)
+
+#main function that gets parameters
