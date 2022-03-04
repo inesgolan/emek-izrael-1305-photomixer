@@ -98,7 +98,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>c:\opencv\build\include;$(IncludePath)</IncludePath>
-    <LibraryPath>c:\opencv\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\python36\libs;c:\opencv\build\x64\vc14\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

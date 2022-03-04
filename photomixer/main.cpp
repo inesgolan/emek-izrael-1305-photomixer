@@ -1,3 +1,4 @@
+#include "C:\python36\include\Python.h"
 #include "ObjectOnBackground.h"
 #include "ObjectDetection.h"
 #include "DataBase.h"
@@ -25,15 +26,6 @@
 #define ADD 20
 #define REMOVE -20
 
-/*
-client messages:
-100 - object path - save path
-101 - object path - save path
-200 - object path - background path - save path - x location - y location
-for example:
-photomixer.exe 100 images/flower.jpg images/nene.png
-photomixer.exe 200 images/nene.png images/background.jpg images/image.png 100 100
-*/
 int main(int argc, char** argv)
 {
 	std::string imagePath = "", backgroundPath = "", savePath = "";
@@ -46,6 +38,17 @@ int main(int argc, char** argv)
 	DataBase db;
 	bool returnVal = false;
 
+	//encryprion:
+	int ret;
+	std::string fileName = "encryption.py ";
+	std::string parameters = "";
+	std::string temp = "python " + fileName + parameters;
+
+	ret = system(temp.c_str());
+
+	std::cout << "ret/cpp = " << ret << std::endl;
+	getchar();
+
 	if (argc > 1)
 	{
 		switch (std::stoi(argv[CODE]))
@@ -57,7 +60,7 @@ int main(int argc, char** argv)
 
 			//get image
 			objectImage = imread(imagePath);
-			var = Helper::checkImage(objectImage, imagePath); //
+			var = Helper::checkImage(objectImage, imagePath); 
 			if (var)
 			{
 				//get matte
