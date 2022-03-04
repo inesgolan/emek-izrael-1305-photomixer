@@ -1,6 +1,7 @@
 #gets the image name
 from copy import copy
 import binascii
+import base64
 
 SIZE = 4
 BASE = 16
@@ -289,9 +290,11 @@ def g(column):
     column[3] = temp
     
     column = subBytesForAddRoundKey(column)
-    
+
     column[0] = hex(keySchedule[count] ^ int(column[0], BASE))   
     count += 1
+    if (count == 10):
+        count = 0
            
     return (column)
     
@@ -303,7 +306,7 @@ Output: encryted matrix
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-
+    
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -360,8 +363,14 @@ Input: key array, hex array
 Output: encryted matrix
 '''
 def encryption(key, HexArray):
+    hexLen = len(HexArray)
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    textArr = []
+    finalEncryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    k = 0
     i = 0
+    j = 0
 
     #convert the key from string to hex
     for row in range(SIZE):
@@ -370,10 +379,35 @@ def encryption(key, HexArray):
             i += 1
 
     #turn the array to a two dimensions array
-    [HexArray[index:index+16] for index in range(0,len(HexArray),16)]
-    
-    HexArray = encryptionForEachPart(hexKey, HexArray)         
-            
+    #[HexArray[index:index+16] for index in range(0,len(HexArray),16)]
+	
+    arrLen = hexLen // 16
+    leftover = hexLen % 16
+	
+    for i in range(arrLen):
+        if (i % 16 == 0 and i is not 0):
+            textArr.insert(j, tempArr)
+            tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            k = 0
+            j += 1
+        	
+        tempArr[k] = HexArray[i]
+        k += 1
+        
+    # tempArr = []
+    # for i in range(leftover):
+        # tempArr.insert(i,HexArray[leftover-1-i])
+		
+    # tempArr.reverse()
+    # textArr.insert(j, tempArr)
+    j = 0
+	
+	
+    for i in range(len(textArr)):
+        finalEncryption.insert(j,encryptionForEachPart(hexKey, textArr[i]))
+
+    #HexArray = encryptionForEachPart(hexKey, textArr)         
+    print(finalEncryption)
     return HexArray
 
 
@@ -444,24 +478,36 @@ def decryption(key, HexArray):
     return HexArray
 
 
-# filename = 'test.png'
-# with open(filename, 'rb') as f:
-# content = f.read()
-# print(binascii.hexlify(content))
-matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
-matrix2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
-key = "Thats my Kung Fu" #needs to be 16 chars
 
-matrix = encryption(key, matrix)
-print("encryption: ", matrix)
+# matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
+# matrix2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
+# key = "Thats my Kung Fu" #needs to be 16 chars
 
-# hex string to hex
-for i in range(16):
-    matrix2[i] = int(matrix[i], 16)
+# matrix = encryption(key, matrix)
+# print("encryption: ", matrix)
+
+# # hex string to hex
+# for i in range(16):
+    # matrix2[i] = int(matrix[i], 16)
 		
-count = 0
+# count = 0
 
-matrix2 = decryption('(ýÞøm¤$JÌÀ¤þ;1o&', matrix2)
-print("decryption: ", matrix2)
+# matrix2 = decryption('(ýÞøm¤$JÌÀ¤þ;1o&', matrix2)
+# print("decryption: ", matrix2)
 
-#main function that gets parameters
+
+
+
+def main():
+    key = "wertyuioasdfzxcv"
+    with open("images/b.jpg", 'rb') as f:
+        BI = base64.b64encode(f.read())
+		
+    #strBI = BI.decode("utf-8")
+    
+    matrix = encryption(key, BI)
+    
+
+    
+if __name__ == "__main__":
+    main()
