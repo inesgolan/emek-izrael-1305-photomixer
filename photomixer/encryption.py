@@ -2,6 +2,7 @@
 from copy import copy
 import binascii
 import base64
+import copy
 
 SIZE = 4
 BASE = 16
@@ -182,7 +183,7 @@ def mixColumn(matrix):
 
     #mix the matrixs
     i = 0
-    temp = copy(newMatrix)
+    temp = copy.copy(newMatrix)
     for times in range(SIZE):
         newMatrix[i] = galoisMult(temp[i],2) ^ galoisMult(temp[i+1],3) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+3],1)
         newMatrix[i+1] = galoisMult(temp[i+1],2) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],1) ^ galoisMult(temp[i+2],3)
@@ -216,7 +217,7 @@ def inverseMixColumn(matrix):
 
     #mix the matrixs
     i = 0
-    temp = copy(newMatrix)
+    temp = copy.copy(newMatrix)
     for times in range(SIZE):
         newMatrix[i] = galoisMult(temp[i],14) ^ galoisMult(temp[i+1],11) ^ galoisMult(temp[i+2],13) ^ galoisMult(temp[i+3],9)
         newMatrix[i+1] = galoisMult(temp[i+1],14) ^ galoisMult(temp[i],9) ^ galoisMult(temp[i+3],13) ^ galoisMult(temp[i+2],11)
@@ -246,7 +247,7 @@ def addRoundKey(key, matrix):
     for row in range(SIZE):
         for column in range(SIZE):
             newMatrix[row][column] = hex(int(matrix[row][column], BASE) ^ int(key[row][column], BASE)) #xor
-            
+			
     return (newMatrix)
  
 
@@ -258,7 +259,7 @@ Output: new key matrix
 def roundKey(key):   
     newKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]  
     
-    temp = copy(key[SIZE-1])
+    temp = copy.deepcopy(key[SIZE-1])
     gKey = g(key[SIZE-1])
     
     for column in range(SIZE):
@@ -297,6 +298,27 @@ def g(column):
         count = 0
            
     return (column)
+	
+	
+	
+def allRoundsKey(key):
+    temp = copy.deepcopy(key)
+	
+    global keys
+    keys[0] = copy.deepcopy(key)
+    keys[1] = roundKey(copy.deepcopy(keys[0]))
+    keys[2] = roundKey(copy.deepcopy(keys[1]))
+    keys[3] = roundKey(copy.deepcopy(keys[2]))
+    keys[4] = roundKey(copy.deepcopy(keys[3]))
+    keys[5] = roundKey(copy.deepcopy(keys[4]))
+    keys[6] = roundKey(copy.deepcopy(keys[5]))
+    keys[7] = roundKey(copy.deepcopy(keys[6]))
+    keys[8] = roundKey(copy.deepcopy(keys[7]))
+    keys[9] = roundKey(copy.deepcopy(keys[8]))
+    keys[10] = roundKey(copy.deepcopy(keys[9]))
+		
+
+
     
 '''
 This function encryted part of the image pixels each time
@@ -306,8 +328,6 @@ Output: encryted matrix
 def encryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    helper = copy(key[3])
-
 
     #convert the matrix from string to hex
     i = 0   
@@ -315,14 +335,9 @@ def encryptionForEachPart(key, HexArray):
         for column in range(SIZE):
             matrix[row][column] = hex(HexArray[i])
             i += 1
-			   
-    matrix = addRoundKey(key, matrix)
-    #save the last arr of the key because its changing
-    keys[0] = key
-    changeLastArrKey = copy(key)
-    changeLastArrKey[SIZE-1] = copy(keys[0][SIZE-1])
-    keys[0] = changeLastArrKey
-
+	
+	
+    matrix = addRoundKey(keys[0], matrix)
 
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
@@ -330,38 +345,22 @@ def encryptionForEachPart(key, HexArray):
         matrix = mixColumn(matrix)
         key = roundKey(key)
         
-        #save the last arr of the key because its changing
-        keys[round+1] = key
-        changeLastArrKey = copy(key)
-        changeLastArrKey[SIZE-1] = copy(keys[round+1][SIZE-1])
-        keys[round+1] = changeLastArrKey 
-        
-        matrix = addRoundKey(key, matrix)
+        matrix = addRoundKey(keys[round+1], matrix)
        
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
     key = roundKey(key)
     
 
-    #save the last arr of the key because its changing
-    keys[ROUNDS+1] = key
-    changeLastArrKey = copy(key)
-    changeLastArrKey[SIZE-1] = copy(keys[ROUNDS+1][SIZE-1])
-    keys[ROUNDS+1] = changeLastArrKey
-    #print(keys[ROUNDS+1])
-    matrix = addRoundKey(key, matrix)
+    matrix = addRoundKey(keys[ROUNDS+1], matrix)
+	
     #put the matrix in an array
     i = 0   
     for row in range(SIZE):
         for column in range(SIZE):
             arr[i] = matrix[row][column]
             i += 1
-    
-    # for i in range(10):
-        # keys[i] = 0
-    key[3] = helper
-    #print(key)
-    
+       
     return (arr)
     
     
@@ -375,7 +374,7 @@ def decryptionForEachPart(key, HexArray):
     index = ROUNDS
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
- 
+    
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -384,21 +383,21 @@ def decryptionForEachPart(key, HexArray):
             i += 1
             
     #print(key)
-    matrix = addRoundKey(key, matrix) 	
+    matrix = addRoundKey(copy.deepcopy(keys[ROUNDS+1]), matrix) 	
     for round in range(ROUNDS):
         matrix = inverseShiftRows(matrix) 
         matrix = inverseSubBytes(matrix)
         
         #use the key from the keys array
-        key  = keys[index]
-        index -= 1
+        #key  = keys[index]
 
-        matrix = addRoundKey(key, matrix)
+        matrix = addRoundKey(copy.deepcopy(keys[index]), matrix)
+        index -= 1
         matrix = inverseMixColumn(matrix)	
      
     matrix = inverseShiftRows(matrix)
     matrix = inverseSubBytes(matrix)
-    matrix = addRoundKey(keys[0], matrix)
+    matrix = addRoundKey(copy.deepcopy(keys[0]), matrix)
     
 	
     #put the matrix in an array
@@ -447,24 +446,14 @@ def encryption(key, HexArray):
         tempArr[k] = HexArray[i]
         k += 1
         
-    # tempArr = []
-    # for i in range(leftover):
-        # tempArr.insert(i,HexArray[leftover-1-i])
-		
-    # tempArr.reverse()
-    # textArr.insert(j, tempArr)
 	
-    #print("before: ", encryptionForEachPart(hexKey, textArr[2]))
-    
-    for i in range(2):
-        print("ggg", hexKey)
+    print("before: ", textArr)
+    allRoundsKey(hexKey)
+	
+    for i in range(len(textArr)):
         temp = encryptionForEachPart(hexKey, textArr[i])
         finalEncryption.insert(i,temp)
-        print("ggg2", hexKey)
 
-
-    #HexArray = encryptionForEachPart(hexKey, textArr)         
-    #print(finalEncryption)
     return finalEncryption
 
 
@@ -480,15 +469,8 @@ def decryption(key, HexArray):
     finalEncryption = []
     tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i = 0
-    # #convert the key from string to hex
-    # for row in range(SIZE):
-         # for column in range(SIZE):
-             # hexKey[row][column] = hex(ord(key[i]))
-             # i += 1
 
-    #turn the array to a two dimensions array
-
-    for i in range(2):
+    for i in range(len(HexArray)):
         temp = decryptionForEachPart(key, HexArray[i])
         finalEncryption.insert(i,temp)
    
@@ -524,7 +506,7 @@ def main():
     
     matrix = encryption(key, BI)
     print(" ")
-    print("1: ",matrix)
+    print("encryption: ",matrix)
     print(" ")
     toDecryption = []
     tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -534,27 +516,14 @@ def main():
 	
     for i in range(len(matrix)):
         for k in range(16):
-            tempArr[k] = int(matrix[i][k], 16)
+            tempArr[k] = int(matrix[i][k], BASE)
+
         toDecryption.insert(j, tempArr)
         j += 1
-	
-    # print(toDecryption)
-    # print(" ")
-	
-    # keyDes = ""
-    # print(keys[ROUNDS+1])
-    # for item in keys[ROUNDS+1]: 
-        # for i in item:
-            # # check = ""
-            # # check = i[2:]
-            # # byte_array = bytearray.fromhex(check)
-            # # byte_array.decode()
-            # # print(byte_array) 
-            # # keyDes += byte_array
+        tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             
-    # print("check: ", keyDes)
     matrix2 = decryption(keys[ROUNDS+1], toDecryption)
-    print("2: ", matrix2)
+    print("decryption: ", matrix2)
 
     
 if __name__ == "__main__":
