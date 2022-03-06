@@ -40,9 +40,9 @@ int main(int argc, char** argv)
 
 	//encryprion:
 	int ret;
-	std::string fileName = "encryption.py ";
+	std::string fileName = "./python encryption.py ";
 	std::string parameters = "";
-	std::string temp = "python " + fileName + parameters;
+	std::string temp = fileName + parameters;
 
 	ret = system(temp.c_str());
 
