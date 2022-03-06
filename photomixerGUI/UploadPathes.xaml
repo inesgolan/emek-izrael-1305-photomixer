@@ -31,6 +31,9 @@
 
         <Button Grid.Column="2" Grid.Row="2" FontSize="15" Content="Edit image" 
                 Foreground="Black" FontWeight="Bold" Click="edit" Margin="52,49,52,48" RenderTransformOrigin="0.689,0.664"/>
+        
+        <Button Grid.Column="2" Grid.Row="1" FontSize="15" Content="check" 
+            Foreground="Black" FontWeight="Bold" Click="checkObjectDetction" Margin="52,48,52,48" RenderTransformOrigin="0.689,0.664"/>
 
     </Grid>
 </Window>

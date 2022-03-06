@@ -12,8 +12,10 @@ namespace photomixerGUI
         {
             InitializeComponent();
 
-            objectImage.Source = new BitmapImage(new Uri(ProjectVariables.objectPath));
-           // System.Threading.Thread.Sleep(50 * 2);
+            string objectPath = (ProjectVariables.objectPath).Substring(1, ProjectVariables.objectPath.Length-2);
+
+            objectImage.Source = new BitmapImage(new Uri(objectPath));
+
             string path = Path.GetFullPath("matte.png");
             matteImage.Source = new BitmapImage(new Uri(path));
         }
@@ -22,16 +24,13 @@ namespace photomixerGUI
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
             Communicator.sendObjectRecognizeReverseMatteMsg(ProjectVariables.objectPath, ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
-            //System.Threading.Thread.Sleep(50*2); //it takes time to reverse the matte
+
             string path = Path.GetFullPath("matte2.png");
             matteImage.Source = new BitmapImage(new Uri(path));
         }
 
-        //opens edit window
-        private void edit(object sender, RoutedEventArgs e)
+        private void closeWindow(object sender, RoutedEventArgs e)
         {
-            Edit edit = new Edit();
-            edit.Show();
             Close();
         }
     }
