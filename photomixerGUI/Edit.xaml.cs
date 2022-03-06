@@ -107,9 +107,8 @@ namespace photomixerGUI
                     }
                 }
             }
-            ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = save;
-            ProjectVariables.backgroundPath = Path.GetFullPath(save);
-            BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.backgroundPath));
+            ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(save);
+            BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
         }
 
         //delete the images we don't need anymore and go back to main screen
@@ -135,6 +134,40 @@ namespace photomixerGUI
                 Close();
                 File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
             }
+
+        }
+
+        //change the background to the last edited image
+        private void returnToLastEdit(object sender, RoutedEventArgs e)
+        {
+            string lastEdit;
+
+            if (ProjectVariables.countOfEdits == 1)
+            {
+                lastEdit = ProjectVariables.backgroundPath;
+                BackgroundImage.Source = new BitmapImage(new Uri(lastEdit));
+            }
+            else if (ProjectVariables.countOfEdits > 1)
+            {
+                if (ProjectVariables.username == "guest")
+                {
+                    lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfEdits - 1).ToString() + ".png";
+                }
+                else
+                {
+                    lastEdit = "edit" + (ProjectVariables.countOfEdits - 1).ToString() + ".png";
+                }
+
+                //display background image
+                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(lastEdit);
+                BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
+            }
+
+            //if we move the second image it moves the first one
+        }
+
+        private void goToNextEdit(object sender, RoutedEventArgs e)
+        {
 
         }
     }
