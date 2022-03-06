@@ -27,5 +27,6 @@ namespace photomixerGUI
         public static int countOfEdits;
         public static string savePath;
         public static int countOfClicks;
+        public static int index;
     }
 }

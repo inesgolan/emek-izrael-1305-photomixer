@@ -37,8 +37,6 @@ namespace photomixerGUI
         private void dragObject(object sender, MouseEventArgs e)
         {
             Image image = e.Source as Image;
-            DataObject data = new DataObject(typeof(ImageSource), image.Source);
-            DragDrop.DoDragDrop(image, data, DragDropEffects.All);
 
             //get the image index in the list and remove the item from the list
             for (int i = 0; i < ProjectVariables.imagesCounter; i++)
@@ -46,10 +44,13 @@ namespace photomixerGUI
                 BitmapImage item = (BitmapImage)Images.Items[i];
                 if (image.Source == item)
                 {
-                    Images.Items.Remove(item);
+                    ProjectVariables.index = i;
                     i = ProjectVariables.imagesCounter;
                 }
             }
+
+            DataObject data = new DataObject(typeof(ImageSource), image.Source);
+            DragDrop.DoDragDrop(image, data, DragDropEffects.All);
         }
 
         private void dropObject(object sender, DragEventArgs e)
@@ -86,7 +87,7 @@ namespace photomixerGUI
             }
 
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
-            Communicator.sendPasteObjectMsg(ProjectVariables.imagesPathes[ProjectVariables.countOfEdits - 1], ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], save, (int)location.X, (int)location.Y);
+            Communicator.sendPasteObjectMsg(ProjectVariables.imagesPathes[ProjectVariables.index], ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], save, (int)location.X, (int)location.Y);
 
             //wait till the image is created to update the background image
             bool flag = false;
@@ -115,26 +116,18 @@ namespace photomixerGUI
         //delete the images we don't need anymore and go back to main screen
         private void deleteImages(object sender, RoutedEventArgs e)
         {
-            if (Images.Items.Count > 0)
-            {
-                // Initializes the variables to pass to the MessageBox.Show method.
-                string message = "Are you sure?";
-                string caption = "Error Detected in Input";
-                MessageBoxButton buttons = MessageBoxButton.YesNo;
+           // Initializes the variables to pass to the MessageBox.Show method.
+           string message = "Are you sure?";
+           string caption = "Error Detected in Input";
+           MessageBoxButton buttons = MessageBoxButton.YesNo;
 
-                // Displays the MessageBox.
-                MessageBoxResult result = MessageBox.Show(message, caption, buttons);
-                if (result == MessageBoxResult.Yes)
-                {
-                    Close();
-                    File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
-                }
-            }
-            else
-            {
-                Close();
-                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
-            }
+           // Displays the MessageBox.
+           MessageBoxResult result = MessageBox.Show(message, caption, buttons);
+           if (result == MessageBoxResult.Yes)
+           {
+               Close();
+               File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
+           }
 
         }
 
