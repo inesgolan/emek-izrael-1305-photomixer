@@ -56,6 +56,7 @@ namespace photomixerGUI
         {
             string save;
             ProjectVariables.countOfEdits++;
+            ProjectVariables.countOfClicks = ProjectVariables.countOfEdits;
 
             Point location = e.GetPosition(this); //get image location relative to the screen
 
@@ -140,35 +141,71 @@ namespace photomixerGUI
         //change the background to the last edited image
         private void returnToLastEdit(object sender, RoutedEventArgs e)
         {
-            string lastEdit;
+            string lastEdit = "";
 
-            if (ProjectVariables.countOfEdits == 1)
+            if (ProjectVariables.countOfClicks == 1)
             {
                 lastEdit = ProjectVariables.backgroundPath;
-                BackgroundImage.Source = new BitmapImage(new Uri(lastEdit));
             }
-            else if (ProjectVariables.countOfEdits > 1)
+            else if (ProjectVariables.countOfClicks > 1)
             {
                 if (ProjectVariables.username == "guest")
                 {
-                    lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfEdits - 1).ToString() + ".png";
+                    lastEdit = "edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";                  
                 }
                 else
                 {
-                    lastEdit = "edit" + (ProjectVariables.countOfEdits - 1).ToString() + ".png";
-                }
-
-                //display background image
-                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(lastEdit);
-                BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
+                    lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";
+                }        
             }
 
+            //update the image showen on the screen
+            if (ProjectVariables.countOfClicks > 0)
+            {
+                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(lastEdit);
+                BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
+
+                ProjectVariables.countOfClicks--;
+            }
             //if we move the second image it moves the first one
         }
 
+        //go to the next edited image
         private void goToNextEdit(object sender, RoutedEventArgs e)
         {
+            string lastEdit = "";
 
+            ProjectVariables.countOfClicks++;
+
+            if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)
+            {
+                if (ProjectVariables.username == "guest")
+                {
+                    lastEdit = ProjectVariables.savePath;
+                }
+                else
+                {
+                    lastEdit = ProjectVariables.username + "/" + ProjectVariables.savePath;
+                }
+            }
+            else
+            {
+                if (ProjectVariables.username == "guest")
+                {
+                    lastEdit = "edit" + ProjectVariables.countOfClicks.ToString() + ".png";
+                }
+                else
+                {
+                    lastEdit = ProjectVariables.username + "/edit" + ProjectVariables.countOfClicks.ToString() + ".png";
+                }
+            }
+
+            //update the image showen on the screen
+            if (File.Exists(lastEdit))
+            {
+                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(lastEdit);
+                BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
+            }
         }
     }
 }

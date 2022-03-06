@@ -31,7 +31,8 @@
 
         <Button Grid.Row="1" FontSize="15" Content="Done" FontWeight="Bold" Click="deleteImages" Margin="24,49,24,5" Grid.Column="1"/>
 
-        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="47,4,47,43" Click="returnToLastEdit"/>
+        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,42" Click="returnToLastEdit"/>
+        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,42" Click="goToNextEdit"/>
 
     </Grid>
 </Window>
