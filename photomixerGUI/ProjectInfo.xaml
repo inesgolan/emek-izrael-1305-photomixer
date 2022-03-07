@@ -5,8 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="ProjectInfo" Height="450" Width="800">
+        Title="ProjectInfo" Height="500" Width="800">
+
     <Grid Background="Black">
-        
+
+        <Label Content="Welcome!" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,383"/>
+
+        <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,70,0,70" Width="644">  
+            Hi:) We are Ines and Shelly, and we did this project on behalf of the "Magshimim" program.<LineBreak />
+            <LineBreak />
+            Our project let you upload images - images that you found online or toke yourself,<LineBreak />
+             and then our program will recognize the object in the image.<LineBreak />
+            After that, you can put the image on a background to your choice, and save it.<LineBreak />
+            <LineBreak />
+            For the object detection to work, your image must meet the following criteria: <LineBreak />
+            1. Object/background are not in black and white colors<LineBreak />
+            2. Object and background are not in similar colors<LineBreak />
+            3. The object covers most of the image<LineBreak />
+            <LineBreak />
+            Sign up to get complete security - encryption of your images!<LineBreak />
+            <LineBreak />
+            Hope you'll enjoy:)<LineBreak />
+        </TextBlock>
+
     </Grid>
 </Window>

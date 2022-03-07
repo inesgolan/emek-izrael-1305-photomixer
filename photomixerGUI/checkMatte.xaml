@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="checkMatte" Height="450" Width="800">
 
-    <Grid>
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -25,9 +25,9 @@
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236" Grid.Column="1" />
         <Image Grid.Column="1" x:Name ="matteImage" Source="{Binding objectImage}"/>
 
-        <Button Grid.Row="1" FontSize="15" Margin="250,50,250,50" Content="Click here if we didn't find the object" Foreground="DarkBlue" FontWeight="Bold" Grid.ColumnSpan="2" Click="reverseMatte"/>
+        <Button Grid.Row="1" FontSize="15" Margin="250,50,250,50" Content="Reverse matte colors" Foreground="DarkBlue" FontWeight="Bold" Grid.ColumnSpan="2" Click="reverseMatte"/>
 
-        <Button Grid.Row="2" FontSize="15" Height="50" Width="100" Content="Edit image" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" Click="edit"/>
+        <Button Grid.Row="2" FontSize="15" Height="50" Width="100" Content="It's fine" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" Click="closeWindow"/>
 
     </Grid>
     

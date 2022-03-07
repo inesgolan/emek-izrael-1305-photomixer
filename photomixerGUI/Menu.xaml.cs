@@ -16,7 +16,6 @@ namespace photomixerGUI
         {
             ProjectInfo info = new ProjectInfo();
             info.Show();
-            Close();
         }
 
         //This function open the window where the user uploads the images pathes

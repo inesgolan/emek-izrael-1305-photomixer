@@ -123,5 +123,11 @@ namespace photomixerGUI
             }
         }
 
+        //ask the user if we detected the object
+        private void checkObjectDetction(object sender, RoutedEventArgs e)
+        {
+            checkMatte check = new checkMatte();
+            check.Show();
+        }
     }
 }
