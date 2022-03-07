@@ -373,7 +373,7 @@ Mat ObjectDetection::reverseMatte()
 		}
 	}
 
-	imwrite("matte2.png", _matte);
+	imwrite("matte.png", _matte);
 	return _matte;
 }
 
