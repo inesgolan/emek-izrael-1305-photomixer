@@ -1,6 +1,8 @@
 #gets the image name
 from copy import copy
 import binascii
+import base64
+import copy
 
 SIZE = 4
 BASE = 16
@@ -9,6 +11,8 @@ ROUNDS = 9
 count = 0
 keys = [[0], [0], [0], [0],[0], [0], [0] ,[0], [0], [0], [0]]
 changeLastArrKey = [0]
+
+leftOvers = []
 
 sbox = [
    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01, 0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76,
@@ -181,7 +185,7 @@ def mixColumn(matrix):
 
     #mix the matrixs
     i = 0
-    temp = copy(newMatrix)
+    temp = copy.copy(newMatrix)
     for times in range(SIZE):
         newMatrix[i] = galoisMult(temp[i],2) ^ galoisMult(temp[i+1],3) ^ galoisMult(temp[i+2],1) ^ galoisMult(temp[i+3],1)
         newMatrix[i+1] = galoisMult(temp[i+1],2) ^ galoisMult(temp[i],1) ^ galoisMult(temp[i+3],1) ^ galoisMult(temp[i+2],3)
@@ -215,7 +219,7 @@ def inverseMixColumn(matrix):
 
     #mix the matrixs
     i = 0
-    temp = copy(newMatrix)
+    temp = copy.copy(newMatrix)
     for times in range(SIZE):
         newMatrix[i] = galoisMult(temp[i],14) ^ galoisMult(temp[i+1],11) ^ galoisMult(temp[i+2],13) ^ galoisMult(temp[i+3],9)
         newMatrix[i+1] = galoisMult(temp[i+1],14) ^ galoisMult(temp[i],9) ^ galoisMult(temp[i+3],13) ^ galoisMult(temp[i+2],11)
@@ -245,7 +249,7 @@ def addRoundKey(key, matrix):
     for row in range(SIZE):
         for column in range(SIZE):
             newMatrix[row][column] = hex(int(matrix[row][column], BASE) ^ int(key[row][column], BASE)) #xor
-            
+			
     return (newMatrix)
  
 
@@ -257,7 +261,7 @@ Output: new key matrix
 def roundKey(key):   
     newKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]  
     
-    temp = copy(key[SIZE-1])
+    temp = copy.deepcopy(key[SIZE-1])
     gKey = g(key[SIZE-1])
     
     for column in range(SIZE):
@@ -289,11 +293,38 @@ def g(column):
     column[3] = temp
     
     column = subBytesForAddRoundKey(column)
-    
+
     column[0] = hex(keySchedule[count] ^ int(column[0], BASE))   
     count += 1
+    if (count == 10):
+        count = 0
            
     return (column)
+	
+	
+'''
+This function will get all the roundkeys 1-10 and put them into  a global arr
+input: key (the first key)
+output: none
+'''
+def allRoundsKey(key):
+    temp = copy.deepcopy(key)
+	
+    global keys
+    keys[0] = copy.deepcopy(key)
+    keys[1] = roundKey(copy.deepcopy(keys[0]))
+    keys[2] = roundKey(copy.deepcopy(keys[1]))
+    keys[3] = roundKey(copy.deepcopy(keys[2]))
+    keys[4] = roundKey(copy.deepcopy(keys[3]))
+    keys[5] = roundKey(copy.deepcopy(keys[4]))
+    keys[6] = roundKey(copy.deepcopy(keys[5]))
+    keys[7] = roundKey(copy.deepcopy(keys[6]))
+    keys[8] = roundKey(copy.deepcopy(keys[7]))
+    keys[9] = roundKey(copy.deepcopy(keys[8]))
+    keys[10] = roundKey(copy.deepcopy(keys[9]))
+		
+
+
     
 '''
 This function encryted part of the image pixels each time
@@ -310,72 +341,35 @@ def encryptionForEachPart(key, HexArray):
         for column in range(SIZE):
             matrix[row][column] = hex(HexArray[i])
             i += 1
-			   
-    matrix = addRoundKey(key, matrix)
-    #save the last arr of the key because its changing
-    keys[0] = key
-    changeLastArrKey = copy(key)
-    changeLastArrKey[SIZE-1] = copy(keys[0][SIZE-1])
-    keys[0] = changeLastArrKey
-    
+	
+	
+    matrix = addRoundKey(keys[0], matrix)
+
     for round in range(ROUNDS):
         matrix = subBytes(matrix)
         matrix = shiftRows(matrix)
         matrix = mixColumn(matrix)
         key = roundKey(key)
         
-        #save the last arr of the key because its changing
-        keys[round+1] = key
-        changeLastArrKey = copy(key)
-        changeLastArrKey[SIZE-1] = copy(keys[round+1][SIZE-1])
-        keys[round+1] = changeLastArrKey 
-        
-        matrix = addRoundKey(key, matrix)
+        matrix = addRoundKey(keys[round+1], matrix)
        
     matrix = subBytes(matrix)
     matrix = shiftRows(matrix)
     key = roundKey(key)
     
-    #save the last arr of the key because its changing
-    keys[ROUNDS+1] = key
-    changeLastArrKey = copy(key)
-    changeLastArrKey[SIZE-1] = copy(keys[ROUNDS+1][SIZE-1])
-    keys[ROUNDS+1] = changeLastArrKey
-    
-    matrix = addRoundKey(key, matrix)
 
+    matrix = addRoundKey(keys[ROUNDS+1], matrix)
+	
     #put the matrix in an array
     i = 0   
     for row in range(SIZE):
         for column in range(SIZE):
             arr[i] = matrix[row][column]
             i += 1
-    
+       
     return (arr)
     
     
-'''
-This function encryted the picture pixels
-Input: key array, hex array
-Output: encryted matrix
-'''
-def encryption(key, HexArray):
-    hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
-    i = 0
-
-    #convert the key from string to hex
-    for row in range(SIZE):
-        for column in range(SIZE):
-            hexKey[row][column] = hex(ord(key[i]))
-            i += 1
-
-    #turn the array to a two dimensions array
-    [HexArray[index:index+16] for index in range(0,len(HexArray),16)]
-    
-    HexArray = encryptionForEachPart(hexKey, HexArray)         
-            
-    return HexArray
-
 
 '''
 This function decryted part of the image pixels each time
@@ -394,22 +388,21 @@ def decryptionForEachPart(key, HexArray):
             matrix[row][column] = hex(HexArray[i])
             i += 1
             
-
-    matrix = addRoundKey(key, matrix)    
+    matrix = addRoundKey(copy.deepcopy(keys[ROUNDS+1]), matrix) 	
     for round in range(ROUNDS):
         matrix = inverseShiftRows(matrix) 
         matrix = inverseSubBytes(matrix)
         
         #use the key from the keys array
-        key  = keys[index]
-        index -= 1
+        #key  = keys[index]
 
-        matrix = addRoundKey(key, matrix)
+        matrix = addRoundKey(copy.deepcopy(keys[index]), matrix)
+        index -= 1
         matrix = inverseMixColumn(matrix)	
      
     matrix = inverseShiftRows(matrix)
     matrix = inverseSubBytes(matrix)
-    matrix = addRoundKey(keys[0], matrix)
+    matrix = addRoundKey(copy.deepcopy(keys[0]), matrix)
     
 	
     #put the matrix in an array
@@ -420,15 +413,22 @@ def decryptionForEachPart(key, HexArray):
             i += 1
 
     return (arr)
-
+	
+	
 '''
-This function decryted the picture pixels
+This function encryted the picture pixels
 Input: key array, hex array
-Output: decryted matrix
+Output: encryted matrix
 '''
-def decryption(key, HexArray):            
+def encryption(key, HexArray):
+    hexLen = len(HexArray)
     hexKey = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
+    textArr = []
+    finalEncryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    k = 0
     i = 0
+    j = 0
 
     #convert the key from string to hex
     for row in range(SIZE):
@@ -437,31 +437,131 @@ def decryption(key, HexArray):
             i += 1
 
     #turn the array to a two dimensions array
-    [HexArray[index:index+16] for index in range(0,len(HexArray),16)]
+	
+    arrLen = hexLen // 16
+    leftover = hexLen % 16
+    u = 0
+    for i in range(len(HexArray)):
+        if (i % 16 == 0 and i is not 0):
+            textArr.insert(j, tempArr)
+            tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            k = 0
+            j += 1
+        	
+        tempArr[k] = HexArray[i]
+        k += 1
+        
+    global leftOvers
+    for i in range(leftover):
+        leftOvers.insert(i, HexArray[len(HexArray)-(i+1)])
+	
+    print("before: ", textArr)
+    print(" ")
+    allRoundsKey(hexKey)
+	
+    for i in range(len(textArr)):
+        temp = encryptionForEachPart(hexKey, textArr[i])
+        finalEncryption.insert(i,temp)
 
-    HexArray = decryptionForEachPart(hexKey, HexArray)         
+    return finalEncryption
+
+
+
+
+'''
+This function decryted the picture pixels
+Input: key array, hex array
+Output: decryted matrix
+'''
+def decryption(key, HexArray):            
+    finalEncryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    i = 0
+
+    for i in range(len(HexArray)):
+        temp = decryptionForEachPart(key, HexArray[i])
+        finalEncryption.insert(i,temp)
+   
+    return finalEncryption
+
+
+
+def main():
+    i = 0
+    k = 0
+    j = 0
+    key = "wertyuioasdfzxcv"
+    fin = open("images/b.jpg", 'rb')
+    image = fin.read()
+    fin.close()
+     
+    image = bytearray(image)
+ 
+    matrix = encryption(key, image)
+    print("encryption: ",matrix)
+    print(" ")
+	
+    hex_to_baseE = []
+    for i in range(len(matrix)):
+        for j in range(16):
+            hex_to_baseE.insert(k, matrix[i][j])
+            k += 1
+	
+    base_to_numE = []
+    for i in range(len(hex_to_baseE)-1):
+        base_to_numE.insert(i, int(hex_to_baseE[i], 16))
+	
+    byteArrayE = bytearray(base_to_numE) # this is the byte array of the encrypted image
+	
+	
+	
+	
+	
+    #decryption
+    toDecryption = []
+    tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    i = 0
+    k = 0
+    j = 0
+
+
+    for i in range(len(matrix)):
+        for k in range(16):
+            tempArr[k] = int(matrix[i][k], BASE)
+
+        toDecryption.insert(j, tempArr)
+        j += 1
+        tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             
-    return HexArray
-
-
-# filename = 'test.png'
-# with open(filename, 'rb') as f:
-# content = f.read()
-# print(binascii.hexlify(content))
-matrix = [0x54,0x77,0x6F,0x20,0x4F,0x6E,0x65,0x20,0x4E,0x69,0x6E,0x65,0x20,0x54,0x77,0x6F]
-matrix2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
-key = "Thats my Kung Fu" #needs to be 16 chars
-
-matrix = encryption(key, matrix)
-print("encryption: ", matrix)
-
-# hex string to hex
-for i in range(16):
-    matrix2[i] = int(matrix[i], 16)
-		
-count = 0
-
-matrix2 = decryption('(ýÞøm¤$JÌÀ¤þ;1o&', matrix2)
-print("decryption: ", matrix2)
-
-#main function that gets parameters
+    matrix2 = decryption(keys[ROUNDS+1], toDecryption)
+    print("decryption: ", matrix2)
+    print(" ")
+	
+    i = 0
+    k = 0
+    j = 0
+	
+	
+	# back to the picture
+    hex_to_baseD = []
+    for i in range(len(matrix2)):
+        for j in range(16):
+            hex_to_baseD.insert(k, matrix2[i][j])
+            k += 1
+	
+    base_to_numD = []
+	
+    for i in range(len(hex_to_baseD)-1):
+        base_to_numD.insert(i, int(hex_to_baseD[i], 16))
+	
+    byteArrayD = bytearray(base_to_numD) # this is the byte array of the decrypted image
+	
+	
+    fin = open("images/b.jpg", 'wb')
+     
+    fin.write(byteArrayD)
+    fin.close()
+	
+	 
+if __name__ == "__main__":
+    main()
