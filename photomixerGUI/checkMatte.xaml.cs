@@ -32,15 +32,13 @@ namespace photomixerGUI
         //this function reverse the matte colors
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
-            File.Delete("matte.png");
             string imagePath = "objectImage" + ProjectVariables.imagesCounter.ToString() + ".png";
-            File.Delete(imagePath);
-            Communicator.sendObjectRecognizeReverseMatteMsg(ProjectVariables.objectPath, ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
+            Communicator.sendObjectRecognizeReverseMatteMsg(ProjectVariables.objectPath, imagePath);
 
-            string path = Path.GetFullPath("matte.png");
+            string path = Path.GetFullPath("matte2.png");
             matteImage.Source = new BitmapImage(new Uri(path));
   
-            ProjectVariables.objectPath = Path.GetFullPath(imagePath); //problem with the image of the object after we reverse the matte
+            ProjectVariables.objectPath = Path.GetFullPath(imagePath); 
         }
 
         private void closeWindow(object sender, RoutedEventArgs e)

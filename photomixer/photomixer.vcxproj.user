@@ -4,6 +4,6 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>101 images\bear2.jpg images\new.png</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>101 images\bear2.jpg images\n.png</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

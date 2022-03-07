@@ -87,6 +87,7 @@ int main(int argc, char** argv)
 				object.getImageChannels();
 				matte = object.getObjectMatte();
 				matte = object.reverseMatte();
+				imwrite("matte2.png", matte);
 
 				//get object image	
 				clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
