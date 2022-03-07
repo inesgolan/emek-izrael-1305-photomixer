@@ -302,7 +302,11 @@ def g(column):
     return (column)
 	
 	
-	
+'''
+This function will get all the roundkeys 1-10 and put them into  a global arr
+input: key (the first key)
+output: none
+'''
 def allRoundsKey(key):
     temp = copy.deepcopy(key)
 	
@@ -449,13 +453,11 @@ def encryption(key, HexArray):
         k += 1
         
     global leftOvers
-    #print("hhhhhhhhhhhhhhhhh: ", leftover)
     for i in range(leftover):
         leftOvers.insert(i, HexArray[len(HexArray)-(i+1)])
-		
-    #print(leftOvers)
 	
     print("before: ", textArr)
+    print(" ")
     allRoundsKey(hexKey)
 	
     for i in range(len(textArr)):
@@ -492,50 +494,32 @@ def main():
     j = 0
     key = "wertyuioasdfzxcv"
     fin = open("images/b.jpg", 'rb')
-     
     image = fin.read()
     fin.close()
      
     image = bytearray(image)
-    #print("real before: ")
-    #for i in range(len(image)):
-     #   print(image[i])
-    #print(image[0])
  
     matrix = encryption(key, image)
-    print(" ")
     print("encryption: ",matrix)
     print(" ")
 	
-    hex_to_base1 = []
+    hex_to_baseE = []
     for i in range(len(matrix)):
         for j in range(16):
-            hex_to_base1.insert(k, matrix[i][j])
+            hex_to_baseE.insert(k, matrix[i][j])
             k += 1
-
-    #lefthelp = hex(leftOvers[0]) # change later
-    #hex_to_base.insert(k,lefthelp) # change later
-    
-	#print(hex_to_base)
 	
-    base_to_num1 = []
+    base_to_numE = []
+    for i in range(len(hex_to_baseE)-1):
+        base_to_numE.insert(i, int(hex_to_baseE[i], 16))
 	
-    for i in range(len(hex_to_base1)-1):
-        base_to_num1.insert(i, int(hex_to_base1[i], 16))
-    #print(base_to_num)
-	
-    byteArrayE = bytearray(base_to_num1)
+    byteArrayE = bytearray(base_to_numE) # this is the byte array of the encrypted image
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
+    #decryption
     toDecryption = []
     tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i = 0
@@ -558,44 +542,28 @@ def main():
     i = 0
     k = 0
     j = 0
-
-    hex_to_base = []
+	
+	
+	# back to the picture
+    hex_to_baseD = []
     for i in range(len(matrix2)):
         for j in range(16):
-            hex_to_base.insert(k, matrix2[i][j])
+            hex_to_baseD.insert(k, matrix2[i][j])
             k += 1
-
-    #lefthelp = hex(leftOvers[0]) # change later
-    #hex_to_base.insert(k,lefthelp) # change later
-    
-	#print(hex_to_base)
 	
-    base_to_num = []
+    base_to_numD = []
 	
-    for i in range(len(hex_to_base)-1):
-        base_to_num.insert(i, int(hex_to_base[i], 16))
-    #print(base_to_num)
+    for i in range(len(hex_to_baseD)-1):
+        base_to_numD.insert(i, int(hex_to_baseD[i], 16))
 	
-    byteArrayD = bytearray(base_to_num)
-    #print(byteArray)
+    byteArrayD = bytearray(base_to_numD) # this is the byte array of the decrypted image
 	
 	
- 
- 
- 
- 
     fin = open("images/b.jpg", 'wb')
      
-    #print(image)
     fin.write(byteArrayD)
     fin.close()
-    
-	#print('Encryption Done...')
 	
-	
-	
-	
-
-    
+	 
 if __name__ == "__main__":
     main()
