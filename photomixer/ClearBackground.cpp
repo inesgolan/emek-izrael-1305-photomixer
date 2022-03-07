@@ -32,6 +32,8 @@ void ClearBackground::getObjectImage(Mat image, Mat matte, std::string path)
 		}
 	}
 
+	imwrite(path, objectImage);
+
 	//change image size
 	objectImage = Helper::changeImageSize(MIN_ROWS_IMAGE, MIN_COLS_IMAGE, objectImage, path, FLAG_BACKGROUND);
 }

@@ -79,16 +79,20 @@ int main(int argc, char** argv)
 
 			//get image
 			objectImage = imread(imagePath);
+			var = Helper::checkImage(objectImage, imagePath); //
+			if (var)
+			{
+				//get matte
+				object.setImage(objectImage);
+				object.getImageChannels();
+				matte = object.getObjectMatte();
+				matte = object.reverseMatte();
+				imwrite("matte2.png", matte);
+
+				//get object image	
+				clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
+			}
 			objectImage = Helper::checkImage(objectImage, imagePath);
-
-			//get matte
-			object.setImage(objectImage);
-			object.getImageChannels();
-			matte = object.getObjectMatte();
-			matte = object.reverseMatte();
-
-			//get object image	
-			clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
 
 			std::cout << "101 ok" << std::endl;
 			break;
