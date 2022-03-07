@@ -388,7 +388,6 @@ def decryptionForEachPart(key, HexArray):
             matrix[row][column] = hex(HexArray[i])
             i += 1
             
-    #print(key)
     matrix = addRoundKey(copy.deepcopy(keys[ROUNDS+1]), matrix) 	
     for round in range(ROUNDS):
         matrix = inverseShiftRows(matrix) 
@@ -475,7 +474,6 @@ Input: key array, hex array
 Output: decryted matrix
 '''
 def decryption(key, HexArray):            
-    textArr = []
     finalEncryption = []
     tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i = 0
