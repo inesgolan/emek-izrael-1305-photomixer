@@ -533,33 +533,33 @@ def main():
         j += 1
         tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             
-    # matrix2 = decryption(keys[ROUNDS+1], toDecryption)
-    # print("decryption: ", matrix2)
-    # print(" ")
+    matrix2 = decryption(keys[ROUNDS+1], toDecryption)
+    print("decryption: ", matrix2)
+    print(" ")
 	
-    # i = 0
-    # k = 0
-    # j = 0
-	
-	
-	# # back to the picture
-    # hex_to_baseD = []
-    # for i in range(len(matrix2)):
-        # for j in range(16):
-            # hex_to_baseD.insert(k, matrix2[i][j])
-            # k += 1
-	
-    # base_to_numD = []
-	
-    # for i in range(len(hex_to_baseD)-1):
-        # base_to_numD.insert(i, int(hex_to_baseD[i], 16))
-	
-    # byteArrayD = bytearray(base_to_numD) # this is the byte array of the decrypted image
+    i = 0
+    k = 0
+    j = 0
 	
 	
-    fin = open("images/b.jpg", 'wb')
+	# back to the picture
+    hex_to_baseD = []
+    for i in range(len(matrix2)):
+        for j in range(16):
+            hex_to_baseD.insert(k, matrix2[i][j])
+            k += 1
+	
+    base_to_numD = []
+	
+    for i in range(len(hex_to_baseD)-1):
+        base_to_numD.insert(i, int(hex_to_baseD[i], 16))
+	
+    byteArrayD = bytearray(base_to_numD) # this is the byte array of the decrypted image
+	
+	
+    fin = open(sys.argv[1], 'wb')
      
-    fin.write(byteArrayE)
+    fin.write(byteArrayD)
     fin.close()
 	
 	 

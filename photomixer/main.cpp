@@ -9,9 +9,13 @@
 #define RESIZE_SMALLER 400
 #define LOGIN 500
 #define REGISTER 600
+#define ENCRYPTION 700
+#define DECRYPTION 800
 
 #define CODE 1
 #define OBJECT_PATH 2
+#define IMAGE_PATH 2
+#define KEY 3
 #define SAVE_OBJECT_PATH 3
 #define BACKGROUND_PATH 3
 #define SAVE_IMAGE_PATH 4
@@ -27,7 +31,7 @@
 
 int main(int argc, char** argv)
 {
-	std::string imagePath = "", backgroundPath = "", savePath = "";
+	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "";
 	Mat objectImage, backgroundImage, matte;
 	ObjectDetection object;
 	ClearBackground clearBackground;
@@ -36,13 +40,6 @@ int main(int argc, char** argv)
 
 	DataBase db;
 	bool returnVal = false;
-
-	//run python files for the encryprion
-	std::string command = "python encryption.py ";
-	std::string key = " wertyuioasdfzxcv";
-	std::string fileName = "images/b.jpg";
-	system((command+fileName+key).c_str());
-	getchar();
 
 	if (argc > 1)
 	{
@@ -140,7 +137,20 @@ int main(int argc, char** argv)
 
 			std::cout << "600 ok" << std::endl;
 			break;
+		case ENCRYPTION:
+			fileName = "encryption.py";
+			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[KEY]).c_str());
+			getchar();
 
+			std::cout << "700 ok" << std::endl;
+			break;
+		case DECRYPTION:
+			fileName = "decryption.py";
+			system((command + fileName + " " + argv[IMAGE_PATH]).c_str());
+			getchar();
+
+			std::cout << "800 ok" << std::endl;
+			break;
 
 		default:
 			std::cout << "error" << std::endl;
