@@ -1,7 +1,11 @@
-#include "C:\python36\include\Python.h"
 #include "ObjectOnBackground.h"
 #include "ObjectDetection.h"
 #include "DataBase.h"
+
+#include <iostream>
+#include <stdexcept>
+#include <stdio.h>
+#include <string>
 
 #define OBJECT_DETECTION 100
 #define REVERSE_MATTE 101
@@ -26,6 +30,8 @@
 #define ADD 20
 #define REMOVE -20
 
+std::string exec(const char* cmd);
+
 int main(int argc, char** argv)
 {
 	std::string imagePath = "", backgroundPath = "", savePath = "";
@@ -39,14 +45,16 @@ int main(int argc, char** argv)
 	bool returnVal = false;
 
 	//encryprion:
-	int ret;
-	std::string fileName = "./python encryption.py ";
-	std::string parameters = "";
-	std::string temp = fileName + parameters;
+	//int ret;
+	////std::string fileName = "python encryption.py ";
+	//std::string fileName = "cmd /c";
+	//std::string parameters = "";
+	//std::string temp = fileName + parameters;
 
-	ret = system(temp.c_str());
+	//int ret = system("C:\\Windows\\System32\\cmd.exe");
+	std::string result = exec("python encryption.py");
 
-	std::cout << "ret/cpp = " << ret << std::endl;
+	std::cout << "check = " << result << std::endl;
 	getchar();
 
 	if (argc > 1)
@@ -154,4 +162,28 @@ int main(int argc, char** argv)
 	}
 
 	return 0;
+}
+
+std::string exec(const char* cmd) 
+{
+	char buffer[128];
+	std::string result = "";
+	FILE* pipe = _popen(cmd, "r");
+
+	if (!pipe)
+		throw std::runtime_error("popen() failed!");
+
+	try
+	{
+		while (fgets(buffer, sizeof buffer, pipe) != NULL)
+			result += buffer;
+	}
+	catch (...) 
+	{
+		_pclose(pipe);
+		throw;
+	}
+
+	_pclose(pipe);
+	return result;
 }
