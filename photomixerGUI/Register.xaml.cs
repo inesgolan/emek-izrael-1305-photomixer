@@ -31,6 +31,8 @@ namespace photomixerGUI
 
         private void signUp_Button(object sender, RoutedEventArgs e)
         {
+            ProjectVariables.key = checkKey(Key.Text);
+
             Communicator.registerMsg(Username.Text, Password.Password, Mail.Text);
 
             string text;
@@ -50,6 +52,20 @@ namespace photomixerGUI
                 goToMainWindow.Show();
                 Close();
             }
+        }
+
+        //this function check the key length
+        private string checkKey(string key)
+        {
+            string newKey = key;
+
+            while (newKey.Length != 16)
+            {
+                ErrorMsg.Text = "please enter 16 chars";
+                Key.Clear();
+            }
+
+            return newKey;
         }
     }
 }
