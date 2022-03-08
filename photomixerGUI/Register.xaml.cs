@@ -45,6 +45,7 @@ namespace photomixerGUI
                 Username.Clear();
                 Password.Clear();
                 Mail.Clear();
+                Key.Clear();
             }
             else
             {

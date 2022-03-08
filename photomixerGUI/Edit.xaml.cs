@@ -127,7 +127,7 @@ namespace photomixerGUI
            {
                Close();
                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);             
-               Communicator.encryptionMsg(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], ProjectVariables.key);
+               Communicator.encryptionMsg(@ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], ProjectVariables.key);
            }
 
         }

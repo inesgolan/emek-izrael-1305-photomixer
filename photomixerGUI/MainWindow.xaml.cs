@@ -36,7 +36,7 @@ namespace photomixerGUI
                 string[] images = Directory.GetFiles(ProjectVariables.username);
                 foreach (string image in images)
                 {
-                    Communicator.decryptionMsg(image); 
+                    Communicator.decryptionMsg(@image); 
                 }
 
                 Menu gotoMenu = new Menu();
