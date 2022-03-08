@@ -9,9 +9,13 @@
 #define RESIZE_SMALLER 400
 #define LOGIN 500
 #define REGISTER 600
+#define ENCRYPTION 700
+#define DECRYPTION 800
 
 #define CODE 1
 #define OBJECT_PATH 2
+#define IMAGE_PATH 2
+#define KEY 3
 #define SAVE_OBJECT_PATH 3
 #define BACKGROUND_PATH 3
 #define SAVE_IMAGE_PATH 4
@@ -25,18 +29,9 @@
 #define ADD 20
 #define REMOVE -20
 
-/*
-client messages:
-100 - object path - save path
-101 - object path - save path
-200 - object path - background path - save path - x location - y location
-for example:
-photomixer.exe 100 images/flower.jpg images/nene.png
-photomixer.exe 200 images/nene.png images/background.jpg images/image.png 100 100
-*/
 int main(int argc, char** argv)
 {
-	std::string imagePath = "", backgroundPath = "", savePath = "";
+	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "";
 	Mat objectImage, backgroundImage, matte;
 	ObjectDetection object;
 	ClearBackground clearBackground;
@@ -57,7 +52,7 @@ int main(int argc, char** argv)
 
 			//get image
 			objectImage = imread(imagePath);
-			var = Helper::checkImage(objectImage, imagePath); //
+			var = Helper::checkImage(objectImage, imagePath); 
 			if (var)
 			{
 				//get matte
@@ -142,7 +137,20 @@ int main(int argc, char** argv)
 
 			std::cout << "600 ok" << std::endl;
 			break;
+		case ENCRYPTION:
+			fileName = "encryption.py";
+			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[KEY]).c_str());
+			getchar();
 
+			std::cout << "700 ok" << std::endl;
+			break;
+		case DECRYPTION:
+			fileName = "decryption.py";
+			system((command + fileName + " " + argv[IMAGE_PATH]).c_str());
+			getchar();
+
+			std::cout << "800 ok" << std::endl;
+			break;
 
 		default:
 			std::cout << "error" << std::endl;

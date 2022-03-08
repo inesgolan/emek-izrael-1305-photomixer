@@ -1,4 +1,4 @@
-#gets the image name
+import sys
 from copy import copy
 import binascii
 import base64
@@ -490,8 +490,8 @@ def main():
     i = 0
     k = 0
     j = 0
-    key = "wertyuioasdfzxcv"
-    fin = open("images/b.jpg", 'rb')
+    key = sys.argv[2]
+    fin = open(sys.argv[1], 'rb')
     image = fin.read()
     fin.close()
      
@@ -557,7 +557,7 @@ def main():
     byteArrayD = bytearray(base_to_numD) # this is the byte array of the decrypted image
 	
 	
-    fin = open("images/b.jpg", 'wb')
+    fin = open(sys.argv[1], 'wb')
      
     fin.write(byteArrayD)
     fin.close()
