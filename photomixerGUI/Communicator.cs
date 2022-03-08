@@ -107,5 +107,18 @@ namespace photomixerGUI
             proc.WaitForExit();
         }
 
+        /*
+        This function will send decryption message to the server
+        Input: image path
+        Output: none
+        */
+        public static void decryptionMsg(string imagePath)
+        {
+            string exe_params = "800 " + imagePath;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
+        }
+
     }
 }
