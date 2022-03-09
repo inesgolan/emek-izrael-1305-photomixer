@@ -164,6 +164,8 @@ int main(int argc, char** argv)
 			imagePath = argv[IMAGE_PATH];
 			mail = db.getUserMail(argv[USERS]);
 
+			std::cout << "imagePath: " << imagePath << " mail: " << mail;
+
 			system((command + fileName + " " + argv[IMAGE_PATH] + " " + mail + " 1").c_str());
 			getchar();
 

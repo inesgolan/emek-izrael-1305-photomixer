@@ -28,7 +28,9 @@ namespace photomixerGUI
 
         private void sendMail(object sender, RoutedEventArgs e)
         {
-            Communicator.sendImageMail(@ProjectVariables.backgroundPath, ProjectVariables.username);
+            string[] splitPath = ProjectVariables.backgroundPath.Split("\\");
+            string path = splitPath[splitPath.Length-2] + "\\" +splitPath[splitPath.Length - 1];
+            Communicator.sendImageMail(path, ProjectVariables.username);
         }
 
         private void goBack(object sender, RoutedEventArgs e)
