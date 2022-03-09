@@ -29,7 +29,15 @@ namespace photomixerGUI
             else
             {
                 ProjectVariables.username = Username.Text;
+                
                 Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
+
+                //decrypt the user's images
+                string[] images = Directory.GetFiles(ProjectVariables.username);
+                foreach (string image in images)
+                {
+                    Communicator.decryptionMsg(@image); 
+                }
 
                 Menu gotoMenu = new Menu();
                 gotoMenu.Show();

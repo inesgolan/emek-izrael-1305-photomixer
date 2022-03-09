@@ -137,6 +137,7 @@ int main(int argc, char** argv)
 
 			std::cout << "600 ok" << std::endl;
 			break;
+
 		case ENCRYPTION:
 			fileName = "encryption.py";
 			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[KEY]).c_str());
@@ -144,6 +145,7 @@ int main(int argc, char** argv)
 
 			std::cout << "700 ok" << std::endl;
 			break;
+
 		case DECRYPTION:
 			fileName = "decryption.py";
 			system((command + fileName + " " + argv[IMAGE_PATH]).c_str());

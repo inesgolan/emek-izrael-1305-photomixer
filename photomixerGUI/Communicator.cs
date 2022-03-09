@@ -83,12 +83,38 @@ namespace photomixerGUI
 
         /*
         This function will send register message to the server
-        Input: username, password
+        Input: username, password, mail
         Output: none
         */
         public static void registerMsg(string username, string password, string mail)
         {
             string exe_params = "600 " + username + " " + password + " " + mail;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
+        }
+
+        /*
+        This function will send encryption message to the server
+        Input: image path, key
+        Output: none
+        */
+        public static void encryptionMsg(string imagePath, string key)
+        {
+            string exe_params = "700 " + imagePath + " " + key;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
+        }
+
+        /*
+        This function will send decryption message to the server
+        Input: image path
+        Output: none
+        */
+        public static void decryptionMsg(string imagePath)
+        {
+            string exe_params = "800 " + imagePath;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();

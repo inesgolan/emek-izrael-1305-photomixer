@@ -21,6 +21,7 @@ namespace photomixerGUI
 
         public static string objectPath;
         public static string backgroundPath;
+        public static string key;
 
         public static Communicator communicator = new Communicator();
 
