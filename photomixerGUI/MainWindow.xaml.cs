@@ -36,7 +36,7 @@ namespace photomixerGUI
                 string[] images = Directory.GetFiles(ProjectVariables.username);
                 foreach (string image in images)
                 {
-                    Communicator.decryptionMsg(@image); 
+                    //Communicator.decryptionMsg(@image); 
                 }
 
                 Menu gotoMenu = new Menu();
@@ -60,6 +60,11 @@ namespace photomixerGUI
             Menu gotoMenu = new Menu();
             gotoMenu.Show();
             Close();
+        }
+
+        private void forgotPassword(object sender, RoutedEventArgs e)
+        {
+            Communicator.sendForgetPasswordMail(Username.Text);
         }
     }
 }

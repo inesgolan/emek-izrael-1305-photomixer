@@ -53,7 +53,6 @@ def SendPorgetPasswordMail(toMail, password):
 
 # 1-image, 2-forget password
 def main():
-
     if(int(sys.argv[3]) == 1): # image
         SendPictureInMail(sys.argv[1], sys.argv[2])
     if(int(sys.argv[3]) == 2): # forgot password

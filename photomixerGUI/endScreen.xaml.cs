@@ -28,7 +28,7 @@ namespace photomixerGUI
 
         private void sendMail(object sender, RoutedEventArgs e)
         {
-            Communicator.sendImageMail(ProjectVariables.backgroundPath, );
+            Communicator.sendImageMail(@ProjectVariables.backgroundPath, ProjectVariables.username);
         }
 
         private void goBack(object sender, RoutedEventArgs e)

@@ -101,7 +101,7 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 
 	//add the user to the users
 	errorMsg = nullptr;
-	query = "INSERT INTO Users (Name, Password, Email) VALUES (\'" + name + "\', \'" + password + "\', \'" + mail + "\');";
+	query = "INSERT INTO Users (Name, Password, Email, AES Key, Keys, Pixels) VALUES (\'" + name + "\', \'" + password + "\', \'" + mail + "\', \'" + " " + "\', \'" + " " + "\');";
 	userResult = sqlite3_exec(this->_db, query.c_str(), nullptr, nullptr, &errorMsg);
 
 	if (userResult == SQLITE_OK)
@@ -117,5 +117,37 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 		mtx.unlock();
 	}
 	return (userResult == SQLITE_OK);
+}
+
+bool DataBase::addKeys()
+{
+	return false;
+}
+
+bool DataBase::addImagePixels()
+{
+	return false;
+}
+
+std::string DataBase::getUserMail(std::string username)
+{
+	std::string mail = "";
+	char* errorMsg = nullptr;
+
+	std::string query = "SELECT Email FROM Users WHERE Name = \'" + username + "'\;";
+	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &mail, &errorMsg);
+
+	return mail;
+}
+
+std::string DataBase::getUserPassword(std::string username)
+{
+	std::string password = "";
+	char* errorMsg = nullptr;
+
+	std::string query = "SELECT Password FROM Users WHERE Name = \'" + username + "'\;";
+	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &password, &errorMsg);
+
+	return password;
 }
 
