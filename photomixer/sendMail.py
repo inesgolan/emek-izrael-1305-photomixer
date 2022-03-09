@@ -5,6 +5,9 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 
+PHOTOMIXERuserName = 'm2k21ivs@gmail.com'
+PHOTOMIXERpassword = 'maabada123'
+
 def SendPictureInMail(ImgFileName, toMail):
 
     with open(ImgFileName, 'rb') as f:
@@ -12,7 +15,7 @@ def SendPictureInMail(ImgFileName, toMail):
 
     msg = MIMEMultipart()
     msg['Subject'] = 'Your picture - PHOTOMIXER'
-    msg['From'] = 'm2k21ivs@gmail.com'
+    msg['From'] = PHOTOMIXERuserName
     msg['To'] = str(toMail)
 
     text = MIMEText("test")
@@ -24,8 +27,8 @@ def SendPictureInMail(ImgFileName, toMail):
     s.ehlo()
     s.starttls()
     s.ehlo()
-    s.login('m2k21ivs@gmail.com', 'maabada123')
-    s.sendmail('m2k21ivs@gmail.com', str(toMail), msg.as_string())
+    s.login(PHOTOMIXERuserName, PHOTOMIXERpassword)
+    s.sendmail(PHOTOMIXERuserName, str(toMail), msg.as_string())
     s.quit()
 
     print("ok")
@@ -34,7 +37,7 @@ def SendPorgetPasswordMail(toMail, password):
 
     msg = MIMEMultipart()
     msg['Subject'] = 'Your password - PHOTOMIXER'
-    msg['From'] = 'm2k21ivs@gmail.com'
+    msg['From'] = PHOTOMIXERuserName
     msg['To'] = str(toMail)
 
     text = MIMEText("Hey friend! This is a mail from photomixer:) . Here is your password: " + password)
@@ -44,8 +47,8 @@ def SendPorgetPasswordMail(toMail, password):
     s.ehlo()
     s.starttls()
     s.ehlo()
-    s.login('m2k21ivs@gmail.com', 'maabada123')
-    s.sendmail('m2k21ivs@gmail.com', str(toMail), msg.as_string())
+    s.login(PHOTOMIXERuserName, PHOTOMIXERpassword)
+    s.sendmail(PHOTOMIXERuserName, str(toMail), msg.as_string())
     s.quit()
 
     print("ok")   
