@@ -5,29 +5,14 @@ from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 
 def SendMail(ImgFileName):
-    with open(ImgFileName, 'rb') as f:
-        img_data = f.read()
-
-    msg = MIMEMultipart()
-    msg['Subject'] = 'my picturee'
-    msg['From'] = 'shellygoman123@gmail.com'
-    msg['To'] = 'noagolan1212@עmail.com'
-
-    text = MIMEText("test")
-    msg.attach(text)
-    image = MIMEImage(img_data, name=os.path.basename(ImgFileName))
-    msg.attach(image)
-    
-    try:
-        s = smtplib.SMTP('localhost') # check
-        s.ehlo()
-        s.starttls()
-        s.ehlo()
-        s.login("shellygoman123@gmail", " password") # 
-        s.sendmail(From, To, msg.as_string())
-        s.quit()
-    except SMTPException:
-       print "Error: unable to send email"
 	
+    server = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    server.ehlo()
+    server.starttls()
+    server.ehlo()
+    server.login('m2k21ivs@gmail.com', 'maabada123')
+    server.sendmail('m2k21ivs@gmail.com', 'shellygoman123@gmail.com', 'hey')
+    server.quit()
+    print("ok")
 	
 SendMail("images/b.jpg")
