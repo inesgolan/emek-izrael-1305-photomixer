@@ -39,6 +39,10 @@
         <Label Grid.Row="2" Content="Enter password:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <PasswordBox Grid.Row="2" Grid.Column="1" Name="Password" Width="250" Height="32"/>
 
+        <TextBlock HorizontalAlignment="Left" Margin="153,67,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2">  
+                 <Hyperlink Click="forgotPassword" FontSize="14">Forgot password</Hyperlink>
+        </TextBlock>
+
         <Button FontSize="15" Content="Login" Foreground="Black" FontWeight="Bold" Click="login" Grid.ColumnSpan="2" Margin="350,23,350,35" Grid.Row="3"/>
 
         <TextBlock Grid.Row="3" x:Name ="ErrorMsg" OpacityMask="Crimson" Foreground="#FFE5572C" Margin="55,29,55,29" />

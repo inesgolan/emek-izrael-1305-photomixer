@@ -125,10 +125,14 @@ namespace photomixerGUI
            MessageBoxResult result = MessageBox.Show(message, caption, buttons);
            if (result == MessageBoxResult.Yes)
            {
-               Close();
-               File.Delete(ProjectVariables.OUTPUT_FILE_NAME);             
-               Communicator.encryptionMsg(@ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], ProjectVariables.key);
-           }
+               File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
+
+                //Communicator.encryptionMsg(@ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], ProjectVariables.key);
+
+                endScreen end = new endScreen();
+                end.Show();
+                Close();
+            }
 
         }
 

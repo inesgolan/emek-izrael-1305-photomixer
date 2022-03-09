@@ -18,7 +18,7 @@ def SendPictureInMail(ImgFileName, toMail):
     msg['From'] = PHOTOMIXERuserName
     msg['To'] = str(toMail)
 
-    text = MIMEText("test")
+    text = MIMEText("Here is your edited image. Hope you'll enjoy it! PHOTOMIXER :)")
     msg.attach(text)
     image = MIMEImage(img_data, name=os.path.basename(ImgFileName))
     msg.attach(image)
@@ -31,7 +31,6 @@ def SendPictureInMail(ImgFileName, toMail):
     s.sendmail(PHOTOMIXERuserName, str(toMail), msg.as_string())
     s.quit()
 
-    print("ok")
 	
 def SendPorgetPasswordMail(toMail, password):
 
@@ -49,19 +48,11 @@ def SendPorgetPasswordMail(toMail, password):
     s.ehlo()
     s.login(PHOTOMIXERuserName, PHOTOMIXERpassword)
     s.sendmail(PHOTOMIXERuserName, str(toMail), msg.as_string())
-    s.quit()
+    s.quit()  
 
-    print("ok")   
-
-	
-# none imagePath toMail 
-# images/b.jpg
-#shellygoman123@gmail.com
-# 1/ 2
 
 # 1-image, 2-forget password
 def main():
-
     if(int(sys.argv[3]) == 1): # image
         SendPictureInMail(sys.argv[1], sys.argv[2])
     if(int(sys.argv[3]) == 2): # forgot password

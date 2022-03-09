@@ -11,11 +11,16 @@
 #define REGISTER 600
 #define ENCRYPTION 700
 #define DECRYPTION 800
+#define SEND_IMAGE_MAIL 900
+#define SEND_FORGETPASSWORD_MAIL 901
 
 #define CODE 1
 #define OBJECT_PATH 2
 #define IMAGE_PATH 2
+#define USER 2
+#define PASSWORD 3
 #define KEY 3
+#define USERS 3
 #define SAVE_OBJECT_PATH 3
 #define BACKGROUND_PATH 3
 #define SAVE_IMAGE_PATH 4
@@ -31,7 +36,7 @@
 
 int main(int argc, char** argv)
 {
-	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "";
+	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "", mail = "", password ="";
 	Mat objectImage, backgroundImage, matte;
 	ObjectDetection object;
 	ClearBackground clearBackground;
@@ -147,11 +152,35 @@ int main(int argc, char** argv)
 			break;
 
 		case DECRYPTION:
-			fileName = "decryption.py";
+			fileName = "encryption.py";
 			system((command + fileName + " " + argv[IMAGE_PATH]).c_str());
 			getchar();
 
 			std::cout << "800 ok" << std::endl;
+			break;
+
+		case SEND_IMAGE_MAIL:
+			fileName = "sendMail.py";
+			imagePath = argv[IMAGE_PATH];
+			mail = db.getUserMail(argv[USERS]);
+
+			std::cout << "imagePath: " << imagePath << " mail: " << mail;
+
+			system((command + fileName + " " + argv[IMAGE_PATH] + " " + mail + " 1").c_str());
+			getchar();
+
+			std::cout << "900 ok" << std::endl;
+			break;
+
+		case SEND_FORGETPASSWORD_MAIL:
+			fileName = "sendMail.py";
+			mail = db.getUserMail(argv[USER]);
+			password = db.getUserPassword(argv[USER]);
+
+			system((command + fileName + " " + mail + " " + password + " 2").c_str());
+			getchar();
+
+			std::cout << "901 ok" << std::endl;
 			break;
 
 		default:
