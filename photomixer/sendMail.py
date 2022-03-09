@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 
-def SendMail(ImgFileName, toMail):
+def SendPictureInMail(ImgFileName, toMail):
 
     with open(ImgFileName, 'rb') as f:
         img_data = f.read()
@@ -30,12 +30,39 @@ def SendMail(ImgFileName, toMail):
 
     print("ok")
 	
+def SendPorgetPasswordMail(toMail, password):
+
+    msg = MIMEMultipart()
+    msg['Subject'] = 'Your password - PHOTOMIXER'
+    msg['From'] = 'm2k21ivs@gmail.com'
+    msg['To'] = str(toMail)
+
+    text = MIMEText("Hey friend! This is a mail from photomixer:) . Here is your password: " + password)
+    msg.attach(text)
+
+    s = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    s.ehlo()
+    s.starttls()
+    s.ehlo()
+    s.login('m2k21ivs@gmail.com', 'maabada123')
+    s.sendmail('m2k21ivs@gmail.com', str(toMail), msg.as_string())
+    s.quit()
+
+    print("ok")   
+
+	
 # none imagePath toMail 
 # images/b.jpg
 #shellygoman123@gmail.com
+# 1/ 2
+
+# 1-image, 2-forget password
 def main():
-	
-    SendMail(sys.argv[1], sys.argv[2])
+
+    if(int(sys.argv[3]) == 1): # image
+        SendPictureInMail(sys.argv[1], sys.argv[2])
+    if(int(sys.argv[3]) == 2): # forgot password
+        SendPorgetPasswordMail(sys.argv[1], sys.argv[2])
 	
 if __name__ == "__main__":
     main()
