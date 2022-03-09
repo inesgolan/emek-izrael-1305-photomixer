@@ -83,7 +83,7 @@ namespace photomixerGUI
 
         /*
         This function will send register message to the server
-        Input: username, password
+        Input: username, password, mail
         Output: none
         */
         public static void registerMsg(string username, string password, string mail)
@@ -94,17 +94,39 @@ namespace photomixerGUI
             proc.WaitForExit();
         }
 
+<<<<<<< HEAD
         public static void sendImageMail(string ImgFileName, string toMail)
         {
             string exe_params = "900 " + ImgFileName + " " + toMail;
+=======
+        /*
+        This function will send encryption message to the server
+        Input: image path, key
+        Output: none
+        */
+        public static void encryptionMsg(string imagePath, string key)
+        {
+            string exe_params = "700 " + imagePath + " " + key;
+>>>>>>> 7e84c7e5b493446d602f3b8b11d962ca43d8bf3e
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();
         }
 
+<<<<<<< HEAD
         public static void sendForgetPasswordMail(string toMail, string password)
         {
             string exe_params = "901 " + toMail + " " + password;
+=======
+        /*
+        This function will send decryption message to the server
+        Input: image path
+        Output: none
+        */
+        public static void decryptionMsg(string imagePath)
+        {
+            string exe_params = "800 " + imagePath;
+>>>>>>> 7e84c7e5b493446d602f3b8b11d962ca43d8bf3e
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();

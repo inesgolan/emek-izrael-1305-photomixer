@@ -4,6 +4,11 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin;C:\python36
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+<<<<<<< HEAD
     <LocalDebuggerCommandArguments>900 images/dino.jpg noagolan1212@gmail.com</LocalDebuggerCommandArguments>
+=======
+    <LocalDebuggerCommandArguments>
+    </LocalDebuggerCommandArguments>
+>>>>>>> 7e84c7e5b493446d602f3b8b11d962ca43d8bf3e
   </PropertyGroup>
 </Project>
