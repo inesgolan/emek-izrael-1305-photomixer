@@ -11,6 +11,8 @@
 #define REGISTER 600
 #define ENCRYPTION 700
 #define DECRYPTION 800
+#define SEND_IMAGE_MAIL 900
+#define SEND_FORGETPASSWORD_MAIL 901
 
 #define CODE 1
 #define OBJECT_PATH 2
@@ -137,6 +139,7 @@ int main(int argc, char** argv)
 
 			std::cout << "600 ok" << std::endl;
 			break;
+
 		case ENCRYPTION:
 			fileName = "encryption.py";
 			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[KEY]).c_str());
@@ -144,12 +147,29 @@ int main(int argc, char** argv)
 
 			std::cout << "700 ok" << std::endl;
 			break;
+
 		case DECRYPTION:
 			fileName = "decryption.py";
 			system((command + fileName + " " + argv[IMAGE_PATH]).c_str());
 			getchar();
 
 			std::cout << "800 ok" << std::endl;
+			break;
+
+		case SEND_IMAGE_MAIL:
+			fileName = "sendMail.py";
+			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[3] + " 1").c_str());
+			getchar();
+
+			std::cout << "900 ok" << std::endl;
+			break;
+
+		case SEND_FORGETPASSWORD_MAIL:
+			fileName = "sendMail.py";
+			system((command + fileName + " " + argv[2] + " " + argv[3] + " 2").c_str());
+			getchar();
+
+			std::cout << "901 ok" << std::endl;
 			break;
 
 		default:
