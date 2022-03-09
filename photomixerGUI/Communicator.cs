@@ -94,5 +94,21 @@ namespace photomixerGUI
             proc.WaitForExit();
         }
 
+        public static void sendImageMail(string ImgFileName, string toMail)
+        {
+            string exe_params = "900 " + ImgFileName + " " + toMail;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
+        }
+
+        public static void sendForgetPasswordMail(string toMail, string password)
+        {
+            string exe_params = "901 " + toMail + " " + password;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
+        }
+
     }
 }

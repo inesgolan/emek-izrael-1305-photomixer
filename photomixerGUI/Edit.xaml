@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="Edit" Height="450" Width="800">
+        Title="Edit" Height="600" Width="800">
 
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
@@ -31,8 +31,8 @@
 
         <Button Grid.Row="1" FontSize="15" Content="Done" FontWeight="Bold" Click="deleteImages" Margin="24,49,24,5" Grid.Column="1"/>
 
-        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,42" Click="returnToLastEdit"/>
-        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,42" Click="goToNextEdit"/>
+        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,73" Click="returnToLastEdit"/>
+        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,73" Click="goToNextEdit"/>
 
     </Grid>
 </Window>

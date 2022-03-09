@@ -17,7 +17,10 @@
 #define CODE 1
 #define OBJECT_PATH 2
 #define IMAGE_PATH 2
+#define USER_MAIL 2
+#define PASSWORD 3
 #define KEY 3
+#define USERS_MAIL 3
 #define SAVE_OBJECT_PATH 3
 #define BACKGROUND_PATH 3
 #define SAVE_IMAGE_PATH 4
@@ -158,7 +161,7 @@ int main(int argc, char** argv)
 
 		case SEND_IMAGE_MAIL:
 			fileName = "sendMail.py";
-			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[3] + " 1").c_str());
+			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[USERS_MAIL] + " 1").c_str());
 			getchar();
 
 			std::cout << "900 ok" << std::endl;
@@ -166,7 +169,7 @@ int main(int argc, char** argv)
 
 		case SEND_FORGETPASSWORD_MAIL:
 			fileName = "sendMail.py";
-			system((command + fileName + " " + argv[2] + " " + argv[3] + " 2").c_str());
+			system((command + fileName + " " + argv[USER_MAIL] + " " + argv[PASSWORD] + " 2").c_str());
 			getchar();
 
 			std::cout << "901 ok" << std::endl;

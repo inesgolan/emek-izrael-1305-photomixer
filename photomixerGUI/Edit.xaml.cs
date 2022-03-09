@@ -125,9 +125,12 @@ namespace photomixerGUI
            MessageBoxResult result = MessageBox.Show(message, caption, buttons);
            if (result == MessageBoxResult.Yes)
            {
-               Close();
                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
-           }
+
+                endScreen end = new endScreen();
+                end.Show();
+                Close();
+            }
 
         }
 
