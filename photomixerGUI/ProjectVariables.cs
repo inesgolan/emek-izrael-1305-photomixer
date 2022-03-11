@@ -25,9 +25,9 @@ namespace photomixerGUI
 
         public static Communicator communicator = new Communicator();
 
-        public static int countOfEdits;
+        public static int countOfEdits = 0;
         public static string savePath;
-        public static int countOfClicks;
+        public static int countOfClicks = 0;
         public static int index;
     }
 }

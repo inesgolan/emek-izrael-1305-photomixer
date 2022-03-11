@@ -32,11 +32,17 @@ namespace photomixerGUI
                 
                 Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
 
+                //check if there are encrypted images
                 //decrypt the user's images
-                string[] images = Directory.GetFiles(ProjectVariables.username);
-                foreach (string image in images)
+                if (ProjectVariables.countOfEdits > 0)
                 {
-                    //Communicator.decryptionMsg(@image); 
+                    string[] images = Directory.GetFiles(ProjectVariables.username);
+                    foreach (string image in images)
+                    {
+                        string[] splitPath = image.Split("\\");
+                        string path = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
+                        Communicator.decryptionMsg(path, ProjectVariables.username);
+                    }
                 }
 
                 Menu gotoMenu = new Menu();

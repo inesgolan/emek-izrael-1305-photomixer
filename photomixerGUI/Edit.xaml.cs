@@ -127,7 +127,9 @@ namespace photomixerGUI
            {
                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
 
-                //Communicator.encryptionMsg(@ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], ProjectVariables.key);
+                string[] splitPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter].Split("\\");
+                string path = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
+                Communicator.encryptionMsg(path, ProjectVariables.username);
 
                 endScreen end = new endScreen();
                 end.Show();

@@ -36,7 +36,7 @@
 
 int main(int argc, char** argv)
 {
-	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "", mail = "", password ="";
+	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "", mail = "", password ="", key = "";
 	Mat objectImage, backgroundImage, matte;
 	ObjectDetection object;
 	ClearBackground clearBackground;
@@ -138,14 +138,15 @@ int main(int argc, char** argv)
 			break;
 
 		case REGISTER:
-			returnVal = db.addNewUser(argv[USERNAME], argv[PASSWORD], argv[MAIL]);
+			returnVal = db.addNewUser(argv[USERNAME], argv[PASSWORD], argv[MAIL], argv[5]);
 
 			std::cout << "600 ok" << std::endl;
 			break;
 
 		case ENCRYPTION:
 			fileName = "encryption.py";
-			system((command + fileName + " " + argv[2] + " " + argv[3] + " " + argv[4]).c_str()); //key path username
+			key = db.getUserKey(argv[3]);
+			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
 			getchar();
 
 			std::cout << "700 ok" << std::endl;
@@ -153,7 +154,8 @@ int main(int argc, char** argv)
 
 		case DECRYPTION:
 			fileName = "decryption.py";
-			system((command + fileName + " " + argv[2] + " " + argv[3] + " " + argv[4]).c_str()); //key path username
+			key = db.getUserKey(argv[3]);
+			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
 			getchar();
 
 			std::cout << "800 ok" << std::endl;

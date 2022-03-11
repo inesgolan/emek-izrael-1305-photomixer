@@ -86,7 +86,7 @@ bool DataBase::doesPasswordMatch(std::string name, std::string password)
 }
 
 // add new user to the DB
-bool DataBase::addNewUser(std::string name, std::string password, std::string mail)
+bool DataBase::addNewUser(std::string name, std::string password, std::string mail, std::string key)
 {
 	char* errorMsg = nullptr;
 	std::string query;
@@ -101,7 +101,7 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 
 	//add the user to the users
 	errorMsg = nullptr;
-	query = "INSERT INTO Users (Name, Password, Email) VALUES (\'" + name + "\', \'" + password + "\', \'" + mail + "\');";
+	query = "INSERT INTO Users (Name, Password, Email, Key) VALUES (\'" + name + "\', \'" + password + "\', \'" + mail + "\', \'" + key + "\');";
 	userResult = sqlite3_exec(this->_db, query.c_str(), nullptr, nullptr, &errorMsg);
 
 	if (userResult == SQLITE_OK)
@@ -117,6 +117,17 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 		mtx.unlock();
 	}
 	return (userResult == SQLITE_OK);
+}
+
+std::string DataBase::getUserKey(std::string username)
+{
+	std::string key = "";
+	char* errorMsg = nullptr;
+
+	std::string query = "SELECT Key FROM Users WHERE Name = \'" + username + "'\;";
+	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &key, &errorMsg);
+
+	return key;
 }
 
 std::string DataBase::getUserMail(std::string username)
