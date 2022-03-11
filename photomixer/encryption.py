@@ -342,8 +342,8 @@ def main():
     j = 0
     
     # get the filename
-    filename = str(sys.argv[1])
-    key = str(sys.argv[2]) #python encryption.py wertrwertwertwer images\dog.jpg gg
+    key = str(sys.argv[1])
+    filename = str(sys.argv[2]) #python encryption.py wertrwertwertwer images\dog.jpg gg
     username = str(sys.argv[3]) # wertrwertwertwer
     
     fin = open(filename, 'rb')

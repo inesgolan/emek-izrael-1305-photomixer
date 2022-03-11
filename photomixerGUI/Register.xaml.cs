@@ -33,7 +33,7 @@ namespace photomixerGUI
         {
             ProjectVariables.key = checkKey(keyBotton.Text);
 
-            Communicator.registerMsg(Username.Text, Password.Password, Mail.Text);
+            Communicator.registerMsg(Username.Text, Password.Password, Mail.Text, ProjectVariables.key);
 
             string text;
             File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);

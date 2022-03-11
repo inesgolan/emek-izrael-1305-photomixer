@@ -21,8 +21,6 @@ public:
 	bool doesPasswordMatch(std::string name, std::string password);
 	bool addNewUser(std::string name , std::string password, std::string mail);
 
-	bool addKeys();
-	bool addImagePixels();
 	std::string getUserMail(std::string username);
 	std::string getUserPassword(std::string username);
 };

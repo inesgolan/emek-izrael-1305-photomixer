@@ -145,15 +145,15 @@ int main(int argc, char** argv)
 
 		case ENCRYPTION:
 			fileName = "encryption.py";
-			system((command + fileName + " " + argv[IMAGE_PATH] + " " + argv[KEY]).c_str());
+			system((command + fileName + " " + argv[2] + " " + argv[3] + " " + argv[4]).c_str()); //key path username
 			getchar();
 
 			std::cout << "700 ok" << std::endl;
 			break;
 
 		case DECRYPTION:
-			fileName = "encryption.py";
-			system((command + fileName + " " + argv[IMAGE_PATH]).c_str());
+			fileName = "decryption.py";
+			system((command + fileName + " " + argv[2] + " " + argv[3] + " " + argv[4]).c_str()); //key path username
 			getchar();
 
 			std::cout << "800 ok" << std::endl;

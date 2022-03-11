@@ -4,6 +4,7 @@ from copy import copy
 import binascii
 import base64
 import copy
+import os
 
 SIZE = 4
 BASE = 16
@@ -337,12 +338,7 @@ def main():
     file = open(username + "Matrix.txt", 'r')
     text = str(file.read())
     file.close()
-    #print(text)
-    #text = text[12:-3]
-    #text = bytearray(text) #check
-    #print(text)
-    #encoding = 'utf-8'
-    #natrix = text.decode(encoding)
+    os.remove(username + "Matrix.txt")
     
     text = text[1:-1]
     text = text.split(",")

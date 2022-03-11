@@ -4,6 +4,6 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin;C:\python36
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>900 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixer\images\dino.jpg ines</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>800 wertrwertwertwer images\dog.jpg name</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
