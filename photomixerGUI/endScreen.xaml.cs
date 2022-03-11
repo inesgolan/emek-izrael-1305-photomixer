@@ -35,9 +35,10 @@ namespace photomixerGUI
 
         private void goBack(object sender, RoutedEventArgs e)
         {
-            Menu gotoMenu = new Menu();
-            gotoMenu.Show();
+            loading loadScreen = new loading(true);
+            loadScreen.Show();
             Close();
+
         }
     }
 }

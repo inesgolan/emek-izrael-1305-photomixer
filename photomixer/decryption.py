@@ -1,8 +1,6 @@
 #parameters - file pixels(bytearray), key, filename, username
 import sys
 from copy import copy
-import binascii
-import base64
 import copy
 import os
 
@@ -409,7 +407,7 @@ def main():
 	
     fin = open(filename, 'wb')
     fin.write(byteArrayD)
-    fin.close()
+    fin.close();
 	
 	 
 if __name__ == "__main__":
