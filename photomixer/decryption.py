@@ -324,7 +324,7 @@ def decryption(key, HexArray):
 
 
 def main():
-    print(sys.argv)
+    #print(sys.argv)
 
     # get the encriped pixels and keys and dilename
     global keys
@@ -383,7 +383,7 @@ def main():
     #print(toDecryption)     
     matrix2 = decryption(keys[ROUNDS+1], toDecryption)
     #print("decryption: ", matrix2)
-    print(" ")
+    #print(" ")
 	
     i = 0
     k = 0

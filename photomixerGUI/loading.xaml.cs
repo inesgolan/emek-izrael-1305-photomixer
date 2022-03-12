@@ -22,7 +22,7 @@ namespace photomixerGUI
 
         private void encryption()
         {
-            type.Content = "encrypt";
+            type.Content += "encrypt";
  
             string[] splitPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter].Split("\\");
             string path = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
@@ -35,7 +35,7 @@ namespace photomixerGUI
 
         private void decryption()
         {
-            type.Content = "decrypt";
+            type.Content += "decrypt";
 
             string[] images = Directory.GetFiles(ProjectVariables.username);
             foreach (string image in images)

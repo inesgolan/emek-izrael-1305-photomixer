@@ -31,8 +31,9 @@ namespace photomixerGUI
                 ProjectVariables.username = Username.Text;
                 
                 Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
+                string[] images = Directory.GetFiles(ProjectVariables.username);
 
-                if (ProjectVariables.countOfEdits > 0)
+                if (images.Length > 0)
                 {
                     loading loadScreen = new loading(false);
                     loadScreen.Show();

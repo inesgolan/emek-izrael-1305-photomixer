@@ -9,7 +9,7 @@
     <Grid Background="Black">
 
         <Image Name ="loadingImage" Source ="{Binding}" HorizontalAlignment="Left" Height="306" Margin="176,68,0,0" VerticalAlignment="Top" Width="540"/>
-        <Label Foreground="White" Content="Please wait while we " x:Name="type" HorizontalAlignment="Left" Margin="210,31,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Foreground="White" Content="Please wait while we " x:Name="type" HorizontalAlignment="Left" Margin="176,31,0,0" VerticalAlignment="Top" FontSize="20" Width="473"/>
         <Button Content="Press me" HorizontalAlignment="Left" Height="32" Margin="346,323,0,0" VerticalAlignment="Top" Width="98" Click="callFunctions"/>
 
     </Grid>

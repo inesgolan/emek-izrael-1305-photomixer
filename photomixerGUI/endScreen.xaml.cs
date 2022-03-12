@@ -20,6 +20,10 @@ namespace photomixerGUI
         public endScreen()
         {
             InitializeComponent();
+
+            //display background image
+            //ProjectVariables.backgroundPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter];
+            //BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.backgroundPath));
         }
 
         private void sendMail(object sender, RoutedEventArgs e)

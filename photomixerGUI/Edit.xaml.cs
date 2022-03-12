@@ -128,7 +128,6 @@ namespace photomixerGUI
                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
 
                 BackgroundImage.Source = null;
-
                 endScreen end = new endScreen();
                 end.Show();
                 Close();
