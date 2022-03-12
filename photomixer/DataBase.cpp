@@ -11,7 +11,6 @@ DataBase::DataBase()
 	if (result != SQLITE_OK)
 	{
 		this->_db = nullptr;
-		std::cout << "error ";
 	}
 	this->_outputFile.open(OUTPUT_FILE_NAME);
 }
@@ -42,15 +41,12 @@ bool DataBase::doesUserExist(std::string name)
 
 	std::string query = "SELECT NAME FROM Users WHERE Name = \'" + name + "'\;";
 	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &tempName, &errorMsg);
-	if (result != SQLITE_OK)
-	{
-		std::cout << errorMsg << std::endl;
-	}
+
 	return strcmp(name.c_str(), tempName.c_str()) == 0;
 }
 
 // check if the password match the username
-bool DataBase::doesPasswordMatch(std::string name, std::string password)
+void DataBase::doesPasswordMatch(std::string name, std::string password)
 {
 	//check if user exist
 	if (!doesUserExist(name))
@@ -58,17 +54,12 @@ bool DataBase::doesPasswordMatch(std::string name, std::string password)
 		mtx.lock();
 		_outputFile << "False";
 		mtx.unlock();
-		return false;
 	}
 
 	std::string dbPassword = "";
 	char* errorMsg = nullptr;
 	std::string query = "SELECT PASSWORD FROM Users WHERE Name = \'" + name + "'\;";
 	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &dbPassword, &errorMsg);
-	if (result != SQLITE_OK)
-	{
-		std::cout << errorMsg << std::endl;;
-	}
 
 	if (strcmp(dbPassword.c_str(), password.c_str()) == 0)
 	{
@@ -82,11 +73,10 @@ bool DataBase::doesPasswordMatch(std::string name, std::string password)
 		_outputFile << "False";
 		mtx.unlock();
 	}
-	return strcmp(dbPassword.c_str(), password.c_str()) == 0;
 }
 
 // add new user to the DB
-bool DataBase::addNewUser(std::string name, std::string password, std::string mail, std::string key)
+void DataBase::addNewUser(std::string name, std::string password, std::string mail, std::string key)
 {
 	char* errorMsg = nullptr;
 	std::string query;
@@ -95,8 +85,9 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 	//check if user exist
 	if (doesUserExist(name))
 	{
+		mtx.lock();
 		_outputFile << "False";
-		return false;
+		mtx.unlock();
 	}
 
 	//add the user to the users
@@ -116,9 +107,9 @@ bool DataBase::addNewUser(std::string name, std::string password, std::string ma
 		_outputFile << "False";
 		mtx.unlock();
 	}
-	return (userResult == SQLITE_OK);
 }
 
+//return user key
 std::string DataBase::getUserKey(std::string username)
 {
 	std::string key = "";
@@ -130,6 +121,7 @@ std::string DataBase::getUserKey(std::string username)
 	return key;
 }
 
+//return user mail
 std::string DataBase::getUserMail(std::string username)
 {
 	std::string mail = "";
@@ -141,6 +133,7 @@ std::string DataBase::getUserMail(std::string username)
 	return mail;
 }
 
+//return user password
 std::string DataBase::getUserPassword(std::string username)
 {
 	std::string password = "";

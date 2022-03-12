@@ -1,50 +1,14 @@
-#include "ObjectOnBackground.h"
-#include "ObjectDetection.h"
-#include "DataBase.h"
-
-#define OBJECT_DETECTION 100
-#define REVERSE_MATTE 101
-#define EDIT_IMAGE 200
-#define RESIZE_BIGGER 300
-#define RESIZE_SMALLER 400
-#define LOGIN 500
-#define REGISTER 600
-#define ENCRYPTION 700
-#define DECRYPTION 800
-#define SEND_IMAGE_MAIL 900
-#define SEND_FORGETPASSWORD_MAIL 901
-
-#define CODE 1
-#define OBJECT_PATH 2
-#define IMAGE_PATH 2
-#define USER 2
-#define PASSWORD 3
-#define KEY 3
-#define USERS 3
-#define SAVE_OBJECT_PATH 3
-#define BACKGROUND_PATH 3
-#define SAVE_IMAGE_PATH 4
-#define X_LOCATION 5
-#define Y_LOCATION 6
-
-#define USERNAME 2
-#define PASSWORD 3
-#define MAIL 4
-
-#define ADD 20
-#define REMOVE -20
+#include "includes.h"
 
 int main(int argc, char** argv)
 {
 	std::string imagePath = "", backgroundPath = "", savePath = "", command = "python ", fileName = "", mail = "", password ="", key = "";
+	bool check = false;
 	Mat objectImage, backgroundImage, matte;
 	ObjectDetection object;
 	ClearBackground clearBackground;
 	ObjectOnBackground objectOnBackground;
-	bool var = false;
-
 	DataBase db;
-	bool returnVal = false;
 
 	if (argc > 1)
 	{
@@ -52,13 +16,13 @@ int main(int argc, char** argv)
 		{
 		case OBJECT_DETECTION:
 			//get image path
-			imagePath = argv[OBJECT_PATH];
+			imagePath = argv[IMAGE_PATH];
 			imagePath = Helper::checkPath(imagePath);
 
 			//get image
 			objectImage = imread(imagePath);
-			var = Helper::checkImage(objectImage, imagePath); 
-			if (var)
+			check = Helper::checkImage(objectImage, imagePath); 
+			if (check)
 			{
 				//get matte
 				object.setImage(objectImage);
@@ -69,18 +33,17 @@ int main(int argc, char** argv)
 				clearBackground.getObjectImage(objectImage, matte, argv[SAVE_OBJECT_PATH]);
 			}
 
-			std::cout << "100 ok" << std::endl;
 			break;
 
 		case REVERSE_MATTE:
 			//get image path
-			imagePath = argv[OBJECT_PATH];
+			imagePath = argv[IMAGE_PATH];
 			imagePath = Helper::checkPath(imagePath);
 
 			//get image
 			objectImage = imread(imagePath);
-			var = Helper::checkImage(objectImage, imagePath); //
-			if (var)
+			check = Helper::checkImage(objectImage, imagePath); 
+			if (check)
 			{
 				//get matte
 				object.setImage(objectImage);
@@ -94,12 +57,11 @@ int main(int argc, char** argv)
 			}
 			objectImage = Helper::checkImage(objectImage, imagePath);
 
-			std::cout << "101 ok" << std::endl;
 			break;
 
 		case EDIT_IMAGE:
 			//get image
-			imagePath = argv[OBJECT_PATH];
+			imagePath = argv[IMAGE_PATH];
 			imagePath = Helper::checkPath(imagePath);
 			objectImage = imread(imagePath, -1); //read alpha channel
 
@@ -111,79 +73,74 @@ int main(int argc, char** argv)
 			objectOnBackground.setBackground(backgroundImage);
 			objectOnBackground.getEditedImage(std::stoi(argv[X_LOCATION]), std::stoi(argv[Y_LOCATION]), objectImage, backgroundImage, argv[SAVE_IMAGE_PATH]);
 
-			std::cout << "200 ok" << std::endl;
 			break;
 
 		case RESIZE_BIGGER:
-			imagePath = argv[OBJECT_PATH];
-			objectImage = imread(imagePath, -1);
-			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
+			imagePath = argv[IMAGE_PATH];
+			objectImage = imread(imagePath, -1); //read with alpha channel
 
-			std::cout << "300 ok" << std::endl;
+			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+
 			break;
 
 		case RESIZE_SMALLER:
-			imagePath = argv[OBJECT_PATH];
-			objectImage = imread(imagePath, -1);
+			imagePath = argv[IMAGE_PATH];
+			objectImage = imread(imagePath, -1); //read with alpha channel
 
-			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[OBJECT_PATH], FLAG_BACKGROUND);
+			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
 
-			std::cout << "400 ok" << std::endl;
 			break;
 
 		case LOGIN:
-			returnVal = db.doesPasswordMatch(argv[USERNAME], argv[PASSWORD]);
+			db.doesPasswordMatch(argv[USERNAME], argv[PASSWORD]); //check the password
 
-			std::cout << "500 ok" << std::endl;
 			break;
 
 		case REGISTER:
-			returnVal = db.addNewUser(argv[USERNAME], argv[PASSWORD], argv[MAIL], argv[5]);
+			db.addNewUser(argv[USERNAME], argv[PASSWORD], argv[MAIL], argv[KEY]);
 
-			std::cout << "600 ok" << std::endl;
 			break;
 
 		case ENCRYPTION:
 			fileName = "encryption.py";
-			key = db.getUserKey(argv[3]);
-			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
+			key = db.getUserKey(argv[USER]);
 
-			std::cout << "700 ok" << std::endl;
+			//run python file
+			system((command + fileName + " " + key + " " + argv[PATH] + " " + argv[USER]).c_str()); 
+			getchar();
+
 			break;
 
 		case DECRYPTION:
 			fileName = "decryption.py";
-			key = db.getUserKey(argv[3]);
-			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
+			key = db.getUserKey(argv[USER]);
 
-			std::cout << "800 ok" << std::endl;
-			getchar();
+			//run python file
+			system((command + fileName + " " + key + " " + argv[PATH] + " " + argv[USER]).c_str()); 
+
 			break;
 
 		case SEND_IMAGE_MAIL:
 			fileName = "sendMail.py";
 			imagePath = argv[IMAGE_PATH];
-			mail = db.getUserMail(argv[USERS]);
+			mail = db.getUserMail(argv[USER]);
 
-			std::cout << "imagePath: " << imagePath << " mail: " << mail;
-
+			//run python file
 			system((command + fileName + " " + argv[IMAGE_PATH] + " " + mail + " 1").c_str());
 
-			std::cout << "900 ok" << std::endl;
 			break;
 
 		case SEND_FORGETPASSWORD_MAIL:
 			fileName = "sendMail.py";
-			mail = db.getUserMail(argv[USER]);
-			password = db.getUserPassword(argv[USER]);
+			mail = db.getUserMail(argv[USERNAME]);
+			password = db.getUserPassword(argv[USERNAME]);
 
+			//run python file
 			system((command + fileName + " " + mail + " " + password + " 2").c_str());
 
-			std::cout << "901 ok" << std::endl;
 			break;
 
 		default:
-			std::cout << "error" << std::endl;
 			break;
 		}
 	}
