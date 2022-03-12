@@ -157,6 +157,7 @@ int main(int argc, char** argv)
 			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
 
 			std::cout << "800 ok" << std::endl;
+			getchar();
 			break;
 
 		case SEND_IMAGE_MAIL:

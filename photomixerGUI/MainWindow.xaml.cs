@@ -39,10 +39,12 @@ namespace photomixerGUI
                     loadScreen.Show();
                     Close();
                 }
-
-                Menu gotoMenu = new Menu();
-                gotoMenu.Show();
-                Close();
+                else
+                {
+                    Menu gotoMenu = new Menu();
+                    gotoMenu.Show();
+                    Close();
+                }
             }
         }
 
