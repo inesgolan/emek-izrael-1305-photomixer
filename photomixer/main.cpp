@@ -147,7 +147,6 @@ int main(int argc, char** argv)
 			fileName = "encryption.py";
 			key = db.getUserKey(argv[3]);
 			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
-			getchar();
 
 			std::cout << "700 ok" << std::endl;
 			break;
@@ -156,7 +155,6 @@ int main(int argc, char** argv)
 			fileName = "decryption.py";
 			key = db.getUserKey(argv[3]);
 			system((command + fileName + " " + key + " " + argv[2] + " " + argv[3]).c_str()); //key path username
-			getchar();
 
 			std::cout << "800 ok" << std::endl;
 			break;
@@ -169,7 +167,6 @@ int main(int argc, char** argv)
 			std::cout << "imagePath: " << imagePath << " mail: " << mail;
 
 			system((command + fileName + " " + argv[IMAGE_PATH] + " " + mail + " 1").c_str());
-			getchar();
 
 			std::cout << "900 ok" << std::endl;
 			break;
@@ -180,7 +177,6 @@ int main(int argc, char** argv)
 			password = db.getUserPassword(argv[USER]);
 
 			system((command + fileName + " " + mail + " " + password + " 2").c_str());
-			getchar();
 
 			std::cout << "901 ok" << std::endl;
 			break;

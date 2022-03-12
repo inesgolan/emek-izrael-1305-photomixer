@@ -23,15 +23,10 @@ namespace photomixerGUI
         private void encryption()
         {
             type.Content = "encrypt";
-            string newPath = "temp.png";
-            File.Create(newPath);
-            File.Copy(newPath, ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
-
-            string[] splitPath = newPath.Split("\\");
+ 
+            string[] splitPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter].Split("\\");
             string path = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
             Communicator.encryptionMsg(path, ProjectVariables.username);
-
-            File.Copy(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], newPath);
 
             Menu gotoMenu = new Menu();
             gotoMenu.Show();

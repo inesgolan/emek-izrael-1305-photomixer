@@ -18,8 +18,6 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Image Grid.RowSpan="2" HorizontalAlignment="Left" Name="BackgroundImage" Source="{Binding BackgroundImage}"/>
-
         <Button Grid.Row="1" FontSize="15" Content="Send image to your mail" FontWeight="Bold" Click="sendMail" Margin="400,27,77,27"/>
         <Button Grid.Row="1" FontSize="15" Content="Go back to main screen" FontWeight="Bold" Click="goBack" Margin="120,27,372,27"/>
 
