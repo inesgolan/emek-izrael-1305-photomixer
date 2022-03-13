@@ -20,25 +20,26 @@ namespace photomixerGUI
         public endScreen()
         {
             InitializeComponent();
-
-            //display background image
-            //ProjectVariables.backgroundPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter];
-            //BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.backgroundPath));
         }
 
         private void sendMail(object sender, RoutedEventArgs e)
         {
-            string[] splitPath = ProjectVariables.backgroundPath.Split("\\");
-            string path = splitPath[splitPath.Length-2] + "\\" +splitPath[splitPath.Length - 1];
+            string path = Helper.getImagePath(ProjectVariables.backgroundPath);
             Communicator.sendImageMail(path, ProjectVariables.username);
         }
 
         private void goBack(object sender, RoutedEventArgs e)
         {
+            Menu gotoMenu = new Menu();
+            gotoMenu.Show();
+            Close();
+        }
+
+        private void Encrypt(object sender, RoutedEventArgs e)
+        {
             loading loadScreen = new loading(true);
             loadScreen.Show();
             Close();
-
         }
     }
 }

@@ -4,8 +4,8 @@
 #include <mutex>
 #include "sqlite3.h"
 
-#define DB_NAME "DB.sqlite"
-#define OUTPUT_FILE_NAME "Output.txt"
+#define DB_NAME "files\\DB.sqlite"
+#define OUTPUT_FILE_NAME "files\\Output.txt"
 
 class DataBase
 {

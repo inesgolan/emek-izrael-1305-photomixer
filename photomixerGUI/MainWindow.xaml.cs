@@ -15,7 +15,8 @@ namespace photomixerGUI
 
         private void login(object sender, RoutedEventArgs e)
         {
-            Communicator.loginMsg(Username.Text, Password.Password);
+            string username = Helper.switchSpaces(Username.Text);
+            Communicator.loginMsg(username, Password.Password);
 
             File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);
             string text = File.ReadAllText(ProjectVariables.OUTPUT_FILE_NAME);

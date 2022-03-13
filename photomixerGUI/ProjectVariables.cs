@@ -12,7 +12,8 @@ namespace photomixerGUI
         public const int ENDING = 4;
         public const int UPLOAD_PATH_TYPE = 1;
         public const int SAVE_TYPE = 2;
-        public const string OUTPUT_FILE_NAME = "Output.txt";
+        public const int LENGTH = 16;
+        public const string OUTPUT_FILE_NAME = "files/Output.txt";
 
         public static string username;
 

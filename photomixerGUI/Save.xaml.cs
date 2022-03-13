@@ -12,10 +12,10 @@ namespace photomixerGUI
         {
             InitializeComponent();
         }
-
-        //checks the path and if its valid open edit window
-        private void checkPath(string path)
+        private void edit(object sender, RoutedEventArgs e)
         {
+            string path = imagePath.Text;
+
             if (!Helper.isPathValid(path, ProjectVariables.SAVE_TYPE))
             {
                 ErrorMsg.Text = "Error: invalid path, try again.";
@@ -24,15 +24,11 @@ namespace photomixerGUI
             else
             {
                 ProjectVariables.savePath = path;
+
                 Edit edit = new Edit();
                 edit.Show();
                 Close();
-            }
-        }
-
-        private void edit(object sender, RoutedEventArgs e)
-        {
-            checkPath(imagePath.Text);
+            }          
         }
     }
 }

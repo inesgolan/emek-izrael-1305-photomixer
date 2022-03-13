@@ -10,26 +10,26 @@ namespace photomixerGUI
 {
     public partial class loading : Window
     {
-        static bool flagg;
+        static bool values;
         public loading(bool flag)
         {
             InitializeComponent();
 
-            string path = Path.GetFullPath("loading.webp");
+            values = flag;
+
+            string path = Path.GetFullPath("files\\loading.webp");
             loadingImage.Source = new BitmapImage(new Uri(path));         
-            flagg = flag;
         }
 
         private void encryption()
         {
             type.Content += "encrypt";
- 
-            string[] splitPath = ProjectVariables.imagesPathes[ProjectVariables.imagesCounter].Split("\\");
-            string path = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
+
+            string path = Helper.getImagePath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
             Communicator.encryptionMsg(path, ProjectVariables.username);
 
-            Menu gotoMenu = new Menu();
-            gotoMenu.Show();
+            endScreen end = new endScreen();
+            end.Show();
             Close();
         }
 
@@ -37,11 +37,10 @@ namespace photomixerGUI
         {
             type.Content += "decrypt";
 
-            string[] images = Directory.GetFiles(ProjectVariables.username);
+            string[] images = Directory.GetFiles("users\\"+ProjectVariables.username);
             foreach (string image in images)
             {
-                string[] splitPath = image.Split("\\");
-                string path = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
+                string path = Helper.getImagePath(image);
                 Communicator.decryptionMsg(path, ProjectVariables.username);
             }
 
@@ -52,7 +51,7 @@ namespace photomixerGUI
 
         private void callFunctions(object sender, RoutedEventArgs e)
         {
-            if (flagg)
+            if (values)
             {
                 encryption();
             }

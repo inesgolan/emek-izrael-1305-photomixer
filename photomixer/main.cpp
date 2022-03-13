@@ -102,17 +102,16 @@ int main(int argc, char** argv)
 			break;
 
 		case ENCRYPTION:
-			fileName = "encryption.py";
+			fileName = "files\\encryption.py";
 			key = db.getUserKey(argv[USER]);
 
 			//run python file
 			system((command + fileName + " " + key + " " + argv[PATH] + " " + argv[USER]).c_str()); 
-			getchar();
 
 			break;
 
 		case DECRYPTION:
-			fileName = "decryption.py";
+			fileName = "files\\decryption.py";
 			key = db.getUserKey(argv[USER]);
 
 			//run python file
@@ -121,7 +120,7 @@ int main(int argc, char** argv)
 			break;
 
 		case SEND_IMAGE_MAIL:
-			fileName = "sendMail.py";
+			fileName = "files\\sendMail.py";
 			imagePath = argv[IMAGE_PATH];
 			mail = db.getUserMail(argv[USER]);
 
@@ -131,7 +130,7 @@ int main(int argc, char** argv)
 			break;
 
 		case SEND_FORGETPASSWORD_MAIL:
-			fileName = "sendMail.py";
+			fileName = "files\\sendMail.py";
 			mail = db.getUserMail(argv[USERNAME]);
 			password = db.getUserPassword(argv[USERNAME]);
 

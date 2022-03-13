@@ -12,17 +12,7 @@ namespace photomixerGUI
         {
             InitializeComponent();
 
-            string objectPath = "";
-
-            if (ProjectVariables.objectPath.Contains(" "))
-            {
-                objectPath = (ProjectVariables.objectPath).Substring(1, ProjectVariables.objectPath.Length - 2);
-            }
-            else
-            {
-                objectPath = ProjectVariables.objectPath;
-            }
-
+            string objectPath = Helper.checkFullPath(ProjectVariables.objectPath);
             objectImage.Source = new BitmapImage(new Uri(objectPath));
 
             string path = Path.GetFullPath("matte.png");

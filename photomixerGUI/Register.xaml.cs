@@ -33,7 +33,9 @@ namespace photomixerGUI
         {
             ProjectVariables.key = checkKey(keyBotton.Text);
 
-            Communicator.registerMsg(Username.Text, Password.Password, Mail.Text, ProjectVariables.key);
+            string username = Helper.switchSpaces(Username.Text);
+
+            Communicator.registerMsg(username, Password.Password, Mail.Text, ProjectVariables.key);
 
             string text;
             File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);
@@ -60,11 +62,13 @@ namespace photomixerGUI
         {
             string newKey = key;
 
-            while (newKey.Length != 16)
+            while (newKey.Length != ProjectVariables.LENGTH)
             {
                 ErrorMsg.Text = "please enter 16 chars";
                 keyBotton.Clear();
             }
+
+            newKey = Helper.switchSpaces(newKey);
 
             return newKey;
         }

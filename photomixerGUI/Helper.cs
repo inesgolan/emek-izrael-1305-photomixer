@@ -77,5 +77,18 @@ namespace photomixerGUI
 
             return newPath;
         }
+
+        public static string getImagePath(string path)
+        {
+            string[] splitPath = path.Split("\\");
+            string newpath = splitPath[splitPath.Length - 2] + "\\" + splitPath[splitPath.Length - 1];
+
+            return newpath;
+        }
+
+        public static string switchSpaces(string word)
+        {
+            return (word.Replace(" ", "-"));
+        }
     }
 }

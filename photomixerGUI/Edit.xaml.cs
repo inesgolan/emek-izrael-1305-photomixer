@@ -38,7 +38,7 @@ namespace photomixerGUI
         {
             Image image = e.Source as Image;
 
-            //get the image index in the list and remove the item from the list
+            //get the image index in the list
             for (int i = 0; i < ProjectVariables.imagesCounter; i++)
             {
                 BitmapImage item = (BitmapImage)Images.Items[i];
@@ -62,61 +62,25 @@ namespace photomixerGUI
             Point location = e.GetPosition(this); //get image location relative to the screen
 
             //save the edited images in a folder
-            if (ProjectVariables.username == "guest")
+            if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
             {
-                if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
-                {
-                    save = ProjectVariables.savePath;
-                }
-                else
-                {
-                    save = "edit" + ProjectVariables.countOfEdits.ToString() + ".png";
-                }
+                save = "users\\" + ProjectVariables.username + "/" + ProjectVariables.savePath;
             }
             else
             {
- 
-                if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
-                {
-                    save = ProjectVariables.username + "/" + ProjectVariables.savePath;
-                }
-                else
-                {
-                    save = ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
-                }
+                save = "users\\" + ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
             }
 
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
             Communicator.sendPasteObjectMsg(ProjectVariables.imagesPathes[ProjectVariables.index], ProjectVariables.imagesPathes[ProjectVariables.imagesCounter], save, (int)location.X, (int)location.Y);
 
-            //wait till the image is created to update the background image
-            bool flag = false;
-            while (!flag)
-            {
-                bool fileExist = File.Exists(save);
-                if (fileExist)
-                {
-                    try
-                    {
-                        if (File.OpenRead(save).CanRead)
-                        {
-                            flag = true;
-                        }
-                    }
-                    catch (IOException)
-                    {
-
-                    }
-                }
-            }
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(save);
             BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
         }
 
         //delete the images we don't need anymore and go back to main screen
-        private void deleteImages(object sender, RoutedEventArgs e)
+        private void done(object sender, RoutedEventArgs e)
         {
-           // Initializes the variables to pass to the MessageBox.Show method.
            string message = "Are you sure?";
            string caption = "Error Detected in Input";
            MessageBoxButton buttons = MessageBoxButton.YesNo;
@@ -128,6 +92,7 @@ namespace photomixerGUI
                File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
 
                 BackgroundImage.Source = null;
+
                 endScreen end = new endScreen();
                 end.Show();
                 Close();
@@ -146,14 +111,7 @@ namespace photomixerGUI
             }
             else if (ProjectVariables.countOfClicks > 1)
             {
-                if (ProjectVariables.username == "guest")
-                {
-                    lastEdit = "edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";                  
-                }
-                else
-                {
-                    lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";
-                }        
+                lastEdit = "users\\" + ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";   
             }
 
             //update the image showen on the screen
@@ -164,7 +122,6 @@ namespace photomixerGUI
 
                 ProjectVariables.countOfClicks--;
             }
-            //if we move the second image it moves the first one
         }
 
         //go to the next edited image
@@ -176,25 +133,11 @@ namespace photomixerGUI
 
             if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)
             {
-                if (ProjectVariables.username == "guest")
-                {
-                    lastEdit = ProjectVariables.savePath;
-                }
-                else
-                {
-                    lastEdit = ProjectVariables.username + "/" + ProjectVariables.savePath;
-                }
+                lastEdit = "users\\" + ProjectVariables.username + "/" + ProjectVariables.savePath;
             }
             else
             {
-                if (ProjectVariables.username == "guest")
-                {
-                    lastEdit = "edit" + ProjectVariables.countOfClicks.ToString() + ".png";
-                }
-                else
-                {
-                    lastEdit = ProjectVariables.username + "/edit" + ProjectVariables.countOfClicks.ToString() + ".png";
-                }
+                lastEdit = "users\\" + ProjectVariables.username + "/edit" + ProjectVariables.countOfClicks.ToString() + ".png";
             }
 
             //update the image showen on the screen
