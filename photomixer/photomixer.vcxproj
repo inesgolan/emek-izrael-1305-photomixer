@@ -33,6 +33,7 @@
     <ClInclude Include="ClearBackground.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="includes.h" />
     <ClInclude Include="ObjectDetection.h" />
     <ClInclude Include="ObjectOnBackground.h" />
     <ClInclude Include="sqlite3.h" />

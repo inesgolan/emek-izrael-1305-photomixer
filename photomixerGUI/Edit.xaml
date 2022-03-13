@@ -29,7 +29,7 @@
 
         <Image Grid.RowSpan="2" HorizontalAlignment="Left" Name="BackgroundImage" AllowDrop="True" Drop="dropObject" Source="{Binding BackgroundImage}"/>
 
-        <Button Grid.Row="1" FontSize="15" Content="Done" FontWeight="Bold" Click="deleteImages" Margin="24,49,24,5" Grid.Column="1"/>
+        <Button Grid.Row="1" FontSize="15" Content="Done" FontWeight="Bold" Click="done" Margin="24,49,24,5" Grid.Column="1"/>
 
         <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,53" Click="returnToLastEdit"/>
         <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,53" Click="goToNextEdit"/>

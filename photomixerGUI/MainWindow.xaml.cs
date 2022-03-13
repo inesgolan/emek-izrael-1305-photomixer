@@ -15,7 +15,8 @@ namespace photomixerGUI
 
         private void login(object sender, RoutedEventArgs e)
         {
-            Communicator.loginMsg(Username.Text, Password.Password);
+            string username = Helper.switchSpaces(Username.Text);
+            Communicator.loginMsg(username, Password.Password);
 
             File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);
             string text = File.ReadAllText(ProjectVariables.OUTPUT_FILE_NAME);
@@ -31,17 +32,20 @@ namespace photomixerGUI
                 ProjectVariables.username = Username.Text;
                 
                 Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
-
-                //decrypt the user's images
                 string[] images = Directory.GetFiles(ProjectVariables.username);
-                foreach (string image in images)
-                {
-                    //Communicator.decryptionMsg(@image); 
-                }
 
-                Menu gotoMenu = new Menu();
-                gotoMenu.Show();
-                Close();
+                if (images.Length > 0)
+                {
+                    loading loadScreen = new loading(false);
+                    loadScreen.Show();
+                    Close();
+                }
+                else
+                {
+                    Menu gotoMenu = new Menu();
+                    gotoMenu.Show();
+                    Close();
+                }
             }
         }
 

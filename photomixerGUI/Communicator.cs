@@ -11,11 +11,6 @@ namespace photomixerGUI
 {
     class Communicator
     {
-
-        public Communicator()
-        {
-        }
-
         /*
         This function will send recognize image msg to the server
         input:string objectPath, string savePath
@@ -86,9 +81,9 @@ namespace photomixerGUI
         Input: username, password, mail
         Output: none
         */
-        public static void registerMsg(string username, string password, string mail)
+        public static void registerMsg(string username, string password, string mail, string key)
         {
-            string exe_params = "600 " + username + " " + password + " " + mail;
+            string exe_params = "600 " + username + " " + password + " " + mail + "" + key;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();
@@ -99,9 +94,9 @@ namespace photomixerGUI
         Input: image path, key
         Output: none
         */
-        public static void encryptionMsg(string imagePath, string key)
+        public static void encryptionMsg(string imagePath, string username)
         {
-            string exe_params = "700 " + imagePath + " " + key;
+            string exe_params = "700 " + imagePath + " " + username;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();
@@ -112,17 +107,17 @@ namespace photomixerGUI
         Input: image path
         Output: none
         */
-        public static void decryptionMsg(string imagePath)
+        public static void decryptionMsg(string imagePath, string username)
         {
-            string exe_params = "800 " + imagePath;
+            string exe_params = "800 " + imagePath + " " + username;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();
         }
 
-        public static void sendImageMail(string ImgFileName, string username)
+        public static void sendImageMail(string filename, string username)
         {
-            string exe_params = "900 " + ImgFileName + " " + username;
+            string exe_params = "900 " + filename + " " + username;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();

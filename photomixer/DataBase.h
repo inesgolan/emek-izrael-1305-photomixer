@@ -4,8 +4,8 @@
 #include <mutex>
 #include "sqlite3.h"
 
-#define DB_NAME "DB.sqlite"
-#define OUTPUT_FILE_NAME "Output.txt"
+#define DB_NAME "files\\DB.sqlite"
+#define OUTPUT_FILE_NAME "files\\Output.txt"
 
 class DataBase
 {
@@ -18,11 +18,10 @@ public:
 	~DataBase();
 
 	bool doesUserExist(std::string name);
-	bool doesPasswordMatch(std::string name, std::string password);
-	bool addNewUser(std::string name , std::string password, std::string mail);
+	void doesPasswordMatch(std::string name, std::string password);
+	void addNewUser(std::string name , std::string password, std::string mail, std::string key);
 
-	bool addKeys();
-	bool addImagePixels();
+	std::string getUserKey(std::string username);
 	std::string getUserMail(std::string username);
 	std::string getUserPassword(std::string username);
 };
