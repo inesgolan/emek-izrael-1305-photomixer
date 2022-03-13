@@ -37,7 +37,7 @@ namespace photomixerGUI
         {
             type.Content += "decrypt";
 
-            string[] images = Directory.GetFiles("users\\"+ProjectVariables.username);
+            string[] images = Directory.GetFiles(ProjectVariables.username);
             foreach (string image in images)
             {
                 string path = Helper.getImagePath(image);

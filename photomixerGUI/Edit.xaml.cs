@@ -64,11 +64,11 @@ namespace photomixerGUI
             //save the edited images in a folder
             if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
             {
-                save = "users\\" + ProjectVariables.username + "/" + ProjectVariables.savePath;
+                save = ProjectVariables.username + "/" + ProjectVariables.savePath;
             }
             else
             {
-                save = "users\\" + ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
+                save = ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
             }
 
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
@@ -111,7 +111,7 @@ namespace photomixerGUI
             }
             else if (ProjectVariables.countOfClicks > 1)
             {
-                lastEdit = "users\\" + ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";   
+                lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";   
             }
 
             //update the image showen on the screen
@@ -133,11 +133,11 @@ namespace photomixerGUI
 
             if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)
             {
-                lastEdit = "users\\" + ProjectVariables.username + "/" + ProjectVariables.savePath;
+                lastEdit = ProjectVariables.username + "/" + ProjectVariables.savePath;
             }
             else
             {
-                lastEdit = "users\\" + ProjectVariables.username + "/edit" + ProjectVariables.countOfClicks.ToString() + ".png";
+                lastEdit = ProjectVariables.username + "/edit" + ProjectVariables.countOfClicks.ToString() + ".png";
             }
 
             //update the image showen on the screen
