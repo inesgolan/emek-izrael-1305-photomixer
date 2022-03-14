@@ -24,8 +24,11 @@ namespace photomixerGUI
 
         private void sendMail(object sender, RoutedEventArgs e)
         {
-            string path = Helper.getImagePath(ProjectVariables.backgroundPath);
-            Communicator.sendImageMail(path, ProjectVariables.username);
+            if (ProjectVariables.username != "guest")
+            {
+                string path = Helper.getImagePath(ProjectVariables.backgroundPath);
+                Communicator.sendImageMail(path, ProjectVariables.username);
+            }
         }
 
         private void goBack(object sender, RoutedEventArgs e)
@@ -37,9 +40,12 @@ namespace photomixerGUI
 
         private void Encrypt(object sender, RoutedEventArgs e)
         {
-            loading loadScreen = new loading(true);
-            loadScreen.Show();
-            Close();
+            if (ProjectVariables.username != "guest")
+            {
+                loading loadScreen = new loading(true);
+                loadScreen.Show();
+                Close();
+            }
         }
     }
 }

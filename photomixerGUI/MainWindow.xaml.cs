@@ -30,15 +30,24 @@ namespace photomixerGUI
             else
             {
                 ProjectVariables.username = Username.Text;
-                
-                Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
-                string[] images = Directory.GetFiles(ProjectVariables.username);
 
-                if (images.Length > 0)
+                if (ProjectVariables.username != "guest")
                 {
-                    loading loadScreen = new loading(false);
-                    loadScreen.Show();
-                    Close();
+                    Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
+                    string[] images = Directory.GetFiles(ProjectVariables.username);
+
+                    if (images.Length > 0)
+                    {
+                        loading loadScreen = new loading(false);
+                        loadScreen.Show();
+                        Close();
+                    }
+                    else
+                    {
+                        Menu gotoMenu = new Menu();
+                        gotoMenu.Show();
+                        Close();
+                    }
                 }
                 else
                 {
