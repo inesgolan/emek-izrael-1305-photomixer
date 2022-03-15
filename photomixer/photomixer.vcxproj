@@ -36,7 +36,14 @@
     <ClInclude Include="includes.h" />
     <ClInclude Include="ObjectDetection.h" />
     <ClInclude Include="ObjectOnBackground.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="sqlite3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="photomixer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="x64\Debug\serverLogo.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
