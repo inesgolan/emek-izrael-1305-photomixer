@@ -46,6 +46,7 @@ namespace photomixerGUI
             ProjectVariables.countOfEdits = 0;
             ProjectVariables.countOfClicks = 0;
             ProjectVariables.index = 0;
+
         }
     }
 }

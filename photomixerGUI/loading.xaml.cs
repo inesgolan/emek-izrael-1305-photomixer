@@ -34,6 +34,7 @@ namespace photomixerGUI
                     Communicator.encryptionMsg(pic, ProjectVariables.username);
                 }
             }
+            pressButton.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void decryption()
@@ -46,6 +47,7 @@ namespace photomixerGUI
                 string path = Helper.getImagePath(image);
                 Communicator.decryptionMsg(path, ProjectVariables.username);
             }
+            pressButton.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void callFunctions(object sender, RoutedEventArgs e)
@@ -63,9 +65,17 @@ namespace photomixerGUI
 
         private void back(object sender, RoutedEventArgs e)
         {
-            Menu gotoMenu = new Menu();
-            gotoMenu.Show();
-            Close();
+
+            if (!flag)
+            {
+                Menu gotoMenu = new Menu();
+                gotoMenu.Show();
+                Close();
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }
