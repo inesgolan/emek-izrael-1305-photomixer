@@ -93,9 +93,18 @@ namespace photomixerGUI
 
                 BackgroundImage.Source = null;
 
-                endScreen end = new endScreen();
-                end.Show();
-                Close();
+                if (ProjectVariables.username != "guest")
+                {
+                    endScreen end = new endScreen();
+                    end.Show();
+                    Close();
+                }
+                else
+                {
+                    Menu gotoMenu = new Menu();
+                    gotoMenu.Show();
+                    Close();
+                }
             }
 
         }

@@ -33,7 +33,7 @@ namespace photomixerGUI
 
                 if (ProjectVariables.username != "guest")
                 {
-                    Directory.CreateDirectory(ProjectVariables.username); //create folder for the username images
+                    Directory.CreateDirectory(ProjectVariables.username);
                     string[] images = Directory.GetFiles(ProjectVariables.username);
 
                     if (images.Length > 0)
@@ -70,6 +70,8 @@ namespace photomixerGUI
         private void guestButton_click(object sender, RoutedEventArgs e)
         {
             ProjectVariables.username = "guest";
+            Directory.CreateDirectory(ProjectVariables.username);
+
             Menu gotoMenu = new Menu();
             gotoMenu.Show();
             Close();
