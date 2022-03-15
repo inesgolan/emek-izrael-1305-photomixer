@@ -10,12 +10,12 @@ namespace photomixerGUI
 {
     public partial class loading : Window
     {
-        static bool values;
-        public loading(bool flag)
+        static bool flag;
+        public loading(bool value)
         {
             InitializeComponent();
 
-            values = flag;
+            flag = value;
 
             string path = Path.GetFullPath("files\\loading.webp");
             loadingImage.Source = new BitmapImage(new Uri(path));         
@@ -25,12 +25,15 @@ namespace photomixerGUI
         {
             type.Content += "encrypt";
 
-            string path = Helper.getImagePath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
-            Communicator.encryptionMsg(path, ProjectVariables.username);
+            string[] pictures = Directory.GetFiles(ProjectVariables.username, "*.png");
 
-            endScreen end = new endScreen();
-            end.Show();
-            Close();
+            foreach (string pic in pictures)
+            {
+                if (!(pic.Split(".")[0].Contains("objectImage")))
+                {
+                    Communicator.encryptionMsg(pic, ProjectVariables.username);
+                }
+            }
         }
 
         private void decryption()
@@ -43,15 +46,11 @@ namespace photomixerGUI
                 string path = Helper.getImagePath(image);
                 Communicator.decryptionMsg(path, ProjectVariables.username);
             }
-
-            Menu gotoMenu = new Menu();
-            gotoMenu.Show();
-            Close();
         }
 
         private void callFunctions(object sender, RoutedEventArgs e)
         {
-            if (values)
+            if (flag)
             {
                 encryption();
             }
@@ -60,6 +59,13 @@ namespace photomixerGUI
                 decryption();
             }
             type.Content += " your picture...";
+        }
+
+        private void back(object sender, RoutedEventArgs e)
+        {
+            Menu gotoMenu = new Menu();
+            gotoMenu.Show();
+            Close();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace photomixerGUI
         {
             if (ProjectVariables.username != "guest")
             {
-                string path = Helper.getImagePath(ProjectVariables.backgroundPath);
+                string path = Helper.getImagePath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
                 Communicator.sendImageMail(path, ProjectVariables.username);
             }
         }
@@ -38,14 +38,14 @@ namespace photomixerGUI
             Close();
         }
 
-        private void Encrypt(object sender, RoutedEventArgs e)
-        {
-            if (ProjectVariables.username != "guest")
-            {
-                loading loadScreen = new loading(true);
-                loadScreen.Show();
-                Close();
-            }
-        }
+        //private void Encrypt(object sender, RoutedEventArgs e)
+        //{
+        //    if (ProjectVariables.username != "guest")
+        //    {
+        //        loading loadScreen = new loading(true);
+        //        loadScreen.Show();
+        //        Close();
+        //    }
+        //}
     }
 }

@@ -89,7 +89,6 @@ namespace photomixerGUI
            MessageBoxResult result = MessageBox.Show(message, caption, buttons);
            if (result == MessageBoxResult.Yes)
            {
-               File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
 
                 BackgroundImage.Source = null;
 

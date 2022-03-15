@@ -22,7 +22,7 @@ namespace photomixerGUI
         //this function reverse the matte colors
         private void reverseMatte(object sender, RoutedEventArgs e)
         {
-            string imagePath = "objectImage" + ProjectVariables.imagesCounter.ToString() + ".png";
+            string imagePath = ProjectVariables.username+"\\objectImage" + ProjectVariables.imagesCounter.ToString() + ".png";
             Communicator.sendObjectRecognizeReverseMatteMsg(ProjectVariables.objectPath, imagePath);
 
             string path = Path.GetFullPath("matte2.png");

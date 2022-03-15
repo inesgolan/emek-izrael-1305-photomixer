@@ -38,6 +38,8 @@ namespace photomixerGUI
 
                     if (images.Length > 0)
                     {
+
+
                         loading loadScreen = new loading(false);
                         loadScreen.Show();
                         Close();
