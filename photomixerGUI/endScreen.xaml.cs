@@ -37,15 +37,5 @@ namespace photomixerGUI
             gotoMenu.Show();
             Close();
         }
-
-        //private void Encrypt(object sender, RoutedEventArgs e)
-        //{
-        //    if (ProjectVariables.username != "guest")
-        //    {
-        //        loading loadScreen = new loading(true);
-        //        loadScreen.Show();
-        //        Close();
-        //    }
-        //}
     }
 }

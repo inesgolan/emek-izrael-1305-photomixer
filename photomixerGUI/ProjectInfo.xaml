@@ -11,7 +11,7 @@
 
         <Label Content="Welcome!" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,383"/>
 
-        <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,70,0,70" Width="644">  
+        <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,70,0,33" Width="644">  
             Hi:) We are Ines and Shelly, and we did this project on behalf of the "Magshimim" program.<LineBreak />
             <LineBreak />
             Our project let you upload images - images that you found online or toke yourself,<LineBreak />
@@ -25,7 +25,16 @@
             <LineBreak />
             Sign up to get complete security - encryption of your images!<LineBreak />
             <LineBreak />
+            You need to download python 3.6 to use our project and place it in C:/<LineBreak />
+            You can follow this 
+            <LineBreak />
+            <LineBreak />
             Hope you'll enjoy:)<LineBreak />
+        </TextBlock>
+        <TextBlock FontSize="15" Margin="206,347,537,93">           
+            <Hyperlink NavigateUri="https://stackoverflow.com/questions/17028576/using-python-3-3-in-c-python33-d-lib-not-found" RequestNavigate="guide">
+                guide
+            </Hyperlink>
         </TextBlock>
 
     </Grid>

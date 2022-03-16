@@ -66,14 +66,16 @@ namespace photomixerGUI
         private void back(object sender, RoutedEventArgs e)
         {
 
-            if (!flag)
+            if (flag) //encryption
+            {
+                MainWindow gotoMain = new MainWindow();
+                gotoMain.Show();
+                Close();
+            }
+            else //decryption
             {
                 Menu gotoMenu = new Menu();
                 gotoMenu.Show();
-                Close();
-            }
-            else
-            {
                 Close();
             }
         }
