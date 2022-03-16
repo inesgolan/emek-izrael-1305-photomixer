@@ -17,7 +17,6 @@ int main(int argc, char** argv)
 		case OBJECT_DETECTION:
 			//get image path
 			imagePath = argv[IMAGE_PATH];
-			imagePath = Helper::checkPath(imagePath);
 
 			//get image
 			objectImage = imread(imagePath);
@@ -38,7 +37,6 @@ int main(int argc, char** argv)
 		case REVERSE_MATTE:
 			//get image path
 			imagePath = argv[IMAGE_PATH];
-			imagePath = Helper::checkPath(imagePath);
 
 			//get image
 			objectImage = imread(imagePath);
@@ -62,7 +60,6 @@ int main(int argc, char** argv)
 		case EDIT_IMAGE:
 			//get image
 			imagePath = argv[IMAGE_PATH];
-			imagePath = Helper::checkPath(imagePath);
 			objectImage = imread(imagePath, -1); //read alpha channel
 
 			//get background
