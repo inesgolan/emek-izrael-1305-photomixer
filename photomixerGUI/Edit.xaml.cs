@@ -89,7 +89,6 @@ namespace photomixerGUI
            MessageBoxResult result = MessageBox.Show(message, caption, buttons);
            if (result == MessageBoxResult.Yes)
            {
-
                 BackgroundImage.Source = null;
 
                 if (ProjectVariables.username != "guest")
@@ -136,7 +135,6 @@ namespace photomixerGUI
         private void goToNextEdit(object sender, RoutedEventArgs e)
         {
             string lastEdit = "";
-
             ProjectVariables.countOfClicks++;
 
             if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)

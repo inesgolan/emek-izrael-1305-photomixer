@@ -26,8 +26,7 @@ namespace photomixerGUI
            {
                 ProjectVariables.imagesCounter++;
                 string savePath = ProjectVariables.username + "\\objectImage" + ProjectVariables.imagesCounter.ToString() + ".png";
-                ProjectVariables.objectPath = Helper.checkFullPath(ProjectVariables.objectPath);
-                Communicator.sendObjectRecognizeMsg(ProjectVariables.objectPath, savePath);
+                Communicator.sendObjectRecognizeMsg(Helper.checkFullPath(ProjectVariables.objectPath), savePath);
 
                 string text;
                 File.OpenRead(ProjectVariables.OUTPUT_FILE_NAME);

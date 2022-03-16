@@ -31,22 +31,40 @@ namespace photomixerGUI
         {
             File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
 
-            if (ProjectVariables.username == "guest")
+            if (File.Exists("matte2.png"))
             {
-                return;
+                File.Delete("matte2.png");
             }
 
-            loading pathes = new loading(true); // encryption
-            pathes.Show();
-            Close();
+            if (ProjectVariables.username == "guest")
+            {
+                string[] pictures = Directory.GetFiles(ProjectVariables.username);
 
-            // initialize all project variables
-            ProjectVariables.imagesCounter = 0;
-            ProjectVariables.imagesPathes = new string[ProjectVariables.SIZE];
-            ProjectVariables.countOfEdits = 0;
-            ProjectVariables.countOfClicks = 0;
-            ProjectVariables.index = 0;
+                foreach (string pic in pictures)
+                {
+                    if (pic != Helper.getImagePath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]) && !pic.Contains("objectImage"))
+                    {
+                        File.Delete(pic);
+                    }
+                }
 
+                MainWindow gotoMain = new MainWindow(); 
+                gotoMain.Show();
+                Close();
+            }
+            else
+            {
+                loading pathes = new loading(true); // encryption
+                pathes.Show();
+                Close();
+
+                // initialize all project variables
+                ProjectVariables.imagesCounter = 0;
+                ProjectVariables.imagesPathes = new string[ProjectVariables.SIZE];
+                ProjectVariables.countOfEdits = 0;
+                ProjectVariables.countOfClicks = 0;
+                ProjectVariables.index = 0;
+            }
         }
     }
 }

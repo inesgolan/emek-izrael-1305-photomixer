@@ -33,6 +33,8 @@
 
         <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,53" Click="returnToLastEdit"/>
         <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,53" Click="goToNextEdit"/>
+        <Label Content="back" HorizontalAlignment="Left" Margin="29,23,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="21"/>
+        <Label Content="next" HorizontalAlignment="Left" Margin="71,23,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="21"/>
 
     </Grid>
 </Window>

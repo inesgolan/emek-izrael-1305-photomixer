@@ -18,6 +18,7 @@ namespace photomixerGUI
             InitializeComponent();
         }
 
+        //open link
         private void guide(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
