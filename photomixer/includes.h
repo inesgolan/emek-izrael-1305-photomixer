@@ -46,7 +46,3 @@
 //CODE
 #define PATH 2
 #define USER 3
-
-// resize background
-#define ROWS_SIZE 2000 // ?
-#define COLS_SIZE 2000 // ?

@@ -17,9 +17,11 @@ int main(int argc, char** argv)
 		case OBJECT_DETECTION:
 			//get image path
 			imagePath = argv[IMAGE_PATH];
+			objectImage = imread(imagePath); //get image
 
-			//get image
-			objectImage = imread(imagePath);
+			objectImage = Helper::changeImageSize(OBJECT_SIZE, OBJECT_SIZE, objectImage, imagePath);
+			
+			
 			check = Helper::checkImage(objectImage, imagePath); 
 			if (check)
 			{
@@ -76,17 +78,15 @@ int main(int argc, char** argv)
 			imagePath = argv[IMAGE_PATH];
 			objectImage = imread(imagePath, -1); //read with alpha channel
 
-			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[IMAGE_PATH]);
 
 			break;
 
 		case RESIZE_BACKGROUND:
 			imagePath = argv[IMAGE_PATH];
 			objectImage = imread(imagePath);
-			//std::cout << "rows: " << objectImage.rows;
-			//std::cout << "cols: " << objectImage.cols;
 
-			objectImage = Helper::changeImageSize(ROWS_SIZE, COLS_SIZE , objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+			objectImage = Helper::changeImageSize(BACKGROUND_ROWS, BACKGROUND_COLS , objectImage, argv[IMAGE_PATH]);
 
 			break;
 
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
 			imagePath = argv[IMAGE_PATH];
 			objectImage = imread(imagePath, -1); //read with alpha channel
 
-			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[IMAGE_PATH]);
 
 			break;
 

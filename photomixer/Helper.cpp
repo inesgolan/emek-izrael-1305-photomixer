@@ -39,33 +39,13 @@ This function will change the size of an image
 input: rows, cols, image, std::string path
 output: Mat
 */
-Mat Helper::changeImageSize(int rows, int cols, Mat image, std::string path, int flag)
+Mat Helper::changeImageSize(int rows, int cols, Mat image, std::string path)
 {
 	Mat newMat;
 
-	if (flag == FALG_OBJECT)
-	{
-		if (rows > 500 && cols > 500)
-		{
-			resize(image, newMat, Size(rows * TOO_BIG_PICTURE, cols * TOO_BIG_PICTURE), INTER_LINEAR);
-		}
-
-		else if (rows > 300 && cols > 300)
-		{
-			resize(image, newMat, Size(rows * MEDIOM_PICTURE, cols * MEDIOM_PICTURE), INTER_LINEAR);
-		}
-
-		else if (rows > 200 && cols > 200)
-		{
-			resize(image, newMat, Size(rows * SMALL_PICTURE, cols * SMALL_PICTURE), INTER_LINEAR);
-		}
-	}
-	else
-	{
-		resize(image, newMat, Size(rows, cols), INTER_LINEAR);
-	}
-	
+	resize(image, newMat, Size(cols, rows), INTER_LINEAR);	
 	imwrite(path, newMat);
+
 	return newMat;
 }
 
