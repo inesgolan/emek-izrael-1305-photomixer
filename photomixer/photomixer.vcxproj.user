@@ -4,6 +4,6 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin;C:\python36
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>100 images/trols.jpg shlly.png</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>600 bye no no 1234567890123456</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>

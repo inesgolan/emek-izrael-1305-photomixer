@@ -88,6 +88,7 @@ void DataBase::addNewUser(std::string name, std::string password, std::string ma
 		mtx.lock();
 		_outputFile << "False";
 		mtx.unlock();
+		return;
 	}
 
 	//add the user to the users
