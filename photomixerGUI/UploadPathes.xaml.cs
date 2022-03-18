@@ -119,6 +119,7 @@ namespace photomixerGUI
             else
             {
                 ErrorMsg.Text = "Got the path!";
+                Communicator.resizeBackgroundMsg(ProjectVariables.backgroundPath);
             }
         }
 

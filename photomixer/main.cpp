@@ -80,6 +80,16 @@ int main(int argc, char** argv)
 
 			break;
 
+		case RESIZE_BACKGROUND:
+			imagePath = argv[IMAGE_PATH];
+			objectImage = imread(imagePath);
+			//std::cout << "rows: " << objectImage.rows;
+			//std::cout << "cols: " << objectImage.cols;
+
+			objectImage = Helper::changeImageSize(ROWS_SIZE, COLS_SIZE , objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+
+			break;
+
 		case RESIZE_SMALLER:
 			imagePath = argv[IMAGE_PATH];
 			objectImage = imread(imagePath, -1); //read with alpha channel

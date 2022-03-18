@@ -7,6 +7,7 @@
 #define REVERSE_MATTE 101
 #define EDIT_IMAGE 200
 #define RESIZE_BIGGER 300
+#define RESIZE_BACKGROUND 350
 #define RESIZE_SMALLER 400
 #define LOGIN 500
 #define REGISTER 600
@@ -45,3 +46,7 @@
 //CODE
 #define PATH 2
 #define USER 3
+
+// resize background
+#define ROWS_SIZE 2000 // ?
+#define COLS_SIZE 2000 // ?

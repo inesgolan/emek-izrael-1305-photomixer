@@ -4,6 +4,6 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin;C:\python36
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-    <LocalDebuggerCommandArguments>700 1.png ines</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>350 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\bin\Debug\net5.0-windows\back.jpg</LocalDebuggerCommandArguments>
   </PropertyGroup>
 </Project>
