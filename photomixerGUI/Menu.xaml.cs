@@ -66,5 +66,10 @@ namespace photomixerGUI
                 ProjectVariables.index = 0;
             }
         }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

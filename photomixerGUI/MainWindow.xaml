@@ -24,7 +24,9 @@
             <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
         </Border>
 
-        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25"/>
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="WELCOME BACK" Margin="271,16,271,295"/>
+        </Border>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -39,33 +41,31 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Left" Margin="81,48,0,0" VerticalAlignment="Top" FontSize="13" Foreground="White" Grid.ColumnSpan="2" Grid.Column="1" Width="422">  
-                Hi:) Please login here to view the features of this site.<LineBreak />
-                If you are new on this site then please click on   
+            <TextBlock HorizontalAlignment="Left" Margin="210,20,0,0" VerticalAlignment="Top" FontSize="13" Foreground="White" Grid.ColumnSpan="2" Grid.Column="1" Width="152" Grid.Row="3">  
+                Create account? 
                 <TextBlock>  
-                    <Hyperlink Click="register" FontSize="14">Register</Hyperlink>  
+                    <Hyperlink Click="register" FontSize="14">Sign up</Hyperlink>  
                 </TextBlock>  
-                button ,<LineBreak />
-                or enter as a 
+                <LineBreak></LineBreak>
+                Or enter as 
                 <TextBlock>  
                     <Hyperlink Click="guestButton_click" FontSize="14">guest</Hyperlink>  
                 </TextBlock>
-                .
             </TextBlock>
 
-            <TextBox  Grid.Row="1" Grid.Column="1" Name="Username"  Width="250" Height="32" Margin="161,40,275,40" Grid.ColumnSpan="2" GotFocus="usernameGotFocus"/>
-            <TextBox Background="Transparent" Name="usernameText" FontSize="14" IsHitTestVisible="False" Text="Enter username" Foreground="DarkGray" Grid.Column="1" Grid.Row="1" Margin="161,40,275,40" Grid.ColumnSpan="2"/>
+            <TextBox  Grid.Row="1" Grid.Column="1" Name="Username"  Width="250" Height="32" Margin="161,24,275,56" Grid.ColumnSpan="2" GotFocus="usernameGotFocus"/>
+            <TextBox Background="Transparent" Name="usernameText" FontSize="14" IsHitTestVisible="False" Text="Enter username" Foreground="DarkGray" Grid.Column="1" Grid.Row="1" Margin="161,24,275,56" Grid.ColumnSpan="2"/>
 
-            <PasswordBox Grid.Row="2" Grid.Column="1" Name="Password" Width="250" Height="32" Margin="161,40,275,40" Grid.ColumnSpan="2" GotFocus="passwordGotFocus"/>
-            <TextBox Background="Transparent" Name="passwordText" FontSize="14" IsHitTestVisible="False" Text="Enter password" Foreground="DarkGray" Grid.Column="1" Margin="161,41,275,40" Grid.Row="2" Grid.ColumnSpan="2"/>
+            <PasswordBox Grid.Row="1" Grid.Column="1" Name="Password" Width="250" Height="32" Margin="161,102,275,92" Grid.ColumnSpan="2" GotFocus="passwordGotFocus" Grid.RowSpan="2"/>
+            <TextBox Background="Transparent" Name="passwordText" FontSize="14" IsHitTestVisible="False" Text="Enter password" Foreground="DarkGray" Grid.Column="1" Margin="161,102,275,92" Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
-            <TextBlock HorizontalAlignment="Left" Margin="161,17,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="2" Grid.Column="1" Width="115">  
+            <TextBlock HorizontalAlignment="Left" Margin="161,78,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" Grid.Column="1" Width="115">  
                 <Hyperlink Click="forgotPassword" FontSize="14">Forgot password?</Hyperlink>
             </TextBlock>
 
-            <TextBlock Name="ErrorMsg" Margin="4,50,10,50" Foreground="DarkRed"/>
+            <TextBlock FontSize="14" Name="ErrorMsg" Margin="4,50,10,14" Foreground="DarkRed"/>
 
-            <Button FontSize="15" Content="Login" Foreground="Black" FontWeight="Bold" Click="login" Grid.ColumnSpan="2" Margin="236,0,350,58" Grid.Row="3" Grid.Column="1">
+            <Button FontSize="15" Foreground="Black" FontWeight="Bold" Click="login" Grid.ColumnSpan="2" Margin="161,58,275,112" Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Content="Login">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
