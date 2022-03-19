@@ -34,7 +34,10 @@ namespace photomixerGUI
         private void encryption()
         {
             string[] pictures = Directory.GetFiles(ProjectVariables.username, "*.png");
-
+            if (File.Exists(ProjectVariables.OUTPUT_FILE_NAME))
+            {
+                File.Delete("ProjectVariables.OUTPUT_FILE_NAME");
+            }
             foreach (string pic in pictures)
             {
                 if (!(pic.Split(".")[0].Contains("objectImage")))

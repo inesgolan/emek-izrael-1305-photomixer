@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
+
 
 namespace photomixerGUI
 {
@@ -35,6 +37,11 @@ namespace photomixerGUI
         {
             Menu gotoMenu = new Menu();
             gotoMenu.Show();
+            Close();
+        }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
             Close();
         }
     }

@@ -29,7 +29,7 @@ namespace photomixerGUI
 
         private void logout(object sender, RoutedEventArgs e)
         {
-            File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
+            //File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
 
             if (File.Exists("matte2.png"))
             {
@@ -64,6 +64,14 @@ namespace photomixerGUI
                 ProjectVariables.countOfEdits = 0;
                 ProjectVariables.countOfClicks = 0;
                 ProjectVariables.index = 0;
+                if (File.Exists(ProjectVariables.OUTPUT_FILE_NAME))
+                {
+                    File.Delete("ProjectVariables.OUTPUT_FILE_NAME");
+                }
+            }
+            if (File.Exists(ProjectVariables.OUTPUT_FILE_NAME))
+            {
+                File.Delete("ProjectVariables.OUTPUT_FILE_NAME");
             }
         }
 

@@ -82,3 +82,7 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\o
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\endScreen.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\loading.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\loading.baml
+C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\endScreen.g.cs
+C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\loading.g.cs
+C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\endScreen.baml
+C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\loading.baml

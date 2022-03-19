@@ -65,10 +65,12 @@ namespace photomixerGUI
             if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
             {
                 save = ProjectVariables.username + "/" + ProjectVariables.savePath;
+                ProjectVariables.savePath = save;
             }
             else
             {
                 save = ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
+                ProjectVariables.savePath = save;
             }
 
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);

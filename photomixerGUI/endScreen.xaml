@@ -5,12 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="endScreen" Height="450" Width="800">
+        Title="Login" Height="450" Width="800"         
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid>
 
-    <Grid Background="Black">
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
-        <Button FontSize="15" Content="Send image to your mail" FontWeight="Bold" Click="sendMail" Margin="438,181,56,195"/>
-        <Button FontSize="15" Content="Go back to main screen" FontWeight="Bold" Click="goBack" Margin="92,181,433,195"/>
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="END SCREEN WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="" Margin="271,16,271,295"/>
+        </Border>
+
+
+        <Grid>
+
+            <Button FontSize="15" Content="Send image to your mail" FontWeight="Bold" Click="sendMail" Margin="303,250,303,155">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button FontSize="15" Content="Go back to main screen" FontWeight="Bold" Click="goBack" Margin="303,176,303,225">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+        </Grid>
+
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
 
     </Grid>
 </Window>
