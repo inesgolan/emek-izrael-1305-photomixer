@@ -48,6 +48,9 @@ bool DataBase::doesUserExist(std::string name)
 // check if the password match the username
 void DataBase::doesPasswordMatch(std::string name, std::string password)
 {
+	std::cout << _outputFile.is_open();
+	_outputFile << "hi";
+
 	//check if user exist
 	if (!doesUserExist(name))
 	{
