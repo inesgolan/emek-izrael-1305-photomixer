@@ -120,11 +120,20 @@ namespace photomixerGUI
             }
             else if (ProjectVariables.countOfClicks > 1)
             {
-                lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";   
+                lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";
             }
 
+
+
+            if (ProjectVariables.countOfClicks == 2) 
+            {
+                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(ProjectVariables.username + "\\" + ProjectVariables.save);
+                BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
+
+                ProjectVariables.countOfClicks--;
+            }
             //update the image showen on the screen
-            if (ProjectVariables.countOfClicks > 0)
+            else if (ProjectVariables.countOfClicks > 0)
             {
                 ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(lastEdit);
                 BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
@@ -141,7 +150,7 @@ namespace photomixerGUI
 
             if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)
             {
-                lastEdit = ProjectVariables.username + "/" + ProjectVariables.savePath;
+                lastEdit = ProjectVariables.savePath;
             }
             else
             {

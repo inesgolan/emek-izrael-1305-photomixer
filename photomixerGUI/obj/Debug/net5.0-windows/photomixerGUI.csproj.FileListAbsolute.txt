@@ -46,7 +46,6 @@ C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-w
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Menu.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ProjectInfo.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.g.cs
-C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\UploadPathes.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\App.g.cs
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI_MarkupCompile.cache
@@ -57,7 +56,6 @@ C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-w
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Menu.baml
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ProjectInfo.baml
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.baml
-C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.baml
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\UploadPathes.baml
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.g.resources
 C:\Users\משתמש\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.GeneratedMSBuildEditorConfig.editorconfig

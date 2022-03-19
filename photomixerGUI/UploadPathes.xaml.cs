@@ -63,6 +63,7 @@ namespace photomixerGUI
             }
             else
             {
+                ProjectVariables.save = savePath.Text + ".png";
                 ProjectVariables.savePath = savePath.Text + ".png";
 
                 //put the background path in the last cell in the array
