@@ -48,15 +48,13 @@ bool DataBase::doesUserExist(std::string name)
 // check if the password match the username
 void DataBase::doesPasswordMatch(std::string name, std::string password)
 {
-	std::cout << _outputFile.is_open();
-	_outputFile << "hi";
-
 	//check if user exist
 	if (!doesUserExist(name))
 	{
 		mtx.lock();
 		_outputFile << "False";
 		mtx.unlock();
+		return;
 	}
 
 	std::string dbPassword = "";
@@ -91,6 +89,7 @@ void DataBase::addNewUser(std::string name, std::string password, std::string ma
 		mtx.lock();
 		_outputFile << "False";
 		mtx.unlock();
+		return;
 	}
 
 	//add the user to the users

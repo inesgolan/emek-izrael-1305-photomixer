@@ -65,11 +65,18 @@
 
             <TextBlock Name="ErrorMsg" Margin="4,50,10,50" Foreground="DarkRed"/>
 
-            <Button FontSize="15" Content="Login" Foreground="Black" FontWeight="Bold" Click="login" Grid.ColumnSpan="2" Margin="236,0,350,58" Grid.Row="3" Grid.Column="1"/>
+            <Button FontSize="15" Content="Login" Foreground="Black" FontWeight="Bold" Click="login" Grid.ColumnSpan="2" Margin="236,0,350,58" Grid.Row="3" Grid.Column="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
         </Grid>
 
-        <Button Background="Transparent" Height="40" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20" Content="X" Click="exit"/>
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
 
     </Grid>
 

@@ -25,7 +25,9 @@ namespace photomixerGUI
             {
                 ErrorMsg.Text = "Your own problem. go get new friends.";
                 Username.Clear();
+                usernameText.Text = "Enter username";
                 Password.Clear();
+                passwordText.Text = "Enter password";
             }
             else
             {
@@ -78,16 +80,12 @@ namespace photomixerGUI
 
         private void usernameGotFocus(object sender, RoutedEventArgs e)
         {
-            usernameText.Text = string.Empty;
-            Username.GotFocus -= usernameGotFocus;
+            usernameText.Clear();
         }
 
         private void passwordGotFocus(object sender, RoutedEventArgs e)
         {
-            passwordText.Text = string.Empty;
-            Password.GotFocus -= passwordGotFocus;
+            passwordText.Clear();
         }
     }
 }
-//להחזיר את הטקסט אם השם משתמש והסיסמא לא טובים
-//לא בודק אם המשתמש קיים
