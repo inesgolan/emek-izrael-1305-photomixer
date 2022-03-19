@@ -9,8 +9,9 @@
     <Grid Background="Black">
 
         <Image Name ="loadingImage" Source ="{Binding}" HorizontalAlignment="Left" Height="306" Margin="176,68,0,0" VerticalAlignment="Top" Width="540"/>
-        <Label Foreground="White" Content="Please wait while we " x:Name="type" HorizontalAlignment="Left" Margin="176,31,0,0" VerticalAlignment="Top" FontSize="20" Width="473"/>
-        <Button Content="Press me" HorizontalAlignment="Left" Height="32" Margin="346,323,0,0" VerticalAlignment="Top" Width="98" Click="callFunctions"/>
+        <Label Foreground="White" Content="Please wait while we " x:Name="type" HorizontalAlignment="Left" Margin="233,31,0,0" VerticalAlignment="Top" FontSize="20" Width="416"/>
+        <Button x:Name="pressButton" Content="Press me" HorizontalAlignment="Left" Height="32" Margin="247,323,0,0" VerticalAlignment="Top" Width="98" Click="callFunctions"/>
+        <Button Content="Back" HorizontalAlignment="Left" Height="32" Margin="468,323,0,0" VerticalAlignment="Top" Width="101" Click="back"/>
 
     </Grid>
 </Window>

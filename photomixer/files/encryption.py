@@ -1,8 +1,6 @@
-#parameters - filename, key, username
+#parameters - key, filename, username
 import sys
 from copy import copy
-import binascii
-import base64
 import copy
 
 SIZE = 4
@@ -307,7 +305,7 @@ def encryption(key, HexArray):
     arrLen = hexLen // 16
     leftover = hexLen % 16
     u = 0
-    print(len(HexArray))
+    #print(len(HexArray))
     for i in range(len(HexArray)):
         if (i % 16 == 0 and i is not 0):
             textArr.insert(j, tempArr)
@@ -322,8 +320,6 @@ def encryption(key, HexArray):
     for i in range(leftover):
         leftOvers.insert(i, HexArray[len(HexArray)-(i+1)])
 	
-    print("before: ", textArr)
-    print(" ")
     allRoundsKey(hexKey)
 	
     for i in range(len(textArr)):
@@ -335,27 +331,22 @@ def encryption(key, HexArray):
 
 
 def main():
-    print(sys.argv)
-    
     i = 0
     k = 0
     j = 0
     
     # get the filename
     key = str(sys.argv[1])
-    filename = str(sys.argv[2]) #python encryption.py wertrwertwertwer images\dog.jpg gg
-    username = str(sys.argv[3]) # wertrwertwertwer
+    filename = str(sys.argv[2]) 
+    username = str(sys.argv[3]) 
     
     fin = open(filename, 'rb')
     image = fin.read()
-    print("image: ", image)
     fin.close()
     
     image = bytearray(image)
  
     matrix = encryption(key, image)
-    #print("encryption: ",matrix)
-    #print(" ")
 	
     hex_to_baseE = []
     for i in range(len(matrix)):
@@ -368,10 +359,10 @@ def main():
         base_to_numE.insert(i, int(hex_to_baseE[i], 16))
 	
     byteArrayE = bytearray(base_to_numE) # this is the byte array of the encrypted image
-    print (base_to_numE)
+
     # create a file with the username's name+matrix
-    f = open(username + "Matrix.txt", "x")
-    #f.write(byteArrayE.decode("utf-8"))
+    #print(username + "\\"+(filename.split("\\")[1]).split(".")[0]+"Matrix.txt")
+    f = open(username + "\\"+(filename.split("\\")[1]).split(".")[0]+"Matrix.txt", "x")
     f.write(str(base_to_numE))
     f.close()
     

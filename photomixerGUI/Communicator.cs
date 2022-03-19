@@ -55,6 +55,14 @@ namespace photomixerGUI
             proc.WaitForExit();
         }
 
+        public static void resizeBackgroundMsg(string objectPath)
+        {
+            string exe_params = "350 " + objectPath;
+            string path = Path.GetFullPath("photomixer.exe");
+            Process proc = System.Diagnostics.Process.Start(path, exe_params);
+            proc.WaitForExit();
+        }
+
         public static void resizeObjectSmallMsg(string objectPath)
         {
             string exe_params = "400 " + objectPath;
@@ -83,7 +91,7 @@ namespace photomixerGUI
         */
         public static void registerMsg(string username, string password, string mail, string key)
         {
-            string exe_params = "600 " + username + " " + password + " " + mail + "" + key;
+            string exe_params = "600 " + username + " " + password + " " + mail + " " + key;
             string path = Path.GetFullPath("photomixer.exe");
             Process proc = System.Diagnostics.Process.Start(path, exe_params);
             proc.WaitForExit();

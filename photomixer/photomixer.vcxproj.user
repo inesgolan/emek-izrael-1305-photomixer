@@ -4,6 +4,10 @@
     <LocalDebuggerEnvironment>PATH=C:\opencv\build\x64\vc14\bin;C:\python36
 $(LocalDebuggerEnvironment)</LocalDebuggerEnvironment>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+<<<<<<< HEAD
     <LocalDebuggerCommandArguments>500 veronica 12</LocalDebuggerCommandArguments>
+=======
+    <LocalDebuggerCommandArguments>600 bye no no 1234567890123456</LocalDebuggerCommandArguments>
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
   </PropertyGroup>
 </Project>

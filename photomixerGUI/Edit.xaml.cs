@@ -89,13 +89,20 @@ namespace photomixerGUI
            MessageBoxResult result = MessageBox.Show(message, caption, buttons);
            if (result == MessageBoxResult.Yes)
            {
-               File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
-
                 BackgroundImage.Source = null;
 
-                endScreen end = new endScreen();
-                end.Show();
-                Close();
+                if (ProjectVariables.username != "guest")
+                {
+                    endScreen end = new endScreen();
+                    end.Show();
+                    Close();
+                }
+                else
+                {
+                    Menu gotoMenu = new Menu();
+                    gotoMenu.Show();
+                    Close();
+                }
             }
 
         }
@@ -128,7 +135,6 @@ namespace photomixerGUI
         private void goToNextEdit(object sender, RoutedEventArgs e)
         {
             string lastEdit = "";
-
             ProjectVariables.countOfClicks++;
 
             if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)

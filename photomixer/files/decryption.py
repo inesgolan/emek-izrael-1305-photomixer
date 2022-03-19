@@ -1,6 +1,8 @@
-#parameters - file pixels(bytearray), key, filename, username
+#parameters - key, filename, username
 import sys
 from copy import copy
+import binascii
+import base64
 import copy
 import os
 
@@ -266,7 +268,6 @@ def decryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-    #print(HexArray)
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -285,7 +286,6 @@ def decryptionForEachPart(key, HexArray):
         matrix = addRoundKey(copy.deepcopy(keys[index]), matrix)
         index -= 1
         matrix = inverseMixColumn(matrix)	
-        #print(str(round) , " ")
      
     matrix = inverseShiftRows(matrix)
     matrix = inverseSubBytes(matrix)
@@ -314,7 +314,7 @@ def decryption(key, HexArray):
     finalDecryption = []
     tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i = 0
-    #print(HexArray)
+
     for i in range(len(HexArray)):
         temp = decryptionForEachPart(key, HexArray[i])
         finalDecryption.insert(i,temp)
@@ -324,8 +324,6 @@ def decryption(key, HexArray):
 
 
 def main():
-    #print(sys.argv)
-
     # get the encriped pixels and keys and dilename
     global keys
     key = str(sys.argv[1])
@@ -333,10 +331,10 @@ def main():
     username = str(sys.argv[3])
     
     # get datat from file
-    file = open(username + "Matrix.txt", 'r')
+    file = open(username + "\\"+(filename.split("\\")[1]).split(".")[0]+"Matrix.txt", 'r')
     text = str(file.read())
     file.close()
-    os.remove(username + "Matrix.txt")
+    os.remove(username + "\\"+(filename.split("\\")[1]).split(".")[0]+"Matrix.txt")
     
     text = text[1:-1]
     text = text.split(",")
@@ -379,11 +377,8 @@ def main():
         tempArr [k] = myList[i]
         k +=1
        
-           
-    #print(toDecryption)     
+               
     matrix2 = decryption(keys[ROUNDS+1], toDecryption)
-    #print("decryption: ", matrix2)
-    #print(" ")
 	
     i = 0
     k = 0
@@ -407,7 +402,7 @@ def main():
 	
     fin = open(filename, 'wb')
     fin.write(byteArrayD)
-    fin.close();
+    fin.close()
 	
 	 
 if __name__ == "__main__":
