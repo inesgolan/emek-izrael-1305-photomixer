@@ -45,9 +45,13 @@ namespace photomixerGUI
             {
                 ErrorMsg.Text = "Your own problem. go get new friends.";
                 Username.Clear();
+                usernameText.Text = "Enter username";
                 Password.Clear();
+                passwordText.Text = "Enter password";
                 Mail.Clear();
+                mailText.Text = "Enter mail";
                 keyBotton.Clear();
+                keyText.Text = "Enter key (16 chars)";
             }
             else
             {
@@ -66,11 +70,37 @@ namespace photomixerGUI
             {
                 ErrorMsg.Text = "please enter 16 chars";
                 keyBotton.Clear();
+                keyText.Text = "Enter key (16 chars)";
             }
 
             newKey = Helper.switchSpaces(newKey);
 
             return newKey;
+        }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void usernameGotFocus(object sender, RoutedEventArgs e)
+        {
+            usernameText.Clear();
+        }
+
+        private void passwordGotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordText.Clear();
+        }
+
+        private void mailGotFocus(object sender, RoutedEventArgs e)
+        {
+            mailText.Clear();
+        }
+
+        private void keyGotFocus(object sender, RoutedEventArgs e)
+        {
+            keyText.Clear();
         }
     }
 }
