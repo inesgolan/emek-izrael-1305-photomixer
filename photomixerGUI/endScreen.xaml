@@ -11,7 +11,6 @@
 
         <Button FontSize="15" Content="Send image to your mail" FontWeight="Bold" Click="sendMail" Margin="438,181,56,195"/>
         <Button FontSize="15" Content="Go back to main screen" FontWeight="Bold" Click="goBack" Margin="92,181,433,195"/>
-        <Button FontSize="15" Content="Encrypt your image" FontWeight="Bold" Click="Encrypt" Margin="262,261,262,115"/>
 
     </Grid>
 </Window>

@@ -11,21 +11,29 @@
 
         <Label Content="Welcome!" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,383"/>
 
-        <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,70,0,70" Width="644">  
-            Hi:) We are Ines and Shelly, and we did this project on behalf of the "Magshimim" program.<LineBreak />
-            <LineBreak />
-            Our project let you upload images - images that you found online or toke yourself,<LineBreak />
-             and then our program will recognize the object in the image.<LineBreak />
-            After that, you can put the image on a background to your choice, and save it.<LineBreak />
-            <LineBreak />
-            For the object detection to work, your image must meet the following criteria: <LineBreak />
-            1. Object/background are not in black and white colors<LineBreak />
-            2. Object and background are not in similar colors<LineBreak />
-            3. The object covers most of the image<LineBreak />
-            <LineBreak />
-            Sign up to get complete security - encryption of your images!<LineBreak />
-            <LineBreak />
-            Hope you'll enjoy:)<LineBreak />
+        <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,70,0,33" Width="644">
+            <Run Text="Hi:) We are Ines and Shelly, and we did this project on behalf of the &quot;Magshimim&quot; program."/><LineBreak/><Run/><LineBreak/>
+            <Run Text="Our project lets you upload images - ones that you found online or took yourself,"/><LineBreak/>
+            <Run Text="and then our program will recognize the object in the image."/><LineBreak/>
+            <Run Text="After that, you can put the image on a background of your choice, and save it."/><LineBreak/><Run/><LineBreak/>
+            <Run Text="For the object detection to work, your image must meet the following criteria:"/><LineBreak/>
+            <Run Text="1. Object/background are not in black and white colors"/><LineBreak/>
+            <Run Text="2. Object and background are not in similar colors"/><LineBreak/>
+            <Run Text="3. The object covers most of the image"/><LineBreak/><Run/><LineBreak/>
+            <Run Text="Sign up to get complete security - encryption of your images!"/><LineBreak/><Run/><LineBreak/>
+            <Run Text="You need to download python 3.6 and opencv 4.5.3 to use our project and place it in C:/"/><LineBreak/>
+            <Run Text="You can follow this "/><LineBreak/><Run/><LineBreak/>
+            <Run Text="Questions and suggestions can be sent here: itsphotomixer@gmail.com"/><LineBreak/>
+            <Run Text="Hope you'll enjoy:)"/><LineBreak/></TextBlock>
+        <TextBlock FontSize="15" Margin="205,344,481,96">           
+            <Hyperlink NavigateUri="https://stackoverflow.com/questions/17028576/using-python-3-3-in-c-python33-d-lib-not-found" RequestNavigate="python">
+                guide to python
+            </Hyperlink>
+        </TextBlock>
+        <TextBlock FontSize="15" Margin="336,344,351,96">           
+            <Hyperlink NavigateUri="https://opencv.org/releases/" RequestNavigate="opencv">
+                guide to opencv
+            </Hyperlink>
         </TextBlock>
 
     </Grid>

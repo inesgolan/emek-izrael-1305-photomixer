@@ -27,10 +27,44 @@ namespace photomixerGUI
             Close();
         }
 
-        //This function closes the window
-        private void exit(object sender, RoutedEventArgs e)
+        private void logout(object sender, RoutedEventArgs e)
         {
-            Close();
+            File.Delete(ProjectVariables.OUTPUT_FILE_NAME);
+
+            if (File.Exists("matte2.png"))
+            {
+                File.Delete("matte2.png");
+            }
+
+            if (ProjectVariables.username == "guest")
+            {
+                string[] pictures = Directory.GetFiles(ProjectVariables.username);
+
+                foreach (string pic in pictures)
+                {
+                    if (pic != Helper.getImagePath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]) && !pic.Contains("objectImage"))
+                    {
+                        File.Delete(pic);
+                    }
+                }
+
+                MainWindow gotoMain = new MainWindow(); 
+                gotoMain.Show();
+                Close();
+            }
+            else
+            {
+                loading pathes = new loading(true); // encryption
+                pathes.Show();
+                Close();
+
+                // initialize all project variables
+                ProjectVariables.imagesCounter = 0;
+                ProjectVariables.imagesPathes = new string[ProjectVariables.SIZE];
+                ProjectVariables.countOfEdits = 0;
+                ProjectVariables.countOfClicks = 0;
+                ProjectVariables.index = 0;
+            }
         }
     }
 }

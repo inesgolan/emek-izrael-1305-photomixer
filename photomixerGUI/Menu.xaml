@@ -32,8 +32,8 @@
         <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50"  Content="Upload images"
                 Foreground="Black" FontWeight="Bold" Click="getPathes" Margin="29,29,29,30"/>
 
-        <Button Grid.Column="1" Grid.Row="3" FontSize="15" Height="50" Width="100" Content="Exit" 
-                Foreground="DarkRed" FontWeight="Bold" Click="exit"/>
+        <Button Grid.Column="1" Grid.Row="3" FontSize="15" Height="50" Width="100" Content="logout" 
+                Foreground="DarkRed" FontWeight="Bold" Click="logout"/>
 
     </Grid>
 

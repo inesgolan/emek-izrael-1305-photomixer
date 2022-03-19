@@ -30,6 +30,5 @@ namespace photomixerGUI
         public static string savePath;
         public static int countOfClicks = 0;
         public static int index;
-        public static bool flag;
     }
 }
