@@ -16,15 +16,23 @@ namespace photomixerGUI
             InitializeComponent();
 
             flag = value;
+            if (flag)
+            {
+                type.Content += "ENCRYPT YOUR PICTURE";
+            }
+            else
+            {
+                type.Content += "DECRYPT YOUR PICTURE";
+            }
 
-            string path = Path.GetFullPath("files\\loading.webp");
-            loadingImage.Source = new BitmapImage(new Uri(path));         
+            string path = Path.GetFullPath("files\\loading.gif");
+            loadingGif.Source = new System.Uri(path);
+            loadingGif.LoadedBehavior = MediaState.Manual;
+            loadingGif.Play();
         }
 
         private void encryption()
         {
-            type.Content += "encrypt";
-
             string[] pictures = Directory.GetFiles(ProjectVariables.username, "*.png");
 
             foreach (string pic in pictures)
@@ -37,11 +45,10 @@ namespace photomixerGUI
             pressButton.Visibility = System.Windows.Visibility.Collapsed;
         }
 
-        private void decryption()
+        private void decryption() //only if encrypt
         {
-            type.Content += "decrypt";
-
             string[] images = Directory.GetFiles(ProjectVariables.username);
+
             foreach (string image in images)
             {
                 string path = Helper.getImagePath(image);
@@ -60,12 +67,10 @@ namespace photomixerGUI
             {
                 decryption();
             }
-            type.Content += " your picture...";
         }
 
-        private void back(object sender, RoutedEventArgs e)
+        private void exit(object sender, RoutedEventArgs e)
         {
-
             if (flag) //encryption
             {
                 MainWindow gotoMain = new MainWindow();

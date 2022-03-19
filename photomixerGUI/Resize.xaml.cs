@@ -29,7 +29,7 @@ namespace photomixerGUI
         // make the picture size larger
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
-            Communicator.resizeObjectBigMsg(imagePath);  
+            Communicator.resizeObjectBigMsg(imagePath);
         }
 
         // make the picture size smaller
@@ -40,6 +40,11 @@ namespace photomixerGUI
 
         // back to upload pathes screen
         private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void exit(object sender, RoutedEventArgs e)
         {
             Close();
         }

@@ -5,39 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="Resize" Height="450" Width="800">
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*" />
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.2*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        Title="Login" Height="450" Width="800"         
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+
+    <Grid>
+
+        <Border Background="#ECF0F1" CornerRadius="10"/>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="RESIZE WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="23" FontWeight="ExtraBold" Foreground="White" Content="Change your image size:" Margin="258,26,258,285"/>
+        </Border>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Button Name="biggerButton" Grid.Column="1" Grid.Row="2" FontSize="60" Height="70"  Content="+"
+                Foreground="Black" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent"  Click="biggerButton_Click" Margin="100,10,280,70" RenderTransformOrigin="0.373,1.137" Grid.ColumnSpan="2"/>
+
+            <Button Name="smallerButton" Grid.Row="2" FontSize="60" Height="70"  Content="-"
+                Foreground="Black" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent"  Click="smallerButton_Click" Margin="240,10,136,70" Grid.ColumnSpan="2"/>
 
 
-        <Button Name="backButton" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="50" Width="80" Content="Back" 
-                Foreground="Black" FontWeight="Bold" Click="backButton_Click" Margin="10,10,0,0"/>
+            <Button x:Name="resultButton" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="50" Width="136" Content="Show result" 
+            Foreground="Black" FontWeight="Bold" Click="resultButton_Click" Grid.Column="1" Grid.Row="1" >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
-        <Label FontWeight="ExtraBold" FontSize="19" Foreground="White" Content="Change your image size:"
-               HorizontalAlignment="Center" VerticalAlignment="Center" Width="235" Grid.Column="1" />
+        </Grid>
 
-        <Label FontWeight="ExtraBold" FontSize="16" Foreground="White" Content="* if u want to see the resuly press on Result button and then close the screen."
-               HorizontalAlignment="Left" VerticalAlignment="Top" Width="608" Grid.ColumnSpan="3" Margin="71,99,0,0" Height="46" Grid.RowSpan="2"/>
-
-
-        <Button Name="biggerButton" Grid.Column="2" Grid.Row="2" FontSize="20" Height="50" Width="100"  Content="bigger"
-                Foreground="Black" FontWeight="Bold" Click="biggerButton_Click" Margin="0,21,182,38" RenderTransformOrigin="0.373,1.137"/>
-
-        <Button Name="smallerButton" Grid.Row="2" FontSize="20" Height="50" Width="100"  Content="smaller"
-                Foreground="Black" FontWeight="Bold" Click="smallerButton_Click" Margin="182,21,0,38"/>
-
-
-        <Button x:Name="resultButton" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="50" Width="80" Content="Result" 
-            Foreground="Black" FontWeight="Bold" Click="resultButton_Click" Margin="192,10,0,0" Grid.Column="2"/>
-
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
     </Grid>
 </Window>

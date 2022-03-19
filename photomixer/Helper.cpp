@@ -1,6 +1,6 @@
 #include "Helper.h"
 
-#define OUTPUT_FILE_NAME "files/Output.txt"
+#define OUTPUT_FILE_NAME "files\\Output.txt"
 std::mutex mtxCheck;
 
 

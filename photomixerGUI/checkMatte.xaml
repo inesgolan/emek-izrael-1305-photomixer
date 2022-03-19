@@ -5,30 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="checkMatte" Height="450" Width="800">
+        Title="Login" Height="450" Width="800"         
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
 
-        <Label FontWeight="Bold" FontSize="15" Foreground="DarkBlue" Content="the image:"
+        <Border Background="#ECF0F1" CornerRadius="10"/>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="CHECK MATTE WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="" Margin="271,16,271,295"/>
+        </Border>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label FontWeight="Bold" FontSize="20" Foreground="Black" Content="the image:"
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236"/>
-        <Image x:Name="objectImage" Source="{Binding objectImage}"/>
-        <Label FontWeight="Bold" FontSize="15" Foreground="DarkBlue" Content="matte:"
+            <Image x:Name="objectImage" Source="{Binding objectImage}" Grid.ColumnSpan="2" Margin="71,48,329,102" Grid.RowSpan="2"/>
+            <Label FontWeight="Bold" FontSize="20" Foreground="Black" Content="matte:"
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236" Grid.Column="1" />
-        <Image Grid.Column="1" x:Name ="matteImage" Source="{Binding objectImage}"/>
+            <Image Grid.Column="1" x:Name ="matteImage" Source="{Binding objectImage}" Margin="0,48,0,102" Grid.RowSpan="2"/>
 
-        <Button Grid.Row="1" FontSize="15" Margin="250,50,250,50" Content="Reverse matte colors" Foreground="DarkBlue" FontWeight="Bold" Grid.ColumnSpan="2" Click="reverseMatte"/>
+            <Button Grid.Row="1" FontSize="15" Margin="250,75,250,25" Content="Reverse matte colors" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" Click="reverseMatte">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
 
-        <Button Grid.Row="2" FontSize="15" Height="50" Width="100" Content="It's fine" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" Click="closeWindow"/>
+            <Button Grid.Row="2" FontSize="15" Height="50" Width="100" Content="It's fine" Foreground="Black" FontWeight="Bold" Grid.ColumnSpan="2" Click="closeWindow" Margin="350,25,350,75">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+        </Grid>
+
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
 
     </Grid>
-    
+
 </Window>

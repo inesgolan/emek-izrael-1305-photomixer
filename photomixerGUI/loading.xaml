@@ -5,13 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="loading" Height="450" Width="800">
-    <Grid Background="Black">
+        Title="loading" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-        <Image Name ="loadingImage" Source ="{Binding}" HorizontalAlignment="Left" Height="306" Margin="176,68,0,0" VerticalAlignment="Top" Width="540"/>
-        <Label Foreground="White" Content="Please wait while we " x:Name="type" HorizontalAlignment="Left" Margin="233,31,0,0" VerticalAlignment="Top" FontSize="20" Width="416"/>
-        <Button x:Name="pressButton" Content="Press me" HorizontalAlignment="Left" Height="32" Margin="247,323,0,0" VerticalAlignment="Top" Width="98" Click="callFunctions"/>
-        <Button Content="Back" HorizontalAlignment="Left" Height="32" Margin="468,323,0,0" VerticalAlignment="Top" Width="101" Click="back"/>
+    <Grid>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="LOADING WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" x:Name="type" Content="PLEASE WAIT WHILE WE " Margin="22,16,20,295"/>
+        </Border>
+        <Grid>
+
+            <Button Name="pressButton" FontSize="15" Foreground="Black" FontWeight="Bold" Click="callFunctions" Content="Press me" Margin="326,350,326,60">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <MediaElement Name="loadingGif" Source="{Binding}" HorizontalAlignment="Left" Height="188" Margin="306,139,0,0" VerticalAlignment="Top" Width="328"/>
+        </Grid>
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
     </Grid>
 </Window>
