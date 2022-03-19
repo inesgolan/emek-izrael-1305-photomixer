@@ -70,5 +70,24 @@ namespace photomixerGUI
         {
             Communicator.sendForgetPasswordMail(Username.Text);
         }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void usernameGotFocus(object sender, RoutedEventArgs e)
+        {
+            usernameText.Text = string.Empty;
+            Username.GotFocus -= usernameGotFocus;
+        }
+
+        private void passwordGotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordText.Text = string.Empty;
+            Password.GotFocus -= passwordGotFocus;
+        }
     }
 }
+//להחזיר את הטקסט אם השם משתמש והסיסמא לא טובים
+//לא בודק אם המשתמש קיים
