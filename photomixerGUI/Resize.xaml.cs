@@ -23,19 +23,19 @@ namespace photomixerGUI
         public Resize(string path)
         {
             InitializeComponent();
-            imagePath = Helper.checkFullPath(path);
+            imagePath = path;
         }
 
         // make the picture size larger
         private void biggerButton_Click(object sender, RoutedEventArgs e)
         {
-            Communicator.resizeObjectBigMsg(imagePath);
+            Communicator.resizeObjectBigMsg(Helper.checkFullPath(imagePath));
         }
 
         // make the picture size smaller
         private void smallerButton_Click(object sender, RoutedEventArgs e)
         {
-            Communicator.resizeObjectSmallMsg(imagePath);
+            Communicator.resizeObjectSmallMsg(Helper.checkFullPath(imagePath));
         }
 
         // back to upload pathes screen

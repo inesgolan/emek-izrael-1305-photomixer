@@ -25,7 +25,6 @@
         </Border>
 
         <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
-            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="" Margin="271,16,271,295"/>
         </Border>
 
 
@@ -40,10 +39,10 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label FontWeight="Bold" FontSize="20" Foreground="Black" Content="the image:"
+            <Label FontWeight="Bold" FontSize="20" Foreground="White" Content="the image:"
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236"/>
             <Image x:Name="objectImage" Source="{Binding objectImage}" Grid.ColumnSpan="2" Margin="71,48,329,102" Grid.RowSpan="2"/>
-            <Label FontWeight="Bold" FontSize="20" Foreground="Black" Content="matte:"
+            <Label FontWeight="Bold" FontSize="20" Foreground="White" Content="matte:"
                HorizontalAlignment="Left" VerticalAlignment="Center" Width="236" Grid.Column="1" />
             <Image Grid.Column="1" x:Name ="matteImage" Source="{Binding objectImage}" Margin="0,48,0,102" Grid.RowSpan="2"/>
 

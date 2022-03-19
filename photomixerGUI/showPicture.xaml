@@ -25,7 +25,7 @@
         </Border>
 
         <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
-            <Label FontSize="20" FontWeight="ExtraBold" Foreground="White" Content="Your picture after resize:" Margin="241,16,243,301"/>
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" x:Name="type" Content="YOUR IMAGE AFTER RESIZE " Margin="186,17,186,294"/>
         </Border>
 
         <Grid>

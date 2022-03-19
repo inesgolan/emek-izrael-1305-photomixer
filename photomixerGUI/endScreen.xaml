@@ -24,13 +24,12 @@
         </Border>
 
         <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
-            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="" Margin="271,16,271,295"/>
         </Border>
 
 
         <Grid>
 
-            <Button FontSize="15" Content="Send image to your mail" FontWeight="Bold" Click="sendMail" Margin="303,250,303,155">
+            <Button FontSize="15" Content="Send image to your mail" FontWeight="Bold" Click="sendMail" Margin="518,323,88,82">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
@@ -38,13 +37,15 @@
                 </Button.Resources>
             </Button>
 
-            <Button FontSize="15" Content="Go back to main screen" FontWeight="Bold" Click="goBack" Margin="303,176,303,225">
+            <Button FontSize="15" Content="Go back to main screen" FontWeight="Bold" Click="goBack" Margin="84,323,522,78">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
                     </Style>
                 </Button.Resources>
             </Button>
+
+            <Image Name="mailImage" Source="{Binding}" Margin="256,95,288,141"/>
 
         </Grid>
 

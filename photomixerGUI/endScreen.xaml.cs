@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.IO;
 
 
@@ -22,6 +21,9 @@ namespace photomixerGUI
         public endScreen()
         {
             InitializeComponent();
+
+            string path = Path.GetFullPath("files\\mail.jpg");
+            mailImage.Source = new BitmapImage(new Uri(path));
         }
 
         private void sendMail(object sender, RoutedEventArgs e)

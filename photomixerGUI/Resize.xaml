@@ -25,7 +25,7 @@
         </Border>
 
         <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
-            <Label FontSize="23" FontWeight="ExtraBold" Foreground="White" Content="Change your image size:" Margin="258,26,258,285"/>
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="CHANGE YOUR IMAGE SIZE" Margin="184,16,184,295"/>
         </Border>
 
         <Grid>
@@ -41,10 +41,10 @@
             </Grid.RowDefinitions>
 
             <Button Name="biggerButton" Grid.Column="1" Grid.Row="2" FontSize="60" Height="70"  Content="+"
-                Foreground="Black" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent"  Click="biggerButton_Click" Margin="100,10,280,70" RenderTransformOrigin="0.373,1.137" Grid.ColumnSpan="2"/>
+                Foreground="Black" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent"  Click="biggerButton_Click" Margin="138,0,242,80" RenderTransformOrigin="0.373,1.137" Grid.ColumnSpan="2"/>
 
             <Button Name="smallerButton" Grid.Row="2" FontSize="60" Height="70"  Content="-"
-                Foreground="Black" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent"  Click="smallerButton_Click" Margin="240,10,136,70" Grid.ColumnSpan="2"/>
+                Foreground="Black" FontWeight="Bold" BorderBrush="Transparent" Background="Transparent"  Click="smallerButton_Click" Margin="231,0,145,80" Grid.ColumnSpan="2"/>
 
 
             <Button x:Name="resultButton" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Height="50" Width="136" Content="Show result" 

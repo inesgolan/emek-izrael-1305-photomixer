@@ -26,7 +26,7 @@
         </Border>
 
         <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
-            <Label FontSize="22" FontWeight="ExtraBold" Foreground="White" Content="Upload your images: " Margin="284,23,258,287"/>
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" x:Name="type" Content="UPLOAD YOUR IMAGES " Margin="211,22,211,289"/>
         </Border>
 
         <Grid>
@@ -42,8 +42,8 @@
             </Grid.RowDefinitions>
 
 
-            <Button Name="objectPathButton" Grid.Row="1" FontSize="15"  Content="Choose object image" 
-                Foreground="Black" FontWeight="Bold" Click="uploadImgae_click" RenderTransformOrigin="-1.895,0.94" Margin="10,10,360,84" Grid.ColumnSpan="2">
+            <Button Name="objectPathButton" FontSize="15"  Content="choose object" 
+                Foreground="Black" FontWeight="Bold" Click="uploadImgae_click" RenderTransformOrigin="-1.895,0.94" Margin="161,0,209,94" Grid.ColumnSpan="2" Grid.Row="1">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
@@ -52,8 +52,8 @@
             </Button>
 
 
-            <Button Name="backgroundPathButton"  FontSize="15" Content="Choose background image" 
-                Foreground="Black" FontWeight="Bold" Click="uploadBackground_click" RenderTransformOrigin="-1.895,0.94" Margin="10,86,360,10" Grid.Row="1" Grid.ColumnSpan="2">
+            <Button Name="backgroundPathButton"  FontSize="15" Content="choose background" 
+                Foreground="Black" FontWeight="Bold" Click="uploadBackground_click" RenderTransformOrigin="-1.895,0.94" Margin="67,86,103,10" Grid.Row="1" Grid.Column="1">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="20"/>
@@ -61,9 +61,9 @@
                 </Button.Resources>
             </Button>
 
-            <TextBlock Name="ErrorMsg" FontSize="15" Margin="14,145,0,117" Foreground="Black" Grid.Row="1" Grid.RowSpan="2"/>
+            <TextBlock Name="ErrorMsg" FontSize="15" Margin="14,11,0,61" Foreground="Black" Grid.Row="2"/>
 
-            <Button   FontSize="15" Content="Go to editor" Height="43"
+            <Button FontSize="15" Content="Go to editor" Height="43"
                 Foreground="Black" FontWeight="Bold" Click="edit" Margin="60,54,10,54" RenderTransformOrigin="0.689,0.664" Grid.Column="2" Grid.Row="2">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -72,17 +72,17 @@
                 </Button.Resources>
             </Button>
 
-            <Button FontSize="12" Content="check matte"
-            Foreground="Black" Background="white" FontWeight="Bold" Click="checkObjectDetction" Margin="78,22,244,96" RenderTransformOrigin="0.689,0.664" Grid.Column="1" Grid.Row="1"  >
+            <Button FontSize="12" Content="check"
+            Foreground="Black" Background="white" FontWeight="Bold" Click="checkObjectDetction" Margin="200,0,144,96" RenderTransformOrigin="0.689,0.664" Grid.Column="1" Grid.Row="1"  >
                 <Button.Resources>
                     <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
+                        <Setter Property="CornerRadius" Value="30"/>
                     </Style>
                 </Button.Resources>
             </Button>
 
-            <TextBox Name="savePath"  Width="250" Height="32" Margin="10,43,340,75" Grid.ColumnSpan="2" GotFocus="savePathGotFocus" Grid.Row="2"/>
-            <TextBox Background="Transparent" Name="savePathText" FontSize="15" IsHitTestVisible="False" Text="Enter save Path" Foreground="DarkGray" Margin="10,43,340,75" Grid.Row="2" Grid.ColumnSpan="2"/>
+            <TextBox Name="savePath"  Width="250" Height="32" Margin="140,27,10,91" GotFocus="savePathGotFocus" Grid.Row="2" Grid.Column="1"/>
+            <TextBox Background="Transparent" Name="savePathText" FontSize="15" IsHitTestVisible="False" Text="Enter save path" Foreground="DarkGray" Margin="140,27,10,91" Grid.Row="2" Grid.Column="1"/>
 
             <Button BorderBrush="Transparent" Background="Transparent" Height="52" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Grid.Column="2" Margin="0,-15,6,0" >
             </Button>

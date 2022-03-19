@@ -9,7 +9,6 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\o
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Edit.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ProjectInfo.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.g.cs
-C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\UploadPathes.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\App.g.cs
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI_MarkupCompile.cache
@@ -18,7 +17,6 @@ C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\o
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Edit.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\ProjectInfo.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Resize.baml
-C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\Save.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\UploadPathes.baml
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.g.resources
 C:\Users\Ines Noa Golan\source\repos\emek-izrael-1305-photomixer\photomixerGUI\obj\Debug\net5.0-windows\photomixerGUI.GeneratedMSBuildEditorConfig.editorconfig
