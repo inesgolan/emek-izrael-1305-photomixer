@@ -152,6 +152,11 @@ namespace photomixerGUI
             {
                 lastEdit = ProjectVariables.savePath;
             }
+            else if (ProjectVariables.countOfClicks > ProjectVariables.imagesCounter)
+            {
+                ProjectVariables.countOfClicks--;
+                return;
+            }
             else
             {
                 lastEdit = ProjectVariables.username + "/edit" + ProjectVariables.countOfClicks.ToString() + ".png";
