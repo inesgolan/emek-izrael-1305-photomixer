@@ -83,8 +83,11 @@ void ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat 
 		}
 	}
 
+	std::ofstream file;
+	file.open(path);
 	//write changes to image
 	imwrite(path, image);
+	file.close();
 
 	deleteImages();
 }

@@ -92,6 +92,7 @@ namespace photomixerGUI
            if (result == MessageBoxResult.Yes)
            {
                 BackgroundImage.Source = null;
+                File.Create(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]).Close();
 
                 if (ProjectVariables.username != "guest")
                 {
