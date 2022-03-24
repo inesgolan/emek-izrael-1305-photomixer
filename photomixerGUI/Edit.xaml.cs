@@ -84,7 +84,7 @@ namespace photomixerGUI
         private void done(object sender, RoutedEventArgs e)
         {
            string message = "Are you sure?";
-           string caption = "Error Detected in Input";
+           string caption = "Wait!";
            MessageBoxButton buttons = MessageBoxButton.YesNo;
 
            // Displays the MessageBox.
@@ -92,7 +92,6 @@ namespace photomixerGUI
            if (result == MessageBoxResult.Yes)
            {
                 BackgroundImage.Source = null;
-                File.Create(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]).Close();
 
                 if (ProjectVariables.username != "guest")
                 {
