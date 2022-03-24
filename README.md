@@ -1,6 +1,6 @@
 # emek-izrael-1305-photomixer
 ## Our project
-Our project is in image proccesing. 
+Our project's subject is image processing. 
 The main idea is object recognition:
 we let you import an image and it will find the object and save it with a transparent background,
 and after that, you can paste the image on a background image.
