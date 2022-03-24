@@ -5,22 +5,22 @@ from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 
-PHOTOMIXERuserName = 'm2k21ivs@gmail.com'
-PHOTOMIXERpassword = 'maabada123'
+PHOTOMIXERuserName = 'itsphotomixer@gmail.com'
+PHOTOMIXERpassword = 'ineshelly17'
 
-def SendPictureInMail(ImgFileName, toMail):
+def SendPictureInMail(filename, mail):
 
-    with open(ImgFileName, 'rb') as f:
+    with open(filename, 'rb') as f:
         img_data = f.read()
 
     msg = MIMEMultipart()
     msg['Subject'] = 'Your picture - PHOTOMIXER'
     msg['From'] = PHOTOMIXERuserName
-    msg['To'] = str(toMail)
+    msg['To'] = str(mail)
 
     text = MIMEText("Here is your edited image. Hope you'll enjoy it! PHOTOMIXER :)")
     msg.attach(text)
-    image = MIMEImage(img_data, name=os.path.basename(ImgFileName))
+    image = MIMEImage(img_data, name=os.path.basename(filename))
     msg.attach(image)
 
     s = smtplib.SMTP(host='smtp.gmail.com', port=587)
@@ -30,14 +30,14 @@ def SendPictureInMail(ImgFileName, toMail):
     s.login(PHOTOMIXERuserName, PHOTOMIXERpassword)
     s.sendmail(PHOTOMIXERuserName, str(toMail), msg.as_string())
     s.quit()
-
 	
-def SendPorgetPasswordMail(toMail, password):
+    
+def SendPorgetPasswordMail(mail, password):
 
     msg = MIMEMultipart()
     msg['Subject'] = 'Your password - PHOTOMIXER'
     msg['From'] = PHOTOMIXERuserName
-    msg['To'] = str(toMail)
+    msg['To'] = str(mail)
 
     text = MIMEText("Hey friend! This is a mail from photomixer:) . Here is your password: " + password)
     msg.attach(text)
@@ -47,11 +47,13 @@ def SendPorgetPasswordMail(toMail, password):
     s.starttls()
     s.ehlo()
     s.login(PHOTOMIXERuserName, PHOTOMIXERpassword)
-    s.sendmail(PHOTOMIXERuserName, str(toMail), msg.as_string())
+    s.sendmail(PHOTOMIXERuserName, str(mail), msg.as_string())
     s.quit()  
 
 
-# 1-image, 2-forget password
+# parameters: 
+# filename mail flag
+# mail password flag
 def main():
     if(int(sys.argv[3]) == 1): # image
         SendPictureInMail(sys.argv[1], sys.argv[2])

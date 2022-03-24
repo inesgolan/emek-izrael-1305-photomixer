@@ -17,10 +17,11 @@ int main(int argc, char** argv)
 		case OBJECT_DETECTION:
 			//get image path
 			imagePath = argv[IMAGE_PATH];
-			imagePath = Helper::checkPath(imagePath);
+			objectImage = imread(imagePath); //get image
 
-			//get image
-			objectImage = imread(imagePath);
+			objectImage = Helper::changeImageSize(OBJECT_SIZE, OBJECT_SIZE, objectImage, imagePath);
+			
+			
 			check = Helper::checkImage(objectImage, imagePath); 
 			if (check)
 			{
@@ -38,7 +39,6 @@ int main(int argc, char** argv)
 		case REVERSE_MATTE:
 			//get image path
 			imagePath = argv[IMAGE_PATH];
-			imagePath = Helper::checkPath(imagePath);
 
 			//get image
 			objectImage = imread(imagePath);
@@ -62,7 +62,6 @@ int main(int argc, char** argv)
 		case EDIT_IMAGE:
 			//get image
 			imagePath = argv[IMAGE_PATH];
-			imagePath = Helper::checkPath(imagePath);
 			objectImage = imread(imagePath, -1); //read alpha channel
 
 			//get background
@@ -79,7 +78,15 @@ int main(int argc, char** argv)
 			imagePath = argv[IMAGE_PATH];
 			objectImage = imread(imagePath, -1); //read with alpha channel
 
-			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+			objectImage = Helper::changeImageSize(objectImage.rows + ADD , objectImage.cols + ADD, objectImage, argv[IMAGE_PATH]);
+
+			break;
+
+		case RESIZE_BACKGROUND:
+			imagePath = argv[IMAGE_PATH];
+			objectImage = imread(imagePath);
+
+			objectImage = Helper::changeImageSize(BACKGROUND_ROWS, BACKGROUND_COLS , objectImage, argv[IMAGE_PATH]);
 
 			break;
 
@@ -87,7 +94,7 @@ int main(int argc, char** argv)
 			imagePath = argv[IMAGE_PATH];
 			objectImage = imread(imagePath, -1); //read with alpha channel
 
-			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[IMAGE_PATH], FLAG_BACKGROUND);
+			objectImage = Helper::changeImageSize(objectImage.rows + REMOVE, objectImage.cols + REMOVE, objectImage, argv[IMAGE_PATH]);
 
 			break;
 
@@ -113,7 +120,7 @@ int main(int argc, char** argv)
 		case DECRYPTION:
 			fileName = "files\\decryption.py";
 			key = db.getUserKey(argv[USER]);
-
+			
 			//run python file
 			system((command + fileName + " " + key + " " + argv[PATH] + " " + argv[USER]).c_str()); 
 

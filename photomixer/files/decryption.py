@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 #parameters - file pixels(bytearray), key, filename, username
 import sys
 from copy import copy
+=======
+#parameters - key, filename, username
+import sys
+from copy import copy
+import binascii
+import base64
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
 import copy
 import os
 
@@ -266,7 +274,10 @@ def decryptionForEachPart(key, HexArray):
     matrix = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]] 
     arr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 
+<<<<<<< HEAD
     #print(HexArray)
+=======
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
     #convert the matrix from string to hex
     i = 0   
     for row in range(SIZE):
@@ -285,7 +296,10 @@ def decryptionForEachPart(key, HexArray):
         matrix = addRoundKey(copy.deepcopy(keys[index]), matrix)
         index -= 1
         matrix = inverseMixColumn(matrix)	
+<<<<<<< HEAD
         #print(str(round) , " ")
+=======
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
      
     matrix = inverseShiftRows(matrix)
     matrix = inverseSubBytes(matrix)
@@ -314,7 +328,11 @@ def decryption(key, HexArray):
     finalDecryption = []
     tempArr = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     i = 0
+<<<<<<< HEAD
     #print(HexArray)
+=======
+
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
     for i in range(len(HexArray)):
         temp = decryptionForEachPart(key, HexArray[i])
         finalDecryption.insert(i,temp)
@@ -324,8 +342,11 @@ def decryption(key, HexArray):
 
 
 def main():
+<<<<<<< HEAD
     #print(sys.argv)
 
+=======
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
     # get the encriped pixels and keys and dilename
     global keys
     key = str(sys.argv[1])
@@ -333,10 +354,17 @@ def main():
     username = str(sys.argv[3])
     
     # get datat from file
+<<<<<<< HEAD
     file = open(username + "Matrix.txt", 'r')
     text = str(file.read())
     file.close()
     os.remove(username + "Matrix.txt")
+=======
+    file = open(username + "\\"+(filename.split("\\")[1]).split(".")[0]+"Matrix.txt", 'r')
+    text = str(file.read())
+    file.close()
+    os.remove(username + "\\"+(filename.split("\\")[1]).split(".")[0]+"Matrix.txt")
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
     
     text = text[1:-1]
     text = text.split(",")
@@ -379,11 +407,16 @@ def main():
         tempArr [k] = myList[i]
         k +=1
        
+<<<<<<< HEAD
            
     #print(toDecryption)     
     matrix2 = decryption(keys[ROUNDS+1], toDecryption)
     #print("decryption: ", matrix2)
     #print(" ")
+=======
+               
+    matrix2 = decryption(keys[ROUNDS+1], toDecryption)
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
 	
     i = 0
     k = 0
@@ -407,7 +440,11 @@ def main():
 	
     fin = open(filename, 'wb')
     fin.write(byteArrayD)
+<<<<<<< HEAD
     fin.close();
+=======
+    fin.close()
+>>>>>>> 13f6391018526e33249b19535752c1cff5039e25
 	
 	 
 if __name__ == "__main__":

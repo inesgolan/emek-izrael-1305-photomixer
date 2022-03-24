@@ -59,18 +59,6 @@ void ObjectOnBackground::getEditedImage(int startX, int startY, Mat object, Mat 
 	matChannels = Helper::splitMat(background);
 	image = Helper::mergeMat(matChannels, background);
 
-	//check if the object image exits the background
-	while (y + width > background.rows || x + length > background.cols || x < 0 || y < 0)
-	{
-		std::cout << "ERROR! OBJECT IS OUT OF THE BACKGROUD FRAME" << std::endl;
-		std::cout << "PLEASE ENTER NEW X: " << std::endl;
-		std::cin >> x;
-		getchar();
-		std::cout << "PLEASE ENTER NEW Y: " << std::endl;
-		std::cin >> y;
-		getchar();
-	}
-
 	//add alpha channel
 	for (int i = 0; i < image.rows; i++)
 	{

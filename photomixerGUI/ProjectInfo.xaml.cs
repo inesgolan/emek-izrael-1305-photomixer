@@ -1,4 +1,12 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Windows;
+using System.Windows.Media;
+using System.Threading;
+using System.Windows.Navigation;
 
 namespace photomixerGUI
 {
@@ -8,6 +16,17 @@ namespace photomixerGUI
         public ProjectInfo()
         {
             InitializeComponent();
+        }
+
+        //open link
+        private void python(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+        }
+
+        private void opencv(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         }
     }
 }
