@@ -23,6 +23,9 @@ namespace photomixerGUI
             ObjectImage.Source = new BitmapImage(new Uri(path));
         }
 
-
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

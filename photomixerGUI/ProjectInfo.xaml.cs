@@ -28,5 +28,10 @@ namespace photomixerGUI
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

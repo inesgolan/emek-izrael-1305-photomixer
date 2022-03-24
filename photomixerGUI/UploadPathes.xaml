@@ -5,35 +5,88 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="UploadPathes" Height="450" Width="800">
+        Title="Login" Height="450" Width="800"         
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label Content="Upload your images :)" FontSize="19" Foreground="White" Margin="0,50,0,50" HorizontalAlignment="Center" Width="201" Grid.Column="1"/>
-        <Label Content="Enter path of object image:" Foreground="White" Margin="4,53,10,47" Grid.Row="1"/>
-        <Button Name="objectPathButton"  Grid.Column="1" Grid.Row="1" FontSize="15" Height="50" Width="150" Content="object image" 
-                Foreground="Black" FontWeight="Bold" Click="uploadImgae_click" RenderTransformOrigin="-1.895,0.94" Margin="50,44,50,50"/>
+    <Grid>
 
-        <Label Grid.Row="2" Content="Enter path of background image:" Foreground="White" Margin="4,50,10,50"/>
-        <Button Name="backgroundPathButton" Grid.Row="2" FontSize="15" Height="50" Content=" background image" 
-                Foreground="Black" FontWeight="Bold" Click="uploadBackground_click" RenderTransformOrigin="-1.895,0.94" Margin="125,50,125,45" Grid.Column="1"/>
 
-        <TextBlock Name="ErrorMsg" Margin="4,50,10,50" Foreground="DarkRed"/>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
-        <Button Grid.Column="2" Grid.Row="2" FontSize="15" Content="Edit image" 
-                Foreground="Black" FontWeight="Bold" Click="edit" Margin="52,49,52,48" RenderTransformOrigin="0.689,0.664"/>
-        
-        <Button Grid.Column="2" Grid.Row="1" FontSize="15" Content="check" 
-            Foreground="Black" FontWeight="Bold" Click="checkObjectDetction" Margin="52,48,52,48" RenderTransformOrigin="0.689,0.664"/>
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="UPLOAD PATHES WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
 
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" x:Name="type" Content="UPLOAD YOUR IMAGES " Margin="211,22,211,289"/>
+        </Border>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <Button Name="objectPathButton" FontSize="15"  Content="choose object" 
+                Foreground="Black" FontWeight="Bold" Click="uploadImgae_click" RenderTransformOrigin="-1.895,0.94" Margin="161,0,209,94" Grid.ColumnSpan="2" Grid.Row="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+
+            <Button Name="backgroundPathButton"  FontSize="15" Content="choose background" 
+                Foreground="Black" FontWeight="Bold" Click="uploadBackground_click" RenderTransformOrigin="-1.895,0.94" Margin="67,86,103,10" Grid.Row="1" Grid.Column="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <TextBlock Name="ErrorMsg" FontSize="15" Margin="14,11,0,61" Foreground="Black" Grid.Row="2"/>
+
+            <Button FontSize="15" Content="Go to editor" Height="43"
+                Foreground="Black" FontWeight="Bold" Click="edit" Margin="60,54,10,54" RenderTransformOrigin="0.689,0.664" Grid.Column="2" Grid.Row="2">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button FontSize="12" Content="check"
+            Foreground="Black" Background="white" FontWeight="Bold" Click="checkObjectDetction" Margin="200,0,144,96" RenderTransformOrigin="0.689,0.664" Grid.Column="1" Grid.Row="1"  >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="30"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <TextBox Name="savePath"  Width="250" Height="32" Margin="140,27,10,91" GotFocus="savePathGotFocus" Grid.Row="2" Grid.Column="1"/>
+            <TextBox Background="Transparent" Name="savePathText" FontSize="15" IsHitTestVisible="False" Text="Enter save path" Foreground="DarkGray" Margin="140,27,10,91" Grid.Row="2" Grid.Column="1"/>
+
+            <Button BorderBrush="Transparent" Background="Transparent" Height="52" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Grid.Column="2" Margin="0,-15,6,0" >
+            </Button>
+
+        </Grid>
     </Grid>
 </Window>

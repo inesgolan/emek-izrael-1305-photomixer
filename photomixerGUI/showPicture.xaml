@@ -5,22 +5,50 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="showPicture" Height="450" Width="800">
-    <Grid Background="Black">
+        Title="Login" Height="450" Width="800"         
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*" />
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.2*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
 
-        <Image Name="ObjectImage" Source="{Binding ObjectImage}" Stretch="None" HorizontalAlignment="Center" VerticalAlignment="Center" Height="397" Width="790" Grid.ColumnSpan="3" Margin="-1,13,0,0" Grid.RowSpan="3" RenderTransformOrigin="0.494,0.486"/>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="SHOW PICTURE WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
+
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" x:Name="type" Content="YOUR IMAGE AFTER RESIZE " Margin="186,17,186,294"/>
+        </Border>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Image Name="ObjectImage" Source="{Binding ObjectImage}" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top" Height="397" Width="790" Grid.ColumnSpan="3" Margin="282,0,0,0" Grid.RowSpan="2" RenderTransformOrigin="0.494,0.486" Grid.Row="1"/>
 
 
+        </Grid>
+
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
     </Grid>
+
+
 </Window>

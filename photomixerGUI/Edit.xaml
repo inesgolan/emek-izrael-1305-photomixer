@@ -5,36 +5,71 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="Edit" Height="500" Width="800">
+        Title="Login" Height="450" Width="800"         
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
 
-        <ListView Name="Images" Grid.Column="1" Background="Black">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <Image MouseLeftButtonDown="dragObject" Source="{Binding}" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
 
-        <Image Grid.RowSpan="2" HorizontalAlignment="Left" Name="BackgroundImage" AllowDrop="True" Drop="dropObject" Source="{Binding BackgroundImage}"/>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
-        <Button Grid.Row="1" FontSize="15" Content="Done" FontWeight="Bold" Click="done" Margin="24,49,24,5" Grid.Column="1"/>
 
-        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,53" Click="returnToLastEdit"/>
-        <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,53" Click="goToNextEdit"/>
-        <Label Content="back" HorizontalAlignment="Left" Margin="29,23,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="21"/>
-        <Label Content="next" HorizontalAlignment="Left" Margin="71,23,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="21"/>
+        <Grid  Background="DimGray">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
+            <Border VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+                <TextBlock Text="EDIT WINDOW" Foreground="White" Margin="10,10,563,30"/>
+            </Border>
+
+            <ListView Name="Images" Grid.Column="1" Background="DimGray">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Image MouseLeftButtonDown="dragObject" Source="{Binding}" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Image Grid.RowSpan="2" HorizontalAlignment="Left" Name="BackgroundImage" AllowDrop="True" Drop="dropObject" Source="{Binding BackgroundImage}"/>
+
+            <Button Grid.Row="1" FontSize="15" Content="Done" FontWeight="Bold" Click="done" Margin="24,49,24,5" Grid.Column="1">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↶" Margin="27,5,67,53" Click="returnToLastEdit">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Grid.Row="1"  Grid.Column="1" FontSize="15" FontWeight="Bold" Content="↷" Margin="71,5,23,53" Click="goToNextEdit">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Label Content="back" HorizontalAlignment="Left" Margin="31,16,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="28"/>
+            <Label Content="next" HorizontalAlignment="Left" Margin="74,16,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" Height="28"/>
+
+        </Grid>
     </Grid>
 </Window>

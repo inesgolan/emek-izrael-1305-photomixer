@@ -25,7 +25,9 @@ namespace photomixerGUI
             {
                 ErrorMsg.Text = "Your own problem. go get new friends.";
                 Username.Clear();
+                usernameText.Text = "Enter username";
                 Password.Clear();
+                passwordText.Text = "Enter password";
             }
             else
             {
@@ -38,8 +40,6 @@ namespace photomixerGUI
 
                     if (images.Length > 0)
                     {
-
-
                         loading loadScreen = new loading(false);
                         loadScreen.Show();
                         Close();
@@ -82,6 +82,21 @@ namespace photomixerGUI
         private void forgotPassword(object sender, RoutedEventArgs e)
         {
             Communicator.sendForgetPasswordMail(Username.Text);
+        }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void usernameGotFocus(object sender, RoutedEventArgs e)
+        {
+            usernameText.Clear();
+        }
+
+        private void passwordGotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordText.Clear();
         }
     }
 }

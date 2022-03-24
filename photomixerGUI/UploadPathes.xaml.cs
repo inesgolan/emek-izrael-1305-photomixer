@@ -17,13 +17,13 @@ namespace photomixerGUI
         //this function detect the object in the given pathes from the user and get the background path 
         private void objectDetection()
         {
-           //if the path is valid detect the object in the image
-           if (!isPathValid(ProjectVariables.objectPath))
-           {
-               ErrorMsg.Text = "Error: wrong file type\n try again.";
-           }
-           else
-           {
+            //if the path is valid detect the object in the image
+            if (!isPathValid(ProjectVariables.objectPath))
+            {
+                ErrorMsg.Text = "Error: wrong file type\n try again.";
+            }
+            else
+            {
                 ProjectVariables.imagesCounter++;
                 string savePath = ProjectVariables.username + "\\objectImage" + ProjectVariables.imagesCounter.ToString() + ".png";
                 Communicator.sendObjectRecognizeMsg(Helper.checkFullPath(ProjectVariables.objectPath), savePath);
@@ -36,7 +36,7 @@ namespace photomixerGUI
                 {
                     ProjectVariables.imagesCounter--;
 
-                    ErrorMsg.Text = "Try another picture pls :(";
+                    ErrorMsg.Text = "Try another picture :(";
                 }
                 else
                 {
@@ -49,7 +49,7 @@ namespace photomixerGUI
                     Resize resizeScreen = new Resize(fullSavePath);
                     resizeScreen.Show();
                 }
-           }
+            }
         }
 
         //this function check the background path and open the save screen
@@ -63,10 +63,13 @@ namespace photomixerGUI
             }
             else
             {
+                ProjectVariables.save = savePath.Text + ".png";
+                ProjectVariables.savePath = savePath.Text + ".png";
+
                 //put the background path in the last cell in the array
                 ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = ProjectVariables.backgroundPath;
-                Save saveImage = new Save();
-                saveImage.Show();
+                Edit edit = new Edit();
+                edit.Show();
                 Close();
             }
         }
@@ -77,7 +80,7 @@ namespace photomixerGUI
         output: bool
         */
         private bool isPathValid(string path)
-        {          
+        {
             return Helper.isPathValid(path, ProjectVariables.UPLOAD_PATH_TYPE);
         }
 
@@ -128,6 +131,16 @@ namespace photomixerGUI
         {
             checkMatte check = new checkMatte();
             check.Show();
+        }
+
+        private void savePathGotFocus(object sender, RoutedEventArgs e)
+        {
+            savePathText.Clear();
+        }
+
+        private void exit(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

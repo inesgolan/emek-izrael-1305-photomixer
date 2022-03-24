@@ -5,13 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="ProjectInfo" Height="500" Width="800">
+        Title="ProjectInfo" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <Grid Background="Black">
+    <Grid>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
-        <Label Content="Welcome!" FontSize="20" Foreground="White" HorizontalAlignment="Center" Margin="0,10,0,383"/>
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="INFORMATION WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
 
-        <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,70,0,33" Width="644">
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,439,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
+
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,42" CornerRadius="25">
+        </Border>
+
+        <Grid>
+            <TextBlock HorizontalAlignment="Center" FontSize="15" Foreground="White" Margin="0,60,0,68" Width="644">
             <Run Text="Hi:) We are Ines and Shelly, and we did this project on behalf of the &quot;Magshimim&quot; program."/><LineBreak/><Run/><LineBreak/>
             <Run Text="Our project lets you upload images - ones that you found online or took yourself,"/><LineBreak/>
             <Run Text="and then our program will recognize the object in the image."/><LineBreak/>
@@ -25,16 +41,19 @@
             <Run Text="You can follow this "/><LineBreak/><Run/><LineBreak/>
             <Run Text="Questions and suggestions can be sent here: itsphotomixer@gmail.com"/><LineBreak/>
             <Run Text="Hope you'll enjoy:)"/><LineBreak/></TextBlock>
-        <TextBlock FontSize="15" Margin="205,344,481,96">           
+            <TextBlock FontSize="15" Margin="208,339,478,131">           
             <Hyperlink NavigateUri="https://stackoverflow.com/questions/17028576/using-python-3-3-in-c-python33-d-lib-not-found" RequestNavigate="python">
                 guide to python
             </Hyperlink>
-        </TextBlock>
-        <TextBlock FontSize="15" Margin="336,344,351,96">           
+            </TextBlock>
+            <TextBlock FontSize="15" Margin="327,339,360,136">           
             <Hyperlink NavigateUri="https://opencv.org/releases/" RequestNavigate="opencv">
                 guide to opencv
             </Hyperlink>
-        </TextBlock>
+            </TextBlock>
 
+        </Grid>
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
     </Grid>
 </Window>

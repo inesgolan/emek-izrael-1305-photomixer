@@ -65,10 +65,12 @@ namespace photomixerGUI
             if (ProjectVariables.countOfEdits == ProjectVariables.imagesCounter)
             {
                 save = ProjectVariables.username + "/" + ProjectVariables.savePath;
+                ProjectVariables.savePath = save;
             }
             else
             {
                 save = ProjectVariables.username + "/edit" + ProjectVariables.countOfEdits.ToString() + ".png";
+                ProjectVariables.savePath = save;
             }
 
             ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Helper.checkFullPath(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]);
@@ -82,7 +84,7 @@ namespace photomixerGUI
         private void done(object sender, RoutedEventArgs e)
         {
            string message = "Are you sure?";
-           string caption = "Error Detected in Input";
+           string caption = "Wait!";
            MessageBoxButton buttons = MessageBoxButton.YesNo;
 
            // Displays the MessageBox.
@@ -118,11 +120,20 @@ namespace photomixerGUI
             }
             else if (ProjectVariables.countOfClicks > 1)
             {
-                lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";   
+                lastEdit = ProjectVariables.username + "/edit" + (ProjectVariables.countOfClicks - 1).ToString() + ".png";
             }
 
+
+
+            if (ProjectVariables.countOfClicks == 2) 
+            {
+                ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(ProjectVariables.username + "\\" + ProjectVariables.save);
+                BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
+
+                ProjectVariables.countOfClicks--;
+            }
             //update the image showen on the screen
-            if (ProjectVariables.countOfClicks > 0)
+            else if (ProjectVariables.countOfClicks > 0)
             {
                 ProjectVariables.imagesPathes[ProjectVariables.imagesCounter] = Path.GetFullPath(lastEdit);
                 BackgroundImage.Source = new BitmapImage(new Uri(ProjectVariables.imagesPathes[ProjectVariables.imagesCounter]));
@@ -139,7 +150,12 @@ namespace photomixerGUI
 
             if (ProjectVariables.countOfClicks == ProjectVariables.imagesCounter)
             {
-                lastEdit = ProjectVariables.username + "/" + ProjectVariables.savePath;
+                lastEdit = ProjectVariables.savePath;
+            }
+            else if (ProjectVariables.countOfClicks > ProjectVariables.imagesCounter)
+            {
+                ProjectVariables.countOfClicks--;
+                return;
             }
             else
             {

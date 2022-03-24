@@ -114,7 +114,8 @@ int main(int argc, char** argv)
 
 			//run python file
 			system((command + fileName + " " + key + " " + argv[PATH] + " " + argv[USER]).c_str()); 
-
+			getchar();
+			
 			break;
 
 		case DECRYPTION:

@@ -54,6 +54,7 @@ void DataBase::doesPasswordMatch(std::string name, std::string password)
 		mtx.lock();
 		_outputFile << "False";
 		mtx.unlock();
+		return;
 	}
 
 	std::string dbPassword = "";
@@ -118,6 +119,8 @@ std::string DataBase::getUserKey(std::string username)
 
 	std::string query = "SELECT Key FROM Users WHERE Name = \'" + username + "'\;";
 	int result = sqlite3_exec(this->_db, query.c_str(), callbackString, &key, &errorMsg);
+
+	this->_outputFile.close();
 
 	return key;
 }

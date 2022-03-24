@@ -5,36 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="Menu" Height="450" Width="800">
+        Title="Menu" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.2*" />
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="1.2*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" Height="50" Width="80" Content="?" 
-                Foreground="DarkRed" FontWeight="Bold" Click="questionMark"/>
-        
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="MAIN WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
 
-        <Label FontWeight="ExtraBold" FontSize="30" Foreground="DarkCyan" Content="Hello"
-               HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="userName" Width="236" Grid.Column="1" />
-        <Label Grid.Row="1" FontWeight="ExtraBold" FontSize="30" Foreground="DarkCyan" Content="Welcome to our photomixer project!"
-               HorizontalAlignment="Center" VerticalAlignment="Center" Width="553" Grid.ColumnSpan="3"/>
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
 
-        <Button Grid.Column="1" Grid.Row="2" FontSize="15" Height="50"  Content="Upload images"
-                Foreground="Black" FontWeight="Bold" Click="getPathes" Margin="29,29,29,30"/>
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25"/>
 
-        <Button Grid.Column="1" Grid.Row="3" FontSize="15" Height="50" Width="100" Content="logout" 
-                Foreground="DarkRed" FontWeight="Bold" Click="logout"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.2*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
+            <Label FontWeight="ExtraBold" FontSize="30" Foreground="White" Content="Hello"
+               HorizontalAlignment="Center" VerticalAlignment="Top" x:Name="userName" Width="236" Grid.Column="1" Margin="0,75,0,0" Grid.RowSpan="2" />
+
+            <Button FontSize="15" Foreground="Black" FontWeight="Bold" Click="getPathes" Margin="282,52,282,10" Grid.Row="1" Content="Upload images" Grid.ColumnSpan="3">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button FontSize="15" Foreground="Black" FontWeight="Bold" Click="logout" Margin="282,10,282,52" Grid.Row="2" Content="Logout" Grid.ColumnSpan="3">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <TextBlock HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" FontSize="15" Foreground="White" Width="212" Grid.Row="3" Grid.Column="1">  
+                For more information 
+                <TextBlock>  
+                    <Hyperlink Click="questionMark" FontSize="15">click here</Hyperlink>  
+                </TextBlock>  
+            </TextBlock>
+
+        </Grid>
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
     </Grid>
 
 </Window>

@@ -5,46 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:photomixerGUI"
         mc:Ignorable="d"
-        Title="Register" Height="450" Width="800">
+        Title="Register" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <Grid Background="Black">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
+        <Border Background="#ECF0F1" CornerRadius="10"/>
 
-        <TextBlock HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Center" FontSize="13" Foreground="White" Grid.ColumnSpan="2">  
-            Hi:) Please sign up to our app and then go press on signUp button.<LineBreak />
-        </TextBlock>
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10,0,100,0" Height="80" Width="750">
+            <TextBlock Text="SIGNUP WINDOW" Foreground="White" Margin="10,10,563,30"/>
+        </Border>
 
-        <Button Name="backButton" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" Height="40" Width="70" Content="Back" 
-                Foreground="Black" FontWeight="Bold" Click="backButton_Click" Margin="10,10,0,0"/>
+        <Border Background="#5C5C5C" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="100,0,10,0" Height="61" Width="753" Margin="47,389,0,0">
+            <TextBlock Text="PHOTOMIXER BY INES AND SHELLY&#x9;" Foreground="White" Margin="561,32,1,0"/>
+        </Border>
 
-        <Label Grid.Row="1" Content="Enter user name:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="Username"  Width="250" Height="32" />
+        <Border Background="#303030" BorderBrush="#FFFFFF" BorderThickness="0,5,0,5" Margin="0,40,0,36" CornerRadius="25">
+            <Label FontSize="30" FontWeight="ExtraBold" Foreground="White" Content="CREATE ACCOUNT" Margin="258,5,258,306"/>
+        </Border>
 
-        <Label Grid.Row="2" Content="Enter password:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <PasswordBox Grid.Row="2" Grid.Column="1" Name="Password" Width="250" Height="32"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <Label Grid.Row="3" Content="Enter mail:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Name="Mail" Width="250" Height="32"/>
+            <Button Name="backButton" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="15" Height="40" Width="70" Content="Back" 
+                Foreground="Black" BorderBrush="Transparent" Background="Transparent" FontWeight="Bold" Click="backButton_Click" Margin="-10,35,0,0" Grid.Row="5"/>
 
-        <Label Grid.Row="4" Content="Enter AES key(16 bytes):" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="4" Grid.Column="1" Name="keyBotton" Width="250" Height="32"/>
+            <TextBox Grid.Row="1" Name="Username"  Width="250" Height="32" GotFocus="usernameGotFocus" Grid.ColumnSpan="2" Margin="275,43,275,0"/>
+            <TextBox Background="Transparent" Name="usernameText" FontSize="14" IsHitTestVisible="False" Text="Enter username" Foreground="DarkGray" Grid.ColumnSpan="2" Margin="275,43,275,0" Grid.Row="1"/>
 
-        <Button Name="signUpButton" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Height="45" Width="110" Content="signUp" 
-                Foreground="Black" FontWeight="Bold" Click="signUp_Button" Margin="345,0,0,0" Grid.ColumnSpan="2" Grid.Row="5"/>
+            <PasswordBox Grid.Row="2" Name="Password" Width="250" Height="32" Grid.ColumnSpan="2" Margin="275,25,275,18" GotFocus="passwordGotFocus"/>
+            <TextBox Background="Transparent" Name="passwordText" FontSize="14" IsHitTestVisible="False" Text="Enter password" Foreground="DarkGray" Grid.ColumnSpan="2" Margin="275,25,275,18" Grid.Row="2"/>
 
+            <TextBox Grid.Row="3" Name="Mail" Width="250" Height="32" Grid.ColumnSpan="2" Margin="275,10,275,33" GotFocus="mailGotFocus"/>
+            <TextBox Background="Transparent" Name="mailText" FontSize="14" IsHitTestVisible="False" Text="Enter mail" Foreground="DarkGray" Grid.ColumnSpan="2" Margin="275,10,275,33" Grid.Row="3"/>
 
-        <TextBlock Grid.Row="5" x:Name ="ErrorMsg" OpacityMask="Crimson" Foreground="#FFE5572C" Margin="10,29,100,29" />
+            <TextBox Grid.Row="3" Name="keyBotton" Width="250" Height="32" Grid.ColumnSpan="2" Margin="275,66,275,52" Grid.RowSpan="2" GotFocus="keyGotFocus"/>
+            <TextBox Background="Transparent" Name="keyText" FontSize="14" IsHitTestVisible="False" Text="Enter key (16 chars)" Foreground="DarkGray" Grid.ColumnSpan="2" Margin="275,66,275,52" Grid.Row="3" Grid.RowSpan="2"/>
 
+            <Button Name="signUpButton" FontSize="15" Foreground="Black" FontWeight="Bold" Click="signUp_Button" Content="Sign up" Grid.ColumnSpan="2" Margin="275,46,275,58" Grid.RowSpan="2" Grid.Row="4">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <TextBlock Grid.Row="4" x:Name ="ErrorMsg" OpacityMask="Crimson" Foreground="#FFE5572C" Margin="20,46,141,0" />
+        </Grid>
+        <Button BorderBrush="Transparent" Background="Transparent" Height="51" Width="45" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="40" Content="×" Click="exit" Margin="0,-11,5,0">
+        </Button>
     </Grid>
 </Window>
